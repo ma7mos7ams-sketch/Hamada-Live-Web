@@ -13,8 +13,8 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server, path: '/ws' });
 const PORT = process.env.PORT || 8799;
-const musicDir = process.env.MUSIC_DIR || path.join(__dirname, '..', 'data', 'music');
-const dataDir = process.env.DATA_DIR || path.dirname(musicDir);
+const dataDir = process.env.DATA_DIR || path.join(__dirname, 'data');
+const musicDir = process.env.MUSIC_DIR || path.join(dataDir, 'music');
 fs.mkdirSync(musicDir, { recursive: true });
 fs.mkdirSync(dataDir, { recursive: true });
 const prefsPath = path.join(dataDir, 'preferences.json');
@@ -24,7 +24,8 @@ function writeLibrary(items){ fs.writeFileSync(metaPath, JSON.stringify(items,nu
 const upload = multer({ dest: musicDir, limits:{fileSize: 100*1024*1024} });
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '..', 'public')));
+const publicDir = fs.existsSync(path.join(__dirname, 'public')) ? path.join(__dirname, 'public') : __dirname;
+app.use(express.static(publicDir));
 
 app.use('/music', express.static(musicDir));
 
@@ -272,7 +273,7 @@ app.post('/api/settings', (req,res) => {
 
 app.get('/api/state', (_req,res) => res.json({ ok:true, connected, username: currentUsername, state: { ...state, ranking: rank() } }));
 app.get('/health', (_req,res) => res.json({ ok:true, connected, username: currentUsername }));
-app.get('/overlay', (_req,res) => res.sendFile(path.join(__dirname, '..', 'public', 'overlay.html')));
+app.get('/overlay', (_req,res) => res.sendFile(path.join(publicDir, 'overlay.html')));
 
 wss.on('connection', ws => {
   ws.send(JSON.stringify({ type:'state', connected, username: currentUsername, state:{...state, ranking: rank()} }));
