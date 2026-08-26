@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Hamada LIVE</title>
+<style>
+:root{--bg:#0a0b10;--panel:#11131b;--panel2:#171a24;--line:#272b38;--text:#f7f7fb;--muted:#9297a8;--accent:#ff2f86;--accent2:#8d5cff;--good:#35d07f;--warn:#ffb547}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 10%,#1a1130 0,#0a0b10 34%),var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif;min-height:100vh}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}.side{background:rgba(12,13,19,.96);border-left:1px solid var(--line);padding:20px 14px;position:sticky;top:0;height:100vh}.brand{display:flex;gap:10px;align-items:center;padding:8px 10px 22px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-weight:900;font-size:22px;box-shadow:0 0 28px #ff2f8644}.brand h2{font-size:17px;margin:0}.brand small{color:var(--muted)}
+.nav{display:grid;gap:7px}.nav button{all:unset;cursor:pointer;padding:13px 14px;border-radius:13px;color:#cfd2dc;display:flex;gap:10px;align-items:center}.nav button:hover,.nav button.active{background:#1a1d29;color:#fff}.nav button.active{box-shadow:inset -3px 0 var(--accent)}
+.main{padding:22px 26px;max-width:1280px;width:100%;margin:auto}.top{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-bottom:22px}.connect{background:rgba(17,19,27,.9);border:1px solid var(--line);padding:14px;border-radius:18px;display:flex;gap:10px;align-items:center}.connect input{flex:1;min-width:220px;background:#0d0f16;border:1px solid var(--line);border-radius:12px;padding:13px;color:#fff;font-size:15px}.btn{border:0;border-radius:12px;padding:12px 16px;color:#fff;background:#252938;cursor:pointer;font-weight:700}.btn.primary{background:linear-gradient(135deg,var(--accent),#b94cff)}.status{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:14px}.dot{width:9px;height:9px;border-radius:50%;background:#6d7180}.dot.on{background:var(--good);box-shadow:0 0 14px #35d07f}.view{display:none}.view.active{display:block}.title{margin-bottom:16px}.title h1{font-size:25px;margin:0 0 6px}.title p{margin:0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{background:rgba(17,19,27,.92);border:1px solid var(--line);border-radius:18px;padding:18px}.card h3{margin:0 0 6px}.hint{font-size:13px;color:var(--muted);line-height:1.7}.previewLine{height:180px;border-radius:16px;background:linear-gradient(180deg,#0c0d13,#0f1119);border:1px dashed #343949;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:14px}.personLine{display:flex;gap:26px;align-items:center;justify-content:center}.person{display:flex;align-items:center;gap:11px}.avatarWrap{position:relative;width:74px;height:74px}.avatar{width:74px;height:74px;border-radius:50%;object-fit:cover;border:3px solid #fff;position:relative;z-index:2;background:#202332}.orbit{position:absolute;inset:-8px;border:2px solid #ff2f86;border-left-color:transparent;border-radius:50%;animation:spin 2.8s linear infinite;filter:drop-shadow(0 0 8px #ff2f86)}.orbit.two{inset:-14px;border-color:#8d5cff transparent #8d5cff #8d5cff;animation-duration:4s;animation-direction:reverse}.name{font-weight:800}.sub{font-size:12px;color:var(--muted);margin-top:4px}@keyframes spin{to{transform:rotate(360deg)}}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}.row input,.row select{background:#0d0f16;border:1px solid var(--line);border-radius:11px;padding:11px;color:#fff}.row input[type=number]{width:110px}.check{display:flex;gap:8px;align-items:center;background:#0d0f16;border:1px solid var(--line);padding:10px 12px;border-radius:11px}.users{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.chip{padding:7px 10px;border-radius:999px;background:#252938;font-size:12px}.rankList{display:grid;gap:9px;margin-top:14px}.rankItem{display:grid;grid-template-columns:46px 52px 1fr auto;gap:10px;align-items:center;background:#0d0f16;border:1px solid var(--line);padding:9px;border-radius:14px}.rankItem.first{border-color:#8a7025;box-shadow:0 0 22px #f4c84a18}.rankNo{text-align:center;font-weight:900}.rankPic{width:46px;height:46px;border-radius:50%;object-fit:cover;background:#222}.rankName{border:1px solid #34394a;border-radius:9px;padding:6px 9px;display:inline-block}.crown{font-size:20px}.metric{color:#ffca5c;font-weight:900}.command{font-family:monospace;direction:ltr;background:#0c0e14;border:1px solid var(--line);padding:8px 10px;border-radius:9px;color:#f0f0f4}.full{grid-column:1/-1}.musicList{margin-top:14px;display:grid;gap:8px}.song{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#0d0f16;border:1px solid var(--line);border-radius:11px;padding:9px 12px}.danger{background:#5d2633}.testbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.overlayLink{direction:ltr;text-align:left;background:#090a0f;border:1px solid var(--line);border-radius:12px;padding:12px;color:#9fe9ff;word-break:break-all}
+.toast{position:fixed;left:24px;bottom:24px;padding:12px 16px;background:#151824;border:1px solid var(--line);border-radius:12px;opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:none}@media(max-width:850px){.app{grid-template-columns:1fr}.side{height:auto;position:static;border-left:0;border-bottom:1px solid var(--line)}.nav{grid-template-columns:repeat(5,1fr)}.nav button{font-size:0;justify-content:center}.nav button span:first-child{font-size:19px}.main{padding:16px}.grid{grid-template-columns:1fr}.top{grid-template-columns:1fr}.connect{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand"><div class="logo">H</div><div><h2>Hamada LIVE</h2><small>Web Overlay</small></div></div>
+  <nav class="nav">
+    <button class="active" data-view="widgets"><span>🧩</span><span>التركيبات</span></button>
+    <button data-view="ranking"><span>🏆</span><span>التصنيف</span></button>
+    <button data-view="actions"><span>⚡</span><span>الإجراءات</span></button>
+    <button data-view="tts"><span>🔊</span><span>القارئ الصوتي</span></button>
+    <button data-view="music"><span>🎵</span><span>مشغل الموسيقى</span></button>
+  </nav>
+</aside>
+<main class="main">
+  <div class="top">
+    <div class="connect">
+      <input id="username" placeholder="اسم حساب TikTok بدون @"/>
+      <button id="connectBtn" class="btn primary">اتصال</button>
+      <button id="disconnectBtn" class="btn">قطع</button>
+      <div class="status"><span id="dot" class="dot"></span><span id="statusText">غير متصل</span></div>
+    </div>
+    <button id="copyOverlay" class="btn">نسخ رابط Overlay</button>
+  </div>
+
+  <section id="widgets" class="view active">
+    <div class="title"><h1>التركيبات</h1><p>آخر متابع وآخر مكبس بشكل أفقي، بدون بطاقات خلفية.</p></div>
+    <div class="card full">
+      <div class="previewLine"><div class="personLine">
+        <div class="person"><div class="avatarWrap"><div class="orbit"></div><div class="orbit two"></div><img id="pf1" class="avatar" src="https://placehold.co/150x150/252938/FFFFFF?text=F"></div><div><div id="pn1" class="name">آخر متابع</div><div class="sub">متابعة جديدة</div></div></div>
+        <div class="person"><div class="avatarWrap"><div class="orbit"></div><div class="orbit two"></div><img id="pf2" class="avatar" src="https://placehold.co/150x150/252938/FFFFFF?text=L"></div><div><div id="pn2" class="name">آخر مكبس</div><div id="pl2" class="sub">0 تكبيس</div></div></div>
+      </div></div>
+      <div class="testbar"><button class="btn" data-test="follow">تجربة آخر متابع</button><button class="btn" data-test="like">تجربة آخر مكبس</button></div>
+    </div>
+  </section>
+
+  <section id="ranking" class="view">
+    <div class="title"><h1>التصنيف</h1><p>تصنيف المكبسين من 1 إلى 5.</p></div>
+    <div class="grid"><div class="card"><h3>عدد المراكز</h3><div class="row"><select id="rankingSize"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option></select><button id="saveRanking" class="btn primary">حفظ</button></div><p class="hint">المركز الأول يظهر بالتاج وتأثير أقوى.</p></div><div class="card"><h3>معاينة التصنيف</h3><div id="rankList" class="rankList"></div></div></div>
+  </section>
+
+  <section id="actions" class="view">
+    <div class="title"><h1>الإجراءات</h1><p>أليرت دخول شخص أو عند بلوغ عدد محدد من التكبيسات.</p></div>
+    <div class="grid"><div class="card"><h3>أليرت التكبيس</h3><div class="row"><span>يظهر عند</span><input id="likeThreshold" type="number" min="1" value="100"><span>تكبيس</span></div><p class="hint">الأليرت يظهر أعلى منتصف البث: الصورة فوق والاسم تحتها، بدون صندوق خلفي.</p><h3 style="margin-top:18px">أليرت دخول أشخاص محددين</h3><div class="row"><input id="joinUser" placeholder="يوزر الشخص"><button id="addJoinUser" class="btn">إضافة</button></div><div id="joinUsers" class="users"></div><button id="saveActions" class="btn primary" style="margin-top:14px">حفظ الإجراءات</button></div><div class="card"><h3>تجربة</h3><div class="testbar"><button class="btn" data-test="member">تجربة انضمام</button><button class="btn" data-test="alert">تجربة حد التكبيس</button></div></div></div>
+  </section>
+
+  <section id="tts" class="view">
+    <div class="title"><h1>القارئ الصوتي</h1><p>حدد من يسمح له البرنامج بقراءة تعليقاته.</p></div>
+    <div class="grid"><div class="card"><h3>الصلاحيات</h3><div class="row"><label class="check"><input id="ttsMods" type="checkbox" checked> المشرفون</label><label class="check"><input id="ttsFollowers" type="checkbox"> المتابعون</label></div><div class="row"><input id="ttsUser" placeholder="يوزر مميز"><button id="addTtsUser" class="btn">إضافة</button></div><div id="ttsUsers" class="users"></div><button id="saveTts" class="btn primary" style="margin-top:14px">حفظ</button></div><div class="card"><h3>ملاحظة</h3><p class="hint">القارئ يعمل داخل صفحة الـOverlay لكي يخرج الصوت في البث. المتصفح يحتاج السماح بالصوت مرة واحدة إذا منعه تلقائيًا.</p><button class="btn" data-test="tts">تجربة القراءة</button></div></div>
+  </section>
+
+  <section id="music" class="view">
+    <div class="title"><h1>مشغل الموسيقى</h1><p>المشرفون أو يوزرات تحددها أنت يتحكمون بالموسيقى من التعليقات.</p></div>
+    <div class="grid"><div class="card"><h3>من يستطيع التحكم</h3><label class="check"><input id="musicMods" type="checkbox" checked> المشرفون</label><div class="row"><input id="musicUser" placeholder="يوزر مميز"><button id="addMusicUser" class="btn">إضافة</button></div><div id="musicUsers" class="users"></div><button id="saveMusic" class="btn primary" style="margin-top:14px">حفظ</button></div><div class="card"><h3>الأوامر</h3><div class="command">!تشغيل اسم الأغنية</div><div class="command">!صوت5 / !صوت10</div><div class="command">!تخطي</div><div class="command">!ايقاف مؤقت</div><div class="command">!تشغيل</div><div class="command">!ايقاف</div></div><div class="card full"><h3>مكتبة الأغاني</h3><p class="hint">أضف ملفات MP3/M4A/WAV. على الاستضافة السحابية يفضّل استخدام قرص دائم حتى لا تختفي بعد إعادة تشغيل الخادم.</p><form id="uploadForm" class="row"><input id="songFile" type="file" accept="audio/*" required><input id="songTitle" placeholder="اسم الأغنية (اختياري)"><button class="btn primary">إضافة الأغنية</button></form><div id="musicList" class="musicList"></div></div></div>
+  </section>
+
+  <div style="margin-top:20px" class="card"><h3>رابط العرض للبث</h3><div id="overlayLink" class="overlayLink"></div></div>
+</main>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const $=id=>document.getElementById(id); let appState={ranking:[],tts:{users:[]},music:{users:[]},joinUsers:[]}; let ttsUsers=[],musicUsers=[],joinUsers=[];
+const wsProto=location.protocol==='https:'?'wss:':'ws:'; const ws=new WebSocket(wsProto+'//'+location.host+'/ws');
+setInterval(()=>{try{if(ws.readyState===1)ws.send('ping')}catch{}},30000);
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2200)}
+function esc(s=''){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function avatar(u){return u?.avatar||'https://placehold.co/150x150/252938/FFFFFF?text=H'}
+function applyState(x){if(!x)return;appState=x.state||appState; const c=!!x.connected;$('dot').classList.toggle('on',c);$('statusText').textContent=c?'متصل @'+(x.username||''):'غير متصل'; if(x.username)$('username').value=x.username; const s=appState; if(s.lastFollower){$('pf1').src=avatar(s.lastFollower);$('pn1').textContent=s.lastFollower.nickname||s.lastFollower.username} if(s.lastLiker){$('pf2').src=avatar(s.lastLiker);$('pn2').textContent=s.lastLiker.nickname||s.lastLiker.username;$('pl2').textContent=(s.lastLiker.likes||0)+' تكبيس'} $('rankingSize').value=s.rankingSize||5;$('likeThreshold').value=s.actionLikeThreshold||100;ttsUsers=s.tts?.users||[];musicUsers=s.music?.users||[];joinUsers=s.joinUsers||[];$('ttsMods').checked=!!s.tts?.moderators;$('ttsFollowers').checked=!!s.tts?.followers;$('musicMods').checked=!!s.music?.moderators;renderUsers();renderRank(s.ranking||[])}
+function renderRank(list){$('rankList').innerHTML=list.length?list.map((u,i)=>`<div class="rankItem ${i===0?'first':''}"><div class="rankNo">${i===0?'👑':'#'+(i+1)}</div><img class="rankPic" src="${esc(avatar(u))}"><div><span class="rankName">${esc(u.nickname||u.username)}</span></div><div class="metric">${u.likes||0}</div></div>`).join(''):'<div class="hint">سيظهر التصنيف بعد وصول التكبيسات.</div>'}
+function renderUsers(){$('ttsUsers').innerHTML=ttsUsers.map((u,i)=>`<span class="chip">@${esc(u)} <b data-deltts="${i}" style="cursor:pointer">×</b></span>`).join('');$('musicUsers').innerHTML=musicUsers.map((u,i)=>`<span class="chip">@${esc(u)} <b data-delmusic="${i}" style="cursor:pointer">×</b></span>`).join('');$('joinUsers').innerHTML=joinUsers.map((u,i)=>`<span class="chip">@${esc(u)} <b data-deljoin="${i}" style="cursor:pointer">×</b></span>`).join('')}
+async function post(url,body){const r=await fetch(url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body||{})});const j=await r.json();if(!r.ok)throw new Error(j.error||'حدث خطأ');return j}
+ws.onmessage=e=>{const m=JSON.parse(e.data); if(m.type==='state')applyState(m); if(m.type==='status')applyState({...m,state:appState}); if(m.type==='error')toast(m.message)};
+$('connectBtn').onclick=async()=>{try{toast('جاري الاتصال...');const j=await post('/api/connect',{username:$('username').value});toast(j.connected?'تم الاتصال':'لم يتم الاتصال')}catch(e){toast(e.message)}};$('disconnectBtn').onclick=async()=>{await post('/api/disconnect');toast('تم قطع الاتصال')}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));$(b.dataset.view).classList.add('active')});
+$('saveRanking').onclick=async()=>{await post('/api/settings',{rankingSize:+$('rankingSize').value});toast('تم الحفظ')};$('saveActions').onclick=async()=>{await post('/api/settings',{actionLikeThreshold:+$('likeThreshold').value,joinUsers});toast('تم حفظ الإجراءات')};
+$('addJoinUser').onclick=()=>{let u=$('joinUser').value.trim().replace(/^@/,'');if(u&&!joinUsers.includes(u))joinUsers.push(u);$('joinUser').value='';renderUsers()};$('addTtsUser').onclick=()=>{let u=$('ttsUser').value.trim().replace(/^@/,'');if(u&&!ttsUsers.includes(u))ttsUsers.push(u);$('ttsUser').value='';renderUsers()};$('addMusicUser').onclick=()=>{let u=$('musicUser').value.trim().replace(/^@/,'');if(u&&!musicUsers.includes(u))musicUsers.push(u);$('musicUser').value='';renderUsers()};document.addEventListener('click',e=>{if(e.target.dataset.deltts!=null){ttsUsers.splice(+e.target.dataset.deltts,1);renderUsers()}if(e.target.dataset.delmusic!=null){musicUsers.splice(+e.target.dataset.delmusic,1);renderUsers()}if(e.target.dataset.deljoin!=null){joinUsers.splice(+e.target.dataset.deljoin,1);renderUsers()}});
+$('saveTts').onclick=async()=>{await post('/api/settings',{tts:{moderators:$('ttsMods').checked,followers:$('ttsFollowers').checked,users:ttsUsers}});toast('تم حفظ القارئ')};$('saveMusic').onclick=async()=>{await post('/api/settings',{music:{moderators:$('musicMods').checked,users:musicUsers}});toast('تم حفظ صلاحيات الموسيقى')};
+const overlay=location.origin+'/overlay';$('overlayLink').textContent=overlay;$('copyOverlay').onclick=()=>navigator.clipboard.writeText(overlay).then(()=>toast('تم نسخ الرابط'));
+async function loadMusic(){try{let r=await fetch('/api/music');let j=await r.json();$('musicList').innerHTML=(j.items||[]).map(s=>`<div class="song"><span>${esc(s.title)}</span><span class="hint">${esc(s.filename)}</span></div>`).join('')||'<div class="hint">لا توجد أغاني بعد.</div>'}catch{}}
+$('uploadForm').onsubmit=async e=>{e.preventDefault();let fd=new FormData();fd.append('file',$('songFile').files[0]);fd.append('title',$('songTitle').value);let r=await fetch('/api/music',{method:'POST',body:fd});let j=await r.json();if(!r.ok)return toast(j.error||'تعذر الرفع');$('songFile').value='';$('songTitle').value='';toast('تمت إضافة الأغنية');loadMusic()};
+document.querySelectorAll('[data-test]').forEach(b=>b.onclick=()=>fetch('/api/test',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({kind:b.dataset.test})}).then(()=>toast('تم إرسال التجربة')));
+fetch('/api/state').then(r=>r.json()).then(j=>applyState(j));loadMusic();
+</script>
+</body></html>
