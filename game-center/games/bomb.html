@@ -1,0 +1,210 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>القنبلة الموقوتة الاحترافية</title><style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle,#34130d,#0b0b0b 58%,#000);color:white;font-family:Tahoma,Arial;overflow-x:hidden}.wrap{max-width:1100px;margin:auto;padding:16px}
+h1{text-align:center;color:#ffd36d;font-size:42px;margin:5px;text-shadow:0 0 22px #c54b18}.sub,.status{text-align:center;color:#ccc}.tik{width:max-content;max-width:95%;margin:10px auto;padding:8px 15px;border:1px solid #654;border-radius:99px;background:#111}.tik.ok{color:#7dff9b;border-color:#286c39}
+.arena{position:relative;height:570px;max-width:850px;margin:15px auto;background:radial-gradient(circle,#281b15,#0b0b0b 68%);border:2px solid #6c4d2b;border-radius:50%;box-shadow:0 0 50px #000 inset}
+.player{position:absolute;width:145px;text-align:center;transform:translate(-50%,-50%);transition:.35s}.player.out{opacity:.28;filter:grayscale(1)}.avatar{width:78px;height:78px;border-radius:50%;border:3px solid #d7a64e;background:#32251c;object-fit:cover;margin:auto;display:grid;place-items:center;font-size:30px}.name{font-weight:900;margin-top:5px}.num{display:inline-block;background:#851b15;border-radius:50%;padding:3px 8px;margin-left:4px}.kick{font-size:11px;padding:5px 8px;margin-top:5px}
+.bomb{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:92px;filter:drop-shadow(0 0 18px #ff5c24);transition:left .45s,top .45s,transform .15s;z-index:3}.bomb.tick{transform:translate(-50%,-50%) scale(1.12)}.bomb.boom{font-size:145px}.timer{text-align:center;font-size:24px;color:#ffcb65;font-weight:bold;min-height:32px}.bombTimer{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;background:transparent;border:0;color:#fff;border-radius:50%;min-width:54px;height:54px;display:grid;place-items:center;font-size:20px;font-weight:900;box-shadow:none;text-shadow:0 0 8px #000,0 0 12px #ff4b22;pointer-events:none;transition:left .45s,top .45s}.winAvatar{width:130px;height:130px;border-radius:50%;object-fit:cover;border:5px solid #ffd36d;box-shadow:0 0 28px #d79b2d;margin:0 auto 14px;display:grid;place-items:center;background:#32251c;font-size:52px}.winName{font-size:32px;font-weight:900;color:#fff}
+.controls,.join{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:10px}.join input{padding:10px;background:#111;color:#fff;border:1px solid #555;border-radius:10px}button{padding:10px 15px;border:0;border-radius:10px;font-weight:900;cursor:pointer;background:linear-gradient(#ffd76d,#a66a17);color:#1a1003}.red{background:linear-gradient(#dc4d40,#73130d);color:#fff}.dark{background:#292929;color:#fff}
+.log{max-width:850px;margin:auto;background:#080808;border-radius:12px;padding:9px;max-height:130px;overflow:auto;color:#bbb}.winner{position:fixed;inset:0;background:#000d;display:none;place-items:center;z-index:20}.winner.show{display:grid}.winbox{text-align:center;background:#17110d;border:2px solid #d4a74f;border-radius:22px;padding:35px;min-width:320px}.winbox h2{font-size:38px;color:#ffd36d}
+@media(max-width:700px){.arena{height:520px}.player{width:105px}.avatar{width:62px;height:62px}.bomb{font-size:70px}h1{font-size:31px}}
+
+:root{--gold:#f5c45b;--red:#ff3b24;--deep:#07090d;--panel:#11151c}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 35%,transparent 0 28%,rgba(0,0,0,.45) 72%,rgba(0,0,0,.85) 100%);z-index:0}
+.wrap{position:relative;z-index:1}
+h1{letter-spacing:.5px}.sub{font-size:16px;margin-bottom:8px}
+.arena{overflow:hidden;isolation:isolate;background:
+ radial-gradient(circle at 50% 48%,rgba(255,102,36,.11),transparent 22%),
+ repeating-radial-gradient(circle at 50% 50%,transparent 0 66px,rgba(245,196,91,.035) 67px 68px),
+ radial-gradient(circle,#20242b 0,#11151b 52%,#05070a 100%);border:2px solid rgba(245,196,91,.62);box-shadow:0 0 0 8px rgba(0,0,0,.45),0 0 55px rgba(255,69,22,.18),inset 0 0 85px #000}
+.arena:before{content:"";position:absolute;inset:5%;border:1px dashed rgba(245,196,91,.22);border-radius:50%;box-shadow:0 0 35px rgba(245,196,91,.07)}
+.arena:after{content:"";position:absolute;left:50%;top:50%;width:170px;height:170px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,68,25,.14),transparent 66%);filter:blur(3px);animation:centerPulse 2s ease-in-out infinite;pointer-events:none}
+@keyframes centerPulse{50%{transform:translate(-50%,-50%) scale(1.18);opacity:.5}}
+.player{z-index:5}.player .avatar{box-shadow:0 8px 22px #000,0 0 0 1px rgba(255,255,255,.08) inset}.player.holder .avatar{border-color:#ff5a2b;box-shadow:0 0 0 4px rgba(255,74,31,.18),0 0 28px rgba(255,62,24,.8);animation:holderPulse .72s ease-in-out infinite alternate}.player.holder .name{color:#ffd8a6;text-shadow:0 0 10px #ff4b22}.player.holder:after{content:"حامل القنبلة";display:inline-block;margin-top:5px;padding:3px 8px;border-radius:99px;background:rgba(255,56,25,.18);border:1px solid rgba(255,91,42,.55);font-size:10px;color:#ffd7c8}
+@keyframes holderPulse{to{transform:scale(1.055)}}
+.bomb{width:112px;height:112px;font-size:0;filter:drop-shadow(0 18px 18px #000) drop-shadow(0 0 22px rgba(255,68,24,.55));transition:left .48s cubic-bezier(.22,.85,.25,1.15),top .48s cubic-bezier(.22,.85,.25,1.15),transform .15s;z-index:8}
+.bombShell{position:absolute;inset:12px;border-radius:50%;background:radial-gradient(circle at 32% 26%,#7d8791 0 7%,#313840 21%,#14191f 62%,#050608 100%);border:2px solid #59616a;box-shadow:inset -13px -15px 23px #000,inset 8px 8px 15px rgba(255,255,255,.13),0 0 0 4px rgba(0,0,0,.45)}
+.bombShell:before{content:"";position:absolute;left:50%;top:-13px;width:34px;height:23px;transform:translateX(-50%);border-radius:7px 7px 3px 3px;background:linear-gradient(90deg,#292d31,#8a8f92 45%,#24282b);border:2px solid #111;box-shadow:inset 0 2px 3px rgba(255,255,255,.25)}
+.bombShell:after{content:"";position:absolute;left:26%;top:19%;width:18px;height:35px;border-radius:50%;background:linear-gradient(110deg,rgba(255,255,255,.34),transparent 70%);transform:rotate(38deg);filter:blur(1px)}
+.fuse{position:absolute;left:53%;top:-42px;width:46px;height:50px;border-radius:50% 50% 0 0;border-top:6px solid #57432d;border-right:6px solid #57432d;transform:rotate(-16deg);filter:drop-shadow(0 2px 2px #000)}
+.fuse:after{content:"";position:absolute;right:-10px;top:-9px;width:15px;height:15px;border-radius:50%;background:#fff6a8;box-shadow:0 0 6px #fff,0 0 13px #ffcc25,0 0 26px #ff3c17;animation:spark .16s steps(2) infinite}
+@keyframes spark{50%{transform:scale(.65) translate(2px,-1px);filter:hue-rotate(15deg)}}
+.bomb.tick{transform:translate(-50%,-50%) scale(1.075) rotate(-1deg)}.bomb.danger{animation:bombDanger .18s ease-in-out infinite alternate}.bomb.danger .bombShell{box-shadow:inset -13px -15px 23px #000,inset 8px 8px 15px rgba(255,255,255,.13),0 0 30px #ff2c16}
+@keyframes bombDanger{to{transform:translate(-50%,-50%) scale(1.1) rotate(1.5deg)}}
+.bomb.boom{animation:explodeScale .55s ease-out forwards}.bomb.boom .bombShell{background:radial-gradient(circle,#fff9bc 0 10%,#ff9d1d 22%,#fa351c 44%,rgba(60,0,0,.7) 66%,transparent 70%);border:0;box-shadow:0 0 35px #fff,0 0 80px #ff5a1e,0 0 130px #ff220d}.bomb.boom .fuse{display:none}
+@keyframes explodeScale{0%{transform:translate(-50%,-50%) scale(1)}45%{transform:translate(-50%,-50%) scale(2.35)}100%{transform:translate(-50%,-50%) scale(.2);opacity:0}}
+.bombTimer{font-size:23px;color:#fff;font-family:Arial Black,Tahoma;text-shadow:0 2px 2px #000,0 0 12px #ff3b1e;z-index:9}.bombTimer.danger{color:#fff3b0;animation:timerDanger .22s infinite alternate}@keyframes timerDanger{to{transform:translate(-50%,-50%) scale(1.18)}}
+.timer{display:none}
+.status{font-size:18px;min-height:28px;text-shadow:0 2px 8px #000}.tik{backdrop-filter:blur(8px);background:rgba(10,13,17,.76)}
+.controls button,.join button{box-shadow:0 7px 18px rgba(0,0,0,.35);transition:transform .15s,filter .15s}.controls button:hover,.join button:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.log{border:1px solid rgba(245,196,91,.18);background:linear-gradient(180deg,rgba(17,20,26,.95),rgba(5,6,8,.96));box-shadow:inset 0 0 30px #000}
+.screenFlash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:99}.screenFlash.go{animation:flash .5s ease-out}@keyframes flash{0%{opacity:.95}25%{opacity:.12;background:#ff531f}100%{opacity:0}}
+.shake{animation:screenShake .48s linear}@keyframes screenShake{0%,100%{transform:none}15%{transform:translate(-10px,5px)}30%{transform:translate(8px,-6px)}45%{transform:translate(-7px,-3px)}60%{transform:translate(6px,5px)}80%{transform:translate(-3px,2px)}}
+.particle{position:absolute;left:50%;top:50%;width:8px;height:8px;border-radius:50%;background:#ffb52d;box-shadow:0 0 12px #ff3d16;pointer-events:none;z-index:30;animation:fly .8s ease-out forwards}@keyframes fly{to{transform:translate(var(--x),var(--y)) scale(.1);opacity:0}}
+.winner{background:radial-gradient(circle,rgba(43,29,8,.92),rgba(0,0,0,.97))}.winbox{position:relative;overflow:hidden;background:linear-gradient(145deg,#21180c,#0c0e13 60%,#17100a);box-shadow:0 0 70px rgba(245,196,91,.35),inset 0 0 40px rgba(255,255,255,.03)}.winbox:before{content:"";position:absolute;inset:-100%;background:conic-gradient(transparent,rgba(255,220,120,.18),transparent 30%);animation:winSweep 4s linear infinite}@keyframes winSweep{to{transform:rotate(360deg)}}.winbox>*{position:relative;z-index:1}
+@media(max-width:700px){.bomb{width:88px;height:88px}.bombShell{inset:10px}.arena{border-radius:32px}.player.holder:after{display:none}}
+
+
+/* ===== CINEMATIC REALISM V2 ===== */
+body{background:
+ radial-gradient(circle at 50% 16%,rgba(93,38,19,.34),transparent 28%),
+ linear-gradient(180deg,#0d1118 0,#07090d 44%,#020305 100%);}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.22;background-image:
+ repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px),
+ radial-gradient(circle at 20% 20%,rgba(255,120,58,.13),transparent 22%),
+ radial-gradient(circle at 80% 72%,rgba(255,65,20,.08),transparent 25%)}
+.wrap{max-width:1180px}.arena{height:600px;border-radius:44px;perspective:1000px;background:
+ linear-gradient(180deg,rgba(255,255,255,.025),transparent 18%),
+ radial-gradient(ellipse at 50% 82%,rgba(126,63,28,.22),transparent 28%),
+ radial-gradient(circle at 50% 46%,rgba(255,82,32,.075),transparent 24%),
+ linear-gradient(180deg,#1b2028 0,#10141a 52%,#080b10 100%);}
+.arena:before{inset:7%;border:1px solid rgba(246,189,90,.18);box-shadow:0 0 0 1px rgba(0,0,0,.55),inset 0 0 60px rgba(0,0,0,.55)}
+.arena .floorGrid{position:absolute;left:5%;right:5%;bottom:-7%;height:45%;transform:rotateX(63deg);transform-origin:bottom;background:
+ linear-gradient(rgba(255,152,64,.09) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(255,152,64,.09) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to top,#000,transparent);opacity:.5;pointer-events:none;z-index:0}
+.arena .ambientSmoke{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.smokePuff{position:absolute;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(180,190,200,.2),rgba(65,72,82,.08) 48%,transparent 72%);filter:blur(9px);animation:smokeRise var(--dur) ease-out forwards}
+@keyframes smokeRise{0%{transform:translate(-50%,-20%) scale(.45);opacity:0}15%{opacity:.48}100%{transform:translate(calc(-50% + var(--drift)), -220px) scale(2.25);opacity:0}}
+.player{filter:drop-shadow(0 14px 20px rgba(0,0,0,.72))}.player .avatar{background:linear-gradient(145deg,#252b34,#0e1116);border:3px solid #b88a3c}.player .name{padding:5px 10px;border-radius:10px;background:linear-gradient(180deg,rgba(20,23,29,.9),rgba(5,7,10,.88));border:1px solid rgba(255,255,255,.06);display:inline-block;min-width:95px}.player.out{transform:translate(-50%,-50%) scale(.92);opacity:.2}
+.player.holder:before{content:"";position:absolute;left:50%;top:34px;width:108px;height:108px;transform:translate(-50%,-50%);border-radius:50%;border:2px solid rgba(255,69,31,.6);box-shadow:0 0 30px rgba(255,45,17,.35),inset 0 0 28px rgba(255,70,20,.12);animation:targetLock .7s ease-out infinite}
+@keyframes targetLock{from{transform:translate(-50%,-50%) scale(.82);opacity:.95}to{transform:translate(-50%,-50%) scale(1.2);opacity:0}}
+.bomb{width:132px;height:132px;transform-style:preserve-3d;filter:drop-shadow(0 28px 21px rgba(0,0,0,.88)) drop-shadow(0 0 24px rgba(255,79,28,.35))}
+.bombShell{inset:15px;background:
+ radial-gradient(circle at 31% 24%,rgba(255,255,255,.55) 0 3%,rgba(255,255,255,.12) 4% 9%,transparent 10%),
+ repeating-radial-gradient(circle at 48% 54%,rgba(255,255,255,.018) 0 1px,transparent 1px 4px),
+ radial-gradient(circle at 34% 28%,#747e88 0 5%,#3b424a 18%,#1a1f25 48%,#090b0e 78%,#020304 100%);border:2px solid #69727a;box-shadow:inset -20px -23px 30px #000,inset 13px 12px 22px rgba(255,255,255,.13),0 0 0 5px rgba(0,0,0,.5),0 0 0 6px rgba(255,255,255,.04)}
+.bombShell .bolts{position:absolute;inset:10px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 11deg,rgba(180,190,198,.55) 12deg 14deg,transparent 15deg 56deg,rgba(180,190,198,.5) 57deg 59deg,transparent 60deg 101deg,rgba(180,190,198,.5) 102deg 104deg,transparent 105deg 146deg,rgba(180,190,198,.5) 147deg 149deg,transparent 150deg 191deg,rgba(180,190,198,.5) 192deg 194deg,transparent 195deg 236deg,rgba(180,190,198,.5) 237deg 239deg,transparent 240deg 281deg,rgba(180,190,198,.5) 282deg 284deg,transparent 285deg 326deg,rgba(180,190,198,.5) 327deg 329deg,transparent 330deg);opacity:.55}
+.bombShell .timerPlate{position:absolute;left:50%;top:55%;width:62px;height:47px;transform:translate(-50%,-50%);border-radius:9px;background:linear-gradient(145deg,#101317,#050608);border:2px solid #5c636a;box-shadow:inset 0 0 12px #000,0 3px 8px #000}
+.bombShell .timerPlate:before{content:"";position:absolute;inset:5px;border-radius:5px;background:repeating-linear-gradient(90deg,rgba(255,30,20,.06) 0 2px,transparent 2px 4px);box-shadow:inset 0 0 10px #000}
+.fuse{left:55%;top:-49px;width:58px;height:59px;border-top-width:7px;border-right-width:7px;border-color:#5a4630;box-shadow:inset -2px 1px 0 #8b6a45;animation:fuseWiggle .7s ease-in-out infinite alternate}
+@keyframes fuseWiggle{to{transform:rotate(-11deg) translateY(-1px)}}
+.fuse:before{content:"";position:absolute;right:-15px;top:-14px;width:27px;height:27px;border-radius:50%;background:radial-gradient(circle,#fff 0 8%,#ffe66c 16%,#ff8d1c 37%,rgba(255,46,15,.65) 58%,transparent 70%);animation:flare .12s steps(2) infinite;filter:blur(.3px)}
+@keyframes flare{50%{transform:scale(.62) rotate(18deg);opacity:.78}}
+.bombTimer{width:56px;height:42px;font-family:'Courier New',monospace;font-size:24px;color:#ff4737;text-shadow:0 0 5px #ff2919,0 0 11px rgba(255,45,24,.8);letter-spacing:1px;z-index:11;transform:translate(-50%,-44%)}
+.bombTimer:after{content:"";position:absolute;inset:-5px;border:1px solid rgba(255,71,55,.25);border-radius:7px;box-shadow:inset 0 0 8px rgba(255,40,24,.16)}
+.bombTimer.danger{color:#fff06a;text-shadow:0 0 8px #ff2a13,0 0 18px #ff1400}
+.passTrail{position:absolute;height:5px;transform-origin:left center;border-radius:99px;background:linear-gradient(90deg,rgba(255,207,111,0),rgba(255,166,65,.95),rgba(255,61,22,0));filter:blur(.2px);box-shadow:0 0 12px #ff6b22;z-index:7;pointer-events:none;animation:trailFade .5s ease-out forwards}
+@keyframes trailFade{from{opacity:1;filter:blur(.2px)}to{opacity:0;filter:blur(3px)}}
+.explosionCore{position:absolute;width:40px;height:40px;border-radius:50%;pointer-events:none;z-index:40;background:radial-gradient(circle,#fff 0 12%,#fff8a6 18%,#ff9b20 38%,#ff3217 62%,transparent 74%);box-shadow:0 0 28px #fff,0 0 70px #ff8a20,0 0 135px #ff3217;animation:coreBlast .75s ease-out forwards}
+@keyframes coreBlast{0%{transform:translate(-50%,-50%) scale(.25);opacity:1}42%{transform:translate(-50%,-50%) scale(5.2);opacity:1}100%{transform:translate(-50%,-50%) scale(7.2);opacity:0}}
+.debris{position:absolute;width:12px;height:4px;background:linear-gradient(90deg,#fff4a5,#ff6a1b 35%,#2a120b);box-shadow:0 0 8px #ff4b1b;z-index:41;pointer-events:none;animation:debrisFly 1s cubic-bezier(.15,.62,.2,1) forwards}
+@keyframes debrisFly{to{transform:translate(var(--dx),var(--dy)) rotate(var(--rot));opacity:0}}
+.screenFlash.go{animation:flash .72s ease-out}.shake{animation:screenShake .7s linear}
+.winbox{min-width:380px;padding:42px}.winbox h2{font-size:44px}.winner.show .winAvatar{animation:winnerPop .7s cubic-bezier(.2,.9,.18,1.2)}
+@keyframes winnerPop{from{transform:scale(.35) rotate(-10deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+@media(max-width:700px){.arena{height:540px;border-radius:26px}.bomb{width:102px;height:102px}.bombShell{inset:11px}.bombShell .timerPlate{width:53px;height:40px}.bombTimer{font-size:20px;width:48px;height:36px}.winbox{min-width:88vw}}
+
+
+/* ===== FULLSCREEN CINEMATIC V3 — 10 PLAYERS ===== */
+html,body{width:100%;height:100%;overflow:hidden}
+body{min-height:100vh;background:
+ radial-gradient(ellipse at 50% 35%,rgba(118,48,20,.20),transparent 35%),
+ linear-gradient(180deg,#10151d 0%,#070a0f 58%,#020305 100%)}
+.wrap{position:relative;z-index:1;width:100vw;height:100vh;max-width:none;margin:0;padding:8px 18px 10px;display:grid;grid-template-rows:auto auto auto auto 1fr auto auto;gap:4px}
+h1{font-size:clamp(25px,2.6vw,46px);line-height:1;margin:2px 0;text-shadow:0 0 10px #ff9b32,0 0 30px rgba(255,74,20,.65)}
+.sub{font-size:clamp(11px,1vw,17px);margin:0}.tik{position:fixed;top:10px;right:16px;margin:0;z-index:80;padding:6px 13px}.status{font-size:clamp(13px,1.2vw,20px);font-weight:800;margin:0}
+.join{margin:2px}.join input{min-width:230px;padding:7px 10px}.join button,.controls button{padding:8px 15px}.timer{font-size:clamp(19px,1.5vw,28px);min-height:28px;margin:0}
+.arena{width:100%;height:100%;min-height:0;max-width:none;margin:0;border-radius:28px;border:2px solid rgba(236,164,62,.75);box-shadow:inset 0 0 90px #000,0 0 25px rgba(232,138,38,.22);overflow:hidden}
+.arena:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 48%,rgba(0,0,0,.5) 100%);z-index:2}
+.player{width:116px;z-index:12}.avatar{width:62px;height:62px;font-size:24px;border-width:2px}.name{font-size:13px;max-width:116px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.num{padding:2px 7px}.kick{padding:3px 7px;margin-top:2px;font-size:10px}
+.player.holder:before{top:28px;width:84px;height:84px}.bomb{width:112px;height:112px;z-index:20}.bombShell{inset:12px}.bombShell .timerPlate{width:54px;height:42px}.bombTimer{width:50px;height:38px;font-size:21px;z-index:22}.fuse{top:-43px;width:52px;height:53px}
+.controls{margin:2px}.log{height:24px;min-height:24px;max-height:24px;margin:0 auto;width:min(96vw,1200px);overflow:hidden;font-size:12px;padding:3px 8px}
+.floorGrid{opacity:.66!important}.arena .floorGrid{left:1%;right:1%;height:58%;bottom:-13%}
+.arena .centerMark{position:absolute;left:50%;top:50%;width:33vmin;height:33vmin;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(255,177,76,.13);box-shadow:0 0 55px rgba(255,72,20,.07) inset;z-index:1}
+.arena .hazardRing{position:absolute;left:50%;top:50%;width:58vmin;height:58vmin;transform:translate(-50%,-50%);border-radius:50%;border:1px dashed rgba(255,114,41,.12);animation:ringRotate 20s linear infinite;z-index:1}
+@keyframes ringRotate{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@media(max-height:760px){.wrap{padding-top:4px;gap:2px}.sub{display:none}.join input{padding:5px 8px}.join button,.controls button{padding:6px 12px}.player{width:104px}.avatar{width:54px;height:54px}.name{font-size:12px}.bomb{width:98px;height:98px}.bombShell{inset:10px}.fuse{top:-39px}.log{display:none}}
+@media(max-width:900px){html,body{overflow:auto}.wrap{height:auto;min-height:100vh;display:block;padding:10px}.arena{height:72vh;min-height:560px}.player{width:96px}.avatar{width:52px;height:52px}.name{font-size:11px}.bomb{width:92px;height:92px}.bombShell{inset:9px}.join,.controls{margin:7px}.log{height:45px;max-height:45px}}
+
+
+/* ===== ULTRA PLAYER PRESENTATION V4 ===== */
+.wrap{width:100vw;max-width:none;min-height:100vh;padding:clamp(8px,1vw,18px);display:grid;grid-template-rows:auto auto auto 1fr auto auto;overflow:hidden}
+h1{font-size:clamp(34px,3vw,58px);line-height:1;margin:2px 0}.sub{font-size:clamp(13px,1vw,18px)}
+.arena{width:min(96vw,1680px);max-width:none;height:min(72vh,820px);min-height:650px;margin:8px auto;border-radius:42px}
+.player{width:190px;padding:8px 8px 9px;border-radius:22px;background:linear-gradient(145deg,rgba(25,31,42,.92),rgba(6,8,12,.94));border:1px solid rgba(255,255,255,.11);box-shadow:0 18px 40px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(12px);transition:.4s cubic-bezier(.2,.8,.2,1);transform:translate(-50%,-50%)}
+.player:before{content:"";position:absolute;inset:-1px;border-radius:22px;padding:1px;background:linear-gradient(135deg,rgba(255,215,119,.72),transparent 42%,rgba(255,80,42,.42));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.player .avatarFrame{position:relative;width:102px;height:102px;margin:auto;border-radius:50%;padding:4px;background:conic-gradient(from 20deg,#fff1ac,#bc741a,#ff6037,#fff1ac);box-shadow:0 12px 28px #000,0 0 26px rgba(245,196,91,.22)}
+.player .avatarFrame:after{content:"";position:absolute;inset:6px;border-radius:50%;box-shadow:inset 0 0 18px rgba(0,0,0,.46);pointer-events:none}
+.player .avatar{width:100%;height:100%;border:0;margin:0;background:#1d232c;font-size:38px;overflow:hidden}
+.player .avatar img{width:100%;height:100%;object-fit:cover}
+.player .playerMeta{margin-top:7px;display:flex;align-items:center;justify-content:center;gap:6px;min-width:0}
+.player .name{margin:0;max-width:132px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:16px;line-height:1.2;color:#fff;font-weight:900;text-shadow:0 2px 8px #000}
+.player .num{flex:0 0 auto;min-width:28px;height:28px;display:grid;place-items:center;padding:0;background:linear-gradient(#ff7348,#8f160d);border:1px solid rgba(255,255,255,.25);box-shadow:0 4px 10px rgba(0,0,0,.4)}
+.player .stateBadge{display:inline-flex;align-items:center;gap:5px;margin-top:6px;padding:4px 9px;border-radius:99px;background:rgba(62,216,129,.12);border:1px solid rgba(93,255,166,.34);font-size:11px;color:#a9ffd0}
+.player .stateBadge:before{content:"";width:7px;height:7px;border-radius:50%;background:#51e68d;box-shadow:0 0 9px #51e68d}
+.player .kick{position:absolute;right:-7px;top:-7px;width:31px;height:31px;padding:0;border-radius:50%;font-size:0;border:2px solid rgba(255,255,255,.2);box-shadow:0 5px 14px #000;opacity:.72}
+.player .kick:after{content:"×";font-size:21px;line-height:1}
+.player:hover .kick{opacity:1}.player.holder{transform:translate(-50%,-50%) scale(1.11);z-index:15;background:linear-gradient(145deg,rgba(70,25,16,.96),rgba(10,8,10,.97));box-shadow:0 0 0 3px rgba(255,85,38,.2),0 0 46px rgba(255,64,24,.58),0 20px 42px rgba(0,0,0,.6)}
+.player.holder .avatarFrame{animation:avatarDanger .58s ease-in-out infinite alternate;background:conic-gradient(from 0deg,#fff1a5,#ff5a27,#ff1d0d,#fff1a5)}
+.player.holder .stateBadge{background:rgba(255,52,24,.2);border-color:rgba(255,105,67,.62);color:#ffe0d4}.player.holder .stateBadge:before{background:#ff4d2d;box-shadow:0 0 12px #ff3e20}
+.player.holder:after{content:"حامل القنبلة";font-size:12px;font-weight:900;padding:5px 11px;margin-top:6px;background:linear-gradient(90deg,rgba(255,38,14,.24),rgba(255,145,45,.2));border:1px solid rgba(255,118,63,.58);animation:badgePulse .55s infinite alternate}
+@keyframes avatarDanger{to{filter:brightness(1.16);box-shadow:0 12px 28px #000,0 0 42px rgba(255,61,25,.72)}}
+@keyframes badgePulse{to{transform:scale(1.05)}}
+.player.out{opacity:.5;filter:none;background:linear-gradient(145deg,rgba(42,43,47,.86),rgba(7,8,10,.9))}.player.out .avatarFrame{filter:grayscale(1) brightness(.52);background:#555}.player.out .stateBadge{color:#bbb;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}.player.out .stateBadge:before{background:#777;box-shadow:none}.player.out:after{content:"تم الإقصاء";display:block;color:#ff9e8e;font-weight:900;font-size:11px;margin-top:5px}
+.elimOverlay{position:fixed;inset:0;display:none;place-items:center;background:radial-gradient(circle,rgba(94,20,8,.38),rgba(0,0,0,.84));z-index:96;pointer-events:none}.elimOverlay.show{display:grid;animation:elimFade 1.55s ease forwards}.elimCard{min-width:420px;padding:28px;text-align:center;border-radius:28px;background:linear-gradient(145deg,rgba(42,18,14,.97),rgba(7,9,13,.98));border:1px solid rgba(255,111,67,.52);box-shadow:0 0 90px rgba(255,45,18,.36),inset 0 1px 0 rgba(255,255,255,.08);transform:scale(.7);animation:elimPop .55s cubic-bezier(.18,.85,.3,1.25) forwards}.elimAvatar{width:150px;height:150px;margin:auto;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:#222;font-size:62px;border:5px solid #ff653d;box-shadow:0 0 36px rgba(255,63,28,.72)}.elimTitle{margin-top:14px;color:#ffb29d;font-size:20px}.elimName{font-size:34px;font-weight:900;margin-top:4px}.elimReason{color:#c8c8c8;margin-top:5px}@keyframes elimFade{0%,82%{opacity:1}100%{opacity:0}}@keyframes elimPop{to{transform:scale(1)}}
+.winbox{min-width:min(92vw,560px);padding:42px}.winAvatar{width:190px;height:190px}.winName{font-size:44px}.winbox h2{font-size:48px}.winner .winbox:after{content:"بطل القنبلة الموقوتة";display:block;color:#f8d989;font-size:18px;margin-top:10px}
+@media(max-width:1100px){.arena{min-height:610px}.player{width:150px}.player .avatarFrame{width:82px;height:82px}.player .name{font-size:14px;max-width:105px}}
+
+/* ===== PLAYER FIT + BOMB TIMER OPTIONS V5 ===== */
+.player{width:154px;padding:6px 7px 7px;border-radius:18px}
+.player .avatarFrame{width:78px;height:78px;padding:3px}
+.player .avatar{font-size:30px}
+.player .playerMeta{margin-top:5px;gap:5px}
+.player .name{font-size:14px;max-width:106px}
+.player .num{min-width:25px;height:25px;font-size:12px}
+.player .stateBadge{margin-top:4px;padding:3px 8px;font-size:10px}
+.player .kick{right:-5px;top:-5px;width:28px;height:28px}
+.player.holder{transform:translate(-50%,-50%) scale(1.045)}
+.player.holder:after{font-size:10px;padding:4px 8px;margin-top:4px}
+.fuseChoices{display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;margin-inline-start:8px;padding:4px 7px;border-radius:12px;background:rgba(8,10,14,.72);border:1px solid rgba(245,196,91,.2)}
+.fuseChoices .fuseLabel{font-size:12px;color:#e8d8b3;font-weight:900;margin:0 3px}
+.fuseChoices button{min-width:48px;padding:6px 9px;background:#25282e;color:#eee;border:1px solid rgba(255,255,255,.12);box-shadow:none}
+.fuseChoices button.active{background:linear-gradient(#ffd76d,#b36f18);color:#1a1003;border-color:#ffe69a;box-shadow:0 0 15px rgba(245,196,91,.25)}
+@media(max-width:1100px){.player{width:136px}.player .avatarFrame{width:70px;height:70px}.player .name{font-size:13px;max-width:92px}.player.holder{transform:translate(-50%,-50%) scale(1.035)}}
+@media(max-height:760px){.player{width:124px;padding:5px}.player .avatarFrame{width:62px;height:62px}.player .name{font-size:12px;max-width:82px}.player .stateBadge{padding:2px 6px}.fuseChoices{padding:2px 5px}.fuseChoices button{padding:4px 7px;min-width:42px}}
+</style>
+<style id="auto-demo-restore-fix">
+#autoDemoBtn.autoDemoBtn{display:inline-flex!important;align-items:center;justify-content:center;gap:7px;min-width:150px;padding:10px 18px!important;border:1px solid rgba(86,211,255,.58)!important;border-radius:12px!important;background:linear-gradient(135deg,#0f8fc7,#1166d7)!important;color:#fff!important;font-weight:900!important;box-shadow:0 0 20px rgba(39,174,255,.28),inset 0 0 0 1px rgba(255,255,255,.08)!important;visibility:visible!important;opacity:1!important;position:relative!important;z-index:90!important}
+#autoDemoBtn.autoDemoBtn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+@media(max-height:760px){#autoDemoBtn.autoDemoBtn{padding:7px 13px!important;min-width:136px;font-size:13px!important}}
+</style>
+</head><body><div class="wrap"><h1>💣 القنبلة الموقوتة</h1><div class="sub">مرّر القنبلة قبل انتهاء العدّ التنازلي — لا تتردد!</div><div id="tik" class="tik">جاري الاتصال...</div><div id="status" class="status">بانتظار اللاعبين — اكتب «انضم»</div>
+<div class="join"><input id="tn" placeholder="اسم لاعب للتجربة"><button onclick="testJoin()">انضم تجريبي</button><div class="fuseChoices" id="fuseChoices"><span class="fuseLabel">⏱ مؤقت القنبلة</span><button type="button" data-sec="10" onclick="setFuse(10)">10 ث</button><button type="button" data-sec="15" onclick="setFuse(15)">15 ث</button><button type="button" data-sec="20" onclick="setFuse(20)">20 ث</button><button type="button" data-sec="25" onclick="setFuse(25)">25 ث</button></div><button id="autoDemoBtn" class="autoDemoBtn" type="button" onclick="autoDemo()">🤖 تجربة تلقائية</button></div><div class="timer" id="timer"></div><div class="arena" id="arena"><div id="bomb" class="bomb"><div class="bombShell"><div class="bolts"></div><div class="timerPlate"></div><div class="fuse"></div></div></div><div id="bombTimer" class="bombTimer">--</div><div class="floorGrid"></div><div id="ambientSmoke" class="ambientSmoke"></div><div class="centerMark"></div><div class="hazardRing"></div></div>
+<div class="controls"><button id="start" onclick="startGame()" disabled>ابدأ اللعبة</button><button class="red" onclick="location.reload()">لعبة جديدة</button></div><div class="log" id="log"></div></div><div id="screenFlash" class="screenFlash"></div>
+<div id="elimOverlay" class="elimOverlay"><div class="elimCard"><div id="elimAvatar" class="elimAvatar">👤</div><div class="elimTitle">💥 تم إقصاء اللاعب</div><div id="elimName" class="elimName"></div><div class="elimReason">انفجرت القنبلة لديه</div></div></div><div id="winner" class="winner"><div class="winbox"><h2>🏆 الفائز</h2><div id="winnerName"></div><button onclick="location.reload()">لعبة جديدة</button></div></div>
+<script>
+const E=id=>document.getElementById(id);let players=[],phase='lobby',holder=-1,explodeAt=0,tickInt=null,autoInt=null,ws,retry,audioCtx=null;let fuseSeconds=Number(localStorage.getItem('bombFuseSeconds'))||15;if(![10,15,20,25].includes(fuseSeconds))fuseSeconds=15;
+function ac(){if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();return audioCtx}
+function tone(freq,dur,type='sine',gain=.12,delay=0){try{let c=ac(),o=c.createOscillator(),g=c.createGain(),t=c.currentTime+delay;o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(gain,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+dur)}catch(_){}}
+function passSound(){tone(620,.09,'sine',.13);tone(880,.12,'sine',.11,.07);tone(1180,.09,'triangle',.08,.14)}
+function explosionSound(){try{let c=ac(),len=Math.floor(c.sampleRate*.75),buf=c.createBuffer(1,len,c.sampleRate),d=buf.getChannelData(0);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2);let src=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();f.type='lowpass';f.frequency.value=900;g.gain.setValueAtTime(.75,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.75);src.buffer=buf;src.connect(f);f.connect(g);g.connect(c.destination);src.start();tone(85,.55,'sine',.35)}catch(_){}}
+const pos=[[12,20],[31,16],[50,15],[69,16],[88,20],[88,80],[69,84],[50,85],[31,84],[12,80]];
+const esc=x=>String(x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function log(t){E('log').innerHTML='<div>• '+esc(t)+'</div>'+E('log').innerHTML}
+function render(){E('arena').querySelectorAll('.player').forEach(x=>x.remove());players.forEach((p,i)=>{let d=document.createElement('div');d.className='player '+(p.alive?'':'out')+(i===holder&&phase==='playing'?' holder':'');d.style.left=pos[i][0]+'%';d.style.top=pos[i][1]+'%';d.innerHTML=`<div class="avatarFrame"><div class="avatar">${p.avatar?`<img src="${esc(p.avatar)}" onerror="this.parentElement.innerHTML='👤'">`:'👤'}</div></div><div class="playerMeta"><span class="num">${i+1}</span><div class="name" title="${esc(p.name)}">${esc(p.name)}</div></div><div class="stateBadge">${p.alive?'داخل اللعبة':'خارج اللعبة'}</div>${p.alive?`<button class="kick red" onclick="kick(${i})" title="طرد اللاعب">طرد</button>`:''}`;E('arena').appendChild(d)});
+if(phase==='lobby'){E('status').textContent=`بانتظار اللاعبين ${players.length}/10 — اكتب «انضم»`;E('start').disabled=players.length<2}moveBomb()}
+function join(name,avatar='',uid=''){if(phase!=='lobby'||players.length>=10)return;if(players.some(p=>(uid&&p.uid===String(uid))||(!uid&&p.name===name)))return;players.push({name:name||'متابع',avatar,uid:String(uid||''),alive:true});render();log('انضم '+name)}
+function testJoin(){join(E('tn').value.trim()||('لاعب '+(players.length+1)),'','t'+Date.now())}
+function alive(){return players.map((p,i)=>p.alive?i:-1).filter(i=>i>=0)}
+function startGame(){if(alive().length<2)return;phase='playing';E('start').disabled=true;holder=alive()[Math.floor(Math.random()*alive().length)];newFuse();E('status').textContent='بدأت الجولة! حامل القنبلة يكتب رقم لاعب حي لتمريرها.';log('القنبلة بدأت مع '+players[holder].name);moveBomb();runFuse()}
+function setFuse(sec){sec=Number(sec);if(![10,15,20,25].includes(sec))return;fuseSeconds=sec;try{localStorage.setItem('bombFuseSeconds',String(sec))}catch(_){};document.querySelectorAll('#fuseChoices button[data-sec]').forEach(b=>b.classList.toggle('active',Number(b.dataset.sec)===sec));if(phase==='lobby'){E('bombTimer').textContent=sec;E('status').textContent='تم اختيار مؤقت القنبلة: '+sec+' ثانية — بانتظار اللاعبين'}log('مؤقت القنبلة: '+sec+' ثانية')}
+function newFuse(){explodeAt=Date.now()+(fuseSeconds*1000);updateTimer()}
+function updateTimer(){let left=Math.max(0,explodeAt-Date.now()),sec=Math.ceil(left/1000);E('timer').textContent='⏱️ '+sec+' ثانية';E('bombTimer').textContent=sec;E('bomb').classList.toggle('danger',sec<=7);E('bombTimer').classList.toggle('danger',sec<=7);if(sec<=5&&left%1000<110)tone(95,.08,'sine',.05);return left}
+function runFuse(){clearInterval(tickInt);tickInt=setInterval(()=>{E('bomb').classList.toggle('tick');let left=updateTimer();if(Math.random()<.08&&holder>=0)smokeBurst(pos[holder][0],pos[holder][1]-3,1);if(left<=0)explode()},100)}
+function moveBomb(){let b=E('bomb'),t=E('bombTimer');if(holder>=0&&players[holder]){b.style.left=t.style.left=pos[holder][0]+'%';b.style.top=t.style.top=pos[holder][1]+'%'}else{b.style.left=t.style.left='50%';b.style.top=t.style.top='50%'}}
+function pass(fromUid,fromName,target){if(phase!=='playing'||target<0||!players[target]?.alive||target===holder)return;let h=players[holder];let isHolder=(fromUid&&h.uid===String(fromUid))||(!fromUid&&h.name===fromName);if(!isHolder)return;let old=holder;holder=target;passSound();passTrail(old,target);smokeBurst(pos[old][0],pos[old][1],2);log(h.name+' مرّر القنبلة إلى '+players[target].name);moveBomb()}
+
+function smokeBurst(x,y,count=5){let host=E('ambientSmoke')||E('arena');for(let i=0;i<count;i++){let s=document.createElement('span');s.className='smokePuff';s.style.left=x+'%';s.style.top=y+'%';s.style.setProperty('--dur',(1.8+Math.random()*1.8)+'s');s.style.setProperty('--drift',(-70+Math.random()*140)+'px');host.appendChild(s);setTimeout(()=>s.remove(),3800)}}
+function passTrail(from,to){if(from<0||to<0||!pos[from]||!pos[to])return;let a=E('arena'),x1=pos[from][0],y1=pos[from][1],x2=pos[to][0],y2=pos[to][1],rect=a.getBoundingClientRect(),dx=(x2-x1)*rect.width/100,dy=(y2-y1)*rect.height/100,len=Math.hypot(dx,dy),ang=Math.atan2(dy,dx)*180/Math.PI,t=document.createElement('i');t.className='passTrail';t.style.left=x1+'%';t.style.top=y1+'%';t.style.width=len+'px';t.style.transform='rotate('+ang+'deg)';a.appendChild(t);setTimeout(()=>t.remove(),650)}
+function cinematicExplosion(){let a=E('arena'),x=pos[holder][0],y=pos[holder][1],core=document.createElement('i');core.className='explosionCore';core.style.left=x+'%';core.style.top=y+'%';a.appendChild(core);for(let i=0;i<26;i++){let d=document.createElement('i'),ang=Math.random()*Math.PI*2,dist=130+Math.random()*280;d.className='debris';d.style.left=x+'%';d.style.top=y+'%';d.style.setProperty('--dx',Math.cos(ang)*dist+'px');d.style.setProperty('--dy',Math.sin(ang)*dist+'px');d.style.setProperty('--rot',(-420+Math.random()*840)+'deg');a.appendChild(d);setTimeout(()=>d.remove(),1200)}smokeBurst(x,y,12);setTimeout(()=>core.remove(),900)}
+
+function blastParticles(){let a=E('arena');for(let i=0;i<34;i++){let p=document.createElement('i');p.className='particle';let ang=Math.random()*Math.PI*2,dist=90+Math.random()*250;p.style.setProperty('--x',Math.cos(ang)*dist+'px');p.style.setProperty('--y',Math.sin(ang)*dist+'px');p.style.left=pos[holder][0]+'%';p.style.top=pos[holder][1]+'%';p.style.width=p.style.height=(4+Math.random()*9)+'px';a.appendChild(p);setTimeout(()=>p.remove(),900)}}
+function impactFx(){E('screenFlash').classList.remove('go');void E('screenFlash').offsetWidth;E('screenFlash').classList.add('go');document.body.classList.add('shake');blastParticles();setTimeout(()=>document.body.classList.remove('shake'),520)}
+function showEliminated(p){let o=E('elimOverlay'),a=E('elimAvatar');a.innerHTML=p.avatar?'<img src="'+esc(p.avatar)+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">':'👤';E('elimName').textContent=p.name;o.classList.remove('show');void o.offsetWidth;o.classList.add('show');setTimeout(()=>o.classList.remove('show'),1600)}
+function explode(){clearInterval(tickInt);if(phase!=='playing')return;phase='boom';explosionSound();impactFx();cinematicExplosion();E('bombTimer').textContent='';let b=E('bomb');b.classList.remove('danger');b.classList.add('boom');let eliminated=players[holder];players[holder].alive=false;showEliminated(eliminated);log('انفجرت القنبلة عند '+players[holder].name);E('status').textContent='💥 خرج '+players[holder].name;render();setTimeout(()=>{b.classList.remove('boom');b.style.opacity='1';let a=alive();if(a.length===1){phase='ended';holder=a[0];moveBomb();let w=players[a[0]];E('winnerName').innerHTML=(w.avatar?'<img class="winAvatar" src="'+esc(w.avatar)+'">':'<div class="winAvatar">👤</div>')+'<div class="winName">'+esc(w.name)+'</div>';tone(523,.18,'sine',.12);tone(659,.18,'sine',.12,.18);tone(784,.35,'sine',.14,.36);E('winner').classList.add('show');E('status').textContent='🏆 '+players[a[0]].name+' هو الفائز';return}phase='playing';holder=a[Math.floor(Math.random()*a.length)];newFuse();moveBomb();E('status').textContent='جولة جديدة — مرّر القنبلة بكتابة رقم لاعب';log('بدأت جولة جديدة مع '+players[holder].name);runFuse()},1800)}
+function kick(i){if(!players[i]?.alive)return;players[i].alive=false;if(i===holder&&phase==='playing'){let a=alive();if(a.length){holder=a[0];moveBomb()}}render();log('تم طرد '+players[i].name)}
+function comment(name,avatar,text,uid=''){let t=String(text||'').trim();if(t==='انضم'){join(name,avatar,uid);return}let m=t.match(/^(?:مرر\s*)?(10|[1-9])$/);if(m)pass(uid,name,+m[1]-1)}
+function autoDemo(){if(phase==='lobby'){while(players.length<10)join('تجريبي '+(players.length+1),'','demo'+players.length);startGame()}clearInterval(autoInt);autoInt=setInterval(()=>{if(phase!=='playing'){if(phase==='ended')clearInterval(autoInt);return}let a=alive().filter(i=>i!==holder);if(a.length)pass(players[holder].uid,players[holder].name,a[Math.floor(Math.random()*a.length)])},900)}
+function user(d={}){let u=d.user||d;return{name:u.nickname||u.uniqueId||d.nickname||d.uniqueId||'متابع',uid:String(u.userId||u.id||u.uniqueId||d.userId||d.uniqueId||''),avatar:u.profilePictureUrl||u.avatarThumb||u.profilePicture||d.profilePictureUrl||''}}
+function connect(){clearTimeout(retry);try{ws=new WebSocket('hamada://center-live');ws.onopen=()=>{E('tik').classList.add('ok');E('tik').textContent='✓ متصل'};ws.onmessage=e=>{try{let m=JSON.parse(e.data);if(m.event!=='chat')return;let d=m.data||{},u=user(d);comment(u.name,u.avatar,d.comment||d.commentText||d.text||'',u.uid)}catch(_){}};ws.onclose=()=>{E('tik').classList.remove('ok');E('tik').textContent='غير متصل';retry=setTimeout(connect,2500)}}catch(_){retry=setTimeout(connect,2500)}}connect();render();setFuse(fuseSeconds);window.handleTikTokComment=comment;
+</script></body></html>

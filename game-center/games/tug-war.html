@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>شد الحبل — البنات ضد الشباب V5</title>
+<style>
+:root{
+ --girls:#ff4f9f;--girlsDark:#741840;--boys:#36b8ff;--boysDark:#0c426a;
+ --gold:#ffd76a;--green:#5ff0a4;--ink:#070a10;--panel:#0d131de8;--muted:#a8b4c7;
+ --rope-x:0px;--body-x:0px;
+}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#05070b;color:#fff;font-family:Tahoma,"Segoe UI",Arial,sans-serif}
+body{background:radial-gradient(circle at 15% 12%,#ff4f9f18,transparent 28%),radial-gradient(circle at 85% 12%,#36b8ff18,transparent 28%),linear-gradient(180deg,#0b1019,#04060a 72%)}
+.app{height:100vh;display:grid;grid-template-rows:74px 1fr 112px;position:relative}
+.top{display:grid;grid-template-columns:230px 1fr 230px;align-items:center;padding:0 18px;background:#080c13e8;border-bottom:1px solid #ffffff14;box-shadow:0 10px 28px #0008;z-index:20}
+.conn{display:flex;align-items:center;gap:9px;font-weight:900;color:#b4bfd0;font-size:13px}.conn .dot{width:10px;height:10px;border-radius:50%;background:#ffb548;box-shadow:0 0 15px currentColor}.conn.ok{color:#6df0aa}.conn.ok .dot{background:#6df0aa}
+.brand{text-align:center}.brand h1{margin:0;font-size:27px;letter-spacing:.3px;background:linear-gradient(90deg,#ff75b8,#ffe8a2,#78d5ff);-webkit-background-clip:text;color:transparent}.brand small{display:block;margin-top:3px;color:#9ca9bd;font-size:11px;font-weight:800}.round{justify-self:end;padding:8px 13px;border:1px solid #ffffff17;background:#ffffff08;border-radius:13px;font-size:12px;font-weight:900}.round b{color:#ffe18c;font-size:17px;margin:0 4px}
+.main{display:grid;grid-template-columns:250px minmax(680px,1fr) 250px;gap:12px;padding:12px;min-height:0}
+.teamPanel{min-height:0;background:linear-gradient(180deg,#111722ed,#090e16ed);border:1px solid #ffffff12;border-radius:19px;box-shadow:0 18px 45px #0008;display:flex;flex-direction:column;overflow:hidden}.teamPanel.girls{border-color:#ff4f9f38}.teamPanel.boys{border-color:#36b8ff38}
+.teamHead{padding:14px;border-bottom:1px solid #ffffff10}.teamName{display:flex;align-items:center;justify-content:space-between;gap:8px}.teamName strong{font-size:20px}.girls .teamName strong{color:#ff80bd}.boys .teamName strong{color:#7bd6ff}.power{font-size:24px;font-weight:1000;color:#fff}.count{margin-top:5px;color:#9eabc0;font-size:11px;font-weight:800}.meter{height:9px;border-radius:999px;background:#030509;margin-top:9px;overflow:hidden;border:1px solid #ffffff0d}.meter i{display:block;height:100%;width:0;transition:width .18s}.girls .meter i{background:linear-gradient(90deg,#761840,#ff4f9f,#ffd2e7);box-shadow:0 0 15px #ff4f9f}.boys .meter i{background:linear-gradient(90deg,#0c426a,#36b8ff,#d5f2ff);box-shadow:0 0 15px #36b8ff}
+.facesTitle{padding:10px 12px 6px;color:#c6d0df;font-size:11px;font-weight:900}.faces{padding:4px 10px 10px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;overflow:auto}.faceCard{aspect-ratio:1/1;border-radius:14px;background:#ffffff07;border:1px solid #ffffff11;display:grid;place-items:center;position:relative;overflow:hidden}.faceCard img{width:68px;height:68px;border-radius:50%;object-fit:cover;border:3px solid #ffffff2a;background:#111722}.girls .faceCard img{border-color:#ff4f9f88}.boys .faceCard img{border-color:#36b8ff88}.faceCard .fallback{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:#151c27;font-size:31px;border:3px solid #ffffff24}.faceCard .mini{position:absolute;right:5px;bottom:4px;font-size:9px;font-weight:1000;background:#05070be8;border:1px solid #ffffff16;border-radius:8px;padding:2px 5px;color:#ffe393}
+.empty{grid-column:1/-1;padding:24px 8px;text-align:center;color:#728097;font-size:11px;line-height:1.7}
+.stage{position:relative;overflow:hidden;border-radius:22px;border:1px solid #ffffff13;background:linear-gradient(180deg,#121a28 0 38%,#171b1a 38% 40%,#231e14 40% 100%);box-shadow:0 20px 55px #000a;min-height:0}
+.stage:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 16%,#ffffff10,transparent 36%),linear-gradient(90deg,#ff4f9f10,transparent 30%,transparent 70%,#36b8ff10),repeating-linear-gradient(90deg,transparent 0 84px,#ffffff05 85px 86px)}
+.stage:after{content:"";position:absolute;left:0;right:0;bottom:0;height:33%;background:repeating-linear-gradient(175deg,transparent 0 42px,#ffffff04 43px 44px),linear-gradient(180deg,#30291b,#15120e);box-shadow:inset 0 18px 30px #0005;pointer-events:none}
+.stageTop{position:absolute;top:13px;left:50%;transform:translateX(-50%);z-index:30;text-align:center;padding:8px 17px;border-radius:14px;background:#05080ddd;border:1px solid #ffffff16;box-shadow:0 8px 25px #0008;min-width:340px}.stageTop b{display:block;font-size:16px}.stageTop span{display:block;margin-top:3px;color:#a7b3c5;font-size:10px;font-weight:800}
+.joinHint{position:absolute;top:14px;right:14px;z-index:30;padding:8px 11px;border-radius:12px;background:#071019dd;border:1px solid #ffffff15;font-size:10px;font-weight:900;line-height:1.8}.joinHint .g{color:#ff7cbc}.joinHint .b{color:#79d5ff}
+.centerLine{position:absolute;left:50%;top:80px;bottom:28px;width:2px;z-index:3;background:linear-gradient(180deg,transparent,#ffd76a 18%,#ffd76a 80%,transparent);opacity:.72}.centerLine:before{content:"خط المنتصف";position:absolute;left:50%;top:-2px;transform:translate(-50%,-100%);white-space:nowrap;color:#ffd76a;font-size:9px;font-weight:1000}
+.winLine{position:absolute;top:82px;bottom:30px;width:2px;z-index:3;opacity:.48}.winLine.g{left:21%;background:linear-gradient(transparent,#ff4f9f,transparent)}.winLine.b{right:21%;background:linear-gradient(transparent,#36b8ff,transparent)}
+.ropeWrap{position:absolute;left:50%;top:55%;width:75%;height:76px;transform:translate(-50%,-50%);z-index:12;pointer-events:none}.rope{position:absolute;left:0;right:0;top:35px;height:14px;border-radius:999px;background:repeating-linear-gradient(110deg,#6c431b 0 7px,#c7893e 7px 14px,#8a5825 14px 20px);box-shadow:0 5px 10px #000b,inset 0 2px 2px #ffe0a178;transform:translateX(var(--rope-x));transition:transform .06s linear}.rope:before,.rope:after{content:"";position:absolute;top:-4px;width:24px;height:22px;border-radius:50%;background:radial-gradient(circle,#d69c51 0 22%,#573313 24% 45%,#b8752f 47% 63%,#44270f 65%);box-shadow:0 4px 8px #0008}.rope:before{left:-8px}.rope:after{right:-8px}
+.flag{position:absolute;left:50%;top:10px;width:5px;height:50px;background:#ffe17a;border-radius:4px;transform:translateX(calc(-50% + var(--rope-x)));transition:transform .06s linear;box-shadow:0 0 14px #ffd76a}.flag:after{content:"";position:absolute;left:4px;top:2px;width:30px;height:19px;background:linear-gradient(135deg,#ff4f9f,#ffe18a,#36b8ff);clip-path:polygon(0 0,100% 16%,76% 100%,0 84%)}
+.pullers{position:absolute;inset:0;z-index:18;pointer-events:none}.puller{position:absolute;top:55%;width:78px;height:183px;transform:translate(-50%,-50%) translateX(var(--body-x));filter:drop-shadow(0 11px 8px #0009);transition:left .14s ease,filter .2s ease}.puller.girl{--team:#ff4f9f;--dark:#741840;--lean:-12deg;--kick:-7deg}.puller.boy{--team:#36b8ff;--dark:#0c426a;--lean:12deg;--kick:7deg}
+.head{position:absolute;left:50%;top:2px;width:61px;height:61px;border-radius:50%;transform:translateX(-50%);overflow:hidden;z-index:8;border:4px solid var(--team);background:#111722;box-shadow:0 0 0 3px #06080c,0 0 18px color-mix(in srgb,var(--team) 58%,transparent)}.head img{width:100%;height:100%;object-fit:cover}.head .fallback{width:100%;height:100%;display:grid;place-items:center;font-size:30px;background:linear-gradient(145deg,var(--dark),#151b25)}
+/* شخصيات شد حبل محسّنة: صورة المتابع رأس + جسم رياضي واضح لكل فريق، بدون أسماء */
+.puller{width:88px;height:205px;filter:drop-shadow(0 13px 10px #000b);transform-origin:50% 88%}
+.head{top:0;width:64px;height:64px;border-width:4px;box-shadow:0 0 0 3px #06080c,0 0 20px color-mix(in srgb,var(--team) 62%,transparent),0 8px 12px #0008}
+.neck{position:absolute;left:50%;top:57px;width:18px;height:20px;transform:translateX(-50%);border-radius:8px;background:linear-gradient(90deg,#8d5b43,#d7a17d 45%,#f0bf9b 60%,#8d5b43);z-index:4;box-shadow:inset 0 -3px 4px #0004}
+.torso{position:absolute;left:50%;top:69px;transform:translateX(-50%) rotate(var(--lean));transform-origin:50% 86%;z-index:5;border:2px solid #ffffff24;box-shadow:inset 0 -16px 18px #0005,0 5px 8px #0005;overflow:hidden}
+.torso:before{content:"";position:absolute;left:8px;right:8px;top:10px;height:4px;border-radius:8px;background:#ffffff65;box-shadow:0 12px 0 #ffffff22}
+.torso:after{content:"";position:absolute;left:50%;bottom:7px;width:10px;height:10px;transform:translateX(-50%) rotate(45deg);border-right:2px solid #ffffff2b;border-bottom:2px solid #ffffff2b}
+.girl .torso{width:49px;height:69px;border-radius:16px 16px 15px 15px;background:linear-gradient(100deg,#4e102d,#c92d72 30%,#ff5fa7 48%,#ffd3e6 53%,#e43e86 59%,#57142f)}
+.girl .torso .bib{position:absolute;left:7px;right:7px;bottom:8px;height:11px;border-radius:4px;background:#43102688;border:1px solid #ffb3d466}
+.boy .torso{width:57px;height:72px;border-radius:13px 13px 10px 10px;background:linear-gradient(100deg,#072d47,#1478b5 30%,#43bfff 47%,#d9f5ff 52%,#229bd5 58%,#073552)}
+.boy .torso .bib{position:absolute;left:8px;right:8px;bottom:8px;height:11px;border-radius:4px;background:#062d4788;border:1px solid #9be2ff66}
+.waist{position:absolute;left:50%;top:132px;transform:translateX(-50%) rotate(var(--lean));transform-origin:50% 0;z-index:4;height:20px;border-radius:7px 7px 9px 9px;border:1px solid #ffffff18;box-shadow:inset 0 -5px 6px #0005}
+.girl .waist{width:48px;background:linear-gradient(90deg,#29152a,#593052,#2c172d)}
+.boy .waist{width:56px;background:linear-gradient(90deg,#101a27,#26394d,#111d2b)}
+/* ذراعان مقسمان إلى عضد/ساعد/يد ليظهر مسك الحبل بصورة أوضح */
+.upperArm{position:absolute;top:84px;width:39px;height:13px;border-radius:999px;background:linear-gradient(180deg,#efbc98,#ad7052 62%,#84503b);box-shadow:0 3px 5px #0007;z-index:8;transform-origin:6px 50%}
+.forearm{position:absolute;top:1px;width:38px;height:11px;border-radius:999px;background:linear-gradient(180deg,#f2c29e,#a96b4e 68%,#7d4b37);box-shadow:0 2px 4px #0006;transform-origin:4px 50%}
+.hand{position:absolute;right:-7px;top:-2px;width:14px;height:15px;border-radius:48% 48% 55% 55%;background:linear-gradient(135deg,#f2c5a4,#a86a4d);box-shadow:0 2px 4px #0007;border:1px solid #ffffff25}
+.girl .armFront{left:42px;transform:rotate(-7deg)}.girl .armFront .forearm{left:31px;transform:rotate(15deg)}
+.girl .armBack{left:39px;top:96px;transform:rotate(2deg);z-index:6}.girl .armBack .forearm{left:31px;transform:rotate(8deg)}
+.boy .armFront{right:42px;transform:rotate(187deg)}.boy .armFront .forearm{left:31px;transform:rotate(15deg)}
+.boy .armBack{right:39px;top:96px;transform:rotate(178deg);z-index:6}.boy .armBack .forearm{left:31px;transform:rotate(8deg)}
+/* أرجل رياضية ثابتة على الأرض مع ركبة وحذاء */
+.thigh{position:absolute;top:145px;width:18px;height:39px;border-radius:9px;background:linear-gradient(90deg,#0c1018,#333a49 52%,#111722);transform-origin:50% 0;z-index:3;box-shadow:0 4px 6px #0007}
+.girl .thigh{background:linear-gradient(90deg,#171019,#4b2b45 52%,#20131f)}
+.shin{position:absolute;left:1px;top:31px;width:16px;height:37px;border-radius:8px;background:inherit;transform-origin:50% 2px;box-shadow:0 3px 5px #0007}
+.shoe{position:absolute;bottom:-6px;width:31px;height:12px;border-radius:11px 4px 5px 10px;background:linear-gradient(180deg,#1a1d23,#030405);border:1px solid #ffffff1c;box-shadow:0 4px 5px #0008}
+.girl .shoe{box-shadow:inset 0 -2px 0 #ff4f9faa,0 4px 5px #0008}.boy .shoe{box-shadow:inset 0 -2px 0 #36b8ffaa,0 4px 5px #0008}
+.girl .legFront{left:42px;transform:rotate(-16deg)}.girl .legFront .shin{transform:rotate(25deg)}.girl .legFront .shoe{left:-12px}
+.girl .legBack{left:24px;transform:rotate(19deg)}.girl .legBack .shin{transform:rotate(-20deg)}.girl .legBack .shoe{left:-13px}
+.boy .legFront{left:27px;transform:rotate(16deg)}.boy .legFront .shin{transform:rotate(-25deg)}.boy .legFront .shoe{left:-3px;transform:scaleX(-1)}
+.boy .legBack{left:47px;transform:rotate(-19deg)}.boy .legBack .shin{transform:rotate(20deg)}.boy .legBack .shoe{left:-2px;transform:scaleX(-1)}
+.puller:after{content:"";position:absolute;left:8px;right:8px;bottom:-2px;height:10px;border-radius:50%;background:#0008;filter:blur(5px);z-index:0}
+.puller.active{animation:wholePull .30s ease-in-out 3}
+.puller.active .torso{animation:torsoPull .30s ease-in-out 3}
+.puller.active .armFront .forearm,.puller.active .armBack .forearm{animation:forePull .30s ease-in-out 3}
+.puller.active .legFront{animation:braceFront .30s ease-in-out 3}.puller.active .legBack{animation:braceBack .30s ease-in-out 3}
+.puller.gift{filter:drop-shadow(0 0 14px #ffe27a) drop-shadow(0 13px 10px #000b)}
+@keyframes wholePull{50%{transform:translate(-50%,-50%) translateX(var(--body-x)) translateY(2px) scale(1.02)}}
+@keyframes torsoPull{50%{transform:translateX(-50%) rotate(calc(var(--lean) + var(--kick))) translateY(2px)}}
+@keyframes forePull{50%{filter:brightness(1.16);transform:rotate(22deg)}}
+@keyframes braceFront{50%{translate:0 -3px}}@keyframes braceBack{50%{translate:0 2px}}
+.goalHelp{display:block;width:100%;margin-top:5px;padding:5px 7px;border-radius:8px;background:#05070c99;border:1px solid #ffffff10;color:#ffe59a;font-size:9px;font-weight:900;text-align:center}
+.stageTop .goalLine{color:#ffe48f!important;font-weight:1000!important;margin-top:4px!important}
+.stage.flashGirls{animation:flashG .32s ease}.stage.flashBoys{animation:flashB .32s ease}@keyframes flashG{50%{box-shadow:inset 150px 0 180px #ff4f9f26,0 20px 55px #000a}}@keyframes flashB{50%{box-shadow:inset -150px 0 180px #36b8ff24,0 20px 55px #000a}}
+.balance{position:absolute;left:50%;bottom:15px;transform:translateX(-50%);z-index:28;width:min(620px,72%);padding:9px 12px;border-radius:14px;background:#05070cdd;border:1px solid #ffffff17;box-shadow:0 10px 28px #0009}.balanceLabels{display:flex;justify-content:space-between;direction:ltr;font-size:10px;font-weight:900;color:#c9d3e1}.balanceLabels>span{direction:rtl}.balanceLabels .girlsLabel{color:#ff79bd}.balanceLabels .boysLabel{color:#79d5ff}.track{position:relative;height:13px;margin-top:6px;border-radius:999px;background:linear-gradient(90deg,#ff4f9f 0 50%,#36b8ff 50% 100%);box-shadow:inset 0 0 0 3px #05070b}.marker{position:absolute;top:50%;left:50%;width:25px;height:25px;border-radius:50%;transform:translate(-50%,-50%);background:#ffe997;border:4px solid #80611b;box-shadow:0 0 18px #ffd76a;transition:left .08s linear}
+.giftPop{position:absolute;z-index:70;top:25%;left:50%;transform:translateX(-50%);padding:9px 15px;border-radius:15px;background:#090c12ed;border:1px solid #ffd76a66;color:#ffe59e;font-weight:1000;font-size:13px;box-shadow:0 0 32px #ffd76a2d;animation:pop 1.3s ease forwards;pointer-events:none}@keyframes pop{0%{opacity:0;transform:translate(-50%,18px) scale(.7)}15%{opacity:1;transform:translate(-50%,0) scale(1.04)}78%{opacity:1}100%{opacity:0;transform:translate(-50%,-34px) scale(.9)}}
+.bottom{display:grid;grid-template-columns:1.05fr 1.2fr 1.05fr;gap:10px;padding:9px 12px 11px;background:#080c13e8;border-top:1px solid #ffffff12;box-shadow:0 -10px 30px #0008}.ctrl{min-width:0;background:#ffffff05;border:1px solid #ffffff10;border-radius:14px;padding:9px 11px}.ctrl h3{margin:0 0 6px;color:#c7d1df;font-size:11px}.row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.btn{border:1px solid #ffffff19;background:#151c28;color:#fff;border-radius:9px;padding:7px 10px;font-weight:900;cursor:pointer;font-size:11px}.btn:hover{filter:brightness(1.13)}.btn.start{background:linear-gradient(135deg,#6d5318,#d59d30);border-color:#ffe08a66;color:#fff}.btn.reset{background:#34131a;border-color:#ff607855}.btn.girlBtn{background:#50142e;border-color:#ff4f9f55}.btn.boyBtn{background:#0b3554;border-color:#36b8ff55}.setting{display:flex;align-items:center;gap:5px;font-size:9px;color:#aab5c6}.setting input{width:67px;border-radius:8px;border:1px solid #ffffff17;background:#05070c;color:#fff;padding:5px;text-align:center}.state{text-align:center}.state b{display:block;color:#ffe28f;font-size:17px}.state span{display:block;color:#96a3b6;font-size:10px;margin-top:4px}.stats{display:flex;justify-content:center;gap:17px;margin-top:6px}.stats div{font-size:9px;color:#99a7b9}.stats strong{display:block;font-size:14px;color:#fff}.last{margin-top:5px;font-size:9px;color:#8492a7;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.winner{position:fixed;inset:0;z-index:200;display:none;place-items:center;background:#020407e8;backdrop-filter:blur(12px)}.winner.show{display:grid}.winCard{width:min(720px,88vw);padding:30px;text-align:center;border-radius:27px;background:radial-gradient(circle at 50% 0,#ffd76a27,transparent 44%),linear-gradient(180deg,#151b27,#080b12);border:1px solid #ffd76a55;box-shadow:0 35px 90px #000d,0 0 65px #ffd76a1f}.winCard h1{margin:0;color:#ffe493;font-size:38px}.winnerTeam{font-size:28px;font-weight:1000;margin:10px 0}.winnerStats{color:#bdc7d6;font-size:13px}.winFaces{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:16px 0}.winFaces img,.winFaces .fallback{width:62px;height:62px;border-radius:50%;object-fit:cover;background:#111722;border:3px solid #ffd76a;display:grid;place-items:center;font-size:28px}
+@media(max-width:1300px){.main{grid-template-columns:220px 1fr 220px}.puller{transform:translate(-50%,-50%) translateX(var(--body-x)) scale(.88)}.brand h1{font-size:23px}.faces{grid-template-columns:repeat(2,1fr)}}
+
+/* ===== V3 REAL BODY + FOOT MOTION + REALISTIC ROPE GRIP ===== */
+/* الحبل الأساسي يبقى خلف الجذع، والجزء الذي تمسكه اليدان يرسم أمام الجسم */
+.ropeWrap{z-index:12!important}
+.pullers{z-index:18!important}
+.puller{
+  width:98px!important;height:224px!important;
+  transform-origin:50% 90%!important;
+  filter:drop-shadow(0 15px 11px #000c)!important;
+}
+.head{top:0!important;width:65px!important;height:65px!important;z-index:14!important}
+.neck{top:58px!important;width:19px!important;height:21px!important;z-index:6!important}
+
+/* جسم رياضي جديد؛ اختلاف الزي والبنية فقط بين الفريقين */
+.torso{top:70px!important;transform-origin:50% 88%!important;overflow:visible!important;z-index:6!important}
+.girl .torso{
+  width:51px!important;height:68px!important;border-radius:16px 16px 13px 13px!important;
+  background:linear-gradient(100deg,#4b112c,#ba2868 29%,#ff5ba4 47%,#ffd8e9 52%,#dc397f 59%,#4c122c)!important;
+}
+.boy .torso{
+  width:61px!important;height:72px!important;border-radius:14px 14px 10px 10px!important;
+  background:linear-gradient(100deg,#082d48,#126da5 28%,#43bfff 47%,#e6f8ff 52%,#2297cf 59%,#073451)!important;
+}
+.torso:before{top:8px!important;height:5px!important;left:9px!important;right:9px!important;box-shadow:0 14px 0 #ffffff20!important}
+.torso:after{bottom:6px!important}
+.girl .torso:after,.boy .torso:after{content:""!important}
+
+/* كتفان صغيران يمنحان الجسم اتصالاً أفضل بالذراعين */
+.puller .torso .bib:before,.puller .torso .bib:after{
+  content:"";position:absolute;top:-3px;width:14px;height:12px;border-radius:8px;background:inherit;filter:brightness(1.08);z-index:-1
+}
+.puller .torso .bib:before{left:-9px;transform:rotate(16deg)}
+.puller .torso .bib:after{right:-9px;transform:rotate(-16deg)}
+
+.waist{top:133px!important;height:21px!important;z-index:5!important}
+.girl .waist{width:51px!important}.boy .waist{width:59px!important}
+
+/* مقطع حبل أمام الجسم عند منطقة القبضة فقط */
+.gripRope{
+  position:absolute;left:50%;top:108px;width:104px;height:13px;transform:translateX(-50%);
+  border-radius:999px;z-index:9;
+  background:repeating-linear-gradient(108deg,#573416 0 6px,#b97a34 6px 12px,#e0a75d 12px 16px,#75471d 16px 22px);
+  box-shadow:0 3px 6px #000a,inset 0 2px 2px #ffe0a080;
+  pointer-events:none
+}
+.gripRope:after{content:"";position:absolute;inset:2px 2px auto;height:2px;border-radius:8px;background:#ffe0a04a}
+
+/* ذراعان أقرب لوضعية شد الحبل: الكوع للخلف واليدان على الحبل */
+.upperArm{top:84px!important;width:34px!important;height:14px!important;z-index:10!important}
+.forearm{width:35px!important;height:12px!important;z-index:11!important}
+.hand{
+  width:18px!important;height:19px!important;top:-4px!important;z-index:13!important;
+  border-radius:46% 46% 42% 42%!important;
+  box-shadow:0 2px 4px #0008,inset 0 -3px 3px #7c4935!important
+}
+.hand:before{content:"";position:absolute;left:3px;right:3px;top:6px;height:3px;border-radius:6px;background:#6e402f88;box-shadow:0 4px 0 #6e402f66}
+.hand:after{content:"";position:absolute;width:7px;height:10px;border:2px solid #7b4935;border-left:0;border-radius:0 9px 9px 0;top:3px;right:-3px;opacity:.8}
+
+/* البنات على اليسار يتجهن للمركز، الشباب على اليمين يتجهون للمركز */
+.girl .armFront{left:43px!important;top:88px!important;transform:rotate(-4deg)!important}
+.girl .armFront .forearm{left:28px!important;transform:rotate(10deg)!important}
+.girl .armBack{left:40px!important;top:101px!important;transform:rotate(3deg)!important;z-index:8!important}
+.girl .armBack .forearm{left:28px!important;transform:rotate(4deg)!important}
+.girl .armFront .hand,.girl .armBack .hand{right:-8px!important}
+
+.boy .armFront{right:43px!important;top:88px!important;transform:rotate(184deg)!important}
+.boy .armFront .forearm{left:28px!important;transform:rotate(10deg)!important}
+.boy .armBack{right:40px!important;top:101px!important;transform:rotate(177deg)!important;z-index:8!important}
+.boy .armBack .forearm{left:28px!important;transform:rotate(4deg)!important}
+.boy .armFront .hand,.boy .armBack .hand{right:-8px!important}
+
+/* أرجل جديدة: فخذ، ركبة، ساق وحذاء في وضعية تثبيت */
+.thigh{top:148px!important;width:19px!important;height:40px!important;border-radius:10px!important;z-index:4!important}
+.shin{top:32px!important;width:17px!important;height:39px!important;border-radius:9px!important}
+.shoe{bottom:-7px!important;width:34px!important;height:13px!important;border-radius:12px 5px 5px 11px!important}
+.girl .legFront{left:45px!important;transform:rotate(-18deg)!important}.girl .legFront .shin{transform:rotate(29deg)!important}.girl .legFront .shoe{left:-13px!important}
+.girl .legBack{left:24px!important;transform:rotate(22deg)!important}.girl .legBack .shin{transform:rotate(-24deg)!important}.girl .legBack .shoe{left:-14px!important}
+.boy .legFront{left:29px!important;transform:rotate(18deg)!important}.boy .legFront .shin{transform:rotate(-29deg)!important}.boy .legFront .shoe{left:-3px!important;transform:scaleX(-1)!important}
+.boy .legBack{left:52px!important;transform:rotate(-22deg)!important}.boy .legBack .shin{transform:rotate(24deg)!important}.boy .legBack .shoe{left:-2px!important;transform:scaleX(-1)!important}
+
+/* حركة مستمرة للقدمين أثناء الجولة: تثبيت/تقدم قصير، من دون انزلاق الجسم */
+.stage.running .girl .legFront{animation:girlStepFront .78s ease-in-out infinite alternate}
+.stage.running .girl .legBack{animation:girlStepBack .78s ease-in-out infinite alternate-reverse}
+.stage.running .boy .legFront{animation:boyStepFront .78s ease-in-out infinite alternate}
+.stage.running .boy .legBack{animation:boyStepBack .78s ease-in-out infinite alternate-reverse}
+.stage.running .puller .shoe{animation:shoePress .78s ease-in-out infinite alternate}
+.stage.running .puller .torso{animation:bodyTension 1.05s ease-in-out infinite alternate}
+
+@keyframes girlStepFront{0%{transform:rotate(-18deg) translateY(0)}100%{transform:rotate(-23deg) translate(-2px,-3px)}}
+@keyframes girlStepBack{0%{transform:rotate(22deg) translateY(0)}100%{transform:rotate(27deg) translate(2px,2px)}}
+@keyframes boyStepFront{0%{transform:rotate(18deg) translateY(0)}100%{transform:rotate(23deg) translate(2px,-3px)}}
+@keyframes boyStepBack{0%{transform:rotate(-22deg) translateY(0)}100%{transform:rotate(-27deg) translate(-2px,2px)}}
+@keyframes shoePress{0%{filter:brightness(.92)}100%{filter:brightness(1.14);box-shadow:0 5px 7px #000a,0 0 5px color-mix(in srgb,var(--team) 45%,transparent)}}
+@keyframes bodyTension{0%{filter:brightness(.97)}100%{filter:brightness(1.07)}}
+
+/* دفعة التكبيس أقوى من حركة المشي العادية */
+.puller.active{animation:wholePullV3 .28s cubic-bezier(.2,.8,.2,1) 3!important}
+.puller.active .torso{animation:torsoPullV3 .28s cubic-bezier(.2,.8,.2,1) 3!important}
+.puller.active .armFront .forearm,.puller.active .armBack .forearm{animation:forePullV3 .28s ease-in-out 3!important}
+.puller.active .gripRope{animation:ropeGrip .28s ease-in-out 3!important}
+.puller.active .legFront{animation:stompFront .28s ease-in-out 3!important}
+.puller.active .legBack{animation:stompBack .28s ease-in-out 3!important}
+@keyframes wholePullV3{50%{transform:translate(-50%,-50%) translateX(var(--body-x)) translateY(3px) scale(1.025)}}
+@keyframes torsoPullV3{50%{transform:translateX(-50%) rotate(calc(var(--lean) + var(--kick))) translateY(3px)}}
+@keyframes forePullV3{50%{filter:brightness(1.18);transform:rotate(18deg) translateX(2px)}}
+@keyframes ropeGrip{50%{filter:brightness(1.24);box-shadow:0 4px 8px #000b,inset 0 2px 2px #fff1bd,0 0 7px #d59a50aa}}
+@keyframes stompFront{50%{translate:0 -4px}}
+@keyframes stompBack{50%{translate:0 3px}}
+
+/* ظل قدمين أقوى على الأرض */
+.puller:after{left:5px!important;right:5px!important;bottom:-3px!important;height:12px!important;filter:blur(6px)!important;background:#000a!important}
+
+
+/* ===== V4 FULL FRONT ROPE + TRUE LEG RIG ===== */
+/* Full rope must be visibly in front of every body */
+.ropeWrap{z-index:58!important;top:55%!important}
+.pullers{z-index:24!important}
+.rope{height:16px!important;top:34px!important;box-shadow:0 6px 12px #000c,inset 0 3px 3px #ffe6b095,0 0 8px #c58b3a44!important}
+.flag{z-index:3!important}
+
+/* separate overlay fingers above the full rope, so the rope remains in front of bodies but still looks gripped */
+.gripHandsOverlay{position:absolute;inset:0;z-index:72;pointer-events:none}
+.gripPair{position:absolute;top:55%;width:52px;height:42px;transform:translate(-50%,-50%) translateX(var(--body-x));}
+.gripPair .finger{position:absolute;top:4px;width:23px;height:25px;border-radius:45% 45% 50% 50%;background:linear-gradient(135deg,#f3c4a0,#c88967 58%,#8d573f);border:1px solid #ffffff2d;box-shadow:0 3px 5px #0009,inset 0 -4px 4px #85513d;}
+.gripPair .finger:before{content:"";position:absolute;left:4px;right:4px;top:7px;height:3px;border-radius:6px;background:#7546347a;box-shadow:0 5px 0 #75463458}
+.gripPair .finger:after{content:"";position:absolute;left:6px;top:8px;width:11px;height:8px;border:3px solid #70422f;border-top:0;border-radius:0 0 10px 10px;opacity:.82}
+.gripPair .f1{left:3px;transform:rotate(-7deg)}
+.gripPair .f2{right:3px;top:13px;transform:rotate(8deg)}
+.gripPair.girl .finger{box-shadow:0 3px 5px #0009,inset 0 -4px 4px #85513d,0 0 5px #ff4f9f33}
+.gripPair.boy .finger{box-shadow:0 3px 5px #0009,inset 0 -4px 4px #85513d,0 0 5px #36b8ff33}
+.stage.running .gripPair{animation:gripTension .34s ease-in-out infinite alternate}
+@keyframes gripTension{from{translate:0 -1px}to{translate:0 2px}}
+
+/* hide the old local rope section: only the single full rope is used now */
+.gripRope{display:none!important}
+
+/* rebuilt leg rig. Each leg has hip, knee and foot motion as separate joints. */
+.legAssembly{position:absolute;top:146px;width:28px;height:78px;z-index:5;transform-origin:50% 4px;will-change:transform}
+.legAssembly .upperLeg{position:absolute;left:5px;top:0;width:19px;height:39px;border-radius:10px;background:linear-gradient(90deg,#0d1118,#39414f 50%,#111722);box-shadow:0 4px 7px #0008;transform-origin:50% 3px}
+.girl .legAssembly .upperLeg{background:linear-gradient(90deg,#171019,#56304d 50%,#21131f)}
+.legAssembly .lowerLeg{position:absolute;left:1px;top:31px;width:17px;height:39px;border-radius:9px;background:inherit;box-shadow:0 4px 6px #0008;transform-origin:50% 3px}
+.legAssembly .boot{position:absolute;bottom:-7px;width:34px;height:13px;border-radius:12px 5px 5px 11px;background:linear-gradient(180deg,#252a31,#040506);border:1px solid #ffffff22;box-shadow:0 5px 7px #0009}
+.girl .legAssembly .boot{box-shadow:inset 0 -2px 0 #ff4f9fcc,0 5px 7px #0009}
+.boy .legAssembly .boot{box-shadow:inset 0 -2px 0 #36b8ffcc,0 5px 7px #0009}
+.girl .frontRig{left:47px;transform:rotate(-14deg)}
+.girl .backRig{left:18px;transform:rotate(21deg)}
+.boy .frontRig{left:23px;transform:rotate(14deg)}
+.boy .backRig{left:52px;transform:rotate(-21deg)}
+.girl .frontRig .lowerLeg{transform:rotate(27deg)}
+.girl .backRig .lowerLeg{transform:rotate(-23deg)}
+.boy .frontRig .lowerLeg{transform:rotate(-27deg)}
+.boy .backRig .lowerLeg{transform:rotate(23deg)}
+.girl .legAssembly .boot{left:-12px}
+.boy .legAssembly .boot{left:-2px;scale:-1 1}
+
+/* old legs are no longer rendered, but guard against any stale markup */
+.puller>.thigh{display:none!important}
+
+/* Strong, obvious continuous stepping while the round is running */
+.stage.running .girl .frontRig{animation:gFrontHip .58s cubic-bezier(.45,0,.55,1) infinite alternate}
+.stage.running .girl .backRig{animation:gBackHip .58s cubic-bezier(.45,0,.55,1) infinite alternate-reverse}
+.stage.running .boy .frontRig{animation:bFrontHip .58s cubic-bezier(.45,0,.55,1) infinite alternate}
+.stage.running .boy .backRig{animation:bBackHip .58s cubic-bezier(.45,0,.55,1) infinite alternate-reverse}
+.stage.running .frontRig .lowerLeg{animation:kneeFront .58s ease-in-out infinite alternate}
+.stage.running .backRig .lowerLeg{animation:kneeBack .58s ease-in-out infinite alternate-reverse}
+.stage.running .frontRig .boot{animation:footPlantFront .58s ease-in-out infinite alternate}
+.stage.running .backRig .boot{animation:footPlantBack .58s ease-in-out infinite alternate-reverse}
+
+@keyframes gFrontHip{0%{transform:rotate(-13deg) translate(0,0)}100%{transform:rotate(-27deg) translate(-7px,-5px)}}
+@keyframes gBackHip{0%{transform:rotate(20deg) translate(0,0)}100%{transform:rotate(32deg) translate(7px,4px)}}
+@keyframes bFrontHip{0%{transform:rotate(13deg) translate(0,0)}100%{transform:rotate(27deg) translate(7px,-5px)}}
+@keyframes bBackHip{0%{transform:rotate(-20deg) translate(0,0)}100%{transform:rotate(-32deg) translate(-7px,4px)}}
+@keyframes kneeFront{0%{rotate:-4deg}100%{rotate:16deg;translate:0 2px}}
+@keyframes kneeBack{0%{rotate:5deg}100%{rotate:-14deg;translate:0 -1px}}
+@keyframes footPlantFront{0%{translate:0 0;scale:1 1}55%{translate:5px -3px;scale:1 .96}100%{translate:10px 1px;scale:1.04 .92}}
+@keyframes footPlantBack{0%{translate:0 0;scale:1 1}55%{translate:-4px 2px;scale:1.02 .94}100%{translate:-9px 3px;scale:1.05 .90}}
+
+/* Tap / gift produces a real brace step: hips, knees, feet and torso all react */
+.puller.active .frontRig{animation:braceStepFrontV4 .27s cubic-bezier(.2,.8,.2,1) 3!important}
+.puller.active .backRig{animation:braceStepBackV4 .27s cubic-bezier(.2,.8,.2,1) 3!important}
+.puller.active .frontRig .lowerLeg{animation:braceKneeFrontV4 .27s ease-in-out 3!important}
+.puller.active .backRig .lowerLeg{animation:braceKneeBackV4 .27s ease-in-out 3!important}
+.puller.active .frontRig .boot{animation:braceFootFrontV4 .27s ease-in-out 3!important}
+.puller.active .backRig .boot{animation:braceFootBackV4 .27s ease-in-out 3!important}
+@keyframes braceStepFrontV4{50%{translate:var(--brace-front,8px) -8px;rotate:var(--brace-rot,9deg)}}
+@keyframes braceStepBackV4{50%{translate:var(--brace-back,-8px) 6px;rotate:var(--brace-rot-back,-7deg)}}
+@keyframes braceKneeFrontV4{50%{rotate:24deg;translate:0 4px}}
+@keyframes braceKneeBackV4{50%{rotate:-18deg;translate:0 3px}}
+@keyframes braceFootFrontV4{50%{translate:12px 1px;scale:1.08 .87}}
+@keyframes braceFootBackV4{50%{translate:-10px 4px;scale:1.10 .85}}
+.girl{--brace-front:-8px;--brace-back:8px;--brace-rot:-8deg;--brace-rot-back:8deg}
+.boy{--brace-front:8px;--brace-back:-8px;--brace-rot:8deg;--brace-rot-back:-8deg}
+
+/* body is slightly taller and more human-proportioned */
+.puller{width:102px!important;height:230px!important}
+.girl .torso{width:52px!important;height:72px!important}
+.boy .torso{width:62px!important;height:76px!important}
+.waist{top:137px!important}
+.head{top:-1px!important}
+.neck{top:58px!important}
+
+/* arms remain under rope; external finger overlay is above rope for a convincing grip */
+.upperArm,.forearm{z-index:16!important}
+.hand{z-index:17!important}
+
+/* visible floor contact shadows that move with the feet */
+.legAssembly .boot:after{content:"";position:absolute;left:3px;right:3px;bottom:-5px;height:6px;border-radius:50%;background:#0009;filter:blur(3px)}
+
+
+
+/* ===== V5 ULTRA FRONT ROPE + FULL WALK CYCLE ===== */
+/* نجعل الحبل في طبقة أمامية واضحة جدًا فوق جميع الأجسام */
+.ropeWrap{z-index:120!important;top:56%!important;width:78%!important;height:84px!important;filter:drop-shadow(0 10px 18px #000c)}
+.rope{top:37px!important;height:18px!important;background:repeating-linear-gradient(110deg,#5e3715 0 8px,#d59b46 8px 16px,#8f5f28 16px 24px)!important;box-shadow:0 8px 16px #000d,inset 0 3px 3px #ffe8bd,0 0 14px #d59b4688!important}
+.flag{z-index:2!important}
+.pullers{z-index:70!important}
+.gripHandsOverlay{z-index:140!important}
+/* الأيدي الأصلية تبقى تحت الحبل قليلا، والأصابع المرسومة فوقه تجعل القبضة واضحة */
+.upperArm,.forearm,.hand{z-index:90!important}
+.gripPair{top:56%!important;width:64px!important;height:48px!important;filter:drop-shadow(0 3px 5px #0008)}
+.gripPair .f1{left:6px!important;top:3px!important;transform:rotate(-14deg)!important}
+.gripPair .f2{right:4px!important;top:18px!important;transform:rotate(14deg)!important}
+.gripPair .finger{width:26px!important;height:28px!important;border-radius:46% 46% 54% 54%!important;background:linear-gradient(135deg,#f8cfaf,#d69b74 55%,#8e5c43)!important;box-shadow:0 4px 7px #000a,inset 0 -5px 5px #8e5c43!important}
+.gripPair .finger:after{left:7px!important;top:10px!important;width:12px!important;height:9px!important;border-width:3px!important}
+/* جسم أعرض وأوضح وحركة شد ملحوظة */
+.puller{width:108px!important;height:236px!important;transition:left .12s ease!important}
+.stage.running .puller{animation:bodyRockV5 .52s ease-in-out infinite alternate}
+.stage.running .girl{animation-direction:alternate}
+.stage.running .boy{animation-direction:alternate-reverse}
+@keyframes bodyRockV5{0%{transform:translate(-50%,-50%) translateX(var(--body-x)) rotate(0deg)}50%{transform:translate(-50%,-50%) translateX(calc(var(--body-x) + var(--body-sway,0px))) rotate(var(--body-tilt,0deg)) translateY(2px)}100%{transform:translate(-50%,-50%) translateX(var(--body-x)) rotate(0deg)}}
+.girl{--body-sway:-2px;--body-tilt:-1.6deg}
+.boy{--body-sway:2px;--body-tilt:1.6deg}
+.girl .torso{width:56px!important;height:76px!important;border-radius:18px 18px 15px 15px!important}
+.boy .torso{width:66px!important;height:80px!important;border-radius:16px 16px 12px 12px!important}
+.waist{top:141px!important}
+/* دورة مشي فعلية للأرجل: فخذ + ركبة + قدم */
+.legAssembly{top:150px!important;width:32px!important;height:84px!important}
+.legAssembly .upperLeg{left:6px!important;width:20px!important;height:41px!important}
+.legAssembly .lowerLeg{left:1px!important;top:33px!important;width:18px!important;height:41px!important}
+.legAssembly .boot{width:38px!important;height:14px!important;bottom:-7px!important}
+.girl .frontRig{left:49px!important}.girl .backRig{left:18px!important}
+.boy .frontRig{left:24px!important}.boy .backRig{left:56px!important}
+/* وضعية أساسية أوضح */
+.girl .frontRig{transform:rotate(-18deg)!important}.girl .backRig{transform:rotate(24deg)!important}
+.boy .frontRig{transform:rotate(18deg)!important}.boy .backRig{transform:rotate(-24deg)!important}
+.girl .frontRig .lowerLeg{transform:rotate(32deg)!important}.girl .backRig .lowerLeg{transform:rotate(-28deg)!important}
+.boy .frontRig .lowerLeg{transform:rotate(-32deg)!important}.boy .backRig .lowerLeg{transform:rotate(28deg)!important}
+/* الحركة المستمرة */
+.stage.running .girl .frontRig{animation:girlHipFrontV5 .44s linear infinite alternate!important}
+.stage.running .girl .backRig{animation:girlHipBackV5 .44s linear infinite alternate-reverse!important}
+.stage.running .boy .frontRig{animation:boyHipFrontV5 .44s linear infinite alternate!important}
+.stage.running .boy .backRig{animation:boyHipBackV5 .44s linear infinite alternate-reverse!important}
+.stage.running .girl .frontRig .lowerLeg{animation:girlKneeFrontV5 .44s linear infinite alternate!important}
+.stage.running .girl .backRig .lowerLeg{animation:girlKneeBackV5 .44s linear infinite alternate-reverse!important}
+.stage.running .boy .frontRig .lowerLeg{animation:boyKneeFrontV5 .44s linear infinite alternate!important}
+.stage.running .boy .backRig .lowerLeg{animation:boyKneeBackV5 .44s linear infinite alternate-reverse!important}
+.stage.running .frontRig .boot{animation:footDriveFrontV5 .44s linear infinite alternate!important}
+.stage.running .backRig .boot{animation:footDriveBackV5 .44s linear infinite alternate-reverse!important}
+@keyframes girlHipFrontV5{0%{transform:rotate(-12deg) translate(-2px,0)}100%{transform:rotate(-34deg) translate(-10px,-7px)}}
+@keyframes girlHipBackV5{0%{transform:rotate(17deg) translate(0,0)}100%{transform:rotate(34deg) translate(9px,6px)}}
+@keyframes boyHipFrontV5{0%{transform:rotate(12deg) translate(2px,0)}100%{transform:rotate(34deg) translate(10px,-7px)}}
+@keyframes boyHipBackV5{0%{transform:rotate(-17deg) translate(0,0)}100%{transform:rotate(-34deg) translate(-9px,6px)}}
+@keyframes girlKneeFrontV5{0%{transform:rotate(18deg)}100%{transform:rotate(42deg) translate(0,5px)}}
+@keyframes girlKneeBackV5{0%{transform:rotate(-12deg)}100%{transform:rotate(-32deg) translate(0,3px)}}
+@keyframes boyKneeFrontV5{0%{transform:rotate(-18deg)}100%{transform:rotate(-42deg) translate(0,5px)}}
+@keyframes boyKneeBackV5{0%{transform:rotate(12deg)}100%{transform:rotate(32deg) translate(0,3px)}}
+@keyframes footDriveFrontV5{0%{transform:translate(0,0) scale(1,1)}45%{transform:translate(6px,-2px) scale(1.03,.97)}100%{transform:translate(14px,2px) scale(1.08,.90)}}
+@keyframes footDriveBackV5{0%{transform:translate(0,0) scale(1,1)}45%{transform:translate(-6px,2px) scale(1.03,.96)}100%{transform:translate(-14px,4px) scale(1.10,.88)}}
+/* دفعة أقوى عند التكبيس أو الهدية */
+.puller.active{animation:bodyBurstV5 .22s cubic-bezier(.2,.8,.2,1) 4!important}
+.puller.active .torso{animation:torsoBurstV5 .22s cubic-bezier(.2,.8,.2,1) 4!important}
+.puller.active .frontRig{animation:hipPunchFrontV5 .22s ease-in-out 4!important}
+.puller.active .backRig{animation:hipPunchBackV5 .22s ease-in-out 4!important}
+.puller.active .frontRig .lowerLeg{animation:kneePunchFrontV5 .22s ease-in-out 4!important}
+.puller.active .backRig .lowerLeg{animation:kneePunchBackV5 .22s ease-in-out 4!important}
+.puller.active .frontRig .boot{animation:footPunchFrontV5 .22s ease-in-out 4!important}
+.puller.active .backRig .boot{animation:footPunchBackV5 .22s ease-in-out 4!important}
+.puller.active .gripPair,.puller.active + .gripPair{animation:none!important}
+@keyframes bodyBurstV5{50%{transform:translate(-50%,-50%) translateX(calc(var(--body-x) + var(--burst-shift))) translateY(4px) scale(1.03)}}
+@keyframes torsoBurstV5{50%{transform:translateX(-50%) rotate(calc(var(--lean) + var(--burst-lean))) translateY(4px)}}
+@keyframes hipPunchFrontV5{50%{transform:translate(var(--hip-front-x),-9px) rotate(var(--hip-front-rot))}}
+@keyframes hipPunchBackV5{50%{transform:translate(var(--hip-back-x),7px) rotate(var(--hip-back-rot))}}
+@keyframes kneePunchFrontV5{50%{transform:rotate(var(--knee-front-rot)) translateY(4px)}}
+@keyframes kneePunchBackV5{50%{transform:rotate(var(--knee-back-rot)) translateY(3px)}}
+@keyframes footPunchFrontV5{50%{transform:translate(var(--foot-front-x),2px) scale(1.10,.86)}}
+@keyframes footPunchBackV5{50%{transform:translate(var(--foot-back-x),4px) scale(1.12,.84)}}
+.girl{--burst-shift:-10px;--burst-lean:-10deg;--hip-front-x:-10px;--hip-front-rot:-14deg;--hip-back-x:10px;--hip-back-rot:16deg;--knee-front-rot:44deg;--knee-back-rot:-34deg;--foot-front-x:15px;--foot-back-x:-12px}
+.boy{--burst-shift:10px;--burst-lean:10deg;--hip-front-x:10px;--hip-front-rot:14deg;--hip-back-x:-10px;--hip-back-rot:-16deg;--knee-front-rot:-44deg;--knee-back-rot:34deg;--foot-front-x:15px;--foot-back-x:-12px}
+
+
+
+/* ===== V6 TRUE JOINT MOTION / ABSOLUTE FRONT ROPE ===== */
+/* rope is ALWAYS in front of every avatar/body layer */
+.ropeWrap{z-index:5000!important;top:55%!important;width:82%!important;pointer-events:none!important;isolation:isolate}
+.rope{z-index:5001!important;height:20px!important;top:36px!important;border:2px solid #e0ad6650!important;background:repeating-linear-gradient(112deg,#4c2a0e 0 7px,#a86d2e 7px 13px,#e0aa58 13px 19px,#6a3d16 19px 26px)!important;box-shadow:0 9px 16px #000e,inset 0 3px 4px #ffe8bdc0,0 0 10px #d998454d!important;will-change:transform}
+.pullers{z-index:120!important}
+.gripHandsOverlay{z-index:6000!important}
+.head,.neck,.torso,.waist,.upperArm,.forearm,.hand,.legAssembly{z-index:auto!important}
+/* bigger grip fingers wrapping OVER the foreground rope */
+.gripPair{top:55%!important;z-index:6001!important;width:70px!important;height:54px!important}
+.gripPair .finger{width:28px!important;height:31px!important;border-radius:48% 48% 58% 58%!important}
+.gripPair .f1{top:1px!important}.gripPair .f2{top:19px!important}
+
+/* visibly reworked human body */
+.puller{width:116px!important;height:246px!important;transform-origin:50% 86%!important;will-change:margin-left,filter}
+.puller .torso{top:66px!important;box-shadow:inset 0 4px 10px #ffffff18,inset 0 -10px 14px #0005,0 7px 12px #0007!important}
+.girl .torso{width:58px!important;height:80px!important;border-radius:20px 20px 16px 16px!important}
+.boy .torso{width:70px!important;height:84px!important;border-radius:18px 18px 13px 13px!important}
+.puller .torso:before{content:"";position:absolute;left:50%;top:5px;translate:-50% 0;width:76%;height:12px;border-radius:50%;border-top:3px solid #ffffff24;opacity:.8}
+.puller .torso:after{content:"";position:absolute;left:50%;bottom:-10px;translate:-50% 0;width:72%;height:18px;border-radius:7px 7px 12px 12px;background:linear-gradient(180deg,#161b24,#080b10);box-shadow:0 4px 7px #0008}
+.girl .torso:after{border-bottom:3px solid #ff4f9f}.boy .torso:after{border-bottom:3px solid #36b8ff}
+
+/* joint rig is animated from JS frame-by-frame; disable old continuous leg keyframes */
+.stage.running .girl .frontRig,.stage.running .girl .backRig,.stage.running .boy .frontRig,.stage.running .boy .backRig,
+.stage.running .frontRig .lowerLeg,.stage.running .backRig .lowerLeg,.stage.running .frontRig .boot,.stage.running .backRig .boot{animation:none!important}
+.legAssembly{top:154px!important;height:91px!important;will-change:transform}
+.legAssembly .upperLeg{height:43px!important;will-change:transform}
+.legAssembly .lowerLeg{top:35px!important;height:43px!important;will-change:transform}
+.legAssembly .boot{bottom:-10px!important;width:41px!important;height:15px!important;will-change:transform}
+/* floor dust/contact marks make each planted step easy to see */
+.stage.running .legAssembly .boot:before{content:"";position:absolute;left:8px;bottom:-7px;width:24px;height:5px;border-radius:50%;background:#d5a3623c;filter:blur(2px);animation:dustPulseV6 .32s ease-in-out infinite alternate}
+@keyframes dustPulseV6{from{opacity:.18;scale:.72 1}to{opacity:.75;scale:1.28 1}}
+
+/* Rope strain / close battle */
+.stage.ropeStrain .rope{filter:brightness(1.2) saturate(1.2);box-shadow:0 10px 18px #000e,inset 0 3px 4px #ffe8bd,0 0 20px #ffd46f85!important}
+.stage.ropeStrain:after{box-shadow:inset 0 18px 30px #0005, inset 0 0 60px #ffd4670c!important}
+
+
+
+/* ===== V7 STABLE FEET + PRO PULL DETAILS ===== */
+/* Feet and leg joints are deliberately locked. Pulling motion happens above the waist. */
+.stage.running .puller,.puller.active{animation:none!important}
+.stage.running .frontRig,.stage.running .backRig,
+.stage.running .frontRig .upperLeg,.stage.running .backRig .upperLeg,
+.stage.running .frontRig .lowerLeg,.stage.running .backRig .lowerLeg,
+.stage.running .frontRig .boot,.stage.running .backRig .boot,
+.puller.active .frontRig,.puller.active .backRig,
+.puller.active .frontRig .upperLeg,.puller.active .backRig .upperLeg,
+.puller.active .frontRig .lowerLeg,.puller.active .backRig .lowerLeg,
+.puller.active .frontRig .boot,.puller.active .backRig .boot{animation:none!important}
+
+/* fixed braced stance */
+.legAssembly{top:154px!important;height:91px!important;will-change:auto!important}
+.legAssembly .upperLeg{height:43px!important;will-change:auto!important}
+.legAssembly .lowerLeg{top:35px!important;height:43px!important;will-change:auto!important}
+.legAssembly .boot{bottom:-10px!important;width:42px!important;height:15px!important;will-change:auto!important}
+.girl .frontRig{left:49px!important;transform:rotate(-18deg)!important}
+.girl .backRig{left:22px!important;transform:rotate(24deg)!important}
+.girl .frontRig .lowerLeg{transform:rotate(28deg)!important}
+.girl .backRig .lowerLeg{transform:rotate(-23deg)!important}
+.girl .frontRig .boot,.girl .backRig .boot{left:-12px!important;transform:none!important}
+.boy .frontRig{left:27px!important;transform:rotate(18deg)!important}
+.boy .backRig{left:54px!important;transform:rotate(-24deg)!important}
+.boy .frontRig .lowerLeg{transform:rotate(-28deg)!important}
+.boy .backRig .lowerLeg{transform:rotate(23deg)!important}
+.boy .frontRig .boot,.boy .backRig .boot{left:-3px!important;transform:scaleX(-1)!important}
+.stage.running .legAssembly .boot:before{animation:none!important;opacity:.34!important;scale:1 1!important}
+
+/* heavier, planted floor contact */
+.legAssembly .boot:after{content:""!important;position:absolute!important;left:1px!important;right:1px!important;bottom:-7px!important;height:7px!important;border-radius:50%!important;background:#000c!important;filter:blur(4px)!important}
+.puller:after{left:10px!important;right:10px!important;bottom:-6px!important;height:12px!important;background:#000a!important;filter:blur(7px)!important}
+
+/* refined body: clearer shoulders, jersey seams and team identity */
+.puller{width:116px!important;height:246px!important;filter:drop-shadow(0 15px 12px #000c)!important}
+.head{width:66px!important;height:66px!important;border-width:4px!important;box-shadow:0 0 0 3px #05070a,0 0 22px color-mix(in srgb,var(--team) 62%,transparent),0 10px 16px #0009!important}
+.neck{top:59px!important;width:20px!important;height:22px!important}
+.girl .torso{width:58px!important;height:80px!important;border-radius:19px 19px 15px 15px!important;background:linear-gradient(100deg,#361020,#9f255d 26%,#f04a91 48%,#ffd6e8 53%,#cc3276 62%,#3c1224)!important}
+.boy .torso{width:70px!important;height:84px!important;border-radius:17px 17px 12px 12px!important;background:linear-gradient(100deg,#072638,#0d628f 26%,#2aaee9 48%,#e4f8ff 53%,#168bc4 62%,#072d43)!important}
+.torso{top:66px!important;overflow:visible!important;box-shadow:inset 0 5px 11px #ffffff1f,inset 0 -13px 18px #0007,0 8px 13px #0008!important}
+.torso:before{content:""!important;position:absolute!important;left:50%!important;top:7px!important;translate:-50% 0!important;width:78%!important;height:14px!important;border-radius:50%!important;border-top:3px solid #ffffff32!important;background:none!important;box-shadow:none!important}
+.torso:after{content:""!important;position:absolute!important;left:50%!important;bottom:8px!important;translate:-50% 0!important;width:60%!important;height:1px!important;background:linear-gradient(90deg,transparent,#ffffff32,transparent)!important;border:0!important;transform:none!important}
+.girl .torso .bib{background:linear-gradient(90deg,#5f1537,#a62460,#5f1537)!important;border-color:#ff9cca6b!important}
+.boy .torso .bib{background:linear-gradient(90deg,#073754,#0c6d9e,#073754)!important;border-color:#8ddcff66!important}
+.waist{top:143px!important;height:22px!important;box-shadow:inset 0 -6px 8px #0007,0 3px 5px #0006!important}
+
+/* shoulder sleeves / wrist bands */
+.upperArm{height:15px!important;box-shadow:0 3px 6px #0008,inset 0 2px 2px #ffe0ca66!important}
+.upperArm:before{content:"";position:absolute;left:0;top:-2px;width:12px;height:19px;border-radius:8px;background:var(--team);opacity:.72;box-shadow:0 0 6px color-mix(in srgb,var(--team) 46%,transparent)}
+.forearm{height:13px!important;box-shadow:0 3px 5px #0007,inset 0 2px 2px #ffe0ca55!important}
+.forearm:after{content:"";position:absolute;right:1px;top:-2px;width:9px;height:17px;border-radius:4px;background:var(--team);opacity:.72}
+
+/* stable upper-body tension during the round: feet do not move */
+.stage.running .puller .torso{animation:upperTensionV7 .74s ease-in-out infinite alternate!important}
+.stage.running .puller .armFront{animation:armTensionFrontV7 .74s ease-in-out infinite alternate!important}
+.stage.running .puller .armBack{animation:armTensionBackV7 .74s ease-in-out infinite alternate-reverse!important}
+.stage.running .puller .forearm{animation:forearmTensionV7 .74s ease-in-out infinite alternate!important}
+@keyframes upperTensionV7{0%{filter:brightness(.98);scale:1 1}100%{filter:brightness(1.08);scale:1.015 .99}}
+@keyframes armTensionFrontV7{0%{filter:brightness(.97)}100%{filter:brightness(1.1)}}
+@keyframes armTensionBackV7{0%{filter:brightness(.96)}100%{filter:brightness(1.07)}}
+@keyframes forearmTensionV7{0%{filter:brightness(.98)}100%{filter:brightness(1.12);translate:1px 0}}
+
+/* tap/gift reaction: torso and arms only */
+.puller.active .torso{animation:torsoBurstV7 .20s cubic-bezier(.2,.8,.2,1) 4!important}
+.puller.active .armFront,.puller.active .armBack{animation:armBurstV7 .20s ease-in-out 4!important}
+.puller.active .forearm{animation:forearmBurstV7 .20s ease-in-out 4!important}
+@keyframes torsoBurstV7{50%{filter:brightness(1.22) contrast(1.05);scale:1.035 .975}}
+@keyframes armBurstV7{50%{filter:brightness(1.22);translate:2px 0}}
+@keyframes forearmBurstV7{50%{filter:brightness(1.3);translate:4px 0}}
+.puller.gift .torso,.puller.gift .upperArm,.puller.gift .forearm{filter:brightness(1.16) saturate(1.12)!important}
+
+/* rope stays completely in front, with denser fibers and stronger depth */
+.ropeWrap{z-index:5000!important;top:55%!important;width:82%!important;filter:drop-shadow(0 12px 18px #000d)!important}
+.rope{z-index:5001!important;height:20px!important;top:36px!important;border:2px solid #e1b26e55!important;background:repeating-linear-gradient(112deg,#42250d 0 5px,#724318 5px 10px,#b87931 10px 15px,#e0aa59 15px 18px,#81501f 18px 24px)!important;box-shadow:0 9px 16px #000e,inset 0 3px 4px #fff0c6b8,inset 0 -4px 5px #3a1d09aa,0 0 11px #d998454f!important}
+.ropeWrap:before{content:"";position:absolute;left:3%;right:3%;top:38px;height:4px;border-radius:999px;background:linear-gradient(90deg,transparent,#ffe8b06b 12%,#fff2c27a 50%,#ffe8b06b 88%,transparent);z-index:5002;opacity:.55;transform:translateX(var(--rope-x));pointer-events:none}
+.stage.ropeStrain .rope{filter:brightness(1.18) saturate(1.18)!important;box-shadow:0 11px 19px #000e,inset 0 3px 4px #fff0c6d0,inset 0 -4px 5px #351905bb,0 0 23px #ffd46f78!important}
+
+/* more convincing full-rope grip: fingers wrap above the rope, no bobbing */
+.gripHandsOverlay{z-index:6000!important}
+.gripPair{z-index:6001!important;top:55%!important;width:72px!important;height:54px!important;animation:none!important;filter:drop-shadow(0 4px 6px #000a)!important}
+.gripPair .finger{width:29px!important;height:32px!important;background:linear-gradient(135deg,#f6cfad,#d29872 55%,#8a553e)!important;box-shadow:0 4px 6px #000a,inset 0 -6px 6px #80503c,inset 0 2px 2px #ffe3c688!important}
+.gripPair .finger:before{top:7px!important;height:3px!important;background:#70412f84!important;box-shadow:0 5px 0 #70412f62,0 10px 0 #70412f42!important}
+.gripPair .finger:after{left:7px!important;top:10px!important;width:12px!important;height:9px!important;border-width:3px!important;border-color:#6f402f!important}
+.gripPair .f1{top:0!important;transform:rotate(-12deg)!important}.gripPair .f2{top:20px!important;transform:rotate(12deg)!important}
+.stage.running .gripPair{animation:gripSqueezeV7 .54s ease-in-out infinite alternate!important}
+@keyframes gripSqueezeV7{from{filter:drop-shadow(0 4px 6px #000a) brightness(.98)}to{filter:drop-shadow(0 4px 7px #000a) brightness(1.10)}}
+
+/* subtle pressure glow on the team that just pulled */
+.stage.flashGirls .girl .head{box-shadow:0 0 0 3px #05070a,0 0 31px #ff4f9f99,0 10px 16px #0009!important}
+.stage.flashBoys .boy .head{box-shadow:0 0 0 3px #05070a,0 0 31px #36b8ff99,0 10px 16px #0009!important}
+
+</style>
+
+<style id="winner-clean-fix-v8">
+.winner{z-index:20000!important;}
+body.winner-active .ropeWrap,
+body.winner-active .gripHandsOverlay,
+body.winner-active .giftPop,
+body.winner-active .pullers,
+body.winner-active .centerLine,
+body.winner-active .winLine,
+body.winner-active .stageTop,
+body.winner-active .joinHint{display:none!important;visibility:hidden!important;opacity:0!important;}
+body.winner-active .winner{display:grid!important;}
+body.winner-active .winCard{position:relative;z-index:20001!important;}
+</style>
+
+<style id="body-spacing-v10">
+/* V10 — cleaner athletic bodies, wider spacing, no extra fist/grip overlay */
+.gripHandsOverlay,.gripPair{display:none!important;visibility:hidden!important;opacity:0!important}
+
+/* Give every player a slimmer silhouette so the team line stays readable */
+.puller{
+  width:94px!important;
+  height:232px!important;
+  filter:drop-shadow(0 14px 12px #000c)!important;
+}
+.head{
+  width:60px!important;
+  height:60px!important;
+  top:2px!important;
+  border-width:3px!important;
+}
+.neck{
+  top:56px!important;
+  width:18px!important;
+  height:20px!important;
+}
+
+/* More natural sports-shirt proportions */
+.torso{
+  top:67px!important;
+  border-width:1px!important;
+  box-shadow:inset 0 4px 9px #ffffff18,inset 0 -13px 17px #0007,0 7px 11px #0008!important;
+}
+.girl .torso{
+  width:50px!important;
+  height:76px!important;
+  border-radius:17px 17px 14px 14px!important;
+  background:
+    linear-gradient(90deg,transparent 0 10%,#ffffff12 11% 13%,transparent 14% 86%,#ffffff10 87% 89%,transparent 90%),
+    linear-gradient(100deg,#351020,#8f2053 24%,#ec478e 46%,#ffc7df 52%,#ca3073 62%,#3c1225)!important;
+}
+.boy .torso{
+  width:59px!important;
+  height:79px!important;
+  border-radius:16px 16px 12px 12px!important;
+  background:
+    linear-gradient(90deg,transparent 0 10%,#ffffff12 11% 13%,transparent 14% 86%,#ffffff10 87% 89%,transparent 90%),
+    linear-gradient(100deg,#062538,#0c587f 24%,#25a9e5 46%,#d9f4ff 52%,#147fb3 62%,#082b40)!important;
+}
+.torso:before{
+  top:8px!important;
+  width:66%!important;
+  height:11px!important;
+  border-top:2px solid #ffffff3c!important;
+}
+.torso:after{
+  bottom:10px!important;
+  width:54%!important;
+  height:1px!important;
+  background:linear-gradient(90deg,transparent,#ffffff28,transparent)!important;
+}
+
+/* Cleaner waist / shorts transition */
+.waist{
+  top:139px!important;
+  height:21px!important;
+  border-radius:7px 7px 10px 10px!important;
+}
+.girl .waist{width:48px!important}
+.boy .waist{width:56px!important}
+
+/* Arms stay compact so they do not collide with neighboring players */
+.upperArm{
+  top:85px!important;
+  width:34px!important;
+  height:13px!important;
+}
+.forearm{
+  width:33px!important;
+  height:12px!important;
+}
+.hand{
+  width:12px!important;
+  height:14px!important;
+  right:-5px!important;
+  top:-1px!important;
+}
+.girl .armFront{left:38px!important}
+.girl .armBack{left:36px!important;top:96px!important}
+.boy .armFront{right:38px!important}
+.boy .armBack{right:36px!important;top:96px!important}
+
+/* Stable planted legs, slightly narrower stance but stronger visual anatomy */
+.legAssembly{top:151px!important}
+.legAssembly .upperLeg{
+  width:18px!important;
+  height:40px!important;
+  border-radius:9px!important;
+}
+.legAssembly .lowerLeg{
+  width:16px!important;
+  height:39px!important;
+  top:32px!important;
+}
+.legAssembly .boot{
+  width:36px!important;
+  height:14px!important;
+  bottom:-8px!important;
+}
+.girl .frontRig{left:43px!important;transform:rotate(-16deg)!important}
+.girl .backRig{left:20px!important;transform:rotate(22deg)!important}
+.boy .frontRig{left:26px!important;transform:rotate(16deg)!important}
+.boy .backRig{left:49px!important;transform:rotate(-22deg)!important}
+
+/* Team jersey accents */
+.girl .torso .bib{
+  left:8px!important;right:8px!important;bottom:9px!important;height:10px!important;
+  background:linear-gradient(90deg,#5a1535,#a72862,#5a1535)!important;
+}
+.boy .torso .bib{
+  left:9px!important;right:9px!important;bottom:9px!important;height:10px!important;
+  background:linear-gradient(90deg,#06344f,#0b6794,#06344f)!important;
+}
+.upperArm:before{width:10px!important;height:17px!important}
+
+/* Keep feet fully fixed */
+.stage.running .frontRig,.stage.running .backRig,
+.stage.running .frontRig .upperLeg,.stage.running .backRig .upperLeg,
+.stage.running .frontRig .lowerLeg,.stage.running .backRig .lowerLeg,
+.stage.running .frontRig .boot,.stage.running .backRig .boot,
+.puller.active .frontRig,.puller.active .backRig,
+.puller.active .frontRig .upperLeg,.puller.active .backRig .upperLeg,
+.puller.active .frontRig .lowerLeg,.puller.active .backRig .lowerLeg,
+.puller.active .frontRig .boot,.puller.active .backRig .boot{
+  animation:none!important;
+}
+
+/* Keep upper body pull reaction only */
+.puller.active .torso{animation:torsoBurstV7 .20s cubic-bezier(.2,.8,.2,1) 4!important}
+.puller.active .armFront,.puller.active .armBack{animation:armBurstV7 .20s ease-in-out 4!important}
+.puller.active .forearm{animation:forearmBurstV7 .20s ease-in-out 4!important}
+
+/* More breathing room on smaller screens */
+@media(max-width:1300px){
+ .puller{transform:translate(-50%,-50%) translateX(var(--body-x)) scale(.82)!important}
+}
+
+
+/* V11 — align each side panel with its actual team on the stage */
+.main{direction:ltr!important}
+.teamPanel,.stage{direction:rtl}
+
+/* V11 — player cards with admin kick control */
+.faceCard{min-height:92px!important;aspect-ratio:auto!important;padding:6px 4px 29px!important;overflow:visible!important}
+.faceCard .kickBtn{
+ position:absolute;left:6px;right:6px;bottom:5px;height:22px;border-radius:8px;
+ border:1px solid #ff667a66;background:linear-gradient(180deg,#4a1820,#2b0d12);
+ color:#ffb9c1;font-size:9px;font-weight:1000;cursor:pointer;z-index:6
+}
+.faceCard .kickBtn:hover{filter:brightness(1.18)}
+.faceCard .mini{bottom:30px!important;left:5px!important;right:auto!important}
+
+/* V11 — rope sandwich: back arm/body BEHIND rope, one real front arm IN FRONT */
+.pullers .puller>.armFront{display:none!important}
+.frontArmsOverlay{position:absolute;inset:0;z-index:6000;pointer-events:none}
+.frontArmsOverlay .frontArmReplica{filter:none!important;transition:left .14s ease!important}
+.frontArmsOverlay .frontArmReplica:after{display:none!important}
+.frontArmsOverlay .frontArmReplica .armFront{display:block!important;z-index:6001!important}
+.frontArmsOverlay .frontArmReplica .forearm{z-index:6002!important}
+.frontArmsOverlay .frontArmReplica .hand{z-index:6003!important}
+.frontArmsOverlay .frontArmReplica.girl{--team:#ff4f9f;--dark:#741840;--lean:-12deg;--kick:-7deg}
+.frontArmsOverlay .frontArmReplica.boy{--team:#36b8ff;--dark:#0c426a;--lean:12deg;--kick:7deg}
+body.winner-active .frontArmsOverlay{display:none!important}
+@media(max-width:1300px){
+ .frontArmsOverlay .frontArmReplica{transform:translate(-50%,-50%) translateX(var(--body-x)) scale(.82)!important}
+}
+
+</style>
+
+
+<style id="real-human-body-v12">
+/* V12 — semi-realistic human athletic silhouette. Feet remain fixed. */
+.puller{width:104px!important;height:238px!important;filter:drop-shadow(0 15px 13px #000c)!important}
+.head{width:58px!important;height:58px!important;top:0!important;border:3px solid #f3f6fbcc!important;box-shadow:0 0 0 3px #05070a,0 0 20px color-mix(in srgb,var(--team) 58%,transparent),0 9px 16px #000b!important}
+.neck{top:53px!important;width:19px!important;height:24px!important;border-radius:7px 7px 10px 10px!important;background:linear-gradient(90deg,#8e573e,#d89b75 32%,#f0c29d 53%,#b97857 74%,#70412f)!important;box-shadow:inset 3px 0 4px #5d3426aa,inset -2px 0 3px #ffe0c777!important}
+
+/* sculpted jersey torso: broad shoulders taper into a natural waist */
+.torso{top:68px!important;overflow:visible!important;border:0!important;transform-origin:50% 90%!important;filter:drop-shadow(0 7px 7px #0008)!important}
+.girl .torso{width:56px!important;height:76px!important;border-radius:18px 18px 13px 13px!important;clip-path:polygon(13% 0,87% 0,100% 16%,92% 66%,77% 100%,23% 100%,8% 66%,0 16%)!important;background:linear-gradient(94deg,#351020 0%,#7f1c4b 18%,#d6377e 40%,#ff78b5 51%,#d83b80 62%,#7b1e4a 82%,#351020 100%)!important}
+.boy .torso{width:67px!important;height:80px!important;border-radius:17px 17px 12px 12px!important;clip-path:polygon(8% 0,92% 0,100% 15%,91% 70%,79% 100%,21% 100%,9% 70%,0 15%)!important;background:linear-gradient(94deg,#06263b 0%,#0b5077 18%,#168cc8 40%,#54c9f5 51%,#1a8dc5 62%,#0a5278 82%,#06263b 100%)!important}
+.torso:before{content:""!important;position:absolute!important;left:50%!important;top:4px!important;translate:-50% 0!important;width:34%!important;height:13px!important;border:2px solid #ffffff4a!important;border-top:0!important;border-radius:0 0 16px 16px!important;background:#06090e55!important;box-shadow:0 2px 4px #0006!important}
+.torso:after{content:""!important;position:absolute!important;left:50%!important;top:25px!important;bottom:10px!important;width:1px!important;translate:-50% 0!important;background:linear-gradient(transparent,#ffffff22,transparent)!important;opacity:.85!important}
+.torso .bib{left:9px!important;right:9px!important;bottom:7px!important;height:12px!important;border-radius:5px!important;background:linear-gradient(90deg,#090b10aa,#ffffff0e,#090b10aa)!important;border:1px solid #ffffff1e!important;box-shadow:inset 0 2px 3px #ffffff10!important}
+.torso .bib:before,.torso .bib:after{content:""!important;position:absolute!important;top:-44px!important;width:1px!important;height:40px!important;background:linear-gradient(transparent,#ffffff24,transparent)!important;opacity:.8!important}
+.torso .bib:before{left:5px!important}.torso .bib:after{right:5px!important}
+
+/* curved athletic shorts / hip line */
+.waist{top:139px!important;height:27px!important;border-radius:8px 8px 14px 14px!important;clip-path:polygon(7% 0,93% 0,100% 30%,88% 100%,55% 88%,45% 88%,12% 100%,0 30%)!important;background:linear-gradient(100deg,#080a0e,#252b35 42%,#4b5361 52%,#232933 65%,#080a0e)!important;border:1px solid #ffffff18!important;box-shadow:inset 0 4px 4px #ffffff12,inset 0 -7px 8px #0008,0 4px 6px #0008!important}
+.girl .waist{width:53px!important;border-bottom:3px solid #ff4f9faa!important}.boy .waist{width:63px!important;border-bottom:3px solid #36b8ffaa!important}
+
+/* anatomy-like tapered arms. Back arm stays behind rope; front replica stays above it. */
+.upperArm{height:15px!important;width:35px!important;border-radius:10px 8px 8px 10px!important;clip-path:polygon(0 10%,88% 0,100% 50%,88% 100%,0 90%)!important;background:linear-gradient(180deg,#f3c7a5 0%,#d59b76 44%,#a46649 72%,#74442f 100%)!important;box-shadow:inset 0 3px 3px #ffe2c799,inset 0 -3px 4px #78422daa,0 3px 6px #0008!important}
+.upperArm:before{content:""!important;left:-1px!important;top:-1px!important;width:12px!important;height:17px!important;border-radius:8px 5px 5px 8px!important;background:linear-gradient(180deg,color-mix(in srgb,var(--team) 85%,#fff),var(--team))!important;box-shadow:inset 0 2px 3px #ffffff2e!important;opacity:1!important}
+.forearm{height:13px!important;width:34px!important;border-radius:9px!important;clip-path:polygon(0 8%,92% 18%,100% 50%,92% 82%,0 92%)!important;background:linear-gradient(180deg,#f6caaa,#d79b75 43%,#a9674a 74%,#72412e)!important;box-shadow:inset 0 3px 3px #ffe5cc88,inset 0 -3px 4px #74422faa,0 3px 5px #0007!important}
+.forearm:after{display:none!important}
+.hand{width:14px!important;height:16px!important;border-radius:47% 46% 54% 54%!important;background:radial-gradient(circle at 35% 25%,#f8d4b6 0 18%,#d99d76 45%,#a8664a 74%,#6f402e 100%)!important;border:1px solid #ffffff1f!important;box-shadow:inset 0 -3px 3px #78463188,0 3px 4px #0008!important}
+
+/* Human-shaped stable legs: tapered thighs, calves and realistic shoes. */
+.legAssembly{top:151px!important;width:29px!important;height:82px!important;will-change:auto!important}
+.legAssembly .upperLeg{left:5px!important;width:19px!important;height:40px!important;border-radius:10px 10px 8px 8px!important;clip-path:polygon(8% 0,92% 0,84% 100%,16% 100%)!important;background:linear-gradient(90deg,#090c11,#303641 46%,#4b5360 53%,#252b34 70%,#080a0e)!important;box-shadow:inset 3px 0 4px #0007,inset -2px 0 3px #ffffff14,0 4px 6px #0008!important}
+.legAssembly .lowerLeg{left:1px!important;top:32px!important;width:17px!important;height:39px!important;border-radius:8px!important;clip-path:polygon(14% 0,86% 0,74% 100%,26% 100%)!important;background:linear-gradient(90deg,#080a0f,#282e38 44%,#424a56 53%,#202630 72%,#07090d)!important;box-shadow:inset 2px 0 4px #0007,inset -2px 0 3px #ffffff10,0 4px 5px #0008!important}
+.legAssembly .boot{width:39px!important;height:15px!important;bottom:-8px!important;border-radius:12px 5px 6px 11px!important;background:linear-gradient(180deg,#3b414b 0%,#1a1e25 45%,#050607 100%)!important;border:1px solid #ffffff21!important;box-shadow:inset 0 3px 3px #ffffff12,inset 0 -3px 3px #000,0 5px 7px #000a!important}
+.legAssembly .boot:before{content:""!important;position:absolute!important;left:6px!important;right:8px!important;top:5px!important;height:2px!important;background:linear-gradient(90deg,transparent,var(--team),transparent)!important;opacity:.8!important}
+.legAssembly .boot:after{bottom:-6px!important;height:6px!important;background:#000d!important;filter:blur(4px)!important}
+
+/* stance stays planted */
+.girl .frontRig{left:45px!important;transform:rotate(-15deg)!important}.girl .backRig{left:20px!important;transform:rotate(21deg)!important}
+.boy .frontRig{left:27px!important;transform:rotate(15deg)!important}.boy .backRig{left:51px!important;transform:rotate(-21deg)!important}
+.girl .frontRig .lowerLeg{transform:rotate(25deg)!important}.girl .backRig .lowerLeg{transform:rotate(-21deg)!important}
+.boy .frontRig .lowerLeg{transform:rotate(-25deg)!important}.boy .backRig .lowerLeg{transform:rotate(21deg)!important}
+
+/* subtle realistic upper-body breathing / pull: no leg or foot movement */
+.stage.running .puller .torso{animation:realTorsoTensionV12 .86s ease-in-out infinite alternate!important}
+.stage.running .puller .armBack{animation:realArmTensionV12 .86s ease-in-out infinite alternate!important}
+.frontArmsOverlay .frontArmReplica .armFront{animation:realArmTensionV12 .86s ease-in-out infinite alternate-reverse!important}
+@keyframes realTorsoTensionV12{from{filter:brightness(.98) drop-shadow(0 7px 7px #0008)}to{filter:brightness(1.06) drop-shadow(0 8px 8px #0009);scale:1.012 .992}}
+@keyframes realArmTensionV12{from{filter:brightness(.98)}to{filter:brightness(1.08);translate:1px 0}}
+.puller.active .torso{animation:realPullBurstV12 .20s cubic-bezier(.2,.8,.2,1) 4!important}
+.puller.active .armBack{animation:realArmBurstV12 .20s ease-in-out 4!important}
+.frontArmsOverlay .frontArmReplica.active .armFront{animation:realArmBurstV12 .20s ease-in-out 4!important}
+@keyframes realPullBurstV12{50%{filter:brightness(1.18) contrast(1.04);scale:1.025 .982}}
+@keyframes realArmBurstV12{50%{filter:brightness(1.18);translate:3px 0}}
+
+@media(max-width:1300px){.puller{transform:translate(-50%,-50%) translateX(var(--body-x)) scale(.82)!important}.frontArmsOverlay .frontArmReplica{transform:translate(-50%,-50%) translateX(var(--body-x)) scale(.82)!important}}
+</style>
+
+
+<style id="realistic-athlete-body-v13">
+/* V13 — more human-proportioned sports bodies, stable feet, upper-body pull only. */
+.puller{width:112px!important;height:244px!important;filter:drop-shadow(0 16px 14px #000d)!important}
+.head{width:57px!important;height:57px!important;top:0!important;z-index:12!important}
+.neck{top:52px!important;width:20px!important;height:27px!important;border-radius:8px 8px 11px 11px!important;z-index:5!important}
+
+/* Shoulder line + tapered jersey. No exaggerated anatomy. */
+.torso{top:68px!important;height:82px!important;overflow:visible!important;filter:drop-shadow(0 8px 8px #0009)!important}
+.girl .torso{width:61px!important;clip-path:polygon(10% 0,90% 0,100% 14%,95% 61%,80% 100%,20% 100%,5% 61%,0 14%)!important;border-radius:17px 17px 13px 13px!important;
+ background:linear-gradient(90deg,#371122 0%,#761b46 14%,#c93477 34%,#f263a5 50%,#c93477 66%,#761b46 86%,#371122 100%)!important}
+.boy .torso{width:73px!important;clip-path:polygon(7% 0,93% 0,100% 14%,94% 63%,80% 100%,20% 100%,6% 63%,0 14%)!important;border-radius:16px 16px 12px 12px!important;
+ background:linear-gradient(90deg,#06273a 0%,#0a4d72 14%,#147fab 34%,#3cb6e8 50%,#147fab 66%,#0a4d72 86%,#06273a 100%)!important}
+.torso:before{content:""!important;position:absolute!important;left:50%!important;top:4px!important;translate:-50% 0!important;width:36%!important;height:14px!important;border:2px solid #ffffff58!important;border-top:0!important;border-radius:0 0 18px 18px!important;background:#05070b66!important;box-shadow:0 2px 4px #0007!important}
+.torso:after{content:""!important;position:absolute!important;left:50%!important;top:24px!important;bottom:12px!important;width:62%!important;translate:-50% 0!important;background:
+ linear-gradient(90deg,transparent 0 47%,#ffffff1d 48% 49%,transparent 50% 100%),
+ radial-gradient(ellipse at 50% 25%,#ffffff16,transparent 55%)!important;border:0!important;opacity:.95!important;pointer-events:none}
+.torso .bib{left:10px!important;right:10px!important;bottom:7px!important;height:13px!important;border-radius:5px!important;background:linear-gradient(180deg,#ffffff12,#06080d55)!important;border:1px solid #ffffff20!important;box-shadow:inset 0 2px 4px #ffffff0f!important}
+/* side jersey seams / shoulder panel */
+.torso .bib:before,.torso .bib:after{content:""!important;position:absolute!important;top:-52px!important;width:6px!important;height:54px!important;border-radius:7px!important;background:linear-gradient(180deg,#ffffff24,transparent 38%,#00000022)!important;opacity:.7!important}
+.torso .bib:before{left:-6px!important;transform:rotate(8deg)!important}.torso .bib:after{right:-6px!important;transform:rotate(-8deg)!important}
+
+/* compact hip/shorts transition */
+.waist{top:145px!important;height:28px!important;border-radius:9px 9px 14px 14px!important;clip-path:polygon(6% 0,94% 0,100% 34%,87% 100%,55% 90%,45% 90%,13% 100%,0 34%)!important;background:linear-gradient(90deg,#07090d,#20262f 22%,#3c4653 50%,#20262f 78%,#07090d)!important;box-shadow:inset 0 4px 5px #ffffff13,inset 0 -8px 9px #0009,0 5px 7px #0009!important}
+.girl .waist{width:56px!important;border-bottom:3px solid #ff4f9f99!important}.boy .waist{width:66px!important;border-bottom:3px solid #36b8ff99!important}
+
+/* More natural arm volumes and visible elbow transition. */
+.upperArm{top:86px!important;width:38px!important;height:16px!important;border-radius:11px 9px 9px 11px!important;clip-path:polygon(0 12%,86% 0,100% 34%,100% 66%,86% 100%,0 88%)!important;
+ background:linear-gradient(180deg,#f4ccb0 0%,#d89e79 39%,#b77758 67%,#7a4935 100%)!important;box-shadow:inset 0 3px 3px #ffe5cf99,inset 0 -4px 4px #6f402f99,0 3px 6px #0008!important}
+.upperArm:before{content:""!important;left:-2px!important;top:-2px!important;width:14px!important;height:20px!important;border-radius:9px 6px 6px 9px!important;background:linear-gradient(180deg,color-mix(in srgb,var(--team) 75%,#fff),var(--team))!important;box-shadow:inset 0 2px 3px #ffffff38!important}
+.forearm{width:37px!important;height:14px!important;border-radius:9px!important;clip-path:polygon(0 10%,88% 16%,100% 38%,100% 62%,88% 84%,0 90%)!important;background:linear-gradient(180deg,#f6ceb1,#dc9f79 42%,#b87355 72%,#784633)!important;box-shadow:inset 0 3px 3px #ffe8d1aa,inset 0 -3px 4px #70402f99,0 3px 5px #0007!important}
+.forearm:before{content:""!important;position:absolute!important;left:-3px!important;top:3px!important;width:8px!important;height:8px!important;border-radius:50%!important;background:radial-gradient(circle at 35% 30%,#efc5a6,#9f6248 72%)!important;box-shadow:0 1px 2px #0008!important}
+.hand{width:14px!important;height:17px!important;border-radius:48% 44% 52% 56%!important;background:radial-gradient(circle at 36% 24%,#f9d9bd 0 17%,#dfa27c 44%,#b27052 73%,#714231 100%)!important;border:1px solid #ffffff20!important;box-shadow:inset 0 -3px 3px #79473388,0 3px 4px #0008!important}
+.girl .armFront{left:43px!important}.girl .armBack{left:40px!important;top:98px!important}.boy .armFront{right:43px!important}.boy .armBack{right:40px!important;top:98px!important}
+
+/* Stable human-proportioned legs: defined thigh, knee, calf and sports shoe. */
+.legAssembly{top:160px!important;width:31px!important;height:82px!important}
+.legAssembly .upperLeg{left:5px!important;width:20px!important;height:40px!important;border-radius:10px 10px 8px 8px!important;clip-path:polygon(10% 0,90% 0,84% 100%,16% 100%)!important;background:linear-gradient(90deg,#080a0e,#242a33 28%,#46515e 52%,#252b34 74%,#07090d)!important;box-shadow:inset 3px 0 4px #0008,inset -2px 0 3px #ffffff16,0 4px 6px #0008!important}
+.legAssembly .upperLeg:after{content:""!important;position:absolute!important;left:50%!important;bottom:-5px!important;translate:-50% 0!important;width:15px!important;height:10px!important;border-radius:50%!important;background:radial-gradient(circle at 50% 30%,#424b56,#171b21 72%)!important;box-shadow:0 2px 3px #0008!important}
+.legAssembly .lowerLeg{left:2px!important;top:33px!important;width:17px!important;height:40px!important;border-radius:8px!important;clip-path:polygon(16% 0,84% 0,72% 100%,28% 100%)!important;background:linear-gradient(90deg,#080a0e,#242a33 30%,#3f4854 52%,#202630 76%,#07090d)!important;box-shadow:inset 2px 0 4px #0007,inset -2px 0 3px #ffffff11,0 4px 5px #0008!important}
+.legAssembly .lowerLeg:after{content:""!important;position:absolute!important;left:50%!important;top:15px!important;translate:-50% 0!important;width:9px!important;height:13px!important;border-radius:50%!important;background:linear-gradient(90deg,#0000,#ffffff0e,#0000)!important}
+.legAssembly .boot{width:41px!important;height:16px!important;bottom:-9px!important;border-radius:13px 6px 7px 12px!important;background:linear-gradient(180deg,#4b535f 0%,#252a33 35%,#0d1015 72%,#030405 100%)!important;border:1px solid #ffffff24!important;box-shadow:inset 0 3px 3px #ffffff14,inset 0 -3px 3px #000,0 6px 8px #000b!important}
+.legAssembly .boot:before{content:""!important;position:absolute!important;left:7px!important;right:8px!important;top:5px!important;height:3px!important;background:repeating-linear-gradient(90deg,#ffffff2b 0 3px,transparent 3px 6px)!important;border-bottom:1px solid color-mix(in srgb,var(--team) 75%,#fff)!important;opacity:.9!important}
+.legAssembly .boot:after{content:""!important;position:absolute!important;left:5px!important;right:4px!important;bottom:-4px!important;height:5px!important;border-radius:50%!important;background:#000d!important;filter:blur(3px)!important}
+
+/* planted stance - explicitly no leg animation */
+.girl .frontRig{left:48px!important;transform:rotate(-14deg)!important}.girl .backRig{left:22px!important;transform:rotate(20deg)!important}
+.boy .frontRig{left:28px!important;transform:rotate(14deg)!important}.boy .backRig{left:54px!important;transform:rotate(-20deg)!important}
+.girl .frontRig .lowerLeg{transform:rotate(23deg)!important}.girl .backRig .lowerLeg{transform:rotate(-19deg)!important}
+.boy .frontRig .lowerLeg{transform:rotate(-23deg)!important}.boy .backRig .lowerLeg{transform:rotate(19deg)!important}
+.stage.running .legAssembly,.stage.running .upperLeg,.stage.running .lowerLeg,.stage.running .boot,
+.puller.active .legAssembly,.puller.active .upperLeg,.puller.active .lowerLeg,.puller.active .boot{animation:none!important}
+
+/* Stronger but controlled upper-body pull, with stable base. */
+.stage.running .puller .torso{animation:realTorsoTensionV13 .78s ease-in-out infinite alternate!important}
+.stage.running .puller .armBack{animation:realArmTensionV13 .78s ease-in-out infinite alternate!important}
+.frontArmsOverlay .frontArmReplica .armFront{animation:realArmTensionV13 .78s ease-in-out infinite alternate-reverse!important}
+@keyframes realTorsoTensionV13{from{filter:brightness(.98) drop-shadow(0 8px 8px #0009)}to{filter:brightness(1.055) drop-shadow(0 9px 9px #000a);scale:1.01 .993}}
+@keyframes realArmTensionV13{from{filter:brightness(.98)}to{filter:brightness(1.07);translate:1.4px 0}}
+.puller.active .torso{animation:realPullBurstV13 .18s cubic-bezier(.2,.85,.2,1) 4!important}
+.puller.active .armBack{animation:realArmBurstV13 .18s ease-in-out 4!important}
+.frontArmsOverlay .frontArmReplica.active .armFront{animation:realArmBurstV13 .18s ease-in-out 4!important}
+@keyframes realPullBurstV13{50%{filter:brightness(1.2) contrast(1.04);scale:1.03 .98}}
+@keyframes realArmBurstV13{50%{filter:brightness(1.18);translate:3.5px 0}}
+
+/* Keep front/back hand layer setup from V11 and rope fully visible. */
+.ropeWrap{z-index:5000!important}.frontArmsOverlay{z-index:6000!important}.pullers{z-index:18!important}
+body.winner-active .ropeWrap,body.winner-active .frontArmsOverlay{display:none!important}
+
+@media(max-width:1300px){.puller{transform:translate(-50%,-50%) translateX(var(--body-x)) scale(.80)!important}.frontArmsOverlay .frontArmReplica{transform:translate(-50%,-50%) translateX(var(--body-x)) scale(.80)!important}}
+</style>
+
+<style id="rope-realism-v14">
+/* V14 — flexible braided broadcast rope */
+.ropeWrap{z-index:5000!important;top:55%!important;width:84%!important;height:92px!important;filter:none!important;overflow:visible!important;isolation:isolate!important}
+.rope{display:none!important}
+.ropeWrap:before{display:none!important}
+.ropeSvg{position:absolute;left:0;top:0;width:100%;height:84px;overflow:visible;z-index:5001;transform:translateX(var(--rope-x));transform-origin:50% 50%;will-change:transform;filter:url(#ropeDepth)}
+.ropeShadowPath{fill:none;stroke:#130b05;stroke-width:32;stroke-linecap:round;opacity:.52}
+.ropeBasePath{fill:none;stroke:#4c2a10;stroke-width:27;stroke-linecap:round}
+.ropeTexturePath{fill:none;stroke:url(#ropeTwistPattern);stroke-width:23;stroke-linecap:round;stroke-linejoin:round}
+.ropeHighlightPath{fill:none;stroke:#ffe0a0;stroke-width:3.2;stroke-linecap:round;opacity:.48;mix-blend-mode:screen}
+.ropeEnd{position:absolute;top:29px;width:31px;height:31px;border-radius:50%;z-index:5003;background:radial-gradient(circle at 38% 30%,#f3c47e 0 8%,#bc7c37 9% 24%,#6f4019 25% 42%,#d39a50 43% 53%,#4a280f 54% 68%,#9a6229 69% 80%,#351b09 81%);box-shadow:0 7px 11px #000c,inset 0 3px 3px #ffe4b0a8;transform:translateX(var(--rope-x));will-change:transform}
+.ropeEndL{left:-13px}.ropeEndR{right:-13px}
+.stage.running .ropeTexturePath{animation:ropeFiberCrawlV14 .48s linear infinite}
+.stage.running .ropeHighlightPath{animation:ropeGlintV14 1.05s ease-in-out infinite alternate}
+.stage.ropeStrain .ropeTexturePath{filter:brightness(1.12) saturate(1.08)}
+.stage.ropeStrain .ropeHighlightPath{opacity:.7;stroke-width:3.8}
+@keyframes ropeFiberCrawlV14{to{stroke-dashoffset:-34}}
+@keyframes ropeGlintV14{from{opacity:.38}to{opacity:.62}}
+/* fine surface fibers: short moving dashes over the braid */
+.ropeTexturePath{stroke-dasharray:9999 0}
+.ropeSvg:after{content:""}
+/* flag follows the flexible rope center and sits above it */
+.flag{z-index:5004!important;top:6px!important;height:56px!important;filter:drop-shadow(0 4px 6px #000b)}
+/* front arm remains in front of rope; back arm remains behind */
+.frontArmsOverlay{z-index:6000!important}.pullers{z-index:18!important}
+body.winner-active .ropeSvg,body.winner-active .ropeEnd{display:none!important}
+</style>
+
+<style id="feet-shadow-contact-v15">
+/* V15 — feet/contact shadow fix: no floating body shadow, shadow touches shoes */
+.puller:after{display:none!important;}
+.legAssembly .boot{
+  box-shadow:inset 0 3px 3px #ffffff14,inset 0 -3px 3px #000,0 2px 2px #000d,0 4px 4px #0009!important;
+  overflow:visible!important;
+}
+.legAssembly .boot:after{
+  content:""!important;position:absolute!important;left:1px!important;right:1px!important;
+  bottom:-2px!important;height:6px!important;border-radius:50%!important;
+  background:radial-gradient(ellipse at center,#000d 0 46%,#0008 58%,transparent 76%)!important;
+  filter:blur(1.2px)!important;transform:translateY(0)!important;opacity:.92!important;z-index:-1!important;
+}
+/* tiny sole contact line so the shoe visually meets the ground */
+.legAssembly .boot{border-bottom-color:#050608!important;}
+.girl .legAssembly .boot{filter:drop-shadow(0 1px 1px #ff4f9f35)!important;}
+.boy .legAssembly .boot{filter:drop-shadow(0 1px 1px #36b8ff35)!important;}
+</style>
+</head>
+<body>
+<div class="app">
+ <header class="top">
+  <div class="conn" id="conn"><span class="dot"></span><span id="connText">جاري الاتصال...</span></div>
+  <div class="brand"><h1>🪢 شد الحبل — البنات ضد الشباب</h1><small>التعليقات للانضمام فقط • القوة من التكبيس والهدايا • أجسام بشرية مطورة + طرد وخروج + يد أمام الحبل ويد خلفه V15</small></div>
+  <div class="round">الجولة <b id="roundNo">1</b> • <span id="clock">00:00</span></div>
+ </header>
+ <section class="main">
+  <aside class="teamPanel girls">
+   <div class="teamHead"><div class="teamName"><strong>👧 فريق البنات</strong><span class="power" id="girlsPower">0</span></div><div class="count" id="girlsCount">0 لاعبات</div><div class="meter"><i id="girlsBar"></i></div></div>
+   <div class="facesTitle">صور الفريق — بدون أسماء</div><div class="faces" id="girlsFaces"></div>
+  </aside>
+  <main class="stage" id="stage">
+   <div class="stageTop"><b id="stageState">بانتظار بدء الجولة</b><span>كل تكبيسة أو هدية تسحب الحبل باتجاه الفريق</span><span class="goalLine" id="goalLine">هدف الفوز: فرق 1,500 قوة • كل تكبيسة = 1 قوة</span></div>
+   <div class="joinHint"><div><span class="g">بنات</span> = الانضمام لفريق البنات</div><div><span class="b">شباب</span> = الانضمام لفريق الشباب</div><div><b style="color:#ffe493">خروج</b> = مغادرة اللعبة</div></div>
+   <div class="winLine g"></div><div class="centerLine"></div><div class="winLine b"></div>
+   <div class="pullers" id="pullers"></div>
+   <div class="ropeWrap">
+  <svg class="ropeSvg" viewBox="0 0 1000 84" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <pattern id="ropeTwistPattern" patternUnits="userSpaceOnUse" width="34" height="28">
+        <rect width="34" height="28" fill="#75451e"/>
+        <path d="M-10 28 L8 0 M7 28 L25 0 M24 28 L42 0" stroke="#d59a4d" stroke-width="11" opacity=".95"/>
+        <path d="M-7 28 L11 0 M10 28 L28 0 M27 28 L45 0" stroke="#f0bd72" stroke-width="3" opacity=".58"/>
+        <path d="M-14 28 L4 0 M3 28 L21 0 M20 28 L38 0" stroke="#3f210c" stroke-width="3.5" opacity=".78"/>
+      </pattern>
+      <filter id="ropeDepth" x="-10%" y="-100%" width="120%" height="300%">
+        <feDropShadow dx="0" dy="7" stdDeviation="4.8" flood-color="#000" flood-opacity=".78"/>
+      </filter>
+    </defs>
+    <path class="ropeShadowPath" d="M-20 42 C160 42 340 42 500 42 S840 42 1020 42"/>
+    <path class="ropeBasePath" d="M-20 42 C160 42 340 42 500 42 S840 42 1020 42"/>
+    <path class="ropeTexturePath" d="M-20 42 C160 42 340 42 500 42 S840 42 1020 42"/>
+    <path class="ropeHighlightPath" d="M-20 38 C160 38 340 38 500 38 S840 38 1020 38"/>
+  </svg>
+  <div class="ropeEnd ropeEndL"></div><div class="ropeEnd ropeEndR"></div>
+  <div class="flag"></div>
+</div>
+   <div class="frontArmsOverlay" id="frontArms"></div>
+   <div class="balance"><div class="balanceLabels"><span class="girlsLabel">بنات</span><span id="statusText">المنافسة متعادلة</span><span class="boysLabel">شباب</span></div><div class="track"><i class="marker" id="balanceMarker"></i></div></div>
+  </main>
+  <aside class="teamPanel boys">
+   <div class="teamHead"><div class="teamName"><strong>👦 فريق الشباب</strong><span class="power" id="boysPower">0</span></div><div class="count" id="boysCount">0 لاعبين</div><div class="meter"><i id="boysBar"></i></div></div>
+   <div class="facesTitle">صور الفريق — بدون أسماء</div><div class="faces" id="boysFaces"></div>
+  </aside>
+ </section>
+ <footer class="bottom">
+  <div class="ctrl"><h3>التحكم</h3><div class="row"><button class="btn start" id="startBtn">▶ بدء الجولة</button><button class="btn reset" id="resetBtn">↻ جولة جديدة</button><button class="btn" id="fullscreenBtn">⛶ ملء الشاشة</button></div></div>
+  <div class="ctrl state"><b id="controlState">جاهز</b><span>لايكات + هدايا فقط</span><div class="stats"><div>المشاركون<strong id="totalMembers">0</strong></div><div>التكبيس<strong id="totalLikes">0</strong></div><div>عملات الهدايا<strong id="totalCoins">0</strong></div></div><div class="last" id="lastEvent">اكتب بنات أو شباب للانضمام</div></div>
+  <div class="ctrl"><h3>إعدادات وتجربة</h3><div class="row"><label class="setting">فرق القوة للفوز <input id="winTarget" type="number" value="1500" min="200" step="100"></label><label class="setting">قوة كل عملة هدية <input id="giftMult" type="number" value="10" min="1" step="1"></label><button class="btn girlBtn" id="testGirl">+50 بنات</button><button class="btn boyBtn" id="testBoy">+50 شباب</button><button class="btn" id="autoDemo">🤖 تجربة تلقائية</button></div><span class="goalHelp" id="goalHelp">بدون هدايا: يحتاج الفريق فرق 1,500 تكبيسة عن الفريق الآخر للفوز.</span></div>
+ </footer>
+</div>
+<div class="winner" id="winner"><div class="winCard"><h1>🏆 بطل شد الحبل 🏆</h1><div class="winnerTeam" id="winnerTeam"></div><div class="winnerStats" id="winnerStats"></div><div class="winFaces" id="winFaces"></div><button class="btn start" id="nextRound">جولة جديدة</button></div></div>
+<script>
+'use strict';
+const TF='hamada://center-live';
+const MAX_TEAM=6;
+const members=new Map(); // internal identity only; names are never rendered
+let girlsPower=0,boysPower=0,totalLikes=0,totalCoins=0,running=false,round=1,roundStart=0,ropePos=0,ropeVisual=0,ws,retry,demoTimer=null;
+const $=id=>document.getElementById(id);
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function pick(o,paths){for(const p of paths){let v=o;for(const k of p.split('.'))v=(v&&v[k]!==undefined)?v[k]:undefined;if(v!==undefined&&v!==null&&v!=='')return v}return''}
+function getUser(d){return String(pick(d,['uniqueId','user.uniqueId','username','userName','nickname','user.nickname','displayName'])||'').trim()}
+function getAvatar(d){let a=pick(d,['profilePictureUrl','profilePicture','avatar','avatarUrl','user.profilePictureUrl','user.profilePicture','user.avatar','user.avatarUrl']);if(Array.isArray(a))a=a[0]||'';if(a&&typeof a==='object')a=a.url||(a.urls&&a.urls[0])||'';return String(a||'')}
+function teamArray(team){return [...members.values()].filter(m=>m.team===team)}
+function join(id,team,avatar=''){
+ if(!id)return null; const old=members.get(id); if(old){if(avatar&&!old.avatar)old.avatar=avatar;return old}
+ if(teamArray(team).length>=MAX_TEAM){$('lastEvent').textContent=team==='girls'?'فريق البنات ممتلئ':'فريق الشباب ممتلئ';return null}
+ const m={id,team,avatar,taps:0,coins:0,power:0};members.set(id,m);$('lastEvent').textContent=team==='girls'?'انضمت لاعبة جديدة لفريق البنات':'انضم لاعب جديد لفريق الشباب';render();return m;
+}
+function removeMember(id,reason='exit'){
+ const m=members.get(id);if(!m)return false;
+ if(m.team==='girls')girlsPower=Math.max(0,girlsPower-m.power);else boysPower=Math.max(0,boysPower-m.power);
+ totalLikes=Math.max(0,totalLikes-m.taps);totalCoins=Math.max(0,totalCoins-m.coins);
+ members.delete(id);
+ $('lastEvent').textContent=reason==='kick'?(m.team==='girls'?'تم طرد لاعبة من فريق البنات':'تم طرد لاعب من فريق الشباب'):'خرج لاعب من اللعبة';
+ updateBalance();render();return true;
+}
+function kickPlayerToken(token){let id='';try{id=decodeURIComponent(token)}catch{id=token}removeMember(id,'kick')}
+function addPower(id,amount,type='like',giftName='',coins=0){
+ if(!running)return;const m=members.get(id);if(!m)return;amount=Math.max(0,Number(amount)||0);if(!amount)return;
+ m.power+=amount;if(m.team==='girls')girlsPower+=amount;else boysPower+=amount;
+ if(type==='like'){m.taps+=amount;totalLikes+=amount}else{m.coins+=Math.max(0,Number(coins)||0);totalCoins+=Math.max(0,Number(coins)||0);showGift(m.team,amount)}
+ pulseTeam(m.team,type==='gift');updateBalance();render();
+}
+function showGift(team,amount){const x=document.createElement('div');x.className='giftPop';x.textContent=`🎁 هدية لفريق ${team==='girls'?'البنات':'الشباب'} +${Math.round(amount)} قوة`;$('stage').appendChild(x);setTimeout(()=>x.remove(),1350)}
+function pulseTeam(team,gift=false){const stage=$('stage');stage.classList.remove('flashGirls','flashBoys');void stage.offsetWidth;stage.classList.add(team==='girls'?'flashGirls':'flashBoys');document.querySelectorAll(`.puller.${team==='girls'?'girl':'boy'}`).forEach((el,i)=>setTimeout(()=>{el.classList.add('active');if(gift)el.classList.add('gift');setTimeout(()=>el.classList.remove('active','gift'),850)},i*28))}
+function target(){return Math.max(200,Number($('winTarget').value)||1500)}
+function updateGoalUI(){const t=target(),mult=Math.max(1,Number($('giftMult').value)||10);const fmt=t.toLocaleString('ar-IQ');$('goalLine').textContent=`هدف الفوز: فرق ${fmt} قوة • كل تكبيسة = 1 قوة`;$('goalHelp').textContent=`بدون هدايا: يحتاج الفريق فرق ${fmt} تكبيسة عن الفريق الآخر للفوز. كل 1 عملة هدية = ${mult} قوة.`}
+function updateBalance(){const diff=boysPower-girlsPower;ropePos=Math.max(-1,Math.min(1,diff/target()));if(running&&Math.abs(diff)>=target()){finish(diff>0?'boys':'girls');return}$('statusText').textContent=Math.abs(diff)<45?'المنافسة متعادلة':(diff>0?'الشباب يتقدمون جهة الأزرق':'البنات يتقدمن جهة الوردي')}
+function faceHtml(m,team){const icon=team==='girls'?'👩':'👨';if(m.avatar)return `<img src="${esc(m.avatar)}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="fallback" style="display:none">${icon}</div>`;return `<div class="fallback">${icon}</div>`}
+function renderFaces(arr,team){if(!arr.length)return '<div class="empty">بانتظار انضمام المتابعين<br>لا تظهر الأسماء — الصورة فقط</div>';return arr.slice().sort((a,b)=>b.power-a.power).map(m=>`<div class="faceCard">${faceHtml(m,team)}<span class="mini">❤ ${Math.round(m.taps)} • 🎁 ${Math.round(m.coins)}</span><button class="kickBtn" data-kick="${esc(encodeURIComponent(m.id))}">✕ طرد</button></div>`).join('')}
+function pullerHtml(m,cls,left,lean){return `<div class="puller ${cls}" style="left:${left}%;--lean:${lean}deg"><div class="head">${faceHtml(m,m.team)}</div><div class="neck"></div><div class="torso"><i class="bib"></i></div><div class="waist"></div><div class="upperArm armBack"><div class="forearm"><i class="hand"></i></div></div><div class="upperArm armFront"><div class="forearm"><i class="hand"></i></div></div><div class="legAssembly backRig"><div class="upperLeg"><div class="lowerLeg"><i class="boot"></i></div></div></div><div class="legAssembly frontRig"><div class="upperLeg"><div class="lowerLeg"><i class="boot"></i></div></div></div></div>`}
+function frontArmHtml(m,cls,left,lean){return `<div class="puller frontArmReplica ${cls}" style="left:${left}%;--lean:${lean}deg"><div class="upperArm armFront"><div class="forearm"><i class="hand"></i></div></div></div>`}
+function renderPullers(g,b){
+ let h='',f='';
+ g.forEach((m,i)=>{
+   const x=44-(i*7.05),lean=-10-i*.65;
+   h+=pullerHtml(m,'girl',x,lean);f+=frontArmHtml(m,'girl',x,lean);
+ });
+ b.forEach((m,i)=>{
+   const x=56+(i*7.05),lean=10+i*.65;
+   h+=pullerHtml(m,'boy',x,lean);f+=frontArmHtml(m,'boy',x,lean);
+ });
+ $('pullers').innerHTML=h;
+ $('frontArms').innerHTML=f;
+}
+function render(){updateGoalUI();const g=teamArray('girls'),b=teamArray('boys');$('girlsPower').textContent=Math.round(girlsPower).toLocaleString('ar-IQ');$('boysPower').textContent=Math.round(boysPower).toLocaleString('ar-IQ');$('girlsCount').textContent=`${g.length} / ${MAX_TEAM} لاعبات`;$('boysCount').textContent=`${b.length} / ${MAX_TEAM} لاعبين`;$('totalMembers').textContent=members.size;$('totalLikes').textContent=Math.round(totalLikes);$('totalCoins').textContent=Math.round(totalCoins);const mx=Math.max(target(),girlsPower,boysPower,1);$('girlsBar').style.width=Math.min(100,girlsPower/mx*100)+'%';$('boysBar').style.width=Math.min(100,boysPower/mx*100)+'%';$('girlsFaces').innerHTML=renderFaces(g,'girls');$('boysFaces').innerHTML=renderFaces(b,'boys');document.querySelectorAll('.kickBtn').forEach(btn=>btn.onclick=e=>{e.stopPropagation();kickPlayerToken(btn.dataset.kick||'')});renderPullers(g,b)}
+function start(){document.body.classList.remove('winner-active');if(running)return;if(!teamArray('girls').length||!teamArray('boys').length){$('controlState').textContent='يجب وجود لاعب في كل فريق';return}running=true;roundStart=Date.now();$('stage').classList.add('running');$('stageState').textContent='🔥 الجولة بدأت — شدوا الحبل!';$('controlState').textContent='الجولة تعمل الآن';$('startBtn').disabled=true}
+function finish(team){if(!running)return;running=false;document.body.classList.add('winner-active');$('stage').classList.remove('running');$('startBtn').disabled=false;const arr=teamArray(team).sort((a,b)=>b.power-a.power);$('winnerTeam').textContent=team==='girls'?'👧 فريق البنات فاز!':'👦 فريق الشباب فاز!';$('winnerTeam').style.color=team==='girls'?'#ff78ba':'#74d2ff';$('winnerStats').textContent=`قوة الفريق: ${Math.round(team==='girls'?girlsPower:boysPower).toLocaleString('ar-IQ')} • التكبيس والهدايا حسمت الجولة`;$('winFaces').innerHTML=arr.map(m=>m.avatar?`<img src="${esc(m.avatar)}" alt="">`:`<div class="fallback">${team==='girls'?'👩':'👨'}</div>`).join('');$('winner').classList.add('show');$('stageState').textContent='انتهت الجولة';$('controlState').textContent='انتهت الجولة'}
+function newRound(){document.body.classList.remove('winner-active');running=false;$('stage').classList.remove('running');girlsPower=boysPower=totalLikes=totalCoins=0;ropePos=ropeVisual=0;round++;$('roundNo').textContent=round;members.forEach(m=>{m.taps=0;m.coins=0;m.power=0});$('winner').classList.remove('show');$('stageState').textContent='بانتظار بدء الجولة';$('controlState').textContent='جاهز';$('statusText').textContent='المنافسة متعادلة';$('startBtn').disabled=false;render()}
+function simulateJoin(){if(members.size)return;for(let i=1;i<=5;i++)join('demo-g'+i,'girls','');for(let i=1;i<=5;i++)join('demo-b'+i,'boys','')}
+function autoDemo(){if(demoTimer){clearInterval(demoTimer);demoTimer=null;$('autoDemo').textContent='🤖 تجربة تلقائية';return}simulateJoin();if(!running)start();demoTimer=setInterval(()=>{if(!running){clearInterval(demoTimer);demoTimer=null;$('autoDemo').textContent='🤖 تجربة تلقائية';return}const arr=[...members.values()];const m=arr[Math.floor(Math.random()*arr.length)];const gift=Math.random()<.08;if(gift)addPower(m.id,Math.floor(35+Math.random()*100),'gift','هدية تجريبية',Math.ceil(1+Math.random()*8));else addPower(m.id,Math.ceil(2+Math.random()*13),'like')},230);$('autoDemo').textContent='⏹ إيقاف التجربة'}
+function connect(){clearTimeout(retry);try{ws=new WebSocket(TF);ws.onopen=()=>{$('conn').classList.add('ok');$('connText').textContent='متصل'};ws.onclose=()=>{$('conn').classList.remove('ok');$('connText').textContent='إعادة الاتصال...';retry=setTimeout(connect,2000)};ws.onerror=()=>{};ws.onmessage=e=>{let msg;try{msg=JSON.parse(e.data)}catch{return}const ev=String(msg.event||'').toLowerCase(),d=msg.data||{},u=getUser(d),a=getAvatar(d);if(!u)return;if(ev==='chat'){const c=String(pick(d,['comment','commentText','message','text','content'])||'').trim().toLowerCase();if(c==='خروج'){if(members.has(u))removeMember(u,'exit')}else if(c==='بنات'||c==='بنت')join(u,'girls',a);else if(c==='شباب'||c==='شاب')join(u,'boys',a)}else if(ev==='like'){if(!members.has(u))return;const count=Math.max(1,Math.min(500,Number(pick(d,['likeCount','count','likes','repeatCount'])||1)));addPower(u,count,'like')}else if(ev==='gift'){if(!members.has(u))return;const rep=Math.max(1,Number(pick(d,['repeatCount','gift.repeatCount','count'])||1));const coins=Math.max(1,Number(pick(d,['diamondCount','gift.diamondCount','gift.diamonds','diamonds'])||1));const mult=Math.max(1,Number($('giftMult').value)||10);addPower(u,coins*rep*mult,'gift','',coins*rep)}}}catch{retry=setTimeout(connect,2000)}}
+$('startBtn').onclick=start;$('resetBtn').onclick=newRound;$('nextRound').onclick=newRound;$('fullscreenBtn').onclick=()=>document.documentElement.requestFullscreen?.();$('autoDemo').onclick=autoDemo;$('testGirl').onclick=()=>{simulateJoin();if(!running)start();const m=teamArray('girls')[0];if(m)addPower(m.id,50,'like')};$('testBoy').onclick=()=>{simulateJoin();if(!running)start();const m=teamArray('boys')[0];if(m)addPower(m.id,50,'like')};
+function anim(t=0){
+ ropeVisual+=(ropePos-ropeVisual)*.105;
+ const px=ropeVisual*235;
+ const ropeSvg=$('stage').querySelector('.ropeSvg');
+ const ropePaths=$('stage').querySelectorAll('.ropeShadowPath,.ropeBasePath,.ropeTexturePath');
+ const hiPath=$('stage').querySelector('.ropeHighlightPath');
+ const flag=$('stage').querySelector('.flag');
+ const tension=Math.min(1,Math.abs(boysPower-girlsPower)/Math.max(1,target()));
+ // A real tug rope is mostly taut: small flexible bends + fast vibration under high strain.
+ const idleSag=running ? 0 : 2.2;
+ const sway=running ? Math.sin(t/245)*1.35*(1-tension*.45) : 0;
+ const vibration=running ? (Math.sin(t/38)*.62 + Math.sin(t/19)*.22)*(.25+tension*.95) : 0;
+ const y=42+idleSag+sway+vibration;
+ const bend=running ? Math.sin(t/310)*2.1*(1-tension*.55) : 1.6;
+ const d=`M-20 ${y.toFixed(2)} C145 ${(y+bend).toFixed(2)} 330 ${(y-bend*.55).toFixed(2)} 500 ${y.toFixed(2)} S855 ${(y+bend*.45).toFixed(2)} 1020 ${y.toFixed(2)}`;
+ const dh=`M-20 ${(y-4).toFixed(2)} C145 ${(y+bend-4).toFixed(2)} 330 ${(y-bend*.55-4).toFixed(2)} 500 ${(y-4).toFixed(2)} S855 ${(y+bend*.45-4).toFixed(2)} 1020 ${(y-4).toFixed(2)}`;
+ document.documentElement.style.setProperty('--rope-x',px+'px');
+ document.documentElement.style.setProperty('--body-x',(ropeVisual*34)+'px');
+ ropePaths.forEach(p=>p.setAttribute('d',d));
+ if(hiPath) hiPath.setAttribute('d',dh);
+ if(ropeSvg) ropeSvg.style.setProperty('transform',`translateX(${px}px)`,'important');
+ document.querySelectorAll('.ropeEnd').forEach(e=>e.style.setProperty('transform',`translateX(${px}px) translateY(${(y-42).toFixed(2)}px)`,'important'));
+ if(flag) flag.style.setProperty('transform',`translateX(calc(-50% + ${px}px)) translateY(${(y-42).toFixed(2)}px)`,'important');
+ $('balanceMarker').style.left=(50+ropeVisual*48)+'%';
+ const stage=$('stage');
+ stage.classList.toggle('ropeStrain',running && tension>.72);
+ document.querySelectorAll('.puller').forEach((el,i)=>{
+   // V7: legs/feet remain planted. Clear any old inline joint motion from V6.
+   const front=el.querySelector('.frontRig'), back=el.querySelector('.backRig');
+   const fk=front&&front.querySelector('.lowerLeg'), bk=back&&back.querySelector('.lowerLeg');
+   const ff=front&&front.querySelector('.boot'), bf=back&&back.querySelector('.boot');
+   [front,back,fk,bk,ff,bf].forEach(x=>x&&x.style.removeProperty('transform'));
+   el.style.marginLeft='0px';
+   el.style.setProperty('--strain',running?tension.toFixed(3):'0');
+ });
+ requestAnimationFrame(anim)
+}anim();
+setInterval(()=>{if(running&&roundStart){const s=Math.floor((Date.now()-roundStart)/1000);$('clock').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}else $('clock').textContent='00:00'},500);
+$('winTarget').addEventListener('input',()=>{updateGoalUI();updateBalance();render()});$('giftMult').addEventListener('input',updateGoalUI);
+connect();render();
+</script>
+<!-- HAMADA TUG V15 ROPE + FEET SHADOW CONTACT FIX -->
+</body></html>

@@ -1,0 +1,1744 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>تحدي الشباب ضد البنات - حماده V20</title>
+<style>
+:root{
+  --bg:#060a12;--panel:#0d1422;--panel2:#111b2e;--line:rgba(255,255,255,.10);
+  --text:#fff;--muted:#91a2bd;--boys:#27a9ff;--girls:#ff4ca5;--danger:#ff3b54;
+  --green:#35d07f;--gold:#ffd76a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#060a12;color:var(--text);font-family:Tahoma,"Segoe UI",Arial,sans-serif;overflow-x:hidden}
+body{min-height:100vh}
+button{font:inherit}
+.screen{display:none;min-height:100vh}
+.screen.active{display:block}
+.app{width:100%;min-height:100vh;padding:16px;position:relative;isolation:isolate}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.title{text-align:center;flex:1}
+.title h1{font-size:clamp(22px,2.6vw,44px);margin:0;font-weight:900}
+.title p{margin:6px 0 0;color:var(--muted);font-size:clamp(12px,1.1vw,17px)}
+.status{display:flex;align-items:center;gap:8px;min-width:105px;padding:9px 12px;border:1px solid var(--line);border-radius:13px;background:rgba(13,20,34,.8);font-size:13px}
+.dot{width:10px;height:10px;border-radius:999px;background:#7f8a99;box-shadow:0 0 0 4px rgba(127,138,153,.12)}
+.status.ok .dot{background:var(--green);box-shadow:0 0 14px rgba(53,208,127,.75)}
+.status.bad .dot{background:var(--danger);box-shadow:0 0 14px rgba(255,59,84,.65)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 auto 14px}
+.btn{border:1px solid var(--line);color:#fff;background:#111a2a;padding:10px 15px;border-radius:12px;cursor:pointer;font-weight:800;transition:.15s transform,.15s opacity,.15s background}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.primary{background:linear-gradient(135deg,#3e69ff,#7255ff);border-color:transparent}
+.btn.danger{background:#38131c;border-color:rgba(255,59,84,.35)}
+.btn.kick-active{background:#6a1424;border-color:#ff4964;box-shadow:0 0 0 2px rgba(255,73,100,.15)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+.join-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px;min-height:calc(100vh - 170px)}
+.join-team{position:relative;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:linear-gradient(180deg,rgba(17,27,46,.95),rgba(8,13,24,.98))}
+.join-team.boys{box-shadow:inset 0 1px 0 rgba(40,168,255,.1)}
+.join-team.girls{box-shadow:inset 0 1px 0 rgba(255,75,165,.1)}
+.team-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 15px;border-bottom:1px solid var(--line);background:rgba(9,15,27,.86)}
+.team-head .name{font-size:clamp(17px,1.6vw,25px);font-weight:900}
+.join-team.boys .name{color:#7acbff}.join-team.girls .name{color:#ff8bc4}
+.count{font-size:13px;color:var(--muted)}
+.join-players{padding:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:12px;align-content:start}
+.join-card{position:relative;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.035);padding:10px 8px;text-align:center;transition:.18s}
+.join-card img,.avatar-fallback{width:76px;height:76px;border-radius:50%;display:block;margin:0 auto 8px;object-fit:cover;background:#151f31;border:3px solid rgba(255,255,255,.12)}
+.join-name{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kick-mode .join-card,.kick-mode .fighter{cursor:crosshair}
+.kick-mode .join-card:hover,.kick-mode .fighter:hover{outline:3px solid rgba(255,59,84,.85);outline-offset:2px}
+.empty{grid-column:1/-1;padding:34px 10px;color:var(--muted);text-align:center;font-size:14px}
+
+/* Battle screen */
+.battle-shell{min-height:100vh;padding:12px;background:
+ radial-gradient(circle at 15% 50%,rgba(40,168,255,.12),transparent 30%),
+ radial-gradient(circle at 85% 50%,rgba(255,75,165,.12),transparent 30%),
+ linear-gradient(180deg,#060912,#080d18 65%,#04070d)}
+.battle-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.battle-title{font-size:clamp(19px,2.2vw,32px);font-weight:900;text-align:center;flex:1}
+.arena{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;min-height:calc(100vh - 86px);overflow:hidden}
+.arena::after{content:"";position:absolute;left:50%;top:3%;bottom:3%;width:3px;background:linear-gradient(transparent,rgba(255,255,255,.24),transparent);box-shadow:0 0 18px rgba(255,255,255,.08);pointer-events:none}
+.battle-team{
+  position:relative;
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden;
+  background:
+    linear-gradient(rgba(255,255,255,.018),rgba(255,255,255,0)),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 54px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.014) 0 1px,transparent 1px 54px),
+    linear-gradient(180deg,rgba(14,22,37,.94),rgba(5,9,17,.98));
+}
+.battle-team::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.5;
+  background:
+    radial-gradient(circle at 16% 22%,rgba(255,255,255,.035) 0 2px,transparent 3px),
+    radial-gradient(circle at 74% 67%,rgba(255,255,255,.026) 0 2px,transparent 3px),
+    radial-gradient(circle at 43% 83%,rgba(255,255,255,.022) 0 1px,transparent 2px);
+  background-size:94px 88px,121px 109px,71px 78px;
+}
+.battle-team::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.025),transparent 18%),
+    radial-gradient(ellipse at 50% 112%,rgba(0,0,0,.42),transparent 62%),
+    radial-gradient(circle at 50% 50%,transparent 45%,rgba(0,0,0,.27) 100%);
+}
+
+.battle-team.boys{box-shadow:inset 0 0 60px rgba(40,168,255,.05)}
+.battle-team.girls{box-shadow:inset 0 0 60px rgba(255,75,165,.05)}
+
+.team-health{
+  position:absolute;
+  top:54px;
+  left:12px;
+  right:12px;
+  z-index:6;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  pointer-events:none;
+}
+.team-health-label{
+  min-width:52px;
+  font-size:12px;
+  font-weight:900;
+  color:#fff;
+  text-shadow:0 1px 4px #000;
+}
+.health-track{
+  position:relative;
+  flex:1;
+  height:16px;
+  border-radius:999px;
+  overflow:hidden;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.35);
+}
+.health-fill{
+  position:absolute;
+  inset:0 auto 0 0;
+  width:100%;
+  border-radius:999px;
+  transition:width .24s ease, filter .24s ease;
+}
+.boys-health .health-fill{
+  background:linear-gradient(90deg,#0c70d8,#41c6ff);
+  box-shadow:0 0 14px rgba(65,198,255,.45);
+}
+.girls-health .health-fill{
+  background:linear-gradient(90deg,#d91c76,#ff69b9);
+  box-shadow:0 0 14px rgba(255,105,185,.45);
+}
+.health-fill.low{
+  filter:saturate(.75) brightness(.9);
+}
+.health-fill.critical{
+  background:linear-gradient(90deg,#a31320,#ff3b45)!important;
+  box-shadow:0 0 16px rgba(255,59,69,.55)!important;
+  animation:criticalPulse .7s ease-in-out infinite alternate;
+}
+@keyframes criticalPulse{
+  from{opacity:.72}
+  to{opacity:1}
+}
+.health-value{
+  min-width:72px;
+  text-align:left;
+  font-size:11px;
+  font-weight:900;
+  color:#fff;
+  text-shadow:0 1px 4px #000;
+}
+.battle-head{height:48px;display:flex;align-items:center;justify-content:center;font-weight:900;border-bottom:1px solid var(--line)}
+.battle-team.boys .battle-head{color:#78ccff}
+.battle-team.girls .battle-head{color:#ff8bc4}
+.fighters{position:relative;min-height:calc(100vh - 145px);padding:42px 10px 10px;overflow:hidden}
+
+.fighter{
+  isolation:isolate;
+}
+.fighter::after{
+  content:"";
+  position:absolute;
+  left:16%;
+  right:16%;
+  bottom:-8px;
+  height:15px;
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(0,0,0,.48),rgba(0,0,0,.18) 54%,transparent 72%);
+  filter:blur(2px);
+  z-index:-1;
+  pointer-events:none;
+}
+.fighter.targeted img,
+.fighter.targeted .avatar-fallback{
+  border-color:rgba(255,255,255,.42);
+}
+.fighter.dodge{
+  transition:filter .12s ease;
+  filter:brightness(1.08);
+}
+.muzzle-smoke{
+  position:fixed;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:65;
+  background:radial-gradient(circle,rgba(220,225,228,.52),rgba(110,120,125,.22) 48%,transparent 72%);
+  filter:blur(1.4px);
+  animation:muzzleSmoke .46s ease-out forwards;
+}
+@keyframes muzzleSmoke{
+  from{opacity:.72;transform:translate(-50%,-50%) scale(.45)}
+  to{opacity:0;transform:translate(calc(-50% + var(--mx)),calc(-50% + var(--my))) scale(2.15)}
+}
+.shell-casing{
+  position:fixed;
+  width:8px;
+  height:3px;
+  border-radius:3px;
+  pointer-events:none;
+  z-index:64;
+  background:linear-gradient(90deg,#8f6e2b,#e7c96c,#7a5620);
+  box-shadow:0 0 4px rgba(255,218,111,.42);
+  animation:casingFly .52s cubic-bezier(.18,.72,.3,1) forwards;
+}
+@keyframes casingFly{
+  to{transform:translate(var(--cx),var(--cy)) rotate(var(--cr));opacity:0}
+}
+.impact-dust{
+  position:fixed;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:60;
+  background:radial-gradient(circle,rgba(215,205,183,.48),rgba(115,105,88,.18) 55%,transparent 74%);
+  animation:impactDust .48s ease-out forwards;
+}
+@keyframes impactDust{
+  to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(2)}
+}
+.fighter{position:absolute;left:0;top:0;width:94px;height:94px;border-radius:50%;will-change:translate,transform,opacity;transition:.14s filter,.18s opacity;transform:translateZ(0);contain:layout style paint}
+.fighter img,.fighter .avatar-fallback{width:94px;height:94px;border-radius:50%;object-fit:cover;border:4px solid rgba(255,255,255,.13);margin:0;background:#151f31}
+.fighter .avatar-fallback{display:grid;place-items:center;font-weight:900;font-size:30px}
+.battle-team.boys .fighter img,.battle-team.boys .fighter .avatar-fallback{box-shadow:0 0 0 2px rgba(40,168,255,.15),0 0 26px rgba(40,168,255,.15)}
+.battle-team.girls .fighter img,.battle-team.girls .fighter .avatar-fallback{box-shadow:0 0 0 2px rgba(255,75,165,.15),0 0 26px rgba(255,75,165,.15)}
+.fighter.king{
+  z-index:8;
+}
+.fighter.king img,
+.fighter.king .avatar-fallback{
+  border-color:#ffd45b !important;
+  box-shadow:
+    0 0 0 3px rgba(255,212,91,.38),
+    0 0 18px rgba(255,212,91,.75),
+    0 0 42px rgba(255,174,0,.34) !important;
+}
+.king-crown{
+  position:absolute;
+  left:50%;
+  top:-30px;
+  transform:translateX(-50%);
+  font-size:34px;
+  line-height:1;
+  filter:drop-shadow(0 3px 6px rgba(0,0,0,.65)) drop-shadow(0 0 8px rgba(255,210,73,.7));
+  pointer-events:none;
+  animation:kingFloat 1.15s ease-in-out infinite alternate;
+}
+@keyframes kingFloat{
+  from{transform:translateX(-50%) translateY(0) rotate(-3deg)}
+  to{transform:translateX(-50%) translateY(-5px) rotate(3deg)}
+}
+
+.hit-marker{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:24px;
+  height:24px;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  z-index:15;
+}
+.hit-marker::before,
+.hit-marker::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:22px;
+  height:3px;
+  border-radius:999px;
+  background:#fff;
+  box-shadow:0 0 8px rgba(255,255,255,.8);
+}
+.hit-marker::before{transform:translate(-50%,-50%) rotate(45deg)}
+.hit-marker::after{transform:translate(-50%,-50%) rotate(-45deg)}
+.hit-marker{animation:hitMarker .28s ease-out forwards}
+@keyframes hitMarker{
+  from{opacity:1;transform:translate(-50%,-50%) scale(.5)}
+  to{opacity:0;transform:translate(-50%,-50%) scale(1.5)}
+}
+
+.elim-ring{
+  position:fixed;
+  width:74px;
+  height:74px;
+  border-radius:50%;
+  border:4px solid rgba(255,90,90,.95);
+  box-shadow:0 0 18px rgba(255,70,70,.65);
+  pointer-events:none;
+  z-index:90;
+  transform:translate(-50%,-50%) scale(.4);
+  animation:elimRing .55s ease-out forwards;
+}
+@keyframes elimRing{
+  0%{opacity:1;transform:translate(-50%,-50%) scale(.4)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(2.4)}
+}
+
+.grenade-shadow{
+  position:fixed;
+  width:34px;
+  height:10px;
+  border-radius:50%;
+  background:rgba(0,0,0,.36);
+  filter:blur(3px);
+  z-index:77;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+}
+.grenade-trail-dot{
+  position:fixed;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:rgba(255,176,62,.72);
+  box-shadow:0 0 8px rgba(255,126,0,.7);
+  z-index:76;
+  pointer-events:none;
+  animation:trailFade .4s linear forwards;
+}
+@keyframes trailFade{to{opacity:0;transform:scale(.25)}}
+
+.team-hit-pulse{
+  animation:teamHitPulse .22s ease-out;
+}
+@keyframes teamHitPulse{
+  0%{filter:brightness(1)}
+  45%{filter:brightness(1.28)}
+  100%{filter:brightness(1)}
+}
+.fighter.hit{animation:damageHit .55s ease both !important}
+@keyframes damageHit{
+  0%{transform:scale(1);filter:none}
+  12%{transform:scale(1.18) translateX(-10px);filter:brightness(2.3) saturate(1.7)}
+  28%{transform:scale(.94) translateX(10px);filter:brightness(1.8)}
+  45%{transform:scale(1.07) translateX(-7px)}
+  62%{transform:scale(.98) translateX(5px)}
+  100%{transform:scale(1);filter:none}
+}
+.fighter.hit::before{content:"";position:absolute;inset:-12px;border-radius:50%;border:3px solid #fff;animation:damageRing .55s ease-out forwards;pointer-events:none}
+@keyframes damageRing{0%{opacity:1;transform:scale(.6)}100%{opacity:0;transform:scale(1.65)}}
+.fighter.out{animation:out .7s ease forwards !important;pointer-events:none}
+.fighter.returned{animation:returnPlayer .85s cubic-bezier(.2,.9,.25,1.25) both !important}
+@keyframes returnPlayer{
+  0%{opacity:0;transform:scale(.15) rotate(-18deg);filter:brightness(3) blur(5px)}
+  45%{opacity:1;transform:scale(1.28) rotate(3deg);filter:brightness(2)}
+  72%{transform:scale(.92) rotate(-1deg);filter:brightness(1.3)}
+  100%{transform:scale(1);filter:none}
+}
+@keyframes out{0%{opacity:1;transform:scale(1)}30%{filter:brightness(2.4) grayscale(.3);transform:scale(1.15)}100%{opacity:0;transform:scale(.2) rotate(20deg);filter:blur(8px) grayscale(1)}}
+
+
+.target-lock{
+  position:fixed;
+  width:122px;
+  height:122px;
+  border-radius:50%;
+  z-index:62;
+  pointer-events:none;
+  transform:translate(-50%,-50%) scale(.55);
+  opacity:0;
+  animation:lockOn .42s cubic-bezier(.2,.8,.2,1) forwards;
+}
+.target-lock::before,
+.target-lock::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:3px solid currentColor;
+  box-shadow:0 0 18px currentColor,inset 0 0 18px color-mix(in srgb,currentColor 30%,transparent);
+}
+.target-lock::after{
+  inset:17px;
+  border-style:dashed;
+  animation:lockSpin .55s linear infinite;
+}
+.target-lock.boy{color:#58c4ff}
+.target-lock.girl{color:#ff72ba}
+.target-lock .cross-x,
+.target-lock .cross-y{
+  position:absolute;
+  left:50%;top:50%;
+  background:currentColor;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 10px currentColor;
+}
+.target-lock .cross-x{width:92px;height:2px}
+.target-lock .cross-y{width:2px;height:92px}
+@keyframes lockOn{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(1.7) rotate(-24deg)}
+  55%{opacity:1;transform:translate(-50%,-50%) scale(.9) rotate(3deg)}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}
+}
+@keyframes lockSpin{to{transform:rotate(360deg)}}
+
+.muzzle-flash{
+  position:fixed;
+  width:52px;height:52px;
+  border-radius:50%;
+  z-index:63;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,#fff 0 10%,currentColor 28%,transparent 70%);
+  filter:drop-shadow(0 0 20px currentColor);
+  animation:muzzle .28s ease-out forwards;
+}
+.muzzle-flash.boy{color:#58c4ff}
+.muzzle-flash.girl{color:#ff72ba}
+@keyframes muzzle{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}
+  30%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.8)}
+}
+
+.impact-wave{
+  position:fixed;
+  width:46px;height:46px;
+  border-radius:50%;
+  border:4px solid currentColor;
+  z-index:64;
+  pointer-events:none;
+  transform:translate(-50%,-50%) scale(.2);
+  animation:impactWave .5s ease-out forwards;
+}
+.impact-wave.boy{color:#58c4ff}
+.impact-wave.girl{color:#ff72ba}
+@keyframes impactWave{
+  0%{opacity:1;transform:translate(-50%,-50%) scale(.2)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(2.7)}
+}
+
+.beam-core{
+  position:fixed;
+  height:3px;
+  border-radius:999px;
+  transform-origin:0 50%;
+  z-index:61;
+  pointer-events:none;
+  background:#fff;
+  box-shadow:0 0 9px currentColor,0 0 18px currentColor;
+  animation:beamCore .3s ease-out forwards;
+}
+.beam-core.boy{color:#58c4ff}
+.beam-core.girl{color:#ff72ba}
+@keyframes beamCore{
+  0%{opacity:0;clip-path:inset(0 100% 0 0)}
+  20%{opacity:1}
+  75%{clip-path:inset(0 0 0 0)}
+  100%{opacity:0}
+}
+
+
+
+.grenade{
+  position:fixed;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  z-index:80;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 34% 30%,#6d765d 0 10%,#31392b 22%,#181d16 65%,#0b0e09 100%);
+  border:2px solid rgba(255,255,255,.18);
+  box-shadow:inset -6px -7px 10px rgba(0,0,0,.55),0 0 10px rgba(0,0,0,.55);
+}
+.grenade::before{
+  content:"";
+  position:absolute;
+  width:13px;height:9px;
+  left:10px;top:-7px;
+  border:3px solid #4e5448;
+  border-bottom:0;
+  border-radius:5px 5px 0 0;
+}
+.grenade::after{
+  content:"";
+  position:absolute;
+  width:10px;height:4px;
+  right:-6px;top:4px;
+  border-radius:4px;
+  background:#c0a34c;
+  box-shadow:0 0 7px rgba(255,191,62,.8);
+}
+.grenade-fuse{
+  position:fixed;
+  width:7px;height:7px;border-radius:50%;
+  pointer-events:none;z-index:81;
+  background:#ffce54;
+  box-shadow:0 0 9px #ff8a00,0 0 18px #ff4d00;
+}
+.explosion{
+  position:fixed;
+  width:90px;height:90px;
+  border-radius:50%;
+  pointer-events:none;z-index:82;
+  transform:translate(-50%,-50%) scale(.2);
+  background:
+    radial-gradient(circle,#fff 0 8%,#ffd55b 13%,#ff8c22 30%,#df3d13 49%,rgba(72,22,5,.85) 62%,transparent 74%);
+  filter:drop-shadow(0 0 22px #ff8a00) drop-shadow(0 0 46px rgba(255,70,0,.7));
+  animation:grenadeExplosion .62s ease-out forwards;
+}
+@keyframes grenadeExplosion{
+  0%{opacity:.15;transform:translate(-50%,-50%) scale(.15)}
+  18%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}
+  52%{opacity:.95;transform:translate(-50%,-50%) scale(1.85)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(2.8)}
+}
+.smoke{
+  position:fixed;
+  width:32px;height:32px;border-radius:50%;
+  pointer-events:none;z-index:79;
+  background:radial-gradient(circle,rgba(95,95,95,.85),rgba(30,30,30,.45) 60%,transparent 72%);
+  animation:smokeRise .95s ease-out forwards;
+}
+@keyframes smokeRise{
+  0%{opacity:.75;transform:translate(-50%,-50%) scale(.5)}
+  100%{opacity:0;transform:translate(calc(-50% + var(--sx)),calc(-50% + var(--sy))) scale(2.4)}
+}
+.blast-shard{
+  position:fixed;
+  width:6px;height:3px;
+  pointer-events:none;z-index:83;
+  background:#ffb238;
+  box-shadow:0 0 7px #ff6a00;
+  animation:blastShard .55s ease-out forwards;
+}
+@keyframes blastShard{
+  to{transform:translate(var(--bx),var(--by)) rotate(var(--br));opacity:0}
+}
+.fighter.firing{
+  animation:recoilShot .22s ease-out both !important;
+}
+@keyframes recoilShot{
+  0%{filter:brightness(1);transform:scale(1)}
+  30%{filter:brightness(1.8);transform:scale(1.10)}
+  100%{filter:brightness(1);transform:scale(1)}
+}
+.tracer{
+  position:fixed;
+  height:2px;
+  transform-origin:0 50%;
+  pointer-events:none;
+  z-index:66;
+  border-radius:999px;
+  background:linear-gradient(90deg,transparent,#fff 45%,#fff 65%,transparent);
+  box-shadow:0 0 6px currentColor,0 0 15px currentColor;
+  animation:tracerFly .18s linear forwards;
+}
+.tracer.boy{color:#7ad2ff}
+.tracer.girl{color:#ff8bc8}
+@keyframes tracerFly{
+  0%{opacity:0;clip-path:inset(0 100% 0 0)}
+  12%{opacity:1}
+  100%{opacity:0;clip-path:inset(0 0 0 0)}
+}
+.impact-debris{
+  position:fixed;
+  width:5px;height:5px;border-radius:1px;
+  pointer-events:none;z-index:67;
+  background:#fff;
+  animation:debris .48s cubic-bezier(.2,.6,.3,1) forwards;
+}
+@keyframes debris{
+  to{transform:translate(var(--dx),var(--dy)) rotate(var(--rot));opacity:0}
+}
+.beam{position:fixed;height:6px;border-radius:999px;transform-origin:0 50%;z-index:60;pointer-events:none;filter:drop-shadow(0 0 6px currentColor) drop-shadow(0 0 13px currentColor);animation:beam .28s ease-out forwards}
+.beam::after{content:"";position:absolute;right:-10px;top:50%;width:22px;height:22px;border-radius:50%;transform:translateY(-50%);background:currentColor;box-shadow:0 0 28px currentColor}
+.beam.boy{color:#58c4ff;background:linear-gradient(90deg,rgba(88,196,255,.05),#58c4ff,#e7fbff)}
+.beam.girl{color:#ff72ba;background:linear-gradient(90deg,rgba(255,114,186,.05),#ff72ba,#fff0f7)}
+@keyframes beam{0%{opacity:0;clip-path:inset(0 100% 0 0)}15%{opacity:1}68%{clip-path:inset(0 0 0 0)}100%{opacity:0;filter:drop-shadow(0 0 20px currentColor)}}
+.spark{position:fixed;width:10px;height:10px;border-radius:50%;pointer-events:none;z-index:61;animation:spark .6s ease-out forwards}
+@keyframes spark{to{transform:translate(var(--x),var(--y)) scale(.05);opacity:0}}
+@keyframes screenFlash{from{opacity:1}to{opacity:0}}
+
+.winner{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(3,6,12,.75);backdrop-filter:blur(8px)}
+.winner.show{display:flex}
+.win-card{width:min(600px,95vw);border:1px solid rgba(255,255,255,.16);border-radius:28px;background:linear-gradient(180deg,#131d30,#090e19);padding:36px 24px;text-align:center}
+.win-emoji{font-size:62px}.win-title{font-size:clamp(26px,4vw,48px);font-weight:1000;margin:8px 0}.win-sub{color:var(--muted);margin-bottom:20px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(30px);z-index:120;opacity:0;background:#121c2d;border:1px solid var(--line);padding:11px 15px;border-radius:12px;color:#fff;transition:.22s;max-width:min(520px,90vw);text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:760px){
+ .app,.battle-shell{padding:8px}.status{min-width:auto;font-size:11px;padding:7px 8px}
+ .join-layout{gap:6px}.join-players{padding:7px;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:7px}
+ .join-card{padding:6px 3px}.join-card img,.avatar-fallback{width:54px;height:54px}.join-name{font-size:10px}
+ .arena{grid-template-columns:1fr 1fr;gap:4px;min-height:calc(100vh - 72px)}
+ .fighters{padding:9px;gap:10px}.fighter,.fighter img,.fighter .avatar-fallback{width:62px;height:62px}
+  .battle-head{height:40px;font-size:13px}
+ .team-health{top:44px;left:6px;right:6px;gap:5px}
+ .team-health-label{min-width:34px;font-size:10px}
+ .health-track{height:12px}
+ .health-value{min-width:54px;font-size:9px}
+ .fighters{padding-top:34px}
+}
+</style>
+</head>
+<body>
+
+<section id="joinScreen" class="screen active">
+  <div class="app" id="joinRoot">
+    <div class="topbar">
+      <div id="statusJoin" class="status bad"><span class="dot"></span><span class="statusText">غير متصل</span></div>
+      <div class="title">
+        <h1>تحدي الشباب ضد البنات</h1>
+        <p id="joinHint">الانضمام مفتوح دائماً — اكتب شباب أو بنات | للانسحاب: انسحاب</p>
+      </div>
+      <div style="width:105px"></div>
+    </div>
+
+    <div class="controls">
+      <button id="toggleJoin" class="btn">إغلاق الانضمام</button>
+      <button id="startBattle" class="btn primary">بدء التحدي</button>
+      <button id="kickBtnJoin" class="btn danger">الطرد</button>
+      <button id="resetGame" class="btn danger">إعادة اللعبة</button>
+    </div>
+
+    <main class="join-layout">
+      <section class="join-team boys">
+        <div class="team-head"><div class="name">👦 الشباب</div><div id="boysJoinCount" class="count">0 مشارك</div></div>
+        <div id="boysJoinPlayers" class="join-players"><div class="empty">بانتظار انضمام الشباب</div></div>
+      </section>
+      <section class="join-team girls">
+        <div class="team-head"><div class="name">👧 البنات</div><div id="girlsJoinCount" class="count">0 مشاركة</div></div>
+        <div id="girlsJoinPlayers" class="join-players"><div class="empty">بانتظار انضمام البنات</div></div>
+      </section>
+    </main>
+  </div>
+</section>
+
+<section id="battleScreen" class="screen">
+  <div class="battle-shell" id="battleRoot">
+    <div class="battle-top">
+      <div id="statusBattle" class="status bad"><span class="dot"></span><span class="statusText">غير متصل</span></div>
+      <div class="battle-title">ساحة التحدي</div>
+      <div class="controls" style="margin:0">
+        <button id="kickBtnBattle" class="btn danger">الطرد</button>
+        <button id="backJoin" class="btn">رجوع</button>
+      </div>
+    </div>
+
+    <main class="arena">
+      <section class="battle-team boys">
+        <div class="battle-head">👦 الشباب</div>
+        <div class="team-health boys-health">
+          <div class="team-health-label">الدم</div>
+          <div class="health-track"><div id="boysHealthFill" class="health-fill"></div></div>
+          <div id="boysHealthValue" class="health-value">0 / 0</div>
+        </div>
+        <div id="boysFighters" class="fighters"></div>
+      </section>
+<section class="battle-team girls">
+        <div class="battle-head">👧 البنات</div>
+        <div class="team-health girls-health">
+          <div class="team-health-label">الدم</div>
+          <div class="health-track"><div id="girlsHealthFill" class="health-fill"></div></div>
+          <div id="girlsHealthValue" class="health-value">0 / 0</div>
+        </div>
+        <div id="girlsFighters" class="fighters"></div>
+      </section>
+    </main>
+  </div>
+</section>
+
+<div id="winner" class="winner">
+  <div class="win-card">
+    <div class="win-emoji">🏆</div>
+    <div id="winnerTitle" class="win-title">الفائز</div>
+    <div id="winnerSub" class="win-sub"></div>
+    <button id="winnerReset" class="btn primary">لعبة جديدة</button>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+(() => {
+'use strict';
+
+const HIT_LIMIT = 300;
+const TAPS_PER_SHOT = 3;
+const BULLET_DAMAGE = 3;
+const MAX_SHOTS_PER_SECOND = 9;
+const SHOT_INTERVAL_MS = Math.round(1000 / MAX_SHOTS_PER_SECOND);
+const MOTION_FRAME_MS = 34;          // ~29 FPS movement is much lighter than 60 FPS
+const MAX_VISUAL_SHOTS_PER_SECOND = 24; // gameplay shots still count; only heavy visuals are capped
+const WS_URLS = ['hamada://center-live','hamada://center-live'];
+
+const state = {
+  phase:'join', joinOpen:true, kickMode:false,
+  players:new Map(), boys:[], girls:[], withdrawn:new Set(), eliminated:new Set(), teamShares:{boys:0,girls:0},
+  ws:null, wsIndex:0, reconnectTimer:null, winner:null, targeting:new Set(), shotQueues:new Map(), tapBuckets:new Map(), lastShotAt:new Map(), kingKey:null
+};
+
+const $ = s => document.querySelector(s);
+const els = {
+  joinScreen:$('#joinScreen'), battleScreen:$('#battleScreen'),
+  joinRoot:$('#joinRoot'), battleRoot:$('#battleRoot'),
+  statusJoin:$('#statusJoin'), statusBattle:$('#statusBattle'),
+  joinHint:$('#joinHint'), toggleJoin:$('#toggleJoin'), startBattle:$('#startBattle'),
+  kickBtnJoin:$('#kickBtnJoin'), kickBtnBattle:$('#kickBtnBattle'),
+  resetGame:$('#resetGame'), backJoin:$('#backJoin'),
+  boysJoinPlayers:$('#boysJoinPlayers'), girlsJoinPlayers:$('#girlsJoinPlayers'),
+  boysJoinCount:$('#boysJoinCount'), girlsJoinCount:$('#girlsJoinCount'),
+  boysFighters:$('#boysFighters'), girlsFighters:$('#girlsFighters'),
+  boysHealthFill:$('#boysHealthFill'), girlsHealthFill:$('#girlsHealthFill'),
+  boysHealthValue:$('#boysHealthValue'), girlsHealthValue:$('#girlsHealthValue'),
+  winner:$('#winner'), winnerTitle:$('#winnerTitle'), winnerSub:$('#winnerSub'),
+  winnerReset:$('#winnerReset'), toast:$('#toast')
+};
+
+let toastTimer=null;
+function toast(msg){
+  clearTimeout(toastTimer); els.toast.textContent=msg; els.toast.classList.add('show');
+  toastTimer=setTimeout(()=>els.toast.classList.remove('show'),1800);
+}
+function safeText(v){ return String(v ?? '').trim(); }
+function userKey(data){
+  const u=data?.user||data||{};
+  return safeText(u.secUid||data?.secUid||u.id||data?.userId||u.userId||u.uniqueId||data?.uniqueId||u.nickname||data?.nickname);
+}
+function parseChat(data){
+  const base = data?.data || data?.payload || data || {};
+  const u=base?.user||base?.sender||base||{};
+  data = base;
+  const uniqueId=safeText(u.uniqueId||data?.uniqueId||u.username||data?.username);
+  const nickname=safeText(u.nickname||data?.nickname||u.displayName||data?.displayName||uniqueId||'متابع');
+  const avatar=safeText(u.profilePictureUrl||data?.profilePictureUrl||u.avatarUrl||data?.avatarUrl||u.userDetails?.profilePictureUrls?.[0]||data?.userDetails?.profilePictureUrls?.[0]);
+  const comment=safeText(data?.comment??data?.message??data?.text);
+  const key=userKey(data)||uniqueId||nickname;
+  return {key,uniqueId,nickname,avatar,comment};
+}
+
+function giftCoins(data){
+  const d = data?.data || data?.payload || data || {};
+  const g = d?.gift || d?.giftDetails || d?.giftInfo || {};
+
+  const unitCandidates = [
+    d?.diamondCount, d?.diamonds, d?.coinCount, d?.coins, d?.giftValue,
+    g?.diamondCount, g?.diamonds, g?.coinCount, g?.coins, g?.cost, g?.value
+  ];
+
+  let unit = 0;
+  for(const v of unitCandidates){
+    const n = Number(v);
+    if(Number.isFinite(n) && n > 0){ unit = n; break; }
+  }
+
+  const repeatCandidates = [
+    d?.repeatCount, d?.repeat_count, d?.giftCount, d?.count, d?.quantity,
+    g?.repeatCount, g?.count, g?.quantity
+  ];
+  let repeat = 1;
+  for(const v of repeatCandidates){
+    const n = Number(v);
+    if(Number.isFinite(n) && n > 0){ repeat = n; break; }
+  }
+
+  // A gift event itself is sufficient for the 1-coin return rule.
+  // If TikFinity supplies value fields, use them; otherwise treat it as at least one coin.
+  return unit > 0 ? unit * repeat : 1;
+}
+
+function handleGift(data){
+  // In this version, eliminated players cannot return during the same round.
+  return;
+}
+
+function setConnection(ok){
+  [els.statusJoin,els.statusBattle].forEach(el=>{
+    el.classList.toggle('ok',ok); el.classList.toggle('bad',!ok);
+    el.querySelector('.statusText').textContent=ok?'متصل':'غير متصل';
+  });
+}
+function connect(){
+  clearTimeout(state.reconnectTimer);
+  if(state.ws&&(state.ws.readyState===WebSocket.OPEN||state.ws.readyState===WebSocket.CONNECTING))return;
+  const url=WS_URLS[state.wsIndex%WS_URLS.length];
+  setConnection(false);
+  try{
+    const ws=new WebSocket(url); state.ws=ws;
+    ws.addEventListener('open',()=>{state.wsIndex=0;setConnection(true)});
+    ws.addEventListener('message',ev=>{
+      try{
+        const msg=JSON.parse(ev.data);
+        if(msg){
+          const eventType = safeText(msg.event || msg.type || msg.eventType).toLowerCase();
+          if(eventType === 'chat' || eventType === 'comment'){
+            handleComment(msg.data || msg.payload || msg);
+          }else if(eventType === 'gift'){
+            handleGift(msg);
+          }else if(eventType === 'like'){
+            handleLike(msg);
+          }else if(eventType === 'share'){
+            handleShare(msg);
+          }
+        }
+      }catch(e){}
+    });
+    ws.addEventListener('close',()=>{
+      if(state.ws===ws)state.ws=null; setConnection(false);
+      state.wsIndex=(state.wsIndex+1)%WS_URLS.length;
+      state.reconnectTimer=setTimeout(connect,1800);
+    });
+    ws.addEventListener('error',()=>{try{ws.close()}catch(e){}});
+  }catch(e){
+    state.wsIndex=(state.wsIndex+1)%WS_URLS.length;
+    state.reconnectTimer=setTimeout(connect,1800);
+  }
+}
+function fallbackAvatar(name, battle=false){
+  const d=document.createElement('div'); d.className='avatar-fallback';
+  d.textContent=safeText(name).charAt(0)||'؟'; return d;
+}
+function imgFor(p){
+  if(!p.avatar) return fallbackAvatar(p.nickname);
+  const img=document.createElement('img'); img.alt=p.nickname; img.referrerPolicy='no-referrer'; img.src=p.avatar;
+  img.addEventListener('error',()=>img.replaceWith(fallbackAvatar(p.nickname)),{once:true}); return img;
+}
+function joinPlayer(info,team){
+  if(!info.key) return;
+
+  // A player eliminated by damage cannot return again in the same round.
+  if(state.eliminated.has(info.key)){
+    return;
+  }
+
+  const rejoiningAfterWithdraw = state.withdrawn.has(info.key);
+
+  // Joining is open during both the joining screen and the live battlefield.
+  // Existing active players cannot join twice.
+  if(!rejoiningAfterWithdraw && state.players.has(info.key)) return;
+  if(rejoiningAfterWithdraw && state.players.has(info.key)) return;
+
+  const p={
+    key:info.key,
+    uniqueId:info.uniqueId,
+    nickname:info.nickname,
+    avatar:info.avatar,
+    team,
+    hits:0,
+    hitsGiven:0,
+    alive:true
+  };
+
+  state.players.set(info.key,p);
+  state.withdrawn.delete(info.key);
+  (team==='boys'?state.boys:state.girls).push(p);
+
+  if(state.winner){
+    const boysAlive = state.boys.some(x=>x.alive);
+    const girlsAlive = state.girls.some(x=>x.alive);
+    if(boysAlive && girlsAlive){
+      state.winner = null;
+      els.winner.classList.remove('show');
+    }
+  }
+
+  renderJoin();
+  renderBattle();
+
+  if(state.phase==='battle'){
+    requestAnimationFrame(initFighterMotion);
+    toast(`انضم ${p.nickname} إلى ${team==='boys'?'الشباب':'البنات'}`);
+  }
+}
+
+function withdrawPlayer(info){
+  if(!info?.key) return;
+  const p = state.players.get(info.key);
+  if(!p) return;
+
+  state.players.delete(info.key);
+  state.shotQueues.delete(info.key);
+  state.tapBuckets.delete(info.key);
+  state.lastShotAt.delete(info.key);
+  state.targeting.delete(info.key);
+  state.withdrawn.add(info.key);
+
+  state.boys = state.boys.filter(x => x.key !== info.key);
+  state.girls = state.girls.filter(x => x.key !== info.key);
+
+  renderJoin();
+  renderBattle();
+
+  toast(`انسحب ${p.nickname} من التحدي`);
+}
+
+function renderJoin(){
+  renderJoinTeam('boys'); renderJoinTeam('girls');
+}
+function renderJoinTeam(team){
+  const list=(team==='boys'?state.boys:state.girls).filter(p=>p.alive);
+  const box=team==='boys'?els.boysJoinPlayers:els.girlsJoinPlayers;
+  const count=team==='boys'?els.boysJoinCount:els.girlsJoinCount;
+  count.textContent=`${list.length} ${team==='boys'?'مشارك':'مشاركة'}`; box.innerHTML='';
+  if(!list.length){const e=document.createElement('div');e.className='empty';e.textContent=team==='boys'?'بانتظار انضمام الشباب':'بانتظار انضمام البنات';box.appendChild(e);return}
+  list.forEach(p=>{
+    const card=document.createElement('div'); card.className='join-card'; card.dataset.key=p.key;
+    card.appendChild(imgFor(p));
+    const n=document.createElement('div');n.className='join-name';n.textContent=p.nickname;card.appendChild(n);
+    card.addEventListener('click',()=>{if(state.kickMode)kickPlayer(p.key)});
+    box.appendChild(card);
+  });
+}
+
+let movementFrame = 0;
+let lastMoveTime = 0;
+
+function chooseWaypoint(m){
+  m.tx = 0.07 + Math.random() * 0.86;
+  m.ty = 0.07 + Math.random() * 0.86;
+  m.nextDecision = performance.now() + 900 + Math.random()*2100;
+}
+
+function initFighterMotion(){
+  const now = performance.now();
+  const all = [...state.boys, ...state.girls].filter(p => p.alive);
+
+  all.forEach((p) => {
+    if(!p.motion){
+      p.motion = {
+        x: 0.08 + Math.random() * 0.84,
+        y: 0.08 + Math.random() * 0.84,
+        tx: 0.1 + Math.random() * 0.8,
+        ty: 0.1 + Math.random() * 0.8,
+        speed: 0.075 + Math.random() * 0.055,
+        sway: Math.random() * Math.PI * 2,
+        nextDecision: now + 700 + Math.random()*1700,
+        pauseUntil: 0,
+        dodgeUntil: 0
+      };
+    }
+  });
+
+  if(!movementFrame){
+    lastMoveTime = now;
+    movementFrame = requestAnimationFrame(updateFighterMotion);
+  }
+}
+
+function dodgeTarget(player, attacker){
+  if(!player?.motion) return;
+  const m=player.motion;
+  const a=attacker?.motion;
+  let dx=(m.x-(a?.x ?? .5));
+  let dy=(m.y-(a?.y ?? .5));
+  const len=Math.hypot(dx,dy)||1;
+  dx/=len; dy/=len;
+
+  m.tx=Math.max(.04,Math.min(.96,m.x+dx*(.12+Math.random()*.11)+(Math.random()-.5)*.08));
+  m.ty=Math.max(.04,Math.min(.96,m.y+dy*(.12+Math.random()*.11)+(Math.random()-.5)*.08));
+  m.dodgeUntil=performance.now()+320;
+
+  const node=getFighter(player);
+  if(node){
+    node.classList.add('dodge');
+    setTimeout(()=>node.classList.remove('dodge'),340);
+  }
+}
+
+let lastCollisionPass=0;
+
+function updateFighterMotion(ts){
+  if(state.phase !== 'battle'){
+    movementFrame=requestAnimationFrame(updateFighterMotion);
+    lastMoveTime=ts;
+    return;
+  }
+
+  if(ts-lastMoveTime < MOTION_FRAME_MS){
+    movementFrame=requestAnimationFrame(updateFighterMotion);
+    return;
+  }
+
+  const dt=Math.min(.055,Math.max(.018,(ts-lastMoveTime)/1000 || .034));
+  lastMoveTime=ts;
+
+  if(ts-lastCollisionPass > 250){
+    lastCollisionPass=ts;
+    const separateTeam=(team)=>{
+      const list=(team==='boys'?state.boys:state.girls).filter(p=>p.alive&&p.motion);
+      const limit=Math.min(list.length,40);
+      for(let i=0;i<limit;i++){
+        for(let j=i+1;j<limit;j++){
+          const a=list[i].motion,b=list[j].motion;
+          const dx=a.x-b.x,dy=a.y-b.y,d2=dx*dx+dy*dy;
+          if(d2>0&&d2<.012){
+            const d=Math.sqrt(d2),nx=dx/d,ny=dy/d,push=(.11-d)*.014;
+            if(push>0){
+              a.x=Math.max(.025,Math.min(.975,a.x+nx*push));
+              a.y=Math.max(.025,Math.min(.975,a.y+ny*push));
+              b.x=Math.max(.025,Math.min(.975,b.x-nx*push));
+              b.y=Math.max(.025,Math.min(.975,b.y-ny*push));
+            }
+          }
+        }
+      }
+    };
+    separateTeam('boys');
+    separateTeam('girls');
+  }
+
+  const moveTeam=(team)=>{
+    const box=team==='boys'?els.boysFighters:els.girlsFighters;
+    const fighterSize=window.innerWidth<=760?62:94;
+    const maxX=Math.max(1,box.clientWidth-fighterSize-8);
+    const maxY=Math.max(1,box.clientHeight-fighterSize-8);
+    const list=team==='boys'?state.boys:state.girls;
+
+    for(let i=0;i<list.length;i++){
+      const p=list[i];
+      if(!p.alive||!p.motion||!p._node) continue;
+      const m=p.motion;
+
+      const distance=Math.hypot(m.tx-m.x,m.ty-m.y);
+      if(ts>m.nextDecision||distance<.035){
+        if(Math.random()<.13&&ts>m.dodgeUntil) m.pauseUntil=ts+140+Math.random()*300;
+        chooseWaypoint(m);
+      }
+
+      if(ts>=m.pauseUntil){
+        const dx=m.tx-m.x,dy=m.ty-m.y,len=Math.hypot(dx,dy)||1;
+        const boost=ts<m.dodgeUntil?1.7:1;
+        m.x+=(dx/len)*m.speed*boost*dt;
+        m.y+=(dy/len)*m.speed*boost*dt;
+      }
+
+      m.x=Math.max(.02,Math.min(.98,m.x));
+      m.y=Math.max(.02,Math.min(.98,m.y));
+      m.sway+=dt*(1.0+m.speed*5);
+
+      if(!p._node.classList.contains('out')){
+        const swayX=Math.sin(m.sway+i*.7)*1.4;
+        const swayY=Math.cos(m.sway*.81+i)*1.0;
+        const x=Math.max(4,Math.min(maxX,m.x*maxX+swayX));
+        const y=Math.max(4,Math.min(maxY,m.y*maxY+swayY));
+        p._node.style.translate=`${x}px ${y}px`;
+      }
+    }
+  };
+
+  moveTeam('boys');
+  moveTeam('girls');
+  movementFrame=requestAnimationFrame(updateFighterMotion);
+}
+
+function getGameKing(){
+  const all=[...state.boys,...state.girls].filter(p=>p.alive);
+  if(!all.length) return null;
+  let best=null;
+  for(const p of all){
+    const score=Number(p.hitsGiven||0);
+    if(score<=0) continue;
+    if(!best || score>Number(best.hitsGiven||0)) best=p;
+  }
+  return best;
+}
+
+function applyKingStyle(){
+  const king=getGameKing();
+  const nextKey=king?.key||null;
+  if(state.kingKey===nextKey) return;
+
+  if(state.kingKey){
+    const oldPlayer=state.players.get(state.kingKey);
+    const oldNode=getFighter(oldPlayer);
+    if(oldNode){
+      oldNode.classList.remove('king');
+      oldNode.querySelector('.king-crown')?.remove();
+    }
+  }
+
+  state.kingKey=nextKey;
+  if(!king) return;
+
+  const node=getFighter(king);
+  if(!node) return;
+  node.classList.add('king');
+  if(!node.querySelector('.king-crown')){
+    const crown=document.createElement('div');
+    crown.className='king-crown';
+    crown.textContent='👑';
+    crown.setAttribute('aria-label','ملك اللعبة');
+    node.appendChild(crown);
+  }
+}
+
+
+function pulseTeamHealth(team){
+  const root=team==='boys'?els.boysHealthFill:els.girlsHealthFill;
+  if(!root||!root.animate) return;
+  root.animate(
+    [{opacity:1},{opacity:.66},{opacity:1}],
+    {duration:150,easing:'ease-out'}
+  );
+}
+
+function showHitMarker(node){
+  if(!node||!node.animate) return;
+  node.animate(
+    [
+      {filter:'brightness(1)',scale:'1'},
+      {filter:'brightness(1.48)',scale:'1.055'},
+      {filter:'brightness(1)',scale:'1'}
+    ],
+    {duration:145,easing:'ease-out'}
+  );
+}
+
+function showEliminationEffect(node){
+  if(!node) return;
+  const r=node.getBoundingClientRect();
+  const ring=document.createElement('i');
+  ring.className='elim-ring';
+  ring.style.left=`${r.left+r.width/2}px`;
+  ring.style.top=`${r.top+r.height/2}px`;
+  document.body.appendChild(ring);
+  setTimeout(()=>ring.remove(),650);
+}
+
+function getTeamHealth(team){
+  const list = team==='boys' ? state.boys : state.girls;
+
+  // Keep each player who joined this round in the team's maximum health,
+  // even after elimination. An eliminated player contributes 0 current HP.
+  const max = list.length * HIT_LIMIT;
+  const current = list.reduce((sum,p)=>{
+    if(!p.alive) return sum;
+    return sum + Math.max(0, HIT_LIMIT - Number(p.hits||0));
+  },0);
+
+  return {current,max};
+}
+
+let healthUpdatePending=false;
+
+function updateTeamHealth(){
+  if(healthUpdatePending) return;
+  healthUpdatePending=true;
+  setTimeout(()=>{
+    healthUpdatePending=false;
+    const b=getTeamHealth('boys');
+    const g=getTeamHealth('girls');
+
+    const setBar=(fill,value,data)=>{
+      const pct=data.max>0?Math.max(0,Math.min(100,(data.current/data.max)*100)):0;
+      fill.style.width=`${pct}%`;
+      fill.classList.toggle('low',pct<=50&&pct>20);
+      fill.classList.toggle('critical',pct<=20&&data.max>0);
+      value.textContent=`${data.current} / ${data.max}`;
+    };
+
+    setBar(els.boysHealthFill,els.boysHealthValue,b);
+    setBar(els.girlsHealthFill,els.girlsHealthValue,g);
+  },50);
+}
+
+function renderBattle(){
+  renderBattleTeam('boys'); renderBattleTeam('girls');
+  updateTeamHealth();
+  requestAnimationFrame(applyKingStyle);
+}
+function renderBattleTeam(team){
+  const all=team==='boys'?state.boys:state.girls;
+  all.forEach(p=>{ if(p._node && !p._node.isConnected) p._node=null; });
+  const list=all.filter(p=>p.alive);
+  const box=team==='boys'?els.boysFighters:els.girlsFighters;
+  box.innerHTML='';
+  const frag=document.createDocumentFragment();
+
+  list.forEach(p=>{
+    const f=document.createElement('div');
+    f.className='fighter';
+    f.dataset.key=p.key;
+    f.title=p.nickname;
+    f.appendChild(imgFor(p));
+    f.addEventListener('click',()=>{if(state.kickMode)kickPlayer(p.key)});
+    p._node=f;
+    frag.appendChild(f);
+  });
+
+  box.appendChild(frag);
+
+  const size = window.innerWidth <= 760 ? 62 : 94;
+  const maxX = Math.max(1, box.clientWidth - size - 8);
+  const maxY = Math.max(1, box.clientHeight - size - 8);
+  list.forEach(p=>{
+    if(p.motion && p._node){
+      const x=Math.max(4,Math.min(maxX,p.motion.x*maxX));
+      const y=Math.max(4,Math.min(maxY,p.motion.y*maxY));
+      p._node.style.translate=`${x}px ${y}px`;
+    }
+  });
+}
+function getFighter(p){
+  if(p?._node && p._node.isConnected) return p._node;
+  return null;
+}
+function randomAlive(team){
+  const arr=(team==='boys'?state.boys:state.girls).filter(p=>p.alive);
+  return arr.length?arr[Math.floor(Math.random()*arr.length)]:null;
+}
+
+let audioCtx=null;
+let soundBank=null;
+let lastShotSoundAt=0;
+let lastHitSoundAt=0;
+
+function buildBuffer(duration,fn){
+  const len=Math.max(1,Math.floor(audioCtx.sampleRate*duration));
+  const buf=audioCtx.createBuffer(1,len,audioCtx.sampleRate);
+  const d=buf.getChannelData(0);
+  for(let i=0;i<len;i++){
+    const t=i/audioCtx.sampleRate;
+    d[i]=Math.max(-1,Math.min(1,fn(t,duration)));
+  }
+  return buf;
+}
+
+function buildSoundBank(){
+  if(!audioCtx||soundBank) return;
+  soundBank={
+    shot:buildBuffer(.16,(t,dur)=>{
+      const env=Math.exp(-t*28);
+      const crack=(Math.random()*2-1)*Math.exp(-t*65)*.82;
+      const body=Math.sin(2*Math.PI*(145-520*t)*t)*env*.5;
+      return crack+body;
+    }),
+    hit:buildBuffer(.13,(t,dur)=>{
+      const env=Math.exp(-t*24);
+      return Math.sin(2*Math.PI*(112-360*t)*t)*env*.55+(Math.random()*2-1)*Math.exp(-t*45)*.24;
+    }),
+    aim:buildBuffer(.055,(t,dur)=>Math.sin(2*Math.PI*(1160+420*t/dur)*t)*Math.exp(-t*38)*.26),
+    grenade:buildBuffer(.17,(t,dur)=>Math.sin(2*Math.PI*(300-750*t)*t)*Math.exp(-t*16)*.34),
+    explosion:buildBuffer(.48,(t,dur)=>{
+      const env=Math.exp(-t*6.8);
+      return (Math.random()*2-1)*env*.74+Math.sin(2*Math.PI*(88-115*t)*t)*Math.exp(-t*5)*.55;
+    })
+  };
+}
+
+function ensureAudio(){
+  try{
+    if(!audioCtx){
+      const AC=window.AudioContext||window.webkitAudioContext;
+      if(AC) audioCtx=new AC({latencyHint:'interactive'});
+    }
+    if(audioCtx&&audioCtx.state==='suspended') audioCtx.resume();
+    buildSoundBank();
+  }catch(e){}
+}
+
+function playCachedSound(name,gainValue=.3,rate=1){
+  ensureAudio();
+  if(!audioCtx||!soundBank?.[name]) return;
+  const src=audioCtx.createBufferSource();
+  const g=audioCtx.createGain();
+  src.buffer=soundBank[name];
+  src.playbackRate.value=rate;
+  g.gain.value=gainValue;
+  src.connect(g);g.connect(audioCtx.destination);
+  src.start();
+}
+
+function playAimSound(){
+  // Aim sound is intentionally very light and throttled for smoothness.
+  playCachedSound('aim',.05,1);
+}
+
+function playShotSound(team){
+  const now=performance.now();
+  if(now-lastShotSoundAt<38) return;
+  lastShotSoundAt=now;
+  playCachedSound('shot',.30,team==='boys'?.98:1.04);
+}
+
+function playHitSound(){
+  const now=performance.now();
+  if(now-lastHitSoundAt<55) return;
+  lastHitSoundAt=now;
+  playCachedSound('hit',.18,1);
+}
+
+function playGrenadeThrowSound(){
+  playCachedSound('grenade',.20,1);
+}
+
+function playExplosionSound(){
+  playCachedSound('explosion',.55,1);
+}
+
+function localArenaShock(team){
+  const panel=team==='boys' ? els.boysFighters.closest('.battle-team') : els.girlsFighters.closest('.battle-team');
+  if(!panel) return;
+  panel.animate(
+    [
+      {transform:'translate(0,0)'},
+      {transform:'translate(-3px,1px)'},
+      {transform:'translate(3px,-1px)'},
+      {transform:'translate(-1px,1px)'},
+      {transform:'translate(0,0)'}
+    ],
+    {duration:150,easing:'ease-out'}
+  );
+}
+
+function createExplosion(x,y){
+  const ex=document.createElement('div');
+  ex.className='explosion';
+  ex.style.left=`${x}px`;
+  ex.style.top=`${y}px`;
+  document.body.appendChild(ex);
+
+  for(let i=0;i<4;i++){
+    const s=document.createElement('i');
+    s.className='blast-shard';
+    s.style.left=`${x}px`;s.style.top=`${y}px`;
+    s.style.setProperty('--bx',`${(Math.random()-.5)*150}px`);
+    s.style.setProperty('--by',`${(Math.random()-.5)*150}px`);
+    s.style.setProperty('--br',`${(Math.random()*540-270)}deg`);
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),520);
+  }
+
+  for(let i=0;i<3;i++){
+    const sm=document.createElement('i');
+    sm.className='smoke';
+    sm.style.left=`${x+(Math.random()-.5)*24}px`;
+    sm.style.top=`${y+(Math.random()-.5)*24}px`;
+    sm.style.setProperty('--sx',`${(Math.random()-.5)*72}px`);
+    sm.style.setProperty('--sy',`${-30-Math.random()*65}px`);
+    document.body.appendChild(sm);
+    setTimeout(()=>sm.remove(),850);
+  }
+
+  playExplosionSound();
+  setTimeout(()=>ex.remove(),620);
+}
+
+function throwGrenade(team){
+  if(state.phase!=='battle' || state.winner) return;
+
+  const sourceBox = team==='boys' ? els.boysFighters : els.girlsFighters;
+  const targetTeam = team==='boys' ? 'girls' : 'boys';
+  const target = randomAlive(targetTeam);
+  if(!target) return;
+
+  const targetNode=getFighter(target);
+  if(!targetNode) return;
+
+  const sb=sourceBox.getBoundingClientRect();
+  const tb=targetNode.getBoundingClientRect();
+
+  const startX = team==='boys' ? sb.right-28 : sb.left+28;
+  const startY = sb.top + sb.height*(.35+Math.random()*.3);
+  const endX = tb.left + tb.width/2;
+  const endY = tb.top + tb.height/2;
+
+  const grenade=document.createElement('div');
+  grenade.className='grenade';
+  grenade.style.left=`${startX-17}px`;
+  grenade.style.top=`${startY-17}px`;
+  document.body.appendChild(grenade);
+
+  const fuse=document.createElement('i');
+  fuse.className='grenade-fuse';
+  document.body.appendChild(fuse);
+
+  const shadow=document.createElement('i');
+  shadow.className='grenade-shadow';
+  document.body.appendChild(shadow);
+
+  playGrenadeThrowSound();
+
+  const start=performance.now();
+  const duration=760;
+  const arcHeight=Math.max(125,Math.abs(endX-startX)*.22);
+
+  function frame(now){
+    const t=Math.min(1,(now-start)/duration);
+    const ease=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+    const x=startX+(endX-startX)*ease;
+    const baseY=startY+(endY-startY)*ease;
+    const y=baseY-Math.sin(Math.PI*t)*arcHeight;
+    grenade.style.left=`${x-17}px`;
+    grenade.style.top=`${y-17}px`;
+    grenade.style.transform=`rotate(${t*900}deg)`;
+    fuse.style.left=`${x+11}px`;
+    fuse.style.top=`${y-18}px`;
+
+    const groundY=startY+(endY-startY)*ease;
+    shadow.style.left=`${x}px`;
+    shadow.style.top=`${groundY+22}px`;
+    shadow.style.opacity=`${0.18+0.28*Math.sin(Math.PI*t)}`;
+if(t<1){
+      requestAnimationFrame(frame);
+    }else{
+      grenade.remove();
+      fuse.remove();
+      shadow.remove();
+
+      const liveTarget=state.players.get(target.key);
+      if(!liveTarget || !liveTarget.alive) return;
+
+      createExplosion(endX,endY);
+      localArenaShock(liveTarget.team);
+      liveTarget.hits += 50;
+      updateTeamHealth();
+      pulseTeamHealth(liveTarget.team);
+
+      const node=getFighter(liveTarget);
+      if(node){
+        showHitMarker(node);
+        node.classList.remove('hit');
+        void node.offsetWidth;
+        node.classList.add('hit');
+        setTimeout(()=>node.classList.remove('hit'),800);
+      }
+
+      if(liveTarget.hits>=HIT_LIMIT){
+        liveTarget.alive=false;
+        if(node) showEliminationEffect(node);
+        state.eliminated.add(liveTarget.key);
+        state.shotQueues.delete(liveTarget.key);
+        state.tapBuckets.delete(liveTarget.key);
+        state.lastShotAt.delete(liveTarget.key);
+        state.targeting.delete(liveTarget.key);
+        if(node){
+          setTimeout(()=>node.classList.add('out'),180);
+          setTimeout(()=>{renderBattle();renderJoin();checkWinner()},900);
+        }else{
+          renderBattle();renderJoin();checkWinner();
+        }
+      }
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+
+function extractLikeCount(data){
+  const d=data?.data || data?.payload || data || {};
+  const candidates=[
+    d?.likeCount,
+    d?.like_count,
+    d?.count,
+    d?.repeatCount,
+    d?.repeat_count,
+    d?.likes,
+    d?.delta
+  ];
+  for(const v of candidates){
+    const n=Math.floor(Number(v));
+    if(Number.isFinite(n) && n>0){
+      return Math.max(1,Math.min(n,500));
+    }
+  }
+  return 1;
+}
+
+function enqueueShots(player,count=1){
+  if(!player || !player.alive || state.phase!=='battle' || state.winner) return;
+  const add=Math.max(1,Math.min(Math.floor(Number(count)||1),250));
+  const current=state.shotQueues.get(player.key)||0;
+  state.shotQueues.set(player.key,Math.min(current+add,400));
+  processShotQueue(player.key);
+}
+
+function processShotQueue(playerKey){
+  if(state.targeting.has(playerKey)) return;
+
+  const player=state.players.get(playerKey);
+  if(!player || !player.alive || state.phase!=='battle' || state.winner){
+    state.shotQueues.delete(playerKey);
+    state.lastShotAt.delete(playerKey);
+    return;
+  }
+
+  const queued=state.shotQueues.get(playerKey)||0;
+  if(queued<=0){
+    state.shotQueues.delete(playerKey);
+    return;
+  }
+
+  const now=performance.now();
+  const last=state.lastShotAt.get(playerKey)||0;
+  const wait=Math.max(0,SHOT_INTERVAL_MS-(now-last));
+
+  if(wait>2){
+    setTimeout(()=>processShotQueue(playerKey),wait);
+    return;
+  }
+
+  state.shotQueues.set(playerKey,queued-1);
+  state.lastShotAt.set(playerKey,performance.now());
+  fireOneShot(player);
+}
+
+function handleLike(data){
+  const info=parseChat(data?.data || data?.payload || data);
+  const p=state.players.get(info.key);
+  if(!p || !p.alive || state.phase!=='battle') return;
+
+  const likes=extractLikeCount(data);
+  const previous=state.tapBuckets.get(p.key)||0;
+  const total=previous+likes;
+  const shots=Math.floor(total/TAPS_PER_SHOT);
+  const remainder=total%TAPS_PER_SHOT;
+
+  state.tapBuckets.set(p.key,remainder);
+
+  if(shots>0){
+    enqueueShots(p,shots);
+  }
+}
+
+function handleShare(data){
+  const info=parseChat(data?.data || data?.payload || data);
+  const p=state.players.get(info.key);
+  if(!p || !p.alive || state.phase!=='battle') return;
+
+  const team=p.team;
+  state.teamShares[team]=(state.teamShares[team]||0)+1;
+
+  while(state.teamShares[team]>=10){
+    state.teamShares[team]-=10;
+    throwGrenade(team);
+  }
+}
+
+let visualWindowStart=0;
+let visualShots=0;
+
+function canRenderShotVisual(){
+  const now=performance.now();
+  if(now-visualWindowStart>=1000){
+    visualWindowStart=now;
+    visualShots=0;
+  }
+  if(visualShots>=MAX_VISUAL_SHOTS_PER_SECOND) return false;
+  visualShots++;
+  return true;
+}
+
+function drawBeam(fromEl,toEl,team){
+  playShotSound(team);
+
+  if(!fromEl||!toEl||!canRenderShotVisual()) return;
+
+  const a=fromEl.getBoundingClientRect();
+  const b=toEl.getBoundingClientRect();
+  const x1=a.left+a.width/2,y1=a.top+a.height/2;
+  const x2=b.left+b.width/2,y2=b.top+b.height/2;
+  const dx=x2-x1,dy=y2-y1;
+  const len=Math.hypot(dx,dy);
+  const ang=Math.atan2(dy,dx)*180/Math.PI;
+
+  const beam=document.createElement('div');
+  beam.className=`beam ${team==='boys'?'boy':'girl'}`;
+  beam.style.left=`${x1}px`;
+  beam.style.top=`${y1}px`;
+  beam.style.width=`${len}px`;
+  beam.style.transform=`rotate(${ang}deg)`;
+  document.body.appendChild(beam);
+
+  if(fromEl.animate){
+    fromEl.animate(
+      [{filter:'brightness(1)'},{filter:'brightness(1.45)'},{filter:'brightness(1)'}],
+      {duration:90,easing:'ease-out'}
+    );
+  }
+
+  if(toEl.animate){
+    toEl.animate(
+      [{filter:'brightness(1)'},{filter:'brightness(1.38)'},{filter:'brightness(1)'}],
+      {duration:105,easing:'ease-out'}
+    );
+  }
+
+  setTimeout(()=>beam.remove(),210);
+}
+
+function fireOneShot(attacker){
+  if(state.phase!=='battle'||!attacker?.alive||state.winner){
+    state.targeting.delete(attacker?.key);
+    if(attacker?.key) processShotQueue(attacker.key);
+    return;
+  }
+  if(state.targeting.has(attacker.key)) return;
+
+  const target=randomAlive(attacker.team==='boys'?'girls':'boys');
+  if(!target){
+    processShotQueue(attacker.key);
+    return;
+  }
+
+  const a=getFighter(attacker),t=getFighter(target);
+  if(!a||!t){
+    setTimeout(()=>processShotQueue(attacker.key),10);
+    return;
+  }
+
+  state.targeting.add(attacker.key);
+  dodgeTarget(target,attacker);
+
+  setTimeout(()=>{
+    if(!attacker.alive||!target.alive||state.phase!=='battle'){
+      state.targeting.delete(attacker.key);
+      setTimeout(()=>processShotQueue(attacker.key),5);
+      return;
+    }
+
+    const liveA=getFighter(attacker),liveT=getFighter(target);
+    if(liveA&&liveT) drawBeam(liveA,liveT,attacker.team);
+    else playShotSound(attacker.team);
+
+    target.hits+=BULLET_DAMAGE;
+    attacker.hitsGiven=(attacker.hitsGiven||0)+BULLET_DAMAGE;
+    updateTeamHealth();
+    playHitSound();
+    applyKingStyle();
+
+    if(liveT) showHitMarker(liveT);
+
+    if(target.hits>=HIT_LIMIT){
+      target.hits=HIT_LIMIT;
+      target.alive=false;
+      if(liveT) showEliminationEffect(liveT);
+      state.eliminated.add(target.key);
+      state.shotQueues.delete(target.key);
+      state.tapBuckets.delete(target.key);
+      state.lastShotAt.delete(target.key);
+      state.targeting.delete(target.key);
+
+      if(liveT){
+        liveT.classList.add('out');
+        setTimeout(()=>{renderBattle();renderJoin();updateTeamHealth();checkWinner()},420);
+      }else{
+        renderBattle();renderJoin();updateTeamHealth();checkWinner();
+      }
+    }
+
+    state.targeting.delete(attacker.key);
+    setTimeout(()=>processShotQueue(attacker.key),5);
+  },24);
+}
+
+function kickPlayer(key){
+  const p=state.players.get(key); if(!p||!p.alive)return;
+  p.alive=false;
+  state.shotQueues.delete(p.key);
+  state.tapBuckets.delete(p.key);
+  state.lastShotAt.delete(p.key);
+  state.targeting.delete(p.key);
+  toast(`تم طرد ${p.nickname}`);
+  renderJoin(); renderBattle();
+  if(state.phase==='battle')checkWinner();
+}
+function toggleKick(){
+  state.kickMode=!state.kickMode;
+  [els.joinRoot,els.battleRoot].forEach(r=>r.classList.toggle('kick-mode',state.kickMode));
+  [els.kickBtnJoin,els.kickBtnBattle].forEach(b=>{
+    b.classList.toggle('kick-active',state.kickMode);
+    b.textContent=state.kickMode?'الطرد مفعل':'الطرد';
+  });
+  toast(state.kickMode?'اضغط على صورة اللاعب لطرده':'تم إيقاف وضع الطرد');
+}
+function handleComment(data){
+  const info=parseChat(data),c=info.comment.replace(/\s+/g,' ').trim();
+
+  if(c==='انسحاب'){
+    withdrawPlayer(info);
+    return;
+  }
+
+  if(c==='شباب'||c==='شاب'){
+    joinPlayer(info,'boys');
+    return;
+  }
+
+  if(c==='بنات'||c==='بنت'){
+    joinPlayer(info,'girls');
+    return;
+  }
+}
+
+function startBattle(){
+  ensureAudio();
+  if(!state.boys.some(p=>p.alive)||!state.girls.some(p=>p.alive)){toast('يجب وجود لاعب في كل فريق');return}
+  state.phase='battle';state.joinOpen=true;state.kickMode=false;
+  [els.joinRoot,els.battleRoot].forEach(r=>r.classList.remove('kick-mode'));
+  [els.kickBtnJoin,els.kickBtnBattle].forEach(b=>{b.classList.remove('kick-active');b.textContent='الطرد'});
+  renderBattle(); els.joinScreen.classList.remove('active');els.battleScreen.classList.add('active');
+  requestAnimationFrame(initFighterMotion);
+}
+function backJoin(){
+  els.battleScreen.classList.remove('active');els.joinScreen.classList.add('active');
+  els.joinHint.textContent='التحدي يعمل والانضمام مفتوح — اكتب شباب أو بنات';
+}
+function checkWinner(){
+  if(state.phase!=='battle'||state.winner)return;
+  const b=state.boys.some(p=>p.alive),g=state.girls.some(p=>p.alive);
+  if(!b&&!g)showWinner('draw');else if(!b)showWinner('girls');else if(!g)showWinner('boys');
+}
+function showWinner(team){
+  state.winner=team;
+  if(team==='boys'){els.winnerTitle.textContent='فاز فريق الشباب 👦';els.winnerTitle.style.color='#7acbff';els.winnerSub.textContent='تم إقصاء جميع لاعبات فريق البنات'}
+  else if(team==='girls'){els.winnerTitle.textContent='فاز فريق البنات 👧';els.winnerTitle.style.color='#ff8bc4';els.winnerSub.textContent='تم إقصاء جميع لاعبي فريق الشباب'}
+  else{els.winnerTitle.textContent='تعادل';els.winnerTitle.style.color='#fff';els.winnerSub.textContent='تم إقصاء الفريقين'}
+  els.winner.classList.add('show');
+}
+function reset(){
+  state.phase='join';state.joinOpen=true;state.kickMode=false;state.targeting.clear();state.shotQueues.clear();state.tapBuckets.clear();state.lastShotAt.clear();state.kingKey=null;
+  if(movementFrame){cancelAnimationFrame(movementFrame);movementFrame=0;}
+  state.players.clear();state.withdrawn.clear();state.eliminated.clear();state.teamShares={boys:0,girls:0};state.boys=[];state.girls=[];state.winner=null;
+  els.winner.classList.remove('show');els.joinScreen.classList.add('active');els.battleScreen.classList.remove('active');
+  els.joinHint.textContent='الانضمام مفتوح دائماً — اكتب شباب أو بنات | للانسحاب: انسحاب';
+  els.toggleJoin.textContent='إغلاق الانضمام';els.startBattle.disabled=false;
+  [els.joinRoot,els.battleRoot].forEach(r=>r.classList.remove('kick-mode'));renderJoin();renderBattle();
+}
+document.addEventListener('pointerdown', ensureAudio, {once:true});
+els.toggleJoin.addEventListener('click',()=>{if(state.phase!=='join')return;state.joinOpen=!state.joinOpen;els.toggleJoin.textContent=state.joinOpen?'إغلاق الانضمام':'فتح الانضمام';els.joinHint.textContent=state.joinOpen?'الانضمام مفتوح دائماً — اكتب شباب أو بنات | للانسحاب: انسحاب':'الانضمام مغلق'});
+els.startBattle.addEventListener('click',()=>{if(state.phase==='battle'){els.joinScreen.classList.remove('active');els.battleScreen.classList.add('active');requestAnimationFrame(initFighterMotion)}else startBattle()});
+els.kickBtnJoin.addEventListener('click',toggleKick);els.kickBtnBattle.addEventListener('click',toggleKick);
+els.resetGame.addEventListener('click',reset);els.winnerReset.addEventListener('click',reset);els.backJoin.addEventListener('click',backJoin);
+
+renderJoin();renderBattle();connect();
+})();
+</script>
+</body>
+</html>

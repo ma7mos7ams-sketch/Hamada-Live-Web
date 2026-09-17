@@ -1,0 +1,176 @@
+<!doctype html><html lang='ar' dir='rtl'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>تحدي الأكواب الخمسة</title><style>
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:radial-gradient(circle at 50% -10%,#5b4218 0,#17120a 28%,#070706 72%);background-attachment:fixed;color:#fff;min-height:100vh;overflow-x:hidden}.wrap{max-width:1100px;margin:auto;padding:22px;text-align:center}h1{margin:4px 0 8px;font-size:clamp(28px,5vw,52px);color:#f6d36a;text-shadow:0 2px 0 #6d4b0c,0 5px 18px #000}.sub{opacity:.85;margin-bottom:18px}.panel{background:linear-gradient(145deg,#17140eeb,#080807f2);border:1px solid #b98a32;border-radius:22px;padding:14px;box-shadow:0 18px 55px #000b,inset 0 0 30px #c99b2410}.status{font-size:22px;font-weight:700;min-height:34px;margin:8px}.score{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin:8px}.score b{color:#ffd65a}.stage{height:390px;position:relative;margin-top:12px;border-radius:18px;overflow:hidden;background:radial-gradient(ellipse at 50% 25%,#4a3817 0,#15120c 45%,#090806 64%),linear-gradient(#111 0 64%,#7d5a24 64% 66%,#24180b 66%);border:1px solid #8d6728;box-shadow:inset 0 0 70px #000,inset 0 -35px 80px #0008;perspective:900px}.ball{position:absolute;width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff,#f8e75b 25%,#e89b00 65%,#7a3c00);bottom:78px;left:0;z-index:2;box-shadow:0 7px 10px #0008;transition:left .45s ease,opacity .2s}.cup{position:absolute;width:130px;height:165px;bottom:70px;left:0;z-index:4;transition:left .38s cubic-bezier(.22,.75,.25,1),transform .38s cubic-bezier(.2,.8,.2,1);cursor:pointer;filter:drop-shadow(0 18px 12px #000b);transform-style:preserve-3d;will-change:left,transform}.cup .body{position:absolute;inset:0;background:linear-gradient(90deg,#3a2707 0%,#9d7424 12%,#f7dc83 28%,#b9872c 48%,#ffe89b 60%,#8b631c 78%,#2c1d05 100%);clip-path:polygon(25% 2%,75% 2%,91% 97%,9% 97%);border-radius:34px 34px 15px 15px;box-shadow:inset 12px 0 18px #fff2,inset -16px 0 22px #0008,inset 0 -20px 20px #5b3a08}.cup .body:before{content:'';position:absolute;left:25%;right:25%;top:7px;height:13px;border-radius:50%;background:linear-gradient(#fff1a8,#9c6e18);box-shadow:0 3px 5px #0008}.cup .body:after{content:'♛';position:absolute;left:0;right:0;top:52px;text-align:center;color:#3b2605aa;font-size:35px;text-shadow:0 1px #ffe99a}.cup .rim{position:absolute;bottom:-8px;left:5px;width:120px;height:24px;border-radius:50%;background:radial-gradient(ellipse,#120d05 0 43%,#5b3c0b 45%,#f5d36c 62%,#7b5314 80%,#2b1b04 100%);border:2px solid #e7c45d;box-shadow:0 5px 8px #000b,inset 0 2px 3px #fff5}.cup .num{position:absolute;top:55px;left:50%;transform:translateX(-50%);opacity:0;transition:opacity .25s ease;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#111d;color:#ffe168;border:2px solid #ffe168;font-size:27px;font-weight:900;box-shadow:0 4px 10px #0008}.cup.show-number .num{opacity:1}.cup:hover{filter:drop-shadow(0 12px 9px #0008) brightness(1.08)}.cup.lift{transform:translateY(-125px) rotateZ(-4deg) rotateY(-7deg)}.cup.moving{z-index:8;filter:drop-shadow(0 24px 16px #000c) brightness(1.08)}.controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:15px}button{border:0;border-radius:14px;padding:12px 22px;font-size:18px;font-weight:800;cursor:pointer;background:linear-gradient(#ffe69a,#b9872b);color:#1b1204;border:1px solid #ffe69a;box-shadow:0 5px 15px #0008,inset 0 1px #fff}button.secondary{background:#e8edf3}button:disabled{opacity:.45;cursor:not-allowed}.hint{font-size:14px;opacity:.75;margin-top:12px}.flash{animation:flash .55s 2}@keyframes flash{50%{box-shadow:inset 0 0 80px #4cff6599}}.wrong{animation:wrong .4s 2}@keyframes wrong{50%{box-shadow:inset 0 0 80px #ff3b3b88}}.players{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:12px 0}.player{position:relative;min-height:102px;border:1px solid #74551f;border-radius:16px;padding:8px;background:linear-gradient(145deg,#211a0d,#090806);opacity:.7}.player.active{opacity:1;border-color:#ffe06c;box-shadow:0 0 20px #e7b83b55}.avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid #d6a83d;background:#29251d}.pname{font-weight:900;color:#ffe07b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pts{font-size:13px}.kick{position:absolute;top:5px;left:5px;padding:3px 7px;font-size:12px;border-radius:8px;background:#6d1717;color:#fff;border-color:#b74b4b}.empty{display:grid;place-items:center;color:#9b8d6c}.livebar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px}.livebar input{border-radius:10px;border:1px solid #806128;background:#0d0c09;color:#fff;padding:9px;width:150px}.tikstatus{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border:1px solid #806128;border-radius:12px;background:#0d0c09;font-size:13px}.tikdot{width:10px;height:10px;border-radius:50%;background:#d34;box-shadow:0 0 8px #d34}.tikstatus.ok .tikdot{background:#43e06f;box-shadow:0 0 9px #43e06f}.turn{color:#ffe36f}.winner{font-size:30px;color:#ffe36f;text-shadow:0 0 16px #ffc400}.mini{font-size:12px;opacity:.65}@media(max-width:700px){.stage{height:330px}.cup{width:82px;height:115px}.cup .rim{width:76px;height:17px;left:3px;bottom:-6px}.cup .num{top:36px;width:38px;height:38px;font-size:20px}.ball{width:26px;height:26px;bottom:72px}}
+</style><style id="cupsViewportFit">
+html,body{width:100%;min-height:100%;}
+body{overflow-y:auto;}
+.wrap{max-width:none !important;width:100% !important;margin:0 !important;padding:22px !important;}
+.panel{width:100% !important;max-width:none !important;}
+.stage{width:100% !important;height:clamp(390px,52vh,620px) !important;}
+/* Keep text, buttons, settings and player cards at their original sizes. */
+h1,.sub,.status,.score,.controls,button,.hint,.players,.player,.livebar,.tikstatus{zoom:1 !important;}
+@media(max-width:700px){.wrap{padding:12px !important}.stage{height:330px !important}}
+</style>
+<style>
+@media (min-width:900px){
+  .controls{margin:8px 0 10px !important;position:relative;z-index:20}
+  .stage{height:clamp(360px,48vh,560px) !important;margin-top:6px !important}
+  .hint{margin-top:8px !important}
+}
+</style>
+
+<style id="hamadaCupsUltraRealistic">
+:root{--gold:#f6d77a;--gold2:#9d6d19;--panel:#0d0f13e8;--line:#e3bc5c55}
+html,body{width:100%;height:100%;overflow:hidden!important;background:#050506!important}
+body{font-family:"Segoe UI",Tahoma,Arial,sans-serif!important;
+ background:
+ radial-gradient(ellipse at 50% 12%,#5a431b55 0,transparent 36%),
+ radial-gradient(circle at 12% 20%,#8d62231c 0,transparent 24%),
+ linear-gradient(180deg,#111218 0,#08090c 58%,#030304 100%)!important}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.26;background-image:linear-gradient(#fff1 1px,transparent 1px),linear-gradient(90deg,#fff1 1px,transparent 1px);background-size:46px 46px;mask-image:linear-gradient(transparent,#000 28%,#000 78%,transparent)}
+.wrap{height:100vh!important;width:100vw!important;padding:14px 24px 12px!important;display:grid!important;grid-template-rows:auto auto 1fr!important;gap:8px!important;max-width:none!important;position:relative;z-index:1}
+h1{margin:0!important;font-size:clamp(28px,2.25vw,44px)!important;line-height:1!important;letter-spacing:.4px;color:#ffe59a!important;text-shadow:0 2px 0 #5b3d0a,0 0 20px #f1b83055,0 8px 28px #000!important}
+.sub{margin:0 0 2px!important;font-size:14px!important;color:#d8d2c2!important;opacity:.88!important}
+.panel{min-height:0!important;width:100%!important;max-width:none!important;padding:10px 14px 12px!important;border-radius:25px!important;border:1px solid #d6ad4c66!important;background:linear-gradient(155deg,#14161bec,#07080beb)!important;box-shadow:0 24px 65px #000c,inset 0 1px #fff1,inset 0 0 55px #c28b1712!important;display:grid!important;grid-template-columns:minmax(780px,1fr) 310px!important;grid-template-rows:auto auto auto minmax(420px,1fr) auto!important;column-gap:14px!important;align-items:start!important;overflow:hidden!important}
+.players{grid-column:2!important;grid-row:1/6!important;margin:0!important;display:grid!important;grid-template-columns:1fr!important;grid-template-rows:repeat(5,minmax(0,1fr))!important;gap:7px!important;height:100%!important;min-height:0!important;overflow:hidden!important}
+.player{min-height:0!important;height:100%!important;border:1px solid #9c772f66!important;border-radius:14px!important;padding:6px 9px 6px 74px!important;background:linear-gradient(125deg,#242018e8,#0c0d10f2 62%)!important;opacity:.82!important;display:grid!important;grid-template-columns:1fr auto!important;grid-template-rows:1fr 1fr!important;align-items:center!important;text-align:right!important;box-shadow:inset 0 1px #fff1,0 8px 20px #0007!important;overflow:hidden!important}
+.player.active{opacity:1!important;border-color:#ffe080!important;background:linear-gradient(125deg,#463515f2,#121216 65%)!important;box-shadow:0 0 0 1px #ffe69755,0 0 23px #e8ad3155,inset 0 0 20px #ffd76812!important;animation:activePlayer 1.5s ease-in-out infinite alternate}
+@keyframes activePlayer{to{box-shadow:0 0 0 2px #ffe69770,0 0 32px #ffbf3f70,inset 0 0 28px #ffd7681f}}
+.avatar{position:absolute!important;left:10px!important;top:50%!important;transform:translateY(-50%)!important;width:54px!important;height:54px!important;border:3px solid #d9af4f!important;box-shadow:0 0 0 3px #17140c,0 0 16px #e9bd4d33!important}
+.pname{grid-column:1!important;grid-row:1!important;font-size:14px!important;line-height:1.25!important;color:#fff1c0!important;max-width:175px!important}
+.pts{grid-column:1!important;grid-row:2!important;font-size:12px!important;color:#d7c89f!important}
+.kick{position:static!important;grid-column:2!important;grid-row:1/3!important;padding:5px 8px!important;font-size:11px!important;border-radius:8px!important;background:linear-gradient(#762b2b,#3b1010)!important;color:#fff!important;border:1px solid #b95c5c!important;box-shadow:none!important}
+.empty{grid-column:1/3!important;font-size:13px!important}
+.score{grid-column:1!important;grid-row:1!important;margin:0!important;display:flex!important;justify-content:center!important;gap:12px!important}
+.score span,.tikstatus{padding:8px 17px!important;border-radius:12px!important;background:linear-gradient(180deg,#202126dd,#0a0b0edd)!important;border:1px solid #b8903e55!important;box-shadow:inset 0 1px #fff1,0 7px 18px #0006!important}
+.status{grid-column:1!important;grid-row:2!important;margin:4px 0 0!important;min-height:30px!important;font-size:20px!important;color:#fff2bd!important;text-shadow:0 2px 8px #000!important}
+.livebar{grid-column:1!important;grid-row:1!important;justify-content:flex-start!important;margin:0!important;pointer-events:none}
+.controls{grid-column:1!important;grid-row:3!important;margin:4px 0 7px!important;gap:9px!important}
+.controls button{min-width:170px!important;padding:10px 18px!important;font-size:15px!important;border-radius:12px!important;background:linear-gradient(180deg,#ffe89f,#b77a1c)!important;border:1px solid #fff0a6!important;color:#1a1002!important;box-shadow:inset 0 1px #fff,0 6px 18px #0008!important;transition:.2s transform,.2s filter!important}
+.controls button:hover{transform:translateY(-2px)!important;filter:brightness(1.1)!important}.controls button.secondary{background:linear-gradient(180deg,#31333a,#15161a)!important;color:#f7e7b2!important;border-color:#a78643!important}
+.stage{grid-column:1!important;grid-row:4!important;height:100%!important;min-height:420px!important;margin:0!important;border-radius:22px!important;overflow:hidden!important;perspective:1100px!important;border:1px solid #e6bd5a66!important;
+ background:
+ radial-gradient(ellipse at 50% 78%,#c68c2728 0,#4d33113b 22%,transparent 52%),
+ linear-gradient(180deg,#17191e 0 43%,#0e1015 43% 47%,#332311 47% 49%,#171008 49% 100%)!important;
+ box-shadow:inset 0 0 100px #000,inset 0 -45px 90px #0009,0 14px 32px #0008!important}
+.stage:before{content:"";position:absolute;left:-10%;right:-10%;bottom:-28%;height:74%;border-radius:50%;background:
+ repeating-radial-gradient(ellipse at center,#ffffff0a 0 2px,transparent 3px 31px),
+ radial-gradient(ellipse at 50% 40%,#8c6429 0,#402910 35%,#110b05 70%);transform:rotateX(64deg);box-shadow:inset 0 0 55px #000,0 -10px 35px #000b;border:2px solid #b5833255}
+.stage:after{content:"";position:absolute;left:5%;right:5%;bottom:22px;height:22px;border-radius:50%;background:radial-gradient(ellipse,#e0a9401c,transparent 65%);filter:blur(8px);pointer-events:none}
+.cup{width:152px!important;height:198px!important;bottom:94px!important;filter:drop-shadow(0 25px 17px #000c)!important;transition:left .42s cubic-bezier(.18,.78,.22,1),transform .42s cubic-bezier(.18,.8,.2,1),filter .25s!important}
+.cup .body{inset:0!important;clip-path:polygon(24% 2%,76% 2%,94% 96%,6% 96%)!important;border-radius:42px 42px 20px 20px!important;background:
+ linear-gradient(90deg,#120d07 0%,#533a19 6%,#b48a45 14%,#f4dfad 24%,#80602f 36%,#d9b66d 49%,#fff1bf 56%,#8f6a35 67%,#e1c27d 77%,#573b19 91%,#130d06 100%)!important;
+ box-shadow:inset 13px 0 20px #fff4,inset -19px 0 28px #000b,inset 0 -32px 35px #2d1c08,inset 0 16px 16px #fff2,0 0 0 1px #d9b96b88!important}
+.cup .body:before{left:20%!important;right:20%!important;top:5px!important;height:23px!important;background:radial-gradient(ellipse at 50% 30%,#fff6d4 0,#d8b467 22%,#6c4c22 58%,#20150a 74%)!important;box-shadow:0 5px 8px #000b,inset 0 2px 5px #fff9!important;border:1px solid #f4d88d99!important}
+.cup .body:after{content:""!important;top:26px!important;left:27%!important;right:auto!important;width:16%!important;height:66%!important;border-radius:50%!important;background:linear-gradient(90deg,transparent,#fff9,transparent)!important;filter:blur(2px)!important;transform:skewX(-7deg)!important;opacity:.65!important}
+.cup .rim{bottom:-10px!important;left:3px!important;width:146px!important;height:31px!important;border:2px solid #ebcf86!important;background:radial-gradient(ellipse,#070503 0 42%,#3a260e 44%,#bc914a 56%,#fff0b5 65%,#80602d 76%,#211609 100%)!important;box-shadow:0 8px 12px #000c,inset 0 3px 5px #fff7!important}
+.cup .num{top:71px!important;width:57px!important;height:57px!important;font-size:27px!important;background:radial-gradient(circle at 35% 28%,#36363b,#09090b 70%)!important;border:2px solid #ffdf78!important;color:#ffe99d!important;box-shadow:0 0 0 4px #251b0c,0 7px 18px #000b,inset 0 1px #fff2!important;text-shadow:0 0 9px #f9c84d!important}
+.cup:hover{filter:drop-shadow(0 27px 18px #000d) brightness(1.1)!important}.cup.lift{transform:translateY(-150px) rotateZ(-3deg) rotateY(-9deg)!important;filter:drop-shadow(25px 34px 20px #000a) brightness(1.08)!important}.cup.moving{z-index:20!important;filter:drop-shadow(0 34px 24px #000e) brightness(1.12)!important}
+.ball{width:42px!important;height:42px!important;bottom:102px!important;background:radial-gradient(circle at 29% 24%,#fff 0,#fff8c9 10%,#f3d25c 26%,#b87811 57%,#4f2605 78%,#150a02 100%)!important;border:1px solid #fff0a0!important;box-shadow:0 12px 13px #000b,0 0 25px #ffc64255,inset -7px -7px 12px #5b2805!important;transition:left .45s ease,opacity .2s,transform .25s!important}
+.flash{animation:proWin .55s 2!important}@keyframes proWin{50%{box-shadow:inset 0 0 120px #39ff8090,0 0 30px #42ff7a66!important}}
+.wrong{animation:proWrong .38s 2!important}@keyframes proWrong{50%{box-shadow:inset 0 0 120px #ff34347d,0 0 28px #ff32325c!important}}
+.hint{grid-column:1!important;grid-row:5!important;margin:7px 0 0!important;padding:7px 12px!important;border-radius:10px!important;background:#0b0c0fbb!important;border:1px solid #8d713c44!important;font-size:12px!important;color:#bfb8a6!important}
+#cupsBackBtn{position:fixed;top:16px;left:18px;z-index:99999;padding:10px 17px;border-radius:12px;background:linear-gradient(180deg,#2b2d33,#101114);border:1px solid #d5ad52;color:#ffe7a1;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 8px 25px #000b,inset 0 1px #fff2;transition:.2s}
+#cupsBackBtn:hover{transform:translateX(-3px);filter:brightness(1.15)}
+@media(max-width:1300px){.panel{grid-template-columns:minmax(680px,1fr) 270px!important}.cup{width:130px!important;height:172px!important}.cup .rim{width:124px!important}.stage{min-height:390px!important}.players{gap:5px!important}.player{padding-left:63px!important}.avatar{width:46px!important;height:46px!important}.pname{max-width:145px!important}}
+</style>
+
+<style id="hamadaCupsWinnerCardV19">
+#cupsWinnerOverlay{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(circle at 50% 40%,rgba(116,77,12,.28),rgba(0,0,0,.84) 55%,rgba(0,0,0,.94));backdrop-filter:blur(8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .34s ease,visibility .34s ease}
+#cupsWinnerOverlay.show{opacity:1;visibility:visible;pointer-events:auto}
+.cups-winner-card{position:relative;width:min(520px,92vw);padding:30px 28px 26px;border-radius:32px;text-align:center;overflow:hidden;background:linear-gradient(160deg,rgba(30,25,14,.98),rgba(8,9,12,.98) 55%,rgba(23,17,8,.98));border:2px solid #f5d77c;box-shadow:0 0 0 6px rgba(235,189,74,.10),0 28px 90px #000,0 0 55px rgba(232,185,61,.35);transform:scale(.82) translateY(28px);transition:transform .42s cubic-bezier(.2,.85,.22,1.15)}
+#cupsWinnerOverlay.show .cups-winner-card{transform:scale(1) translateY(0)}
+.cups-winner-card:before{content:"";position:absolute;inset:-2px;background:linear-gradient(110deg,transparent 18%,rgba(255,238,169,.17) 38%,rgba(255,255,255,.45) 48%,rgba(255,222,116,.15) 60%,transparent 78%);transform:translateX(-120%);animation:cupsWinnerShine 3.1s ease-in-out infinite;pointer-events:none}
+@keyframes cupsWinnerShine{0%,46%{transform:translateX(-120%)}72%,100%{transform:translateX(120%)}}
+.cups-winner-crown{font-size:62px;line-height:1;filter:drop-shadow(0 0 16px rgba(255,202,56,.75));animation:cupsCrownFloat 1.7s ease-in-out infinite alternate}
+@keyframes cupsCrownFloat{to{transform:translateY(-6px) rotate(2deg)}}
+.cups-winner-badge{display:inline-flex;align-items:center;gap:8px;margin:8px 0 12px;padding:7px 16px;border-radius:999px;background:linear-gradient(180deg,#f7df91,#b78322);color:#201603;font-weight:1000;font-size:15px;box-shadow:0 6px 20px #0008}
+.cups-winner-avatar-wrap{width:176px;height:176px;margin:2px auto 14px;padding:6px;border-radius:50%;background:conic-gradient(from 0deg,#fff0a4,#ba7d13,#fff6c7,#93600d,#fff0a4);box-shadow:0 0 0 8px rgba(255,218,105,.08),0 0 42px rgba(244,194,54,.42)}
+#cupsWinnerAvatar{width:100%;height:100%;display:block;border-radius:50%;object-fit:cover;background:#17130b;border:4px solid #100d07}
+.cups-winner-title{font-size:18px;font-weight:900;color:#f8d978;letter-spacing:.4px;margin-top:4px}
+#cupsWinnerName{margin:6px 0 3px;color:#fff;font-size:clamp(30px,5vw,46px);font-weight:1000;line-height:1.15;text-shadow:0 3px 18px #000,0 0 18px rgba(255,215,103,.22);overflow-wrap:anywhere}
+.cups-winner-sub{color:#d8d3c4;font-size:16px;margin-bottom:14px}
+#cupsWinnerScore{display:inline-block;padding:9px 20px;border:1px solid rgba(244,208,105,.5);border-radius:14px;background:rgba(255,214,96,.08);color:#ffe487;font-size:20px;font-weight:1000}
+.cups-winner-close{margin-top:20px!important;min-width:170px!important;padding:10px 20px!important;font-size:16px!important;border-radius:14px!important;background:linear-gradient(180deg,#f8df90,#ad791e)!important;color:#1a1103!important;border:1px solid #ffe89f!important}
+.cups-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.cups-confetti i{position:absolute;top:-14%;width:10px;height:18px;border-radius:3px;opacity:.9;animation:cupsConfettiFall 2.8s linear infinite}
+.cups-confetti i:nth-child(1){left:7%;background:#ffd966;animation-delay:.0s}.cups-confetti i:nth-child(2){left:14%;background:#fff2b1;animation-delay:.5s}.cups-confetti i:nth-child(3){left:23%;background:#e3a528;animation-delay:1.1s}.cups-confetti i:nth-child(4){left:32%;background:#ffffff;animation-delay:.2s}.cups-confetti i:nth-child(5){left:41%;background:#ffc946;animation-delay:1.7s}.cups-confetti i:nth-child(6){left:50%;background:#f6e0a0;animation-delay:.8s}.cups-confetti i:nth-child(7){left:59%;background:#d79923;animation-delay:1.35s}.cups-confetti i:nth-child(8){left:68%;background:#fff;animation-delay:.35s}.cups-confetti i:nth-child(9){left:77%;background:#ffd15b;animation-delay:1.9s}.cups-confetti i:nth-child(10){left:86%;background:#f2dda0;animation-delay:.65s}.cups-confetti i:nth-child(11){left:93%;background:#c88a17;animation-delay:1.45s}.cups-confetti i:nth-child(12){left:36%;background:#fff8d8;animation-delay:2.15s}
+@keyframes cupsConfettiFall{0%{transform:translateY(-20px) rotate(0deg)}100%{transform:translateY(720px) rotate(540deg)}}
+@media(max-width:600px){.cups-winner-card{padding:22px 18px 20px;border-radius:25px}.cups-winner-avatar-wrap{width:145px;height:145px}.cups-winner-crown{font-size:52px}}
+</style>
+
+</head><body><button id='cupsBackBtn' type='button' onclick="try{parent.closeGame()}catch(e){history.back()}">⬅ الرجوع إلى مركز الألعاب</button><div class='wrap'><h1>♛ تحدي الأكواب الملكي ♛</h1><div class='sub'>راقب الكرة بعناية، تابع الخلط الواقعي، ثم اختر الكوب الصحيح.</div><div class='panel'><div id='players' class='players'></div><div class='score'><span>الجولة: <b id='round'>1</b></span><span>اللاعب الحالي: <b id='turnName'>بانتظار اللاعبين</b></span></div><div id='status' class='status'>اكتب «انضم» للدخول إلى اللعبة</div><div class='livebar'><div id='tikStatus' class='tikstatus'><span class='tikdot'></span><span id='tikStatusText'>● جاري الاتصال...</span></div></div><div class='controls'><button id='start'>ابدأ جولة اللاعب الحالي</button><button id='nextTurn' class='secondary'>تخطي الدور</button><button id='reveal' class='secondary' disabled>كشف الكرة</button></div><div id='stage' class='stage'><div id='ball' class='ball'></div></div><div class='hint'>البث: «انضم» للدخول، واللاعب صاحب الدور يكتب رقماً من 1 إلى 5 بعد توقف الأكواب. أول لاعب يصل إلى 5 نقاط يفوز 👑</div></div></div>
+<div id="cupsWinnerOverlay" aria-hidden="true">
+  <div class="cups-winner-card" role="dialog" aria-label="بطاقة الفائز">
+    <div class="cups-confetti"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="cups-winner-crown">👑</div>
+    <div class="cups-winner-badge">🏆 الفائز بالجولة</div>
+    <div class="cups-winner-avatar-wrap"><img id="cupsWinnerAvatar" alt="صورة الفائز"></div>
+    <div class="cups-winner-title">بطل تحدي الأكواب</div>
+    <div id="cupsWinnerName">الفائز</div>
+    <div class="cups-winner-sub">وصل إلى خمس نقاط وحسم التحدي</div>
+    <div id="cupsWinnerScore">⭐ 5 / 5</div><br>
+    <button class="cups-winner-close" type="button" onclick="hideCupsWinnerCard()">إغلاق البطاقة</button>
+  </div>
+</div>
+<script>
+const stage=document.getElementById('stage'),ball=document.getElementById('ball'),statusEl=document.getElementById('status'),startBtn=document.getElementById('start'),revealBtn=document.getElementById('reveal'),playersEl=document.getElementById('players'),turnNameEl=document.getElementById('turnName');
+let cups=[],slots=[],ballCup=0,canPick=false,round=1,busy=false,players=[],turn=0,gameOver=false,autoTurnTimer=null;
+const fallbackAvatar='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="#2b2416"/><circle cx="50" cy="38" r="20" fill="#d6a83d"/><path d="M15 95c4-28 22-39 35-39s31 11 35 39" fill="#d6a83d"/></svg>`);
+for(let i=0;i<5;i++){let c=document.createElement('div');c.className='cup';c.innerHTML=`<div class="body"></div><div class="rim"></div><div class="num">${i+1}</div>`;c.dataset.id=i;c.onclick=()=>pick(c);stage.appendChild(c);cups.push(c)}
+function esc(x){return String(x||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+function showCupsWinnerCard(p){
+  if(!p)return;
+  const overlay=document.getElementById('cupsWinnerOverlay'),img=document.getElementById('cupsWinnerAvatar');
+  document.getElementById('cupsWinnerName').textContent=p.name||'الفائز';
+  document.getElementById('cupsWinnerScore').textContent=`⭐ ${p.points||5} / 5`;
+  img.onerror=function(){this.onerror=null;this.src=fallbackAvatar};
+  img.src=p.avatar||fallbackAvatar;
+  overlay.setAttribute('aria-hidden','false');
+  requestAnimationFrame(()=>overlay.classList.add('show'));
+}
+function hideCupsWinnerCard(){
+  const overlay=document.getElementById('cupsWinnerOverlay');
+  overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true');
+}
+
+function renderPlayers(){playersEl.innerHTML='';for(let i=0;i<5;i++){let p=players[i],d=document.createElement('div');d.className='player '+(p&&i===turn&&!gameOver?'active':'');if(p)d.innerHTML=`<button class="kick" data-kick="${i}">طرد ✕</button><img class="avatar" src="${esc(p.avatar||fallbackAvatar)}" onerror="this.src='${fallbackAvatar}'"><div class="pname">${esc(p.name)}</div><div class="pts">⭐ ${p.points} / 5</div>`;else d.innerHTML='<div class="empty">مكان فارغ<br><span class="mini">اكتب «انضم»</span></div>';playersEl.appendChild(d)}playersEl.querySelectorAll('[data-kick]').forEach(b=>b.onclick=()=>kickPlayer(+b.dataset.kick));turnNameEl.textContent=players[turn]?.name||'بانتظار اللاعبين'}
+function joinPlayer(name,avatar='',uid=''){name=(name||'لاعب').trim();if(players.length>=5||players.some(p=>(uid&&p.uid===uid)||(!uid&&p.name===name)))return false;players.push({name,avatar,uid,points:0});if(players.length===1)turn=0;renderPlayers();statusEl.textContent=players.length<5?`انضم ${name} 👑 — ${players.length}/5`:'اكتمل اللاعبون الخمسة! ابدأ الجولة';return true}
+function kickPlayer(i){if(!players[i]||busy)return;let wasCurrent=i===turn;players.splice(i,1);if(!players.length)turn=0;else if(i<turn)turn--;else if(turn>=players.length)turn=0;renderPlayers();statusEl.textContent=wasCurrent?'تم طرد اللاعب الحالي، الدور للاعب التالي':'تم طرد اللاعب — المكان متاح للانضمام'}
+function nextTurn(){if(!players.length)return;turn=(turn+1)%players.length;renderPlayers();statusEl.textContent=`دور ${players[turn].name} — الجولة التالية تلقائياً`}
+function scheduleAutoRound(delay=1300){clearTimeout(autoTurnTimer);if(gameOver||!players.length)return;startBtn.disabled=true;revealBtn.disabled=true;const p=players[turn];statusEl.textContent=`دور ${p.name} — تبدأ الجولة تلقائياً...`;autoTurnTimer=setTimeout(()=>{autoTurnTimer=null;if(!gameOver&&players.length&&!busy)startRound()},delay)}
+function layout(){let sw=stage.clientWidth,cw=cups[0].offsetWidth,gap=Math.max(5,(sw-cw*5)/6);slots=Array.from({length:5},(_,i)=>gap+i*(cw+gap));cups.forEach((c,i)=>{if(!c.style.left)c.style.left=slots[i]+'px'});placeBall()}
+function placeBall(){let c=cups[ballCup],x=(parseFloat(c.style.left)||slots[ballCup]||0)+c.offsetWidth/2-ball.offsetWidth/2;ball.style.left=x+'px'}
+window.addEventListener('resize',()=>{cups.slice().sort((a,b)=>parseFloat(a.style.left)-parseFloat(b.style.left)).forEach((c,i)=>c.style.left=slots[i]+'px');layout()});setTimeout(layout,50);function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+async function startRound(){if(busy||gameOver||!players.length)return statusEl.textContent='بانتظار انضمام لاعب واحد على الأقل';busy=true;canPick=false;startBtn.disabled=true;revealBtn.disabled=true;cups.forEach(c=>{c.classList.remove('lift','show-number','moving');c.style.transform='';c.style.filter=''});stage.classList.remove('flash','wrong');ball.style.opacity=1;statusEl.textContent=`${players[turn].name}: احفظ مكان الكرة 👀`;cups[ballCup].classList.add('lift');await sleep(1400);cups[ballCup].classList.remove('lift');await sleep(450);ball.style.opacity=0;statusEl.textContent='جاري خلط الأكواب...';let swaps=12+Math.min(round,8);for(let k=0;k<swaps;k++){let ordered=cups.slice().sort((a,b)=>parseFloat(a.style.left)-parseFloat(b.style.left)),a=Math.floor(Math.random()*5),b=Math.floor(Math.random()*5);if(a===b){k--;continue}let ca=ordered[a],cb=ordered[b],ta=ca.style.left,tb=cb.style.left;ca.classList.add('moving');cb.classList.add('moving');ca.style.transform='translateY(-34px) rotateZ(3deg)';cb.style.transform='translateY(18px) rotateZ(-2deg)';await sleep(90);ca.style.left=tb;cb.style.left=ta;await sleep(Math.max(180,315-round*8));ca.style.transform='';cb.style.transform='';ca.classList.remove('moving');cb.classList.remove('moving');placeBall();await sleep(70)}cups.slice().sort((a,b)=>parseFloat(a.style.left)-parseFloat(b.style.left)).forEach((c,i)=>{c.querySelector('.num').textContent=i+1;c.classList.add('show-number')});placeBall();statusEl.textContent=`${players[turn].name}: اكتب رقم الكوب من 1 إلى 5 🎯`;canPick=true;revealBtn.disabled=false;busy=false}
+function cupByVisibleNumber(n){return cups.find(c=>+c.querySelector('.num').textContent===+n)}
+async function pick(c){if(!canPick||busy||gameOver)return;busy=true;canPick=false;revealBtn.disabled=true;ball.style.opacity=1;c.classList.add('lift');let correct=Number(c.dataset.id)===ballCup;if(correct){if(window.HamadaSFX)HamadaSFX.win();players[turn].points++;statusEl.textContent=`🎉 صحيح يا ${players[turn].name}! +1 نقطة`;stage.classList.add('flash');renderPlayers();await sleep(2200);if(players[turn].points>=5){gameOver=true;statusEl.innerHTML=`<span class="winner">👑 ${esc(players[turn].name)} هو الفائز! 👑</span>`;showCupsWinnerCard(players[turn]);startBtn.disabled=true;busy=false;return}}else{if(window.HamadaSFX)HamadaSFX.fail();statusEl.textContent='❌ اختيار غير صحيح';stage.classList.add('wrong');await sleep(800);c.classList.remove('lift');await sleep(250);statusEl.textContent='👀 هذا هو مكان الكرة الصحيح';cups[ballCup].classList.add('lift');cups[ballCup].style.filter='drop-shadow(0 0 24px #ffd85a) brightness(1.2)';await sleep(2200);cups[ballCup].style.filter=''}await sleep(700);cups.forEach(x=>x.classList.remove('lift'));ball.style.opacity=0;round++;document.getElementById('round').textContent=round;nextTurn();busy=false;scheduleAutoRound()}
+async function handleTikTokComment(name,avatar,comment,uid=''){let t=String(comment||'').trim();if(t==='انضم'){joinPlayer(name,avatar,uid);return}if(!canPick||gameOver||!players[turn])return;if(uid&&players[turn].uid&&uid!==players[turn].uid)return;if(!uid&&name!==players[turn].name)return;if(/^[1-5]$/.test(t)){let c=cupByVisibleNumber(+t);if(c)pick(c)}}
+window.handleTikTokComment=handleTikTokComment;window.tikfinityComment=handleTikTokComment;window.addTikTokPlayer=(name,avatar,uid='')=>joinPlayer(name,avatar,uid);window.chooseCupFromComment=(name,num,uid='')=>handleTikTokComment(name,'',String(num),uid);
+// اتصال مباشر مع خدمة الاتصال المباشر
+const tikStatus=document.getElementById('tikStatus'),tikStatusText=document.getElementById('tikStatusText');let tikWS=null,tikRetry=null;
+function tikUser(d={}){let u=d.user||d;return {name:u.nickname||u.uniqueId||d.nickname||d.uniqueId||'متابع',uid:String(u.userId||u.id||u.uniqueId||d.userId||d.uniqueId||''),avatar:u.profilePictureUrl||u.avatarThumb||u.profilePicture||d.profilePictureUrl||''}}
+function setTikState(ok,text){tikStatus.classList.toggle('ok',!!ok);tikStatusText.textContent=text}
+function connectTikFinity(){clearTimeout(tikRetry);try{if(tikWS&&(tikWS.readyState===0||tikWS.readyState===1))return;tikWS=new WebSocket('hamada://center-live');setTikState(false,'● جاري الاتصال...');tikWS.onopen=()=>setTikState(true,'● متصل');tikWS.onmessage=e=>{try{let m=JSON.parse(e.data);if(m.event!=='chat')return;let d=m.data||{},u=tikUser(d),comment=d.comment||d.commentText||d.text||'';handleTikTokComment(u.name,u.avatar,comment,u.uid)}catch(err){console.warn('TikFinity event error',err)}};tikWS.onerror=()=>setTikState(false,'● غير متصل');tikWS.onclose=()=>{setTikState(false,'● بانتظار الاتصال...');tikRetry=setTimeout(connectTikFinity,2500)}}catch(e){setTikState(false,'● تعذر الاتصال');tikRetry=setTimeout(connectTikFinity,2500)}}
+connectTikFinity();
+revealBtn.onclick=()=>{if(!canPick||busy)return;busy=true;canPick=false;ball.style.opacity=1;cups[ballCup].classList.add('lift');statusEl.textContent='مكان الكرة الصحيح';setTimeout(()=>{cups.forEach(c=>c.classList.remove('lift'));ball.style.opacity=0;round++;document.getElementById('round').textContent=round;nextTurn();busy=false;scheduleAutoRound()},1800)};startBtn.onclick=()=>{clearTimeout(autoTurnTimer);autoTurnTimer=null;startRound()};document.getElementById('nextTurn').onclick=()=>{if(!busy){clearTimeout(autoTurnTimer);nextTurn();scheduleAutoRound(700)}};renderPlayers();
+</script><script id="hamadaInteractiveAudio">
+(function(){
+ let ctx=null, unlocked=false, lastText='';
+ function ac(){if(!ctx)ctx=new (window.AudioContext||window.webkitAudioContext)(); if(ctx.state==='suspended')ctx.resume(); unlocked=true; return ctx}
+ function tone(f=440,d=.09,type='sine',v=.07,delay=0){try{let c=ac(),o=c.createOscillator(),g=c.createGain(),t=c.currentTime+delay;o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d)}catch(e){}}
+ function click(){tone(520,.045,'square',.035)}
+ function win(){tone(523,.12,'triangle',.08);tone(659,.12,'triangle',.08,.12);tone(784,.2,'triangle',.09,.24)}
+ function fail(){tone(220,.15,'sawtooth',.055);tone(150,.22,'sawtooth',.05,.12)}
+ function boom(){tone(90,.45,'sawtooth',.13);tone(55,.65,'square',.08,.05)}
+ function whoosh(){tone(280,.06,'sine',.045);tone(620,.10,'sine',.05,.05)}
+ document.addEventListener('pointerdown',function(e){ac(); if(e.target.closest('button')) click()},{passive:true});
+ const obs=new MutationObserver(function(){if(!unlocked)return;let t=(document.body.innerText||'').replace(/\s+/g,' '); if(t===lastText)return; let delta=t; lastText=t;
+   if(/فاز|الفائز|هدف|نجاح|مبروك/.test(delta)) win();
+   else if(/خسر|خارج|ضاعت|فشل|خطأ/.test(delta)) fail();
+   if(/💥|انفج|انتهى الوقت/.test(delta)) boom();
+ });
+ window.addEventListener('DOMContentLoaded',()=>{lastText=document.body.innerText||'';obs.observe(document.body,{subtree:true,childList:true,characterData:true});});
+ window.HamadaSFX={tone,click,win,fail,boom,whoosh,ac};
+})();
+</script><script>(function(){document.addEventListener('click',e=>{if(!window.HamadaSFX)return;let t=(e.target.textContent||'')+(e.target.getAttribute?.('aria-label')||'');if(/كوب|رفع|اختار|اختر/.test(t))HamadaSFX.whoosh()});})();</script></body></html>

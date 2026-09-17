@@ -1,0 +1,577 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>مركز ألعاب حماده</title>
+<style>
+:root{--gold:#f5c45f;--gold2:#8e5c13;--ink:#070706;--panel:#11100d;--muted:#bfb39a}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:#fff;background:#050504}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 35%,#5a3a131f 0 18%,transparent 48%),linear-gradient(120deg,#fff2aa08 0 1px,transparent 1px 72px),linear-gradient(30deg,#fff2aa05 0 1px,transparent 1px 72px);background-size:auto,72px 72px,72px 72px;animation:gridMove 18s linear infinite}
+body:after{content:"";position:fixed;inset:-20%;pointer-events:none;background:conic-gradient(from 180deg at 50% 48%,transparent 0 34%,#ffdc7b08 40%,transparent 46% 100%);animation:ambient 16s linear infinite}
+.shell{height:100vh;display:grid;grid-template-rows:82px 1fr 52px;position:relative;z-index:1}
+.topbar{display:grid;grid-template-columns:260px 1fr 260px;align-items:center;padding:0 28px;border-bottom:1px solid #7c571f;background:linear-gradient(180deg,#18150fef,#090806f2);box-shadow:0 10px 35px #000b,inset 0 -1px #f4cc6e12;backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;justify-content:center;gap:14px}.brand-mark{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:24px;background:radial-gradient(circle at 35% 25%,#fff0a8,#d79d2f 42%,#6f4108 72%);box-shadow:0 0 25px #efbc4a33,inset 0 0 0 2px #fff2a852}.brand h1{margin:0;font-size:31px;line-height:1;background:linear-gradient(90deg,#9d691d,#fff1a2,#d89c2b,#fff9d0,#956116);background-size:220% auto;-webkit-background-clip:text;color:transparent;animation:titleShine 4s linear infinite}.brand small{display:block;color:#bfae87;text-align:center;margin-top:5px;font-weight:700;letter-spacing:.4px}
+.status,.clockBox{display:flex;align-items:center;gap:10px;color:#e8d39e;font-weight:800}.status{justify-content:flex-start}.clockBox{justify-content:flex-end}.dot{width:10px;height:10px;border-radius:50%;background:#31e47c;box-shadow:0 0 15px #31e47c;animation:pulse 1.5s infinite}.clock{font-variant-numeric:tabular-nums;color:#fff0b2;font-size:18px}
+.content{min-height:0;padding:22px 30px 20px;display:grid;grid-template-rows:auto 1fr;gap:18px}.hero{display:flex;align-items:end;justify-content:space-between;padding:0 8px}.hero h2{margin:0;color:#fff3c0;font-size:25px}.hero p{margin:6px 0 0;color:#a99e88;font-size:14px}.hero-badge{padding:9px 15px;border:1px solid #8a6228;border-radius:12px;background:#151109aa;color:#e6cb8a;font-size:13px;font-weight:800}
+.grid{min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:18px;max-width:1580px;width:100%;margin:auto}.card{position:relative;overflow:hidden;border-radius:22px;border:1px solid #6e4d20;background:linear-gradient(145deg,#211a0f 0,#0b0a08 54%,#171108 100%);box-shadow:0 18px 45px #000b,inset 0 0 0 1px #ffe9a60c;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s;isolation:isolate}.card:nth-child(5){grid-column:1}.card:nth-child(6){grid-column:2}.card:nth-child(7){grid-column:3}.card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 22%,#ffd36b22,transparent 34%),linear-gradient(110deg,transparent 0 42%,#fff3b319 49%,transparent 56%);transform:translateX(-120%);transition:transform .7s}.card:after{content:"";position:absolute;left:18px;right:18px;bottom:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.65}.card:hover{transform:translateY(-6px) scale(1.012);border-color:#e7b955;box-shadow:0 25px 58px #000d,0 0 30px #dca73b1f}.card:hover:before{transform:translateX(120%)}
+.card-inner{height:100%;display:grid;grid-template-columns:112px 1fr;align-items:center;gap:15px;padding:20px;position:relative;z-index:2}.icon-wrap{width:104px;height:104px;border-radius:26px;display:grid;place-items:center;background:radial-gradient(circle at 35% 25%,#5a421f,#1c160d 58%,#090806);border:1px solid #8c672b;box-shadow:inset 0 0 24px #f8cf6813,0 12px 25px #0009;position:relative}.icon-wrap:after{content:"";position:absolute;inset:8px;border-radius:20px;border:1px solid #ffe89a14}.icon{font-size:56px;filter:drop-shadow(0 9px 12px #000) drop-shadow(0 0 12px #e7b6464a);transition:.25s}.card:hover .icon{transform:scale(1.1) rotate(-3deg)}.meta{text-align:right;min-width:0}.meta h3{margin:0 0 8px;color:#ffe28b;font-size:23px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta p{margin:0 0 16px;color:#bdb29b;font-size:14px;line-height:1.6;min-height:44px}.play{display:inline-flex;align-items:center;gap:8px;border:1px solid #ffe8a264;border-radius:11px;padding:9px 16px;font-weight:950;background:linear-gradient(180deg,#ffec99,#d39b2f 55%,#8c5910);color:#1c1205;box-shadow:0 7px 18px #0008;transition:.2s}.card:hover .play{filter:brightness(1.1);transform:translateX(-3px)}.featured{grid-column:4!important;grid-row:2}.featured .icon-wrap{background:radial-gradient(circle at 35% 25%,#70311e,#24100a 58%,#080504);border-color:#b75a2a}.featured:after{background:linear-gradient(90deg,transparent,#ff7a36,transparent)}
+.footerbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 30px;border-top:1px solid #68491e;background:#090806e8;color:#9f947d;font-size:13px}.footerbar strong{color:#e7c875}.footer-actions{display:flex;gap:8px}.mini{border:1px solid #5f4825;background:#15110b;color:#dfca94;border-radius:9px;padding:7px 12px;font-weight:800;cursor:pointer}.mini:hover{border-color:#d6a94c;color:#fff1b5}.version{text-align:left}
+.viewer{display:none;position:fixed;inset:0;z-index:50;background:#030302}.viewer.show{display:block}.bar{height:54px;display:flex;gap:8px;align-items:center;padding:7px 12px;background:linear-gradient(180deg,#21190d,#0c0a06);border-bottom:1px solid #9a742d;box-shadow:0 5px 20px #000}.bar b{flex:1;color:#ffe28a;font-size:18px}.bar button{border:1px solid #8b682d;border-radius:10px;padding:8px 15px;font-weight:900;background:#171109;color:#ffe4a0;cursor:pointer}iframe{width:100%;height:calc(100% - 54px);border:0;background:#000}.viewer.cups-full .bar{display:none}.viewer.cups-full iframe{height:100vh;width:100vw;display:block}
+@keyframes titleShine{to{background-position:220% center}}@keyframes pulse{50%{opacity:.5;transform:scale(.8)}}@keyframes ambient{to{transform:rotate(360deg)}}@keyframes gridMove{to{background-position:0,72px 72px,-72px 72px}}
+@media(max-width:1250px){.topbar{grid-template-columns:200px 1fr 200px}.grid{gap:13px}.card-inner{grid-template-columns:86px 1fr;padding:15px}.icon-wrap{width:80px;height:80px}.icon{font-size:44px}.meta h3{font-size:19px}.meta p{font-size:12px;min-height:38px}.play{padding:7px 12px}}
+@media(max-height:760px){.shell{grid-template-rows:70px 1fr 42px}.content{padding:13px 24px}.hero{display:none}.grid{gap:12px}.card-inner{padding:13px}.icon-wrap{width:74px;height:74px}.icon{font-size:40px}.meta h3{font-size:18px;margin-bottom:4px}.meta p{font-size:12px;line-height:1.35;margin-bottom:9px;min-height:30px}}
+
+
+/* ===== REALISTIC PREMIUM CHAIRS v5 — embedded single-file upgrade ===== */
+.stage .chair{
+  width:132px!important;
+  height:154px!important;
+  overflow:visible!important;
+  filter:drop-shadow(0 24px 17px rgba(0,0,0,.78))!important;
+  perspective:700px!important;
+}
+.stage .chairIcon{
+  position:relative!important;
+  width:126px!important;
+  height:148px!important;
+  margin:0 auto!important;
+  font-size:0!important;
+  background:none!important;
+  transform-style:preserve-3d!important;
+  animation:premiumChairFloat 3.4s ease-in-out infinite!important;
+  filter:none!important;
+}
+/* tall leather backrest */
+.stage .chairIcon::before{
+  content:""!important;
+  position:absolute!important;
+  z-index:3!important;
+  left:20px!important;
+  top:5px!important;
+  width:86px!important;
+  height:88px!important;
+  border-radius:22px 22px 15px 15px!important;
+  border:3px solid #c89045!important;
+  background:
+    radial-gradient(circle at 31% 30%,rgba(255,235,186,.28) 0 2px,transparent 3px),
+    radial-gradient(circle at 69% 30%,rgba(255,235,186,.24) 0 2px,transparent 3px),
+    radial-gradient(circle at 31% 69%,rgba(255,235,186,.18) 0 2px,transparent 3px),
+    radial-gradient(circle at 69% 69%,rgba(255,235,186,.18) 0 2px,transparent 3px),
+    linear-gradient(135deg,transparent 0 47%,rgba(255,255,255,.10) 48% 50%,transparent 51%),
+    linear-gradient(45deg,transparent 0 47%,rgba(0,0,0,.20) 48% 50%,transparent 51%),
+    linear-gradient(145deg,#7f2d20 0%,#b95535 30%,#672015 69%,#2f0d0a 100%)!important;
+  background-size:auto,auto,auto,auto,24px 24px,24px 24px,auto!important;
+  box-shadow:
+    inset 7px 7px 14px rgba(255,210,150,.20),
+    inset -9px -13px 18px rgba(18,2,0,.55),
+    inset 0 0 0 2px rgba(255,224,165,.10),
+    0 11px 17px rgba(0,0,0,.58)!important;
+  transform:rotateX(-4deg) translateZ(8px)!important;
+}
+/* thick padded seat */
+.stage .chairIcon::after{
+  content:""!important;
+  position:absolute!important;
+  z-index:6!important;
+  left:10px!important;
+  top:85px!important;
+  width:106px!important;
+  height:42px!important;
+  border-radius:13px 13px 23px 23px!important;
+  border:3px solid #d19a51!important;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.14),transparent 21%,transparent 78%,rgba(0,0,0,.22)),
+    linear-gradient(180deg,#c96d42 0%,#9a3c27 42%,#5b1b13 77%,#280a08 100%)!important;
+  box-shadow:
+    inset 0 8px 9px rgba(255,218,170,.25),
+    inset 0 -11px 14px rgba(25,2,0,.58),
+    0 13px 16px rgba(0,0,0,.62)!important;
+  transform:rotateX(7deg) translateZ(12px)!important;
+}
+/* steel frame, arm rests, and four legs */
+.stage .chairIcon{
+  background:
+    linear-gradient(90deg,transparent 5px,#e9c17a 6px 9px,#70431d 10px 13px,transparent 14px) 17px 111px/18px 38px no-repeat,
+    linear-gradient(90deg,transparent 5px,#e9c17a 6px 9px,#70431d 10px 13px,transparent 14px) 91px 111px/18px 38px no-repeat,
+    linear-gradient(90deg,transparent 0 8px,#deb66f 9px 12px,#5e3518 13px 16px,transparent 17px) 0 70px/35px 16px no-repeat,
+    linear-gradient(90deg,transparent 0 8px,#deb66f 9px 12px,#5e3518 13px 16px,transparent 17px) 91px 70px/35px 16px no-repeat!important;
+}
+/* permanently readable number integrated into backrest */
+.stage .chair .num{
+  z-index:12!important;
+  left:50%!important;
+  top:25px!important;
+  transform:translateX(-50%) scale(.72)!important;
+  min-width:54px!important;
+  height:48px!important;
+  padding:0 9px!important;
+  border-radius:13px!important;
+  border:2px solid rgba(255,239,186,.95)!important;
+  background:linear-gradient(180deg,rgba(255,250,220,.98),rgba(244,190,69,.97))!important;
+  color:#261504!important;
+  font-size:27px!important;
+  font-weight:1000!important;
+  line-height:48px!important;
+  opacity:0!important;
+  box-shadow:0 4px 12px #0009,0 0 18px rgba(255,202,75,.45),inset 0 2px 3px #fff!important;
+  text-shadow:0 1px 0 #fff7!important;
+  pointer-events:none!important;
+}
+.stage .arena.reveal .chair .num,
+.stage .reveal .chair .num,
+.stage .chair .num[style*="opacity: 1"]{
+  opacity:1!important;
+  transform:translateX(-50%) scale(1)!important;
+}
+.stage .chair.taken .chairIcon::before{
+  border-color:#79efb0!important;
+  box-shadow:inset 7px 7px 14px rgba(255,255,255,.20),inset -9px -13px 18px rgba(0,30,15,.48),0 0 27px rgba(66,255,158,.58),0 11px 17px rgba(0,0,0,.58)!important;
+}
+.stage .chair.taken .num{
+  background:linear-gradient(180deg,#eafff2,#4de497)!important;
+  border-color:#d9ffea!important;
+  box-shadow:0 4px 12px #0009,0 0 22px rgba(74,255,159,.68),inset 0 2px 3px #fff!important;
+}
+@keyframes premiumChairFloat{
+  0%,100%{transform:translateY(0) rotateX(1deg)}
+  50%{transform:translateY(-2px) rotateX(3deg)}
+}
+@media(max-width:1200px){
+  .stage .chair{transform:translate(-50%,-50%) scale(.86)!important}
+}
+
+</style>
+<style id="hamada-lobby-pro-v16">
+/* ===== HAMADA GAME CENTER — BROADCAST LOBBY PRO V16 ===== */
+:root{--lobby-gold:#ffd36d;--lobby-bg:#070a10;--lobby-panel:#0e131d;--lobby-line:rgba(255,213,109,.20)}
+body{background:#05070b!important}
+body:before{
+ background:
+   radial-gradient(circle at 50% 12%,rgba(255,188,67,.12),transparent 33%),
+   radial-gradient(circle at 12% 78%,rgba(26,118,255,.08),transparent 27%),
+   radial-gradient(circle at 88% 72%,rgba(255,45,144,.07),transparent 25%),
+   linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+   linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px)!important;
+ background-size:auto,auto,auto,46px 46px,46px 46px!important;
+ animation:lobbyGridDrift 22s linear infinite!important;
+}
+body:after{background:linear-gradient(110deg,transparent 12%,rgba(255,212,105,.04) 40%,transparent 62%)!important;animation:lobbyBeam 7s ease-in-out infinite!important}
+.shell{grid-template-rows:92px 1fr 58px!important}
+.topbar{grid-template-columns:250px 1fr 250px!important;padding:0 34px!important;background:linear-gradient(180deg,rgba(17,22,31,.98),rgba(7,10,15,.96))!important;border-bottom:1px solid rgba(255,211,109,.36)!important;box-shadow:0 15px 45px rgba(0,0,0,.48),inset 0 -1px rgba(255,255,255,.025)!important}
+.brand{gap:16px!important}.brand-mark{width:54px!important;height:54px!important;border-radius:18px!important;font-size:27px!important;background:linear-gradient(145deg,#fff1ac,#df9f32 52%,#70410d)!important;box-shadow:0 0 30px rgba(240,181,62,.20),inset 0 0 0 1px rgba(255,255,255,.55)!important;transform:rotate(-4deg)}
+.brand h1{font-size:34px!important;letter-spacing:.2px!important}.brand small{font-size:12px!important;color:#aeb5c1!important;letter-spacing:.7px!important}
+.status,.clockBox{height:42px;padding:0 14px;border:1px solid rgba(255,255,255,.075);border-radius:13px;background:rgba(255,255,255,.025);color:#dce3ee!important}.dot{width:9px!important;height:9px!important;background:#42ed91!important;box-shadow:0 0 16px rgba(66,237,145,.9)!important}.clock{color:#fff3be!important;font-size:19px!important}
+.content{padding:18px 28px 20px!important;gap:14px!important;grid-template-rows:74px 1fr!important}
+.hero{align-items:center!important;padding:0 6px 0 4px!important;border-radius:20px;background:linear-gradient(90deg,rgba(255,211,109,.045),rgba(255,255,255,.012) 48%,rgba(255,211,109,.025));border:1px solid rgba(255,211,109,.10);padding-inline:22px!important;overflow:hidden;position:relative}
+.hero:before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-100px;top:-120px;background:radial-gradient(circle,rgba(255,205,90,.10),transparent 65%)}
+.hero h2{font-size:25px!important;color:#fff5d0!important;letter-spacing:.2px}.hero p{font-size:13px!important;color:#9da7b5!important;margin-top:5px!important}.hero-badge{display:flex!important;align-items:center!important;gap:10px!important;padding:8px 14px!important;border:1px solid rgba(255,211,109,.28)!important;border-radius:14px!important;background:rgba(255,211,109,.055)!important;color:#e9d495!important}.hero-badge b{font-size:25px;color:#ffe39a;line-height:1}.hero-badge span{font-size:12px;white-space:nowrap}
+.grid{max-width:1650px!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-template-rows:repeat(2,minmax(0,1fr))!important;gap:16px!important;padding:1px!important}
+.card{--accent:#ffc958;--accent2:#8c5c12;border-radius:22px!important;border:1px solid rgba(255,255,255,.09)!important;background:linear-gradient(145deg,rgba(19,25,35,.96),rgba(7,10,15,.98) 64%,rgba(15,19,27,.96))!important;box-shadow:0 16px 35px rgba(0,0,0,.40),inset 0 0 0 1px rgba(255,255,255,.018)!important;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease!important;animation:cardRise .55s both;min-width:0}
+.card:nth-child(1){--accent:#ff7b45;--accent2:#7b2f17;animation-delay:.03s}.card:nth-child(2){--accent:#ba82ff;--accent2:#56308a;animation-delay:.06s}.card:nth-child(3){--accent:#56a9ff;--accent2:#225d9b;animation-delay:.09s}.card:nth-child(4){--accent:#ffd260;--accent2:#80550b;animation-delay:.12s}.card:nth-child(5){--accent:#55e58d;--accent2:#176a3a;animation-delay:.15s}.card:nth-child(6){--accent:#54e4ff;--accent2:#147085;animation-delay:.18s}.card:nth-child(7){--accent:#ff5fb3;--accent2:#266fe4;animation-delay:.21s}.card:nth-child(8){--accent:#ff654f;--accent2:#8d261c;animation-delay:.24s}
+.card:before{content:""!important;position:absolute!important;inset:0!important;transform:none!important;transition:.35s!important;background:radial-gradient(circle at 80% 18%,color-mix(in srgb,var(--accent) 18%,transparent),transparent 32%),linear-gradient(115deg,transparent 30%,rgba(255,255,255,.028) 48%,transparent 64%)!important;opacity:.9!important}.card:after{content:""!important;position:absolute!important;right:0!important;left:auto!important;top:20px!important;bottom:20px!important;width:3px!important;height:auto!important;border-radius:8px!important;background:linear-gradient(180deg,transparent,var(--accent),transparent)!important;opacity:.8!important}
+.card:hover{transform:translateY(-5px) scale(1.008)!important;border-color:color-mix(in srgb,var(--accent) 48%,rgba(255,255,255,.12))!important;box-shadow:0 23px 48px rgba(0,0,0,.55),0 0 28px color-mix(in srgb,var(--accent) 14%,transparent)!important}.card:hover:before{filter:brightness(1.25)}
+.card-inner{grid-template-columns:104px 1fr!important;gap:17px!important;padding:18px 19px!important;position:relative!important}.icon-wrap{width:96px!important;height:96px!important;border-radius:25px!important;background:radial-gradient(circle at 32% 24%,color-mix(in srgb,var(--accent) 24%,#26303d),rgba(13,17,24,.96) 58%,#07090d)!important;border:1px solid color-mix(in srgb,var(--accent) 46%,rgba(255,255,255,.07))!important;box-shadow:inset 0 0 24px rgba(255,255,255,.035),0 13px 28px rgba(0,0,0,.45),0 0 24px color-mix(in srgb,var(--accent) 10%,transparent)!important}.icon-wrap:after{inset:7px!important;border-radius:19px!important;border-color:rgba(255,255,255,.065)!important}.icon{font-size:51px!important;filter:drop-shadow(0 9px 11px rgba(0,0,0,.62)) drop-shadow(0 0 10px color-mix(in srgb,var(--accent) 30%,transparent))!important}.card:hover .icon{transform:translateY(-3px) scale(1.08)!important}
+.game-no{position:absolute;left:14px;top:12px;font-size:11px;font-weight:1000;letter-spacing:1.2px;color:color-mix(in srgb,var(--accent) 74%,#fff);opacity:.72;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:4px 7px;font-variant-numeric:tabular-nums}
+.meta h3{font-size:22px!important;color:#f5f7fb!important;margin-bottom:6px!important}.meta p{font-size:12.5px!important;line-height:1.55!important;color:#9ea8b6!important;margin-bottom:12px!important;min-height:39px!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.card-actions{display:flex;align-items:center;justify-content:space-between;gap:8px}.game-tag{font-size:10.5px;font-weight:900;color:color-mix(in srgb,var(--accent) 78%,#fff);border:1px solid color-mix(in srgb,var(--accent) 22%,rgba(255,255,255,.07));background:color-mix(in srgb,var(--accent) 7%,rgba(255,255,255,.018));padding:6px 9px;border-radius:9px;white-space:nowrap}.play{padding:7px 11px!important;border-radius:9px!important;border:1px solid color-mix(in srgb,var(--accent) 42%,rgba(255,255,255,.18))!important;background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 92%,#fff),color-mix(in srgb,var(--accent2) 70%,#111))!important;color:#081016!important;font-size:11.5px!important;box-shadow:0 6px 16px rgba(0,0,0,.32)!important}.play b{font-size:15px}.card:hover .play{transform:translateX(-2px)!important;filter:brightness(1.08)}
+.featured{grid-column:auto!important;grid-row:auto!important}.featured .icon-wrap{background:radial-gradient(circle at 32% 24%,rgba(255,101,79,.28),rgba(20,13,13,.96) 58%,#080707)!important;border-color:rgba(255,101,79,.48)!important}.featured:after{background:linear-gradient(180deg,transparent,var(--accent),transparent)!important}
+.footerbar{padding:0 32px!important;background:rgba(7,10,15,.96)!important;border-top:1px solid rgba(255,211,109,.16)!important;color:#798596!important}.footerbar strong{color:#e8c97a!important}.footer-actions{gap:9px!important}.mini{padding:7px 13px!important;border:1px solid rgba(255,255,255,.09)!important;background:rgba(255,255,255,.035)!important;color:#cfd6e1!important;border-radius:9px!important}.mini:hover{border-color:rgba(255,211,109,.48)!important;color:#ffe7a4!important;background:rgba(255,211,109,.06)!important}.version{color:#7f8997!important}
+.viewer .bar{background:linear-gradient(180deg,#151b25,#080b10)!important;border-bottom-color:rgba(255,211,109,.30)!important}.viewer .bar b{color:#ffe29a!important}.viewer .bar button{background:#111722!important;border-color:rgba(255,211,109,.25)!important}
+@keyframes cardRise{from{opacity:0;transform:translateY(13px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes lobbyGridDrift{to{background-position:0,0,0,46px 46px,-46px 46px}}
+@keyframes lobbyBeam{0%,100%{transform:translateX(-14%);opacity:.45}50%{transform:translateX(14%);opacity:.85}}
+@media(max-width:1350px){.topbar{grid-template-columns:205px 1fr 205px!important}.grid{gap:12px!important}.card-inner{grid-template-columns:78px 1fr!important;padding:14px!important}.icon-wrap{width:72px!important;height:72px!important;border-radius:19px!important}.icon{font-size:39px!important}.meta h3{font-size:18px!important}.meta p{font-size:11px!important}.game-tag{display:none}.play{font-size:10px!important}.hero{height:64px}}
+@media(max-height:760px){.shell{grid-template-rows:72px 1fr 44px!important}.content{padding:10px 20px!important;grid-template-rows:0 1fr!important}.hero{display:none!important}.grid{gap:10px!important}.card-inner{padding:11px 13px!important}.icon-wrap{width:64px!important;height:64px!important}.icon{font-size:35px!important}.meta h3{font-size:17px!important}.meta p{font-size:10.5px!important;min-height:30px!important;margin-bottom:6px!important}.play{padding:5px 8px!important}.game-no{top:8px;left:9px}}
+</style>
+
+<style id="hamada-lobby-title-v17">
+/* V17 — bigger, clearer center title */
+.shell{grid-template-rows:110px 1fr 58px!important}
+.topbar{min-height:110px!important}
+.brand{gap:20px!important}
+.brand-mark{width:68px!important;height:68px!important;border-radius:21px!important;font-size:34px!important;box-shadow:0 0 38px rgba(240,181,62,.30),inset 0 0 0 1px rgba(255,255,255,.62)!important}
+.brand h1{font-size:48px!important;line-height:1.08!important;font-weight:1000!important;letter-spacing:.45px!important;white-space:nowrap!important;text-shadow:0 0 22px rgba(255,200,76,.20)!important}
+.brand small{font-size:15px!important;margin-top:8px!important;font-weight:850!important;letter-spacing:.8px!important;color:#d4dae4!important}
+@media(max-width:1350px){
+ .shell{grid-template-rows:102px 1fr 58px!important}
+ .topbar{min-height:102px!important}
+ .brand-mark{width:60px!important;height:60px!important;font-size:31px!important}
+ .brand h1{font-size:42px!important}
+ .brand small{font-size:13.5px!important}
+}
+@media(max-height:760px){
+ .shell{grid-template-rows:90px 1fr 44px!important}
+ .topbar{min-height:90px!important}
+ .brand-mark{width:54px!important;height:54px!important;font-size:28px!important}
+ .brand h1{font-size:39px!important}
+ .brand small{font-size:12.5px!important;margin-top:5px!important}
+}
+</style>
+
+<style id="hamada-center-19games-v19">
+/* 19-game broadcast center: compact responsive library */
+.content{min-height:0!important;overflow:hidden!important}
+.grid{min-height:0!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;grid-template-rows:repeat(4,minmax(145px,1fr))!important;grid-auto-rows:minmax(145px,1fr)!important;gap:11px!important;max-width:1720px!important;overflow-y:auto!important;overflow-x:hidden!important;padding:2px 5px 8px!important;scrollbar-width:thin;scrollbar-color:#6f5730 #0b0e14}
+.grid::-webkit-scrollbar{width:8px}.grid::-webkit-scrollbar-track{background:#0b0e14;border-radius:20px}.grid::-webkit-scrollbar-thumb{background:#6f5730;border-radius:20px}
+.card{min-height:145px!important;grid-column:auto!important;grid-row:auto!important}.card-inner{grid-template-columns:72px 1fr!important;gap:11px!important;padding:11px 12px!important}.icon-wrap{width:66px!important;height:66px!important;border-radius:18px!important}.icon{font-size:35px!important}.meta h3{font-size:16px!important;margin-bottom:3px!important}.meta p{font-size:9.8px!important;line-height:1.35!important;min-height:27px!important;margin-bottom:5px!important}.play{padding:5px 7px!important;font-size:9.5px!important}.play b{font-size:12px!important}.game-tag{font-size:8.5px!important;padding:4px 6px!important}.game-no{font-size:9px!important;top:7px!important;left:8px!important}
+@media(max-width:1500px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-template-rows:none!important;grid-auto-rows:minmax(132px,1fr)!important}.card{min-height:132px!important}.card-inner{grid-template-columns:62px 1fr!important;padding:9px 10px!important}.icon-wrap{width:56px!important;height:56px!important}.icon{font-size:30px!important}.meta h3{font-size:14px!important}.meta p{font-size:9px!important;min-height:24px!important}}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.game-tag{display:none!important}}
+@media(max-height:800px){.shell{grid-template-rows:82px 1fr 42px!important}.topbar{min-height:82px!important}.brand-mark{width:50px!important;height:50px!important;font-size:26px!important}.brand h1{font-size:36px!important}.brand small{font-size:11px!important}.content{padding:9px 18px!important;grid-template-rows:0 1fr!important}.hero{display:none!important}.grid{grid-auto-rows:minmax(118px,1fr)!important;gap:8px!important}.card{min-height:118px!important}.card-inner{grid-template-columns:54px 1fr!important;padding:7px 9px!important}.icon-wrap{width:48px!important;height:48px!important}.icon{font-size:27px!important}.meta h3{font-size:13px!important}.meta p{font-size:8.6px!important;min-height:22px!important;margin-bottom:3px!important}.play{padding:4px 6px!important}.footerbar{min-height:42px!important}}
+</style>
+
+<style id="hamada-entry-screen-v1">
+#hamadaEntry{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 22%,rgba(255,199,83,.14),transparent 30%),linear-gradient(150deg,#080b11,#030405 72%);font-family:"Segoe UI",Tahoma,Arial,sans-serif}
+#hamadaEntry.hidden{display:none}
+.entryCard{width:min(610px,94vw);padding:34px;border:1px solid rgba(255,211,109,.23);border-radius:30px;background:linear-gradient(180deg,rgba(18,23,32,.98),rgba(7,10,15,.99));box-shadow:0 35px 100px #000b,inset 0 1px rgba(255,255,255,.04);text-align:center}
+.entryLogo{width:88px;height:88px;margin:0 auto 18px;border-radius:27px;display:grid;place-items:center;font-size:44px;color:#1a1002;background:linear-gradient(145deg,#fff0a8,#e6a52f 52%,#70410d);box-shadow:0 0 38px rgba(240,181,62,.24),inset 0 0 0 1px rgba(255,255,255,.6);transform:rotate(-4deg)}
+.entryCard h1{margin:0;font-size:clamp(30px,5vw,48px);color:#fff4c7}.entryCard .entrySub{margin:8px 0 26px;color:#9da9ba;font-size:14px;line-height:1.7}
+.entryField{text-align:right;margin:0 auto 14px}.entryField label{display:block;margin:0 4px 8px;color:#e8d7a7;font-size:13px;font-weight:800}.entryInputWrap{display:flex;direction:ltr;align-items:center;border:1px solid rgba(255,255,255,.11);border-radius:15px;background:#090d14;overflow:hidden;box-shadow:inset 0 1px rgba(255,255,255,.025)}
+.entryInputWrap span{padding:0 14px;color:#d7af59;font-weight:900}.entryInputWrap input{width:100%;height:55px;border:0;outline:0;background:transparent;color:#fff;font:700 17px Tahoma,Arial;padding:0 14px;text-align:left;direction:ltr}.entryInputWrap input::placeholder{color:#627085}
+.entryConnect{width:100%;height:52px;border-radius:14px;border:1px solid rgba(255,211,109,.36);background:linear-gradient(180deg,#f5d67d,#c68c27);color:#1b1103;font-weight:1000;font-size:16px;cursor:pointer;box-shadow:0 10px 24px #0007}.entryConnect:active,.entryBrowse:active{transform:translateY(1px) scale(.995)}
+.entryState{min-height:46px;display:flex;align-items:center;justify-content:center;gap:9px;margin:12px 0;color:#95a2b3;font-size:13px;border:1px solid rgba(255,255,255,.055);border-radius:13px;background:rgba(255,255,255,.022)}.entryState .sDot{width:9px;height:9px;border-radius:50%;background:#ff5e6f;box-shadow:0 0 14px rgba(255,94,111,.65)}.entryState.ready .sDot{background:#5be49a;box-shadow:0 0 14px rgba(91,228,154,.65)}
+.entryDivider{display:flex;align-items:center;gap:11px;color:#5f6a79;font-size:11px;margin:16px 0}.entryDivider:before,.entryDivider:after{content:"";height:1px;flex:1;background:rgba(255,255,255,.07)}
+.entryBrowse{width:100%;height:54px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,#182130,#0c1119);color:#fff0bc;font-weight:1000;font-size:17px;cursor:pointer}.entryHint{margin:13px 0 0;color:#6f7a89;font-size:11px;line-height:1.65}
+.entryUserPill{display:none;align-items:center;gap:7px;color:#ffe2a0;font-size:12px;font-weight:900}.entryUserPill.show{display:flex}.entryUserPill:before{content:"@";width:24px;height:24px;border-radius:8px;display:grid;place-items:center;background:rgba(255,211,109,.09);border:1px solid rgba(255,211,109,.16)}
+@media(max-height:700px){.entryCard{padding:23px}.entryLogo{width:66px;height:66px;font-size:34px;margin-bottom:12px}.entryCard h1{font-size:31px}.entryCard .entrySub{margin-bottom:16px}.entryInputWrap input{height:48px}.entryConnect,.entryBrowse{height:48px}}
+</style>
+
+
+<style id="hamada-card-colors-20">
+/* ألوان مستقلة لبطاقات الألعاب 09–20 */
+.card:nth-child(9){--accent:#7ee787;--accent2:#1d6f42}
+.card:nth-child(10){--accent:#ff8a65;--accent2:#8f3a23}
+.card:nth-child(11){--accent:#7c9cff;--accent2:#334d9d}
+.card:nth-child(12){--accent:#f06cff;--accent2:#7a2f8b}
+.card:nth-child(13){--accent:#5eead4;--accent2:#187a70}
+.card:nth-child(14){--accent:#fb7185;--accent2:#9a2e43}
+.card:nth-child(15){--accent:#a3e635;--accent2:#547b16}
+.card:nth-child(16){--accent:#60a5fa;--accent2:#245fa4}
+.card:nth-child(17){--accent:#f97316;--accent2:#9a3f0b}
+.card:nth-child(18){--accent:#c084fc;--accent2:#6d3a96}
+.card:nth-child(19){--accent:#22d3ee;--accent2:#12677a}
+.card:nth-child(20){--accent:#34d399;--accent2:#167254}
+</style>
+</head><body><div class="lobby-v16-marker" aria-hidden="true"></div>
+
+<div id="hamadaEntry" aria-label="شاشة الدخول إلى مركز ألعاب حماده">
+ <div class="entryCard">
+  <div class="entryLogo">♛</div>
+  <h1>مركز ألعاب حماده</h1>
+  <p class="entrySub">أدخل يوزرك للاتصال بالبث مباشرة من المركز، أو استعرض الألعاب بدون اتصال.</p>
+  <div class="entryField"><label for="ownerUser">أدخل يوزرك</label><div class="entryInputWrap"><span>@</span><input id="ownerUser" autocomplete="off" spellcheck="false" placeholder="username"></div></div>
+  <button class="entryConnect" id="entryConnectBtn" type="button">اتصال بالبث</button>
+  <div class="entryState" id="entryState"><span class="sDot"></span><span id="entryStateText">غير متصل — يمكنك استعراض الألعاب بدون اتصال</span></div>
+  <div class="entryDivider">أو</div>
+  <button class="entryBrowse" id="entryBrowseBtn" type="button" onclick="window.hamadaBrowseGames&&window.hamadaBrowseGames();return false;">استعراض الألعاب</button>
+  <p class="entryHint">استعراض الألعاب متاح دائمًا. اتصال البث أصبح مركزيًا للمركز كله.</p>
+ </div>
+</div>
+<script id="hamada-entry-early-fix">
+(function(){
+  window.hamadaBrowseGames=function(){
+    var gate=document.getElementById('hamadaEntry');
+    if(!gate)return;
+    gate.classList.add('hidden');
+    gate.style.setProperty('display','none','important');
+    document.documentElement.setAttribute('data-hamada-center-open','1');
+  };
+  var b=document.getElementById('entryBrowseBtn');
+  if(b){b.addEventListener('click',function(e){e.preventDefault();window.hamadaBrowseGames();},{passive:false});}
+})();
+</script>
+
+<div class="shell">
+<header class="topbar"><div class="status" id="centerStatus"><span class="dot" id="centerDot" style="background:#ff5e6f;box-shadow:0 0 15px #ff5e6f"></span><span id="centerStatusText">غير متصل</span><span class="entryUserPill" id="entryUserPill"></span></div><div class="brand"><div class="brand-mark">♛</div><div><h1>مركز ألعاب حماده</h1><small>منصة الألعاب التفاعلية للبث المباشر</small></div></div><div class="clockBox"><span>الوقت</span><span class="clock" id="liveClock">--:--</span></div></header>
+<section class="content"><div class="hero"><div><h2>اختر التحدي وابدأ البث</h2><p>20 لعبة تفاعلية جاهزة للبث المباشر — اختر اللعبة وابدأ فورًا</p></div><div class="hero-badge"><b>20</b><span>لعبة جاهزة للبث</span></div></div>
+<main class="grid">
+<article class="card" onclick="openGame('سباق المتابعين')"><div class="card-inner"><span class="game-no">01</span><div class="icon-wrap"><div class="icon">🏎️</div></div><div class="meta"><h3>سباق المتابعين</h3><p>سباق مباشر يعتمد على تفاعل الجمهور والمشاركات.</p><div class="card-actions"><span class="game-tag">سباق مباشر</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('الكراسي الموسيقية')"><div class="card-inner"><span class="game-no">02</span><div class="icon-wrap"><div class="icon">🪑</div></div><div class="meta"><h3>الكراسي الموسيقية</h3><p>لعبة الكراسي الموسيقية الجديدة — انضمام المتابعين، موسيقى، إقصاء وعودة حتى إعلان البطل.</p><div class="card-actions"><span class="game-tag">كراسي موسيقية</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('شقلب واقلب')"><div class="card-inner"><span class="game-no">03</span><div class="icon-wrap"><div class="icon">🔄</div></div><div class="meta"><h3>شقلب واقلب</h3><p>اختيارات سريعة ونقاط مفاجئة حتى إعلان الفائز.</p><div class="card-actions"><span class="game-tag">نقاط ومفاجآت</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('لعبة المحيبس')"><div class="card-inner"><span class="game-no">04</span><div class="icon-wrap"><div class="icon">💍</div></div><div class="meta"><h3>لعبة المحيبس</h3><p>نسخة ملكية تفاعلية من لعبة المحيبس الشهيرة.</p><div class="card-actions"><span class="game-tag">تحدي عراقي</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('لعبة الجزائيات')"><div class="card-inner"><span class="game-no">05</span><div class="icon-wrap"><div class="icon">⚽</div></div><div class="meta"><h3>لعبة الجزائيات</h3><p>جولتان حاسمتان وتسديدتان لكل لاعب.</p><div class="card-actions"><span class="game-tag">بنات ضد شباب</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('تحدي الأكواب الخمسة')"><div class="card-inner"><span class="game-no">06</span><div class="icon-wrap"><div class="icon">🥤</div></div><div class="meta"><h3>تحدي الأكواب</h3><p>اكتشف مكان الكرة بعد خلط الأكواب بسرعة.</p><div class="card-actions"><span class="game-tag">سرعة وتركيز</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('شد الحبل - بنات ضد شباب')"><div class="card-inner"><span class="game-no">07</span><div class="icon-wrap"><div class="icon">🪢</div></div><div class="meta"><h3>شد الحبل</h3><p>البنات ضد الشباب — أجسام بشرية مطورة وحبل مجدول واقعي متحرك أمام الشخصيات.</p><div class="card-actions"><span class="game-tag">قوة وتفاعل</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card featured" onclick="openGame('القنبلة الموقوتة')"><div class="card-inner"><span class="game-no">08</span><div class="icon-wrap"><div class="icon">💣</div></div><div class="meta"><h3>القنبلة الموقوتة</h3><p>مرّر القنبلة بسرعة قبل انتهاء الوقت والانفجار.</p><div class="card-actions"><span class="game-tag">سرعة وتمرير</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('متاهة حماده')"><div class="card-inner"><span class="game-no">09</span><div class="icon-wrap"><div class="icon">🧩</div></div><div class="meta"><h3>متاهة</h3><p>سباق المتابعين داخل متاهة تفاعلية للوصول إلى بوابة الفوز.</p><div class="card-actions"><span class="game-tag">متاهة وتحدي</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+
+<article class="card" onclick="openGame('تحدي الحروف')"><div class="card-inner"><span class="game-no">10</span><div class="icon-wrap"><div class="icon">🔤</div></div><div class="meta"><h3>تحدي الحروف</h3><p>تحدي كلمات وحروف سريع وتفاعلي مع الجمهور.</p><div class="card-actions"><span class="game-tag">حروف وتفاعل</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('لعبة الأحرف 300')"><div class="card-inner"><span class="game-no">11</span><div class="icon-wrap"><div class="icon">🧠</div></div><div class="meta"><h3>لعبة الأحرف 300</h3><p>تحدي 300 سؤال وأجوبة بالحروف مع نظام جولات.</p><div class="card-actions"><span class="game-tag">أسئلة وحروف</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('تحدي الشباب والبنات')"><div class="card-inner"><span class="game-no">12</span><div class="icon-wrap"><div class="icon">⚔️</div></div><div class="meta"><h3>تحدي الشباب والبنات</h3><p>مواجهة مباشرة بين فريق الشباب وفريق البنات.</p><div class="card-actions"><span class="game-tag">معركة فرق</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('تحدي التخمين')"><div class="card-inner"><span class="game-no">13</span><div class="icon-wrap"><div class="icon">🤔</div></div><div class="meta"><h3>تحدي التخمين</h3><p>أسئلة تخمين متنوعة وسريعة مصممة للبث المباشر.</p><div class="card-actions"><span class="game-tag">تخمين مباشر</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('جلك حماده')"><div class="card-inner"><span class="game-no">14</span><div class="icon-wrap"><div class="icon">✚</div></div><div class="meta"><h3>جلك</h3><p>لعبة جلك التفاعلية للاعبين مع ربط البث.</p><div class="card-actions"><span class="game-tag">لعبة شعبية</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('السلم والثعبان')"><div class="card-inner"><span class="game-no">15</span><div class="icon-wrap"><div class="icon">🐍</div></div><div class="meta"><h3>السلم والثعبان</h3><p>سباق السلم والثعبان مع النرد واللاعبين من البث.</p><div class="card-actions"><span class="game-tag">لوحة ونرد</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('روليت أعلامنا')"><div class="card-inner"><span class="game-no">16</span><div class="icon-wrap"><div class="icon">🎯</div></div><div class="meta"><h3>روليت أعلامنا</h3><p>روليت أعلام تفاعلي لاختيار المتابعين والتحديات.</p><div class="card-actions"><span class="game-tag">روليت أعلام</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('روليت الجوعانين')"><div class="card-inner"><span class="game-no">17</span><div class="icon-wrap"><div class="icon">🍽️</div></div><div class="meta"><h3>روليت الجوعانين</h3><p>روليت الأكلات والجوعانين بأسلوب تفاعلي مباشر.</p><div class="card-actions"><span class="game-tag">روليت أكلات</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('طاولي حماده')"><div class="card-inner"><span class="game-no">18</span><div class="icon-wrap"><div class="icon">🎲</div></div><div class="meta"><h3>طاولي</h3><p>لعبة طاولي كاملة للعب المباشر مع المتابعين.</p><div class="card-actions"><span class="game-tag">طاولي مباشر</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('طبقها')"><div class="card-inner"><span class="game-no">19</span><div class="icon-wrap"><div class="icon">🃏</div></div><div class="meta"><h3>طبقها</h3><p>لعبة مطابقة البطاقات والذاكرة بتحديات سريعة.</p><div class="card-actions"><span class="game-tag">مطابقة وذاكرة</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+<article class="card" onclick="openGame('لودو حماده')"><div class="card-inner"><span class="game-no">20</span><div class="icon-wrap"><div class="icon">🎲</div></div><div class="meta"><h3>لودو</h3><p>لودو تفاعلية مع النرد والحركة والتحكم من المتابعين.</p><div class="card-actions"><span class="game-tag">لودو مباشر</span><span class="play">تشغيل اللعبة <b>←</b></span></div></div></div></article>
+</main></section>
+<footer class="footerbar"><div><strong>مطور الألعاب: حماده</strong></div><div class="footer-actions"><button class="mini" onclick="document.documentElement.requestFullscreen?.()">ملء الشاشة</button><button class="mini" onclick="location.reload()">تحديث المركز</button></div><div class="version">واجهة PRO • إصدار الكمبيوتر 7.0</div></footer>
+</div>
+<div class="viewer" id="viewer"><div class="bar"><button onclick="closeGame()">✕ رجوع</button><b id="gameTitle"></b><button onclick="reloadGame()">↻ إعادة</button></div><iframe id="frame"></iframe></div>
+<script>
+const GAME_FILES={"تحدي الحروف":"challenge-letters.html","لعبة الأحرف 300":"letters-300.html","تحدي الشباب والبنات":"boys-girls.html","تحدي التخمين":"guessing.html","جلك حماده":"jalak.html","السلم والثعبان":"snakes-ladders.html","روليت أعلامنا":"flags-roulette.html","روليت الجوعانين":"hungry-roulette.html","طاولي حماده":"backgammon.html","طبقها":"match-it.html","متاهة حماده":"maze.html","لعبة الجزائيات":"penalties.html","لعبة المحيبس":"mohaibes.html","سباق المتابعين":"followers-race.html","الكراسي الموسيقية":"musical-chairs.html","شقلب واقلب":"flip-turn.html","تحدي الأكواب الخمسة":"cups.html","القنبلة الموقوتة":"bomb.html","شد الحبل - بنات ضد شباب":"tug-war.html","لودو حماده":"ludo.html"};
+let current='';
+function decodeGame(b64){
+ const bin=atob(b64); const bytes=new Uint8Array(bin.length);
+ for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+ return new TextDecoder('utf-8').decode(bytes);
+}
+const HAMADA_GAME_SHIM_B64='PHN0eWxlIGlkPSJoYW1hZGEtY2VudHJhbC1nYW1lLWNsZWFudXAiPgouaGFtYWRhLW9sZC1saXZlLXNldHRpbmd7ZGlzcGxheTpub25lIWltcG9ydGFudH0KI2hhbWFkYUpvaW5Ub29se3Bvc2l0aW9uOmZpeGVkIWltcG9ydGFudDtsZWZ0OjEycHghaW1wb3J0YW50O2JvdHRvbToxMnB4IWltcG9ydGFudDt6LWluZGV4OjIxNDc0ODMwMDAhaW1wb3J0YW50O2RpcmVjdGlvbjpydGwhaW1wb3J0YW50O2ZvbnQtZmFtaWx5OlRhaG9tYSxBcmlhbCxzYW5zLXNlcmlmIWltcG9ydGFudDtjb2xvcjojZmZmIWltcG9ydGFudH0KI2hhbWFkYUpvaW5Ub29sICp7Ym94LXNpemluZzpib3JkZXItYm94IWltcG9ydGFudDtmb250LWZhbWlseTppbmhlcml0IWltcG9ydGFudH0KI2hhbWFkYUpvaW5Ub2dnbGV7bWluLWhlaWdodDo0MHB4IWltcG9ydGFudDtwYWRkaW5nOjdweCAxMnB4IWltcG9ydGFudDtib3JkZXI6MXB4IHNvbGlkIHJnYmEoMjU1LDIxNCwxMDksLjM4KSFpbXBvcnRhbnQ7Ym9yZGVyLXJhZGl1czoxMnB4IWltcG9ydGFudDtiYWNrZ3JvdW5kOnJnYmEoMTAsMTQsMjIsLjk0KSFpbXBvcnRhbnQ7Y29sb3I6I2ZmZTA5YSFpbXBvcnRhbnQ7Zm9udC1zaXplOjEycHghaW1wb3J0YW50O2ZvbnQtd2VpZ2h0OjkwMCFpbXBvcnRhbnQ7Ym94LXNoYWRvdzowIDhweCAyNXB4IHJnYmEoMCwwLDAsLjM4KSFpbXBvcnRhbnQ7Y3Vyc29yOnBvaW50ZXIhaW1wb3J0YW50O2JhY2tkcm9wLWZpbHRlcjpibHVyKDlweCkhaW1wb3J0YW50fQojaGFtYWRhSm9pblBhbmVse2Rpc3BsYXk6bm9uZSFpbXBvcnRhbnQ7d2lkdGg6MjcwcHghaW1wb3J0YW50O21hcmdpbi1ib3R0b206N3B4IWltcG9ydGFudDtwYWRkaW5nOjEycHghaW1wb3J0YW50O2JvcmRlcjoxcHggc29saWQgcmdiYSgyNTUsMjE0LDEwOSwuMzIpIWltcG9ydGFudDtib3JkZXItcmFkaXVzOjE1cHghaW1wb3J0YW50O2JhY2tncm91bmQ6cmdiYSg4LDEyLDIwLC45NykhaW1wb3J0YW50O2JveC1zaGFkb3c6MCAxNnB4IDQ1cHggcmdiYSgwLDAsMCwuNTUpIWltcG9ydGFudH0KI2hhbWFkYUpvaW5Ub29sLm9wZW4gI2hhbWFkYUpvaW5QYW5lbHtkaXNwbGF5OmJsb2NrIWltcG9ydGFudH0KI2hhbWFkYUpvaW5QYW5lbCBie2Rpc3BsYXk6YmxvY2shaW1wb3J0YW50O21hcmdpbi1ib3R0b206OHB4IWltcG9ydGFudDtmb250LXNpemU6MTNweCFpbXBvcnRhbnQ7Y29sb3I6I2ZmZTNhMCFpbXBvcnRhbnR9CiNoYW1hZGFKb2luUGFuZWwgbGFiZWx7ZGlzcGxheTpibG9jayFpbXBvcnRhbnQ7bWFyZ2luOjdweCAwIDRweCFpbXBvcnRhbnQ7Zm9udC1zaXplOjEwcHghaW1wb3J0YW50O2NvbG9yOiNhZWI4YzchaW1wb3J0YW50fQojaGFtYWRhSm9pblBhbmVsIGlucHV0e3dpZHRoOjEwMCUhaW1wb3J0YW50O2hlaWdodDozOHB4IWltcG9ydGFudDtwYWRkaW5nOjdweCAxMHB4IWltcG9ydGFudDtib3JkZXI6MXB4IHNvbGlkIHJnYmEoMjU1LDI1NSwyNTUsLjE0KSFpbXBvcnRhbnQ7Ym9yZGVyLXJhZGl1czo5cHghaW1wb3J0YW50O2JhY2tncm91bmQ6IzExMTcyMiFpbXBvcnRhbnQ7Y29sb3I6I2ZmZiFpbXBvcnRhbnQ7Zm9udC1zaXplOjEzcHghaW1wb3J0YW50O291dGxpbmU6bm9uZSFpbXBvcnRhbnR9CiNoYW1hZGFKb2luUGFuZWwgaW5wdXQ6Zm9jdXN7Ym9yZGVyLWNvbG9yOiNlOWJkNjIhaW1wb3J0YW50O2JveC1zaGFkb3c6MCAwIDAgMnB4IHJnYmEoMjMzLDE4OSw5OCwuMTIpIWltcG9ydGFudH0KI2hhbWFkYUpvaW5TYXZle3dpZHRoOjEwMCUhaW1wb3J0YW50O21pbi1oZWlnaHQ6MzhweCFpbXBvcnRhbnQ7bWFyZ2luLXRvcDo5cHghaW1wb3J0YW50O2JvcmRlcjowIWltcG9ydGFudDtib3JkZXItcmFkaXVzOjlweCFpbXBvcnRhbnQ7YmFja2dyb3VuZDpsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCNmZmUyOWEsI2M4OTQzNSkhaW1wb3J0YW50O2NvbG9yOiMxYjEyMDUhaW1wb3J0YW50O2ZvbnQtd2VpZ2h0Ojk1MCFpbXBvcnRhbnQ7Zm9udC1zaXplOjEycHghaW1wb3J0YW50O2N1cnNvcjpwb2ludGVyIWltcG9ydGFudH0KI2hhbWFkYUpvaW5Ob3Rle21hcmdpbi10b3A6N3B4IWltcG9ydGFudDtjb2xvcjojOTVhMmI0IWltcG9ydGFudDtmb250LXNpemU6OS41cHghaW1wb3J0YW50O2xpbmUtaGVpZ2h0OjEuNTUhaW1wb3J0YW50fQojaGFtYWRhSm9pblRvYXN0e3Bvc2l0aW9uOmZpeGVkIWltcG9ydGFudDtsZWZ0OjUwJSFpbXBvcnRhbnQ7Ym90dG9tOjE4cHghaW1wb3J0YW50O3otaW5kZXg6MjE0NzQ4MzAwMSFpbXBvcnRhbnQ7dHJhbnNmb3JtOnRyYW5zbGF0ZVgoLTUwJSkgdHJhbnNsYXRlWSgxMnB4KSFpbXBvcnRhbnQ7b3BhY2l0eTowIWltcG9ydGFudDtwb2ludGVyLWV2ZW50czpub25lIWltcG9ydGFudDtwYWRkaW5nOjlweCAxNHB4IWltcG9ydGFudDtib3JkZXItcmFkaXVzOjk5OXB4IWltcG9ydGFudDtiYWNrZ3JvdW5kOiMxMDE3MjIhaW1wb3J0YW50O2JvcmRlcjoxcHggc29saWQgcmdiYSgyNTUsMjE0LDEwOSwuMjgpIWltcG9ydGFudDtjb2xvcjojZmZlNGE1IWltcG9ydGFudDtmb250OjkwMCAxMXB4IFRhaG9tYSxBcmlhbCFpbXBvcnRhbnQ7dHJhbnNpdGlvbjouMjJzIWltcG9ydGFudH0KI2hhbWFkYUpvaW5Ub2FzdC5zaG93e29wYWNpdHk6MSFpbXBvcnRhbnQ7dHJhbnNmb3JtOnRyYW5zbGF0ZVgoLTUwJSkgdHJhbnNsYXRlWSgwKSFpbXBvcnRhbnR9Cjwvc3R5bGU+CjxzY3JpcHQgaWQ9ImhhbWFkYS1jZW50cmFsLWdhbWUtdHJhbnNwb3J0Ij4KKCgpPT57CiAgY29uc3QgR0FNRV9OQU1FPV9fSEFNQURBX0dBTUVfTkFNRV9KU09OX187CiAgY29uc3QgSk9JTl9DT05GSUdTPXsKICAgICfYs9io2KfZgiDYp9mE2YXYqtin2KjYudmK2YYnOnttb2RlOidzaW5nbGUnLG5hdGl2ZTpbJ9in2YbYttmFJ10saWRzOlsnam9pbldvcmQnXX0sCiAgICAn2KfZhNmD2LHYp9iz2Yog2KfZhNmF2YjYs9mK2YLZitipJzp7bW9kZTonc2luZ2xlJyxuYXRpdmU6WyfYp9mG2LbZhSddLGlkczpbJ2pvaW5Xb3JkSW5wdXQnLCdxdWlja0pvaW5Xb3JkSW5wdXQnXX0sCiAgICAn2LTZgtmE2Kgg2YjYp9mC2YTYqCc6e21vZGU6J3NpbmdsZScsbmF0aXZlOlsn2KfZhti22YUnXX0sCiAgICAn2YTYudio2Kkg2KfZhNmF2K3Zitio2LMnOnttb2RlOidzaW5nbGUnLG5hdGl2ZTpbJ9in2YbYttmFJywn2KfZhti22YXYp9mFJywnam9pbiddfSwKICAgICfZhNi52KjYqSDYp9mE2KzYstin2KbZitin2KonOnttb2RlOid0ZWFtcycsYm95czpbJ9i02KjYp9ioJywn2LTYp9ioJ10sZ2lybHM6WyfYqNmG2KfYqicsJ9io2YbYqiddfSwKICAgICfYqtit2K/ZiiDYp9mE2KPZg9mI2KfYqCDYp9mE2K7Zhdiz2KknOnttb2RlOidzaW5nbGUnLG5hdGl2ZTpbJ9in2YbYttmFJ119LAogICAgJ9i02K8g2KfZhNit2KjZhCAtINio2YbYp9iqINi22K8g2LTYqNin2KgnOnttb2RlOid0ZWFtcycsYm95czpbJ9i02KjYp9ioJywn2LTYp9ioJ10sZ2lybHM6WyfYqNmG2KfYqicsJ9io2YbYqiddfSwKICAgICfYp9mE2YLZhtio2YTYqSDYp9mE2YXZiNmC2YjYqtipJzp7bW9kZTonc2luZ2xlJyxuYXRpdmU6WyfYp9mG2LbZhSddfSwKICAgICfZhdiq2KfZh9ipINit2YXYp9iv2YcnOnttb2RlOidzaW5nbGUnLG5hdGl2ZTpbJ9mF2KrYp9mH2KknXSxpZHM6Wyd3b3JkJ119LAogICAgJ9iq2K3Yr9mKINin2YTYrdix2YjZgSc6e21vZGU6J2dhdGUnLG5hdGl2ZTpbJ9in2YbYttmFJ119LAogICAgJ9mE2LnYqNipINin2YTYo9it2LHZgSAzMDAnOnttb2RlOidnYXRlJyxuYXRpdmU6WyfYp9mG2LbZhSddfSwKICAgICfYqtit2K/ZiiDYp9mE2LTYqNin2Kgg2YjYp9mE2KjZhtin2KonOnttb2RlOid0ZWFtcycsYm95czpbJ9i02KjYp9ioJywn2LTYp9ioJ10sZ2lybHM6WyfYqNmG2KfYqicsJ9io2YbYqiddfSwKICAgICfYqtit2K/ZiiDYp9mE2KrYrtmF2YrZhic6e21vZGU6J25vbmUnLG5hdGl2ZTpbXX0sCiAgICAn2KzZhNmDINit2YXYp9iv2YcnOnttb2RlOidzaW5nbGUnLG5hdGl2ZTpbJ9in2YbYttmFJ10saWRzOlsnd29yZCddfSwKICAgICfYp9mE2LPZhNmFINmI2KfZhNir2LnYqNin2YYnOnttb2RlOidzaW5nbGUnLG5hdGl2ZTpbJ9in2YbYttmFJ10saWRzOlsnam9pbktleXdvcmQnXX0sCiAgICAn2LHZiNmE2YrYqiDYo9i52YTYp9mF2YbYpyc6e21vZGU6J3NpbmdsZScsbmF0aXZlOlsn2KfZhti22YUnXX0sCiAgICAn2LHZiNmE2YrYqiDYp9mE2KzZiNi52KfZhtmK2YYnOnttb2RlOidzaW5nbGUnLG5hdGl2ZTpbJzEnXX0sCiAgICAn2LfYp9mI2YTZiiDYrdmF2KfYr9mHJzp7bW9kZTonc2luZ2xlJyxuYXRpdmU6WyfYt9in2YjZhNmKJ10saWRzOlsnam9pbldvcmRJbnB1dCddfSwKICAgICfYt9io2YLZh9inJzp7bW9kZTonc2luZ2xlJyxuYXRpdmU6WyfYp9mG2LbZhSddLGlkczpbJ2pvaW5Xb3JkSW5wdXQnXX0sCiAgICAn2YTZiNiv2Ygg2K3Zhdin2K/Zhyc6e21vZGU6J3NpbmdsZScsbmF0aXZlOlsn2KfZhti22YUnXSxpZHM6Wydqb2luS2V5d29yZElucHV0J119CiAgfTsKICBjb25zdCBjZmc9Sk9JTl9DT05GSUdTW0dBTUVfTkFNRV18fHttb2RlOidnYXRlJyxuYXRpdmU6WyfYp9mG2LbZhSddfTsKICBjb25zdCBzdG9yZUtleT0naGFtYWRhLWdhbWUtam9pbi12Mjo6JytHQU1FX05BTUU7CiAgY29uc3Qgbm9ybT12PT5TdHJpbmcodj8/JycpLnRyaW0oKS50b0xvd2VyQ2FzZSgpLnJlcGxhY2UoL1xzKy9nLCcgJyk7CiAgY29uc3QgcmVhZFN0b3JlPSgpPT57dHJ5e3JldHVybiBKU09OLnBhcnNlKGxvY2FsU3RvcmFnZS5nZXRJdGVtKHN0b3JlS2V5KXx8J3t9Jyl8fHt9fWNhdGNoKF8pe3JldHVybiB7fX19OwogIGxldCBzYXZlZD1yZWFkU3RvcmUoKTsKICBsZXQgY3VzdG9tV29yZD1TdHJpbmcoc2F2ZWQud29yZHx8Y2ZnLm5hdGl2ZT8uWzBdfHwn2KfZhti22YUnKS50cmltKCl8fCfYp9mG2LbZhSc7CiAgbGV0IGN1c3RvbUJveXM9U3RyaW5nKHNhdmVkLmJveXN8fCfYtNio2KfYqCcpLnRyaW0oKXx8J9i02KjYp9ioJzsKICBsZXQgY3VzdG9tR2lybHM9U3RyaW5nKHNhdmVkLmdpcmxzfHwn2KjZhtin2KonKS50cmltKCl8fCfYqNmG2KfYqic7CiAgY29uc3Qgam9pbmVkVXNlcnM9bmV3IFNldCgpOwogIGNvbnN0IHNvY2tldHM9bmV3IFNldCgpOyBsZXQgY2VudHJhbENvbm5lY3RlZD1mYWxzZTsKCiAgZnVuY3Rpb24gdG9hc3QodGV4dCl7bGV0IHQ9ZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2hhbWFkYUpvaW5Ub2FzdCcpO2lmKCF0KXt0PWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2RpdicpO3QuaWQ9J2hhbWFkYUpvaW5Ub2FzdCc7ZG9jdW1lbnQuZG9jdW1lbnRFbGVtZW50LmFwcGVuZENoaWxkKHQpfXQudGV4dENvbnRlbnQ9dGV4dDt0LmNsYXNzTGlzdC5hZGQoJ3Nob3cnKTtjbGVhclRpbWVvdXQodC5fdG0pO3QuX3RtPXNldFRpbWVvdXQoKCk9PnQuY2xhc3NMaXN0LnJlbW92ZSgnc2hvdycpLDE4MDApfQogIGZ1bmN0aW9uIHNhdmUoKXt0cnl7bG9jYWxTdG9yYWdlLnNldEl0ZW0oc3RvcmVLZXksSlNPTi5zdHJpbmdpZnkoY2ZnLm1vZGU9PT0ndGVhbXMnP3tib3lzOmN1c3RvbUJveXMsZ2lybHM6Y3VzdG9tR2lybHN9Ont3b3JkOmN1c3RvbVdvcmR9KSl9Y2F0Y2goXyl7fSB1cGRhdGVUb2dnbGUoKTt0b2FzdCgn2KrZhSDYrdmB2Lgg2YPZhNmF2Kkg2KfZhNin2YbYttmF2KfZhSDZhNmH2LDZhyDYp9mE2YTYudio2Kkg2YHZgti3Jyl9CiAgZnVuY3Rpb24gdXBkYXRlVG9nZ2xlKCl7Y29uc3QgYj1kb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnaGFtYWRhSm9pblRvZ2dsZScpO2lmKCFiKXJldHVybjtiLnRleHRDb250ZW50PWNmZy5tb2RlPT09J3RlYW1zJz9g8J+UkSDYtNio2KfYqDogJHtjdXN0b21Cb3lzfSB8INio2YbYp9iqOiAke2N1c3RvbUdpcmxzfWA6YPCflJEg2KfZhti22YXYp9mFOiAke2N1c3RvbVdvcmR9YDtjb25zdCBub3RlPWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdoYW1hZGFKb2luTm90ZScpO2lmKG5vdGUmJmNmZy5tb2RlPT09J2dhdGUnKW5vdGUudGV4dENvbnRlbnQ9YNmH2LDZhyDYp9mE2YTYudio2Kkg2KrYudiq2YXYryDYudmE2Ykg2KfZhNil2KzYp9io2KfYqiDYp9mE2YXYqNin2LTYsdipLiDZitis2Kgg2LnZhNmJINin2YTZhdiq2KfYqNi5INmD2KrYp9io2Kkgwqske2N1c3RvbVdvcmR9wrsg2KPZiNmE2KfZiyDZgtio2YQg2YLYqNmI2YQg2KXYrNin2KjYp9iq2YcuINin2YTZhdmG2LbZhdmI2YYg2KfZhNii2YY6ICR7am9pbmVkVXNlcnMuc2l6ZX1gfQogIGZ1bmN0aW9uIGJ1aWxkVG9vbCgpe2lmKGNmZy5tb2RlPT09J25vbmUnKXJldHVybjtpZihkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnaGFtYWRhSm9pblRvb2wnKSlyZXR1cm47Y29uc3Qgcm9vdD1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtyb290LmlkPSdoYW1hZGFKb2luVG9vbCc7Y29uc3QgcGFuZWw9ZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnZGl2Jyk7cGFuZWwuaWQ9J2hhbWFkYUpvaW5QYW5lbCc7Y29uc3QgdGl0bGU9ZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnYicpO3RpdGxlLnRleHRDb250ZW50PSfZg9mE2YXYqSDYp9mE2KfZhti22YXYp9mFIOKAlCAnK0dBTUVfTkFNRTtwYW5lbC5hcHBlbmRDaGlsZCh0aXRsZSk7CiAgICBpZihjZmcubW9kZT09PSd0ZWFtcycpewogICAgICBjb25zdCBsMT1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCdsYWJlbCcpO2wxLnRleHRDb250ZW50PSfZg9mE2YXYqSDYp9mG2LbZhdin2YUg2KfZhNi02KjYp9ioJztjb25zdCBhPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2lucHV0Jyk7YS5pZD0naGFtYWRhSm9pbkJveXMnO2EubWF4TGVuZ3RoPTI0O2EudmFsdWU9Y3VzdG9tQm95czsKICAgICAgY29uc3QgbDI9ZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnbGFiZWwnKTtsMi50ZXh0Q29udGVudD0n2YPZhNmF2Kkg2KfZhti22YXYp9mFINin2YTYqNmG2KfYqic7Y29uc3QgYj1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCdpbnB1dCcpO2IuaWQ9J2hhbWFkYUpvaW5HaXJscyc7Yi5tYXhMZW5ndGg9MjQ7Yi52YWx1ZT1jdXN0b21HaXJscztwYW5lbC5hcHBlbmQobDEsYSxsMixiKTsKICAgIH1lbHNlewogICAgICBjb25zdCBsPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2xhYmVsJyk7bC50ZXh0Q29udGVudD0n2YPZhNmF2Kkg2KfZhNin2YbYttmF2KfZhSc7Y29uc3QgYT1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCdpbnB1dCcpO2EuaWQ9J2hhbWFkYUpvaW5Xb3JkJzthLm1heExlbmd0aD0yNDthLnZhbHVlPWN1c3RvbVdvcmQ7cGFuZWwuYXBwZW5kKGwsYSk7CiAgICB9CiAgICBjb25zdCBzYXZlQnRuPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2J1dHRvbicpO3NhdmVCdG4uaWQ9J2hhbWFkYUpvaW5TYXZlJztzYXZlQnRuLnR5cGU9J2J1dHRvbic7c2F2ZUJ0bi50ZXh0Q29udGVudD0n2K3Zgdi4INmE2YfYsNmHINin2YTZhNi52KjYqSc7Y29uc3Qgbm90ZT1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTtub3RlLmlkPSdoYW1hZGFKb2luTm90ZSc7bm90ZS50ZXh0Q29udGVudD0n2YrZhdmD2YYg2KrYutmK2YrYsSDZh9iw2Ycg2KfZhNmD2YTZhdipINmB2Yog2KPZiiDZiNmC2KrYjCDZiNmE2YYg2KrYqti62YrYsSDZg9mE2YXYp9iqINin2YTYo9mE2LnYp9ioINin2YTYo9iu2LHZiS4nO3BhbmVsLmFwcGVuZChzYXZlQnRuLG5vdGUpOwogICAgY29uc3QgdG9nZ2xlPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2J1dHRvbicpO3RvZ2dsZS5pZD0naGFtYWRhSm9pblRvZ2dsZSc7dG9nZ2xlLnR5cGU9J2J1dHRvbic7cm9vdC5hcHBlbmQocGFuZWwsdG9nZ2xlKTtkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuYXBwZW5kQ2hpbGQocm9vdCk7CiAgICB0b2dnbGUuYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCgpPT5yb290LmNsYXNzTGlzdC50b2dnbGUoJ29wZW4nKSk7CiAgICBzYXZlQnRuLmFkZEV2ZW50TGlzdGVuZXIoJ2NsaWNrJywoKT0+e2lmKGNmZy5tb2RlPT09J3RlYW1zJyl7Y3VzdG9tQm95cz0oZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ2hhbWFkYUpvaW5Cb3lzJykudmFsdWV8fCcnKS50cmltKCl8fCfYtNio2KfYqCc7Y3VzdG9tR2lybHM9KGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdoYW1hZGFKb2luR2lybHMnKS52YWx1ZXx8JycpLnRyaW0oKXx8J9io2YbYp9iqJ31lbHNlIGN1c3RvbVdvcmQ9KGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdoYW1hZGFKb2luV29yZCcpLnZhbHVlfHwnJykudHJpbSgpfHwn2KfZhti22YUnO3NhdmUoKTtyb290LmNsYXNzTGlzdC5yZW1vdmUoJ29wZW4nKX0pOwogICAgdXBkYXRlVG9nZ2xlKCk7CiAgfQoKICBmdW5jdGlvbiBldmVudFR5cGUocCl7cmV0dXJuIG5vcm0ocD8uZXZlbnR8fHA/LnR5cGV8fHA/LmV2ZW50VHlwZXx8cD8uZXZlbnROYW1lKX0KICBmdW5jdGlvbiBkYXRhT2YocCl7cmV0dXJuIChwJiZ0eXBlb2YgcC5kYXRhPT09J29iamVjdCcmJnAuZGF0YSl8fHB8fHt9fQogIGZ1bmN0aW9uIHRleHRPZihkKXtyZXR1cm4gU3RyaW5nKGQuY29tbWVudD8/ZC5jb21tZW50VGV4dD8/ZC5tZXNzYWdlPz9kLnRleHQ/P2QuY29udGVudD8/JycpLnRyaW0oKX0KICBmdW5jdGlvbiB1c2VyS2V5KGQpe2NvbnN0IHU9ZC51c2VyfHx7fTtyZXR1cm4gbm9ybShkLnVuaXF1ZUlkfHxkLnVzZXJJZHx8ZC51aWR8fHUudW5pcXVlSWR8fHUudXNlcklkfHxkLm5pY2tuYW1lfHx1Lm5pY2tuYW1lfHxkLm5hbWV8fHUubmFtZXx8JycpfQogIGZ1bmN0aW9uIHdpdGhUZXh0KHBheWxvYWQsdGV4dCl7Y29uc3Qgb3V0PXsuLi5wYXlsb2FkfTtjb25zdCBkPXsuLi5kYXRhT2YocGF5bG9hZCl9O2QuY29tbWVudD10ZXh0O2QuY29tbWVudFRleHQ9dGV4dDtkLnRleHQ9dGV4dDtkLm1lc3NhZ2U9dGV4dDtkLmNvbnRlbnQ9dGV4dDtvdXQuZGF0YT1kO3JldHVybiBvdXR9CiAgZnVuY3Rpb24gZGV0ZWN0ZWROYXRpdmUoKXtpZihjZmcubW9kZSE9PSdzaW5nbGUnKXJldHVybiBjZmcubmF0aXZlPy5bMF18fCfYp9mG2LbZhSc7Zm9yKGNvbnN0IGlkIG9mIGNmZy5pZHN8fFtdKXtjb25zdCBlbD1kb2N1bWVudC5nZXRFbGVtZW50QnlJZChpZCk7aWYoZWwmJlN0cmluZyhlbC52YWx1ZXx8JycpLnRyaW0oKSlyZXR1cm4gU3RyaW5nKGVsLnZhbHVlKS50cmltKCl9cmV0dXJuIGNmZy5uYXRpdmU/LlswXXx8J9in2YbYttmFJ30KICBmdW5jdGlvbiBhZGFwdChwYXlsb2FkKXtpZighcGF5bG9hZHx8dHlwZW9mIHBheWxvYWQhPT0nb2JqZWN0JylyZXR1cm4gW3BheWxvYWRdO2NvbnN0IGV2PWV2ZW50VHlwZShwYXlsb2FkKTtpZighKGV2PT09J2NoYXQnfHxldj09PSdjb21tZW50J3x8ZXYuaW5jbHVkZXMoJ2NoYXQnKXx8ZXYuaW5jbHVkZXMoJ2NvbW1lbnQnKSkpcmV0dXJuIFtwYXlsb2FkXTtjb25zdCBkPWRhdGFPZihwYXlsb2FkKSwgdHh0PXRleHRPZihkKSwgbj1ub3JtKHR4dCk7aWYoIW4pcmV0dXJuIFtwYXlsb2FkXTsKICAgIGlmKGNmZy5tb2RlPT09J3NpbmdsZScpewogICAgICBjb25zdCB0YXJnZXQ9ZGV0ZWN0ZWROYXRpdmUoKTtjb25zdCBuYXRpdmVMaXN0PVsuLi4oY2ZnLm5hdGl2ZXx8W10pLHRhcmdldF0ubWFwKG5vcm0pOwogICAgICBpZihuPT09bm9ybShjdXN0b21Xb3JkKSkgcmV0dXJuIFt3aXRoVGV4dChwYXlsb2FkLHRhcmdldCldOwogICAgICBpZihub3JtKGN1c3RvbVdvcmQpIT09bm9ybSh0YXJnZXQpJiZuYXRpdmVMaXN0LmluY2x1ZGVzKG4pKSByZXR1cm4gW107CiAgICAgIHJldHVybiBbcGF5bG9hZF07CiAgICB9CiAgICBpZihjZmcubW9kZT09PSd0ZWFtcycpewogICAgICBjb25zdCBib3lzPShjZmcuYm95c3x8WyfYtNio2KfYqCddKS5tYXAobm9ybSksIGdpcmxzPShjZmcuZ2lybHN8fFsn2KjZhtin2KonXSkubWFwKG5vcm0pOwogICAgICBpZihuPT09bm9ybShjdXN0b21Cb3lzKSlyZXR1cm4gW3dpdGhUZXh0KHBheWxvYWQsKGNmZy5ib3lzfHxbJ9i02KjYp9ioJ10pWzBdKV07CiAgICAgIGlmKG49PT1ub3JtKGN1c3RvbUdpcmxzKSlyZXR1cm4gW3dpdGhUZXh0KHBheWxvYWQsKGNmZy5naXJsc3x8WyfYqNmG2KfYqiddKVswXSldOwogICAgICBpZigobm9ybShjdXN0b21Cb3lzKSE9PWJveXNbMF0mJmJveXMuaW5jbHVkZXMobikpfHwobm9ybShjdXN0b21HaXJscykhPT1naXJsc1swXSYmZ2lybHMuaW5jbHVkZXMobikpKXJldHVybiBbXTsKICAgICAgcmV0dXJuIFtwYXlsb2FkXTsKICAgIH0KICAgIGlmKGNmZy5tb2RlPT09J2dhdGUnKXsKICAgICAgY29uc3Qga2V5PXVzZXJLZXkoZCk7CiAgICAgIGlmKG49PT1ub3JtKGN1c3RvbVdvcmQpKXtpZihrZXkpe2pvaW5lZFVzZXJzLmFkZChrZXkpO3VwZGF0ZVRvZ2dsZSgpO3RvYXN0KCfYqtmFINin2YbYttmF2KfZhSAnKyhkLm5pY2tuYW1lfHxkLnVzZXI/Lm5pY2tuYW1lfHxkLm5hbWV8fCfZhdiq2KfYqNi5JykpfXJldHVybiBbXX0KICAgICAgaWYoa2V5JiYham9pbmVkVXNlcnMuaGFzKGtleSkpcmV0dXJuIFtdOwogICAgICByZXR1cm4gW3BheWxvYWRdOwogICAgfQogICAgcmV0dXJuIFtwYXlsb2FkXTsKICB9CgogIGNsYXNzIEhhbWFkYUNlbnRyYWxTb2NrZXR7CiAgICBzdGF0aWMgQ09OTkVDVElORz0wOyBzdGF0aWMgT1BFTj0xOyBzdGF0aWMgQ0xPU0lORz0yOyBzdGF0aWMgQ0xPU0VEPTM7CiAgICBjb25zdHJ1Y3Rvcigpe3RoaXMucmVhZHlTdGF0ZT0wO3RoaXMudXJsPSdoYW1hZGE6Ly9jZW50ZXItbGl2ZSc7dGhpcy5wcm90b2NvbD0nJzt0aGlzLmV4dGVuc2lvbnM9Jyc7dGhpcy5idWZmZXJlZEFtb3VudD0wO3RoaXMuYmluYXJ5VHlwZT0nYmxvYic7dGhpcy5vbm9wZW49bnVsbDt0aGlzLm9ubWVzc2FnZT1udWxsO3RoaXMub25lcnJvcj1udWxsO3RoaXMub25jbG9zZT1udWxsO3RoaXMuX2xpc3RlbmVycz17b3BlbjpuZXcgU2V0KCksbWVzc2FnZTpuZXcgU2V0KCksZXJyb3I6bmV3IFNldCgpLGNsb3NlOm5ldyBTZXQoKX07c29ja2V0cy5hZGQodGhpcyk7c2V0VGltZW91dCgoKT0+e3RyeXtwYXJlbnQucG9zdE1lc3NhZ2Uoe3NvdXJjZTonaGFtYWRhLWdhbWUnLHR5cGU6J3JlcXVlc3Qtc3RhdHVzJ30sJyonKX1jYXRjaChfKXt9fSwwKX0KICAgIGFkZEV2ZW50TGlzdGVuZXIodHlwZSxmbil7aWYodGhpcy5fbGlzdGVuZXJzW3R5cGVdJiZ0eXBlb2YgZm49PT0nZnVuY3Rpb24nKXRoaXMuX2xpc3RlbmVyc1t0eXBlXS5hZGQoZm4pfSByZW1vdmVFdmVudExpc3RlbmVyKHR5cGUsZm4pe3RoaXMuX2xpc3RlbmVyc1t0eXBlXT8uZGVsZXRlKGZuKX0KICAgIF9lbWl0KHR5cGUsZXYpe3RyeXtpZih0eXBlb2YgdGhpc1snb24nK3R5cGVdPT09J2Z1bmN0aW9uJyl0aGlzWydvbicrdHlwZV0oZXYpfWNhdGNoKF8pe307Zm9yKGNvbnN0IGZuIG9mIFsuLi4odGhpcy5fbGlzdGVuZXJzW3R5cGVdfHxbXSldKXRyeXtmbi5jYWxsKHRoaXMsZXYpfWNhdGNoKF8pe319CiAgICBfb3Blbigpe2lmKHRoaXMucmVhZHlTdGF0ZSE9PTApcmV0dXJuO3RoaXMucmVhZHlTdGF0ZT0xO3RoaXMuX2VtaXQoJ29wZW4nLG5ldyBFdmVudCgnb3BlbicpKX0KICAgIF9tZXNzYWdlKHBheWxvYWQpe2lmKHRoaXMucmVhZHlTdGF0ZSE9PTEpcmV0dXJuO3RoaXMuX2VtaXQoJ21lc3NhZ2UnLG5ldyBNZXNzYWdlRXZlbnQoJ21lc3NhZ2UnLHtkYXRhOkpTT04uc3RyaW5naWZ5KHBheWxvYWQpfSkpfQogICAgc2VuZCgpe30gY2xvc2UoY29kZT0xMDAwLHJlYXNvbj0nJyl7aWYodGhpcy5yZWFkeVN0YXRlPT09MylyZXR1cm47dGhpcy5yZWFkeVN0YXRlPTM7c29ja2V0cy5kZWxldGUodGhpcyk7dGhpcy5fZW1pdCgnY2xvc2UnLHt0eXBlOidjbG9zZScsY29kZSxyZWFzb24sd2FzQ2xlYW46dHJ1ZX0pfQogIH0KICB3aW5kb3cuV2ViU29ja2V0PUhhbWFkYUNlbnRyYWxTb2NrZXQ7CiAgd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ21lc3NhZ2UnLGU9Pntjb25zdCBtPWUuZGF0YXx8e307aWYobS5zb3VyY2UhPT0naGFtYWRhLWNlbnRlcicpcmV0dXJuO2lmKG0udHlwZT09PSdjZW50cmFsLXN0YXR1cycpe2NlbnRyYWxDb25uZWN0ZWQ9ISFtLmNvbm5lY3RlZDtmb3IoY29uc3Qgd3Mgb2YgWy4uLnNvY2tldHNdKXtpZihjZW50cmFsQ29ubmVjdGVkJiZ3cy5yZWFkeVN0YXRlPT09MClzZXRUaW1lb3V0KCgpPT53cy5fb3BlbigpLDApO2Vsc2UgaWYoIWNlbnRyYWxDb25uZWN0ZWQmJndzLnJlYWR5U3RhdGU9PT0xKXdzLmNsb3NlKDEwMDYsJ2NlbnRlciBkaXNjb25uZWN0ZWQnKX19ZWxzZSBpZihtLnR5cGU9PT0nbGl2ZS1ldmVudCcpe2Zvcihjb25zdCBwIG9mIGFkYXB0KG0ucGF5bG9hZCkpZm9yKGNvbnN0IHdzIG9mIFsuLi5zb2NrZXRzXSl3cy5fbWVzc2FnZShwKX19KTsKCiAgY29uc3QgY2xlYW5MZWdhY3lVST0oKT0+ewogICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnaW5wdXQnKS5mb3JFYWNoKGVsPT57Y29uc3QgaGF5PSgoZWwuaWR8fCcnKSsnICcrKGVsLm5hbWV8fCcnKSsnICcrKGVsLnBsYWNlaG9sZGVyfHwnJykrJyAnKyhlbC52YWx1ZXx8JycpKS50b0xvd2VyQ2FzZSgpO2lmKC8oXnxcYikoaG9zdHxwb3J0fHNvY2tldHx3ZWJzb2NrZXR8d3N1cmx8d3NfdXJsKShcYnwkKS8udGVzdChoYXkpfHwvd3M6XC9cLy8udGVzdChoYXkpfHwvMjEyMTMvLnRlc3QoaGF5KSl7Y29uc3Qgd3JhcD1lbC5jbG9zZXN0KCdsYWJlbCwuZmllbGQsLmZpZWxkcywucm93LC5zZXR0aW5nLC5zZXR0aW5nLXJvdywuZm9ybS1yb3cnKXx8ZWw7d3JhcC5jbGFzc0xpc3QuYWRkKCdoYW1hZGEtb2xkLWxpdmUtc2V0dGluZycpfX0pOwogICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvckFsbCgnYnV0dG9uJykuZm9yRWFjaChlbD0+e2NvbnN0IGlkPShlbC5pZHx8JycpLnRvTG93ZXJDYXNlKCksdD0oZWwudGV4dENvbnRlbnR8fCcnKS50cmltKCk7aWYoL2Rpc2Nvbm5lY3R8Y29ubmVjdGJ0bnx3c2Nvbm5lY3R8dGlrY29ubmVjdC8udGVzdChpZCl8fC9eKNmC2LfYuSDYp9mE2KfYqti12KfZhHzYp9iq2LXYp9mEfNil2LnYp9iv2Kkg2KfZhNin2KrYtdin2YQpJC8udGVzdCh0KSl7Y29uc3Qgc2NvcGU9ZWwuY2xvc2VzdCgnZGlhbG9nLC5zZXR0aW5ncywuZHJhd2VyLC5wYW5lbCwuY29uZmlnLC5jb25maWd1cmF0aW9uJyk7aWYoc2NvcGUpZWwuY2xhc3NMaXN0LmFkZCgnaGFtYWRhLW9sZC1saXZlLXNldHRpbmcnKX19KTsKICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2gyLGgzLGg0LHAsc21hbGwsbGFiZWwnKS5mb3JFYWNoKGVsPT57Y29uc3QgdD1lbC50ZXh0Q29udGVudHx8Jyc7aWYoL1Rpa0Zpbml0eXzYqtmK2YNccyrZgdmK2YbYqtmKfGxvY2FsaG9zdDoyMTIxM3xXZWJTb2NrZXR82LnZhtmI2KfZhiDYp9mE2KfYqti12KfZhC8udGVzdCh0KSl7Y29uc3Qgd3JhcD1lbC5jbG9zZXN0KCdsYWJlbCwuZmllbGQsLnJvdywuc2V0dGluZywuc2V0dGluZy1yb3cnKXx8ZWw7d3JhcC5jbGFzc0xpc3QuYWRkKCdoYW1hZGEtb2xkLWxpdmUtc2V0dGluZycpfX0pOwogICAgYnVpbGRUb29sKCk7CiAgfTsKICBmdW5jdGlvbiBzY3J1YkxlZ2FjeVRleHQoKXsKICAgIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3JBbGwoJ2JvZHkgKjpub3Qoc2NyaXB0KTpub3Qoc3R5bGUpOm5vdCh0ZXh0YXJlYSknKS5mb3JFYWNoKGVsPT57CiAgICAgIGlmKGVsLmNoaWxkcmVuLmxlbmd0aCkgcmV0dXJuOwogICAgICBjb25zdCB0PWVsLnRleHRDb250ZW50fHwnJzsKICAgICAgaWYoL1Rpa0Zpbml0eXzYqtmK2YNccyrZgdmK2YbYqtmKL2kudGVzdCh0KSl7CiAgICAgICAgY29uc3QgbnQ9dC5yZXBsYWNlKC9UaWtGaW5pdHkvZ2ksJ9in2KrYtdin2YQg2KfZhNio2KsnKS5yZXBsYWNlKC/YqtmK2YNccyrZgdmK2YbYqtmKL2dpLCfYp9iq2LXYp9mEINin2YTYqNirJyk7CiAgICAgICAgaWYobnQhPT10KSBlbC50ZXh0Q29udGVudD1udDsKICAgICAgfQogICAgfSk7CiAgfQogIGZ1bmN0aW9uIHJ1bkNlbnRyYWxDbGVhbnVwKCl7Y2xlYW5MZWdhY3lVSSgpO3NjcnViTGVnYWN5VGV4dCgpfQogIGlmKGRvY3VtZW50LnJlYWR5U3RhdGU9PT0nbG9hZGluZycpZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcscnVuQ2VudHJhbENsZWFudXAse29uY2U6dHJ1ZX0pO2Vsc2UgcnVuQ2VudHJhbENsZWFudXAoKTsKICBsZXQgY2xlYW5UaW1lcj0wOwogIGNvbnN0IG9ic2VydmVyPW5ldyBNdXRhdGlvbk9ic2VydmVyKCgpPT57Y2xlYXJUaW1lb3V0KGNsZWFuVGltZXIpO2NsZWFuVGltZXI9c2V0VGltZW91dChydW5DZW50cmFsQ2xlYW51cCw5MCl9KTsKICBpZihkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQpb2JzZXJ2ZXIub2JzZXJ2ZShkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQse2NoaWxkTGlzdDp0cnVlLHN1YnRyZWU6dHJ1ZSxjaGFyYWN0ZXJEYXRhOnRydWV9KTsKICB3aW5kb3cuSEFNQURBX0NFTlRFUl9MSVZFPXtjb25uZWN0ZWQ6KCk9PmNlbnRyYWxDb25uZWN0ZWQsZ2V0Sm9pbldvcmQ6KCk9PmNmZy5tb2RlPT09J25vbmUnPycnOmN1c3RvbVdvcmQsZ2V0VGVhbVdvcmRzOigpPT4oe2JveXM6Y3VzdG9tQm95cyxnaXJsczpjdXN0b21HaXJsc30pfTsKfSkoKTsKPC9zY3JpcHQ+';
+async function prepareGameHtml(name){
+ const file=GAME_FILES[name];
+ if(!file) throw new Error('ملف اللعبة غير موجود: '+name);
+ const res=await fetch('games/'+encodeURIComponent(file),{cache:'no-store'});
+ if(!res.ok) throw new Error('تعذر تحميل اللعبة: '+name);
+ let html=await res.text();
+ const shim=decodeGame(HAMADA_GAME_SHIM_B64).replace('__HAMADA_GAME_NAME_JSON__',JSON.stringify(name));
+ if(/<head(?:\s[^>]*)?>/i.test(html)) html=html.replace(/<head(\s[^>]*)?>/i,(m)=>m+shim);
+ else if(/<html(?:\s[^>]*)?>/i.test(html)) html=html.replace(/<html(\s[^>]*)?>/i,(m)=>m+'<head>'+shim+'</head>');
+ else html=shim+html;
+ return html;
+}
+const GAME_LABELS={'متاهة حماده':'متاهة','جلك حماده':'جلك','طاولي حماده':'طاولي','لودو حماده':'لودو'};
+async function openGame(name){
+ current=name; document.getElementById('gameTitle').textContent=GAME_LABELS[name]||name;
+ document.getElementById('viewer').classList.toggle('cups-full', name==='تحدي الأكواب الخمسة');
+ document.getElementById('viewer').classList.add('show');
+ const frame=document.getElementById('frame');
+ frame.srcdoc='<html dir="rtl"><body style="margin:0;background:#070b13;color:#fff;font-family:Tahoma;display:grid;place-items:center;height:100vh"><div>جاري تحميل اللعبة…</div></body></html>';
+ try{ frame.srcdoc=await prepareGameHtml(name); }
+ catch(err){ frame.srcdoc='<html dir="rtl"><body style="margin:0;background:#070b13;color:#fff;font-family:Tahoma;display:grid;place-items:center;height:100vh"><div>'+String(err.message||err).replace(/[<>&]/g,'')+'</div></body></html>'; }
+}
+function closeGame(){document.getElementById('frame').srcdoc='';document.getElementById('viewer').classList.remove('show','cups-full')}
+async function reloadGame(){if(current)await openGame(current)}
+</script>
+<script>setInterval(()=>{const e=document.getElementById('liveClock');if(e)e.textContent=new Date().toLocaleTimeString('ar-IQ',{hour:'2-digit',minute:'2-digit'});},1000);</script>
+
+<style id="professional-gaming-chair-v3">
+/* Completely new professional racing/gaming chair model */
+.stage .chair{
+  width:150px!important;
+  height:184px!important;
+  filter:drop-shadow(0 27px 19px rgba(0,0,0,.82))!important;
+  perspective:950px!important;
+}
+.stage .chairIcon{
+  position:relative!important;
+  width:146px!important;
+  height:178px!important;
+  margin:0 auto!important;
+  font-size:0!important;
+  border:0!important;
+  border-radius:0!important;
+  transform-style:preserve-3d!important;
+  background:
+    /* headrest opening */
+    radial-gradient(ellipse at 50% 18%,transparent 0 10px,#111826 11px 13px,transparent 14px),
+    /* center racing stripe */
+    linear-gradient(90deg,transparent 0 60px,#a50f22 61px 68px,#f34855 69px 77px,#a50f22 78px 85px,transparent 86px) 0 0/146px 119px no-repeat,
+    /* arm supports */
+    linear-gradient(80deg,transparent 0 8px,#dbe4ed 9px 12px,#515c68 13px 17px,transparent 18px) 10px 93px/34px 50px no-repeat,
+    linear-gradient(100deg,transparent 0 16px,#dbe4ed 17px 20px,#515c68 21px 25px,transparent 26px) 102px 93px/34px 50px no-repeat,
+    /* gas lift */
+    linear-gradient(90deg,transparent 0 67px,#d8e0e8 68px 72px,#525b64 73px 78px,transparent 79px) 0 128px/146px 35px no-repeat,
+    /* five star base */
+    linear-gradient(12deg,transparent 0 46%,#8f9aa5 47% 52%,#2b3239 53% 58%,transparent 59%) 17px 153px/58px 15px no-repeat,
+    linear-gradient(-12deg,transparent 0 46%,#8f9aa5 47% 52%,#2b3239 53% 58%,transparent 59%) 71px 153px/58px 15px no-repeat,
+    linear-gradient(90deg,transparent 0 46%,#aeb7c0 47% 52%,#343b43 53% 58%,transparent 59%) 42px 158px/62px 13px no-repeat,
+    radial-gradient(circle at 18px 169px,#07090c 0 6px,#87919b 7px 8px,transparent 9px),
+    radial-gradient(circle at 128px 169px,#07090c 0 6px,#87919b 7px 8px,transparent 9px),
+    radial-gradient(circle at 73px 174px,#07090c 0 6px,#87919b 7px 8px,transparent 9px)!important;
+  animation:gamingChairIdle 3.2s ease-in-out infinite!important;
+  filter:none!important;
+}
+/* sculpted bucket back: visibly different from the old rectangular chair */
+.stage .chairIcon::before{
+  content:""!important;
+  position:absolute!important;
+  z-index:3!important;
+  left:21px!important;
+  top:2px!important;
+  width:104px!important;
+  height:116px!important;
+  border:3px solid #5d6875!important;
+  border-radius:32px 32px 25px 25px!important;
+  clip-path:polygon(20% 0,80% 0,100% 21%,91% 100%,68% 92%,50% 100%,32% 92%,9% 100%,0 21%)!important;
+  background:
+    radial-gradient(ellipse at 50% 17%,#070a10 0 10px,#313a45 11px 14px,transparent 15px),
+    linear-gradient(135deg,rgba(255,255,255,.19),transparent 18% 78%,rgba(0,0,0,.35)),
+    linear-gradient(90deg,#080b11 0 17%,#1d2430 18% 34%,#090c12 35% 42%,#c51b31 43% 57%,#090c12 58% 65%,#1d2430 66% 82%,#080b11 83% 100%)!important;
+  box-shadow:
+    inset 8px 5px 12px rgba(255,255,255,.10),
+    inset -9px -12px 18px rgba(0,0,0,.78),
+    0 0 0 2px rgba(12,17,24,.9),
+    0 15px 18px rgba(0,0,0,.64),
+    0 0 24px rgba(255,43,74,.16)!important;
+  transform:rotateX(-2deg) translateZ(8px)!important;
+}
+/* deep racing seat with raised side bolsters */
+.stage .chairIcon::after{
+  content:""!important;
+  position:absolute!important;
+  z-index:6!important;
+  left:24px!important;
+  top:103px!important;
+  width:98px!important;
+  height:43px!important;
+  border:3px solid #596472!important;
+  border-radius:16px 16px 30px 30px!important;
+  clip-path:polygon(7% 0,93% 0,100% 32%,88% 100%,12% 100%,0 32%)!important;
+  background:
+    linear-gradient(90deg,#090c12 0 16%,#252e39 17% 33%,#b01429 34% 44%,#ef3b4b 45% 55%,#b01429 56% 66%,#252e39 67% 83%,#090c12 84% 100%),
+    linear-gradient(180deg,#303947,#0c1118)!important;
+  box-shadow:
+    inset 0 8px 10px rgba(255,255,255,.10),
+    inset 0 -14px 16px rgba(0,0,0,.72),
+    0 13px 17px rgba(0,0,0,.68)!important;
+  transform:rotateX(13deg) translateZ(18px)!important;
+}
+.stage .chair .num{
+  z-index:15!important;
+  top:48px!important;
+  left:50%!important;
+  min-width:49px!important;
+  height:43px!important;
+  line-height:43px!important;
+  padding:0 8px!important;
+  border-radius:12px!important;
+  border:2px solid rgba(255,255,255,.92)!important;
+  background:linear-gradient(180deg,#f9fbff,#c7d0da)!important;
+  color:#12161c!important;
+  font-size:25px!important;
+  box-shadow:0 5px 14px rgba(0,0,0,.75),0 0 17px rgba(255,255,255,.28),inset 0 2px 3px #fff!important;
+}
+.stage .chair.taken .chairIcon::before{
+  border-color:#61efa2!important;
+  box-shadow:inset 8px 5px 12px rgba(255,255,255,.1),inset -9px -12px 18px rgba(0,0,0,.72),0 0 0 2px #173e2b,0 0 28px rgba(65,255,150,.58),0 15px 18px rgba(0,0,0,.64)!important;
+}
+.stage .chair.taken .chairIcon::after{border-color:#58e998!important;box-shadow:inset 0 8px 10px rgba(255,255,255,.10),inset 0 -14px 16px rgba(0,0,0,.72),0 0 24px rgba(65,255,150,.5),0 13px 17px rgba(0,0,0,.68)!important}
+@keyframes gamingChairIdle{0%,100%{transform:translateY(0) rotateX(1deg)}50%{transform:translateY(-3px) rotateX(3deg)}}
+@media(max-width:1200px){.stage .chair{transform:translate(-50%,-50%) scale(.79)!important}}
+</style>
+
+<script id="hamada-entry-script-v3">
+(()=>{
+ const gate=document.getElementById('hamadaEntry'), user=document.getElementById('ownerUser'), browse=document.getElementById('entryBrowseBtn'), connectBtn=document.getElementById('entryConnectBtn');
+ const state=document.getElementById('entryState'), stateText=document.getElementById('entryStateText'), topText=document.getElementById('centerStatusText'), topDot=document.getElementById('centerDot'), pill=document.getElementById('entryUserPill');
+ const frame=document.getElementById('frame');
+ let username='', bridge=null, connected=false, bridgeReady=false, reconnectTimer=null, manualBridgeClose=false, wantLiveConnection=false, lastState='disconnected';
+ const BRIDGE_URL=(location.protocol==='http:'||location.protocol==='https:')?((location.protocol==='https:'?'wss://':'ws://')+location.host):'ws://127.0.0.1:21345';
+
+ function statusLabel(st,msg){
+   if(msg)return msg;
+   if(st==='connected')return 'متصل بالبث';
+   if(st==='connecting')return 'جاري الاتصال بالبث…';
+   if(st==='reconnecting')return 'إعادة الاتصال تلقائيًا…';
+   if(st==='offline')return 'البث غير متاح الآن';
+   if(st==='error')return 'تعذر الاتصال بالبث';
+   return 'غير متصل';
+ }
+ function renderStatus(st,msg){
+   lastState=st||'disconnected';
+   connected=lastState==='connected';
+   const ok=connected, waiting=lastState==='connecting'||lastState==='reconnecting';
+   state.classList.toggle('ready',ok);
+   stateText.textContent=statusLabel(lastState,msg);
+   topText.textContent=ok?'متصل بالبث':(waiting?'جاري الاتصال':'غير متصل');
+   topDot.style.background=ok?'#31e47c':(waiting?'#f4c762':'#ff5e6f');
+   topDot.style.boxShadow=ok?'0 0 15px #31e47c':(waiting?'0 0 15px #f4c762':'0 0 15px #ff5e6f');
+   sendStatusToGame();
+ }
+ function showUser(){
+   if(username){pill.textContent='@'+username;pill.classList.add('show')}
+   else pill.classList.remove('show');
+ }
+ function enterGames(){gate.classList.add('hidden');gate.style.setProperty('display','none','important');showUser()}
+ function openEntry(){gate.style.removeProperty('display');gate.classList.remove('hidden')}
+ function sendStatusToGame(){
+   try{frame.contentWindow?.postMessage({source:'hamada-center',type:'central-status',connected,owner:username,username,state:lastState},'*')}catch(_){ }
+ }
+ function sendEventToGame(payload){
+   try{frame.contentWindow?.postMessage({source:'hamada-center',type:'live-event',payload},'*')}catch(_){ }
+ }
+ function normalizeIncoming(msg){
+   if(!msg||typeof msg!=='object')return;
+   if(msg.type==='status'){
+     if(msg.username){username=String(msg.username).replace(/^@+/,'');showUser()}
+     renderStatus(msg.state||'disconnected',msg.message||'');
+     return;
+   }
+   if(msg.type==='event'&&msg.event){
+     sendEventToGame({event:msg.event,type:msg.event,eventType:msg.event,data:msg.data||{},ts:msg.ts||Date.now()});
+   }
+ }
+ function scheduleBridgeReconnect(){
+   clearTimeout(reconnectTimer);
+   if(manualBridgeClose)return;
+   reconnectTimer=setTimeout(()=>openBridge(),2200);
+ }
+ function openBridge(){
+   clearTimeout(reconnectTimer);
+   if(bridge&&(bridge.readyState===0||bridge.readyState===1))return;
+   bridgeReady=false;
+   let ws;
+   try{ws=new WebSocket(BRIDGE_URL);bridge=ws}catch(_){renderStatus('error','تعذر فتح خدمة الاتصال المحلية');scheduleBridgeReconnect();return}
+   const timeout=setTimeout(()=>{if(ws.readyState!==1){try{ws.close()}catch(_){}}},5000);
+   ws.onopen=()=>{
+     clearTimeout(timeout);bridgeReady=true;manualBridgeClose=false;
+     if(wantLiveConnection&&username){
+       renderStatus('connecting','تم فتح خدمة الاتصال — جاري الاتصال ببث @'+username+'…');
+       ws.send(JSON.stringify({action:'connect',username}));
+     }else{
+       ws.send(JSON.stringify({action:'status'}));
+     }
+   };
+   ws.onmessage=e=>{try{normalizeIncoming(JSON.parse(e.data))}catch(_){}};
+   ws.onerror=()=>{};
+   ws.onclose=()=>{
+     clearTimeout(timeout);if(bridge===ws)bridge=null;bridgeReady=false;
+     if(wantLiveConnection)renderStatus('reconnecting','خدمة الاتصال توقفت — سيتم تشغيل الاتصال تلقائيًا عند عودتها');
+     else renderStatus('disconnected','غير متصل — يمكنك استعراض الألعاب بدون اتصال');
+     scheduleBridgeReconnect();
+   };
+ }
+ function connectLive(){
+   username=user.value.trim().replace(/^@+/, '');
+   if(!username){renderStatus('disconnected','أدخل يوزرك أولاً، أو اضغط «استعراض الألعاب»');user.focus();return}
+   wantLiveConnection=true;manualBridgeClose=false;showUser();
+   try{localStorage.setItem('hamada-center-owner',username)}catch(_){ }
+   if(bridgeReady&&bridge?.readyState===1){
+     renderStatus('connecting','جاري الاتصال ببث @'+username+'…');
+     bridge.send(JSON.stringify({action:'connect',username}));
+   }else{
+     renderStatus('connecting','جاري تشغيل خدمة الاتصال…');
+     openBridge();
+   }
+ }
+ function disconnectLive(){
+   wantLiveConnection=false;
+   if(bridgeReady&&bridge?.readyState===1){try{bridge.send(JSON.stringify({action:'disconnect'}))}catch(_){}}
+   renderStatus('disconnected','غير متصل — يمكنك استعراض الألعاب بدون اتصال');
+ }
+
+ browse.addEventListener('click',enterGames);
+ connectBtn.addEventListener('click',connectLive);
+ user.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();connectLive()}});
+ document.getElementById('centerStatus').style.cursor='pointer';
+ document.getElementById('centerStatus').title='العودة إلى شاشة الاتصال بالبث';
+ document.getElementById('centerStatus').addEventListener('click',openEntry);
+ window.addEventListener('message',e=>{
+   const m=e.data||{};
+   if(m.source==='hamada-game'&&m.type==='request-status'){
+     try{e.source?.postMessage({source:'hamada-center',type:'central-status',connected,owner:username,username,state:lastState},'*')}catch(_){ }
+   }
+ });
+ frame.addEventListener('load',()=>setTimeout(sendStatusToGame,0));
+ try{const saved=localStorage.getItem('hamada-center-owner');if(saved){username=saved.replace(/^@+/,'');user.value=username;showUser()}}catch(_){ }
+ renderStatus('disconnected','غير متصل — يمكنك استعراض الألعاب بدون اتصال');
+ openBridge();
+ window.HAMADA_CENTER={
+   get owner(){return username||user.value.trim().replace(/^@+/,'')},
+   get connected(){return connected},
+   get state(){return lastState},
+   openEntry,
+   connect:connectLive,
+   disconnect:disconnectLive
+ };
+})();
+</script>
+
+</body></html>

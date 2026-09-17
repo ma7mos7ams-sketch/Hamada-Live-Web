@@ -1,0 +1,1243 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>روليت المتابعين REALISTIC CINEMATIC - حماده</title>
+<style>
+:root{
+ --bg:#040711;--panel:#0c1121;--panel2:#121a31;--line:rgba(255,255,255,.09);
+ --text:#f7f9ff;--muted:#9ea8c5;--gold:#ffd76c;--gold2:#ff9f1f;--cyan:#62dcff;
+ --green:#4ce6a0;--red:#ff607a;--violet:#a768ff;--shadow:0 22px 70px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Tahoma,Arial,sans-serif;color:var(--text);
+background:radial-gradient(circle at 50% 15%,#28386e 0%,#0b1124 38%,#040711 100%)}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background:
+linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+background-size:46px 46px}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;background:
+radial-gradient(circle at 15% 10%,rgba(98,220,255,.12),transparent 23%),
+radial-gradient(circle at 85% 0%,rgba(255,159,31,.12),transparent 20%),
+radial-gradient(circle at 50% 100%,rgba(167,104,255,.10),transparent 26%)}
+.app{height:100vh;padding:6px;display:grid;grid-template-rows:70px 1fr;gap:6px;position:relative;z-index:2}
+.glass{background:linear-gradient(180deg,rgba(25,32,61,.88),rgba(7,10,22,.92));border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(12px)}
+.top{border-radius:20px;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.brand{display:flex;align-items:center;gap:13px}
+.brandIcon{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;font-size:25px;font-weight:1000;color:#1a1206;
+background:radial-gradient(circle at 35% 30%,#fff7c5,#ffc74e 35%,#895000 73%,#1d1306);border:3px solid #ffe38b;
+box-shadow:0 0 30px rgba(255,198,74,.35)}
+.title{font-size:26px;font-weight:1000;line-height:1}
+.sub{font-size:11px;color:var(--muted);margin-top:3px}
+.topActions{display:flex;align-items:center;gap:8px}
+.status{display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid rgba(76,230,160,.24);
+background:rgba(76,230,160,.08);font-weight:900}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 13px var(--green)}
+.iconBtn{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--line);background:rgba(255,255,255,.04);
+color:#fff;font-size:18px;cursor:pointer}
+
+.main{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:6px;transition:.28s}
+.main.panel-collapsed{grid-template-columns:minmax(0,1fr) 0px;gap:0}
+.stage{border-radius:28px;overflow:hidden;display:block;position:relative;min-width:0;min-height:0}
+.stageHead{position:absolute;top:10px;left:12px;right:12px;height:48px;z-index:14;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border:1px solid rgba(255,255,255,.10);border-radius:16px;background:linear-gradient(180deg,rgba(18,25,49,.78),rgba(7,10,22,.66));box-shadow:0 10px 28px rgba(0,0,0,.20);backdrop-filter:blur(10px)}
+.stageHead b{font-size:18px}
+.meta{font-size:11px;color:var(--muted);margin-top:2px}
+.steps{display:flex;gap:7px}
+.step{padding:8px 10px;border-radius:999px;font-size:11px;font-weight:900;background:rgba(255,255,255,.035);border:1px solid var(--line);color:#bcc5dc}
+.step.active{background:rgba(255,215,108,.13);border-color:rgba(255,215,108,.26);color:#ffe8a6}
+.wheelZone{position:absolute;inset:0;display:block;min-height:0;overflow:hidden;padding:0;background:radial-gradient(circle at 50% 50%,rgba(255,215,108,.065),rgba(98,220,255,.018) 43%,transparent 68%)}
+.wheelZone:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 48%,rgba(2,4,12,.24) 78%,rgba(2,4,12,.55) 100%);z-index:0}
+.fx{position:absolute;inset:0;pointer-events:none}
+.wheelFrame{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);aspect-ratio:1/1;width:900px;height:900px;max-width:none;max-height:none;display:grid;place-items:center;perspective:1400px;z-index:1;will-change:width,height}
+.wheelFrame:before{content:"";position:absolute;inset:1.2%;border-radius:50%;background:radial-gradient(circle at 38% 30%,rgba(255,255,255,.10),transparent 26%),radial-gradient(circle at 50% 62%,rgba(0,0,0,.10),rgba(0,0,0,.62) 80%);box-shadow:0 44px 82px rgba(0,0,0,.58);transform:translateY(15px) scale(.975);filter:blur(9px);z-index:0;pointer-events:none}
+.wheelFrame:after{content:"";position:absolute;inset:4.3%;border-radius:50%;border:2px solid rgba(255,238,180,.28);box-shadow:inset 0 0 30px rgba(255,255,255,.05),0 0 34px rgba(255,184,55,.10);pointer-events:none;z-index:3}
+.wheelAura{position:absolute;inset:-3.5%;border-radius:50%;background:radial-gradient(circle,rgba(255,213,108,.16),rgba(98,220,255,.05) 50%,transparent 73%);filter:blur(8px);animation:pulse 2.7s ease-in-out infinite;pointer-events:none}
+@keyframes pulse{50%{transform:scale(1.035);opacity:.74}}
+#wheel{width:100%;height:100%;filter:drop-shadow(0 30px 50px rgba(0,0,0,.58));position:relative;z-index:2;transform:translateZ(0) rotate(var(--wheel-angle,0rad));transform-origin:50% 50%;will-change:transform;backface-visibility:hidden;contain:paint;transition:filter .25s ease}
+.wheelFrame.spinning #wheel{filter:none}.wheelFrame.spinning .wheelAura{animation:none;opacity:.7}
+.pointer{position:absolute;right:-25px;top:50%;transform:translateY(-50%);transform-origin:calc(100% + 12px) 50%;z-index:9;width:0;height:0;border-top:29px solid transparent;border-bottom:29px solid transparent;border-right:66px solid #fff7df;filter:drop-shadow(0 8px 15px rgba(0,0,0,.76)) drop-shadow(0 0 12px rgba(255,215,108,.44))}
+.pointer:before{content:"";position:absolute;left:14px;top:-10px;width:19px;height:19px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff7d9,#ffc74d 44%,#9a5a08 100%);border:3px solid rgba(255,255,255,.92);box-shadow:0 0 16px rgba(255,190,63,.52)}
+.pointer:after{content:"";position:absolute;left:2px;top:-5px;width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 15px var(--red)}
+.pointer.tick{animation:pointerKick .12s cubic-bezier(.2,.9,.35,1)}
+@keyframes pointerKick{0%{transform:translateY(-50%) rotate(0deg)}45%{transform:translateY(-50%) rotate(-8deg)}100%{transform:translateY(-50%) rotate(0deg)}}
+.spinGlow{position:absolute;inset:4.5%;border-radius:50%;border:2px solid transparent;z-index:1;pointer-events:none;transition:.25s}
+.spinGlow.on{border-color:rgba(255,215,108,.4);box-shadow:0 0 80px rgba(255,215,108,.30),inset 0 0 70px rgba(98,220,255,.12);animation:spinBreath 1s ease-in-out infinite alternate}
+@keyframes spinBreath{to{transform:scale(1.018);opacity:.78}}
+.wheelSpinButton{position:absolute;z-index:8;left:50%;top:50%;transform:translate(-50%,-50%);width:126px;height:126px;border-radius:50%;border:6px solid rgba(255,248,205,.96);cursor:pointer;color:#1b1206;font-weight:1000;text-align:center;background:radial-gradient(circle at 35% 28%,#fff7c7 0%,#ffd86e 30%,#f0a129 62%,#9d5a08 100%);box-shadow:0 0 0 8px rgba(255,190,63,.13),0 0 34px rgba(255,190,63,.45),inset 0 5px 12px rgba(255,255,255,.38),inset 0 -9px 15px rgba(96,46,0,.24);transition:.18s}
+.wheelSpinButton:hover{transform:translate(-50%,-50%) scale(1.055);filter:brightness(1.06)}
+.wheelSpinButton:active{transform:translate(-50%,-50%) scale(.98)}
+.wheelSpinButton:disabled{opacity:.55;cursor:not-allowed;filter:grayscale(.28);transform:translate(-50%,-50%)}
+.wheelSpinButton .spinIcon{display:block;font-size:29px;line-height:1;margin-bottom:3px}
+.wheelSpinButton .spinText{display:block;font-size:14px;line-height:1.15}
+
+.selectedBar{margin:0;border-radius:17px;border:1px solid var(--line);background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.025));display:flex;align-items:center;gap:9px;padding:9px 10px;min-height:58px}
+.selectedBar img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.76);background:#273150}
+.selectedInfo{flex:1;min-width:0}
+.selectedInfo b{font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.selectedInfo span{font-size:10px;color:var(--muted);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.statePill{padding:7px 9px;font-size:11px;border-radius:12px;border:1px solid var(--line);font-weight:900;background:rgba(98,220,255,.07);color:#dff5ff}
+
+.side{border-radius:28px;padding:11px;display:flex;flex-direction:column;gap:8px;min-height:0;overflow:hidden;transition:.28s}
+.main.panel-collapsed .side{opacity:0;transform:translateX(-25px);pointer-events:none}
+.side h3{font-size:17px;margin:2px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.stat{padding:10px;border-radius:15px;background:rgba(255,255,255,.035);border:1px solid var(--line);text-align:center}
+.stat b{display:block;font-size:21px} .stat span{font-size:10px;color:var(--muted)}
+.input{width:100%;padding:11px 12px;border-radius:13px;border:1px solid var(--line);background:#090e1d;color:#fff;outline:none}
+.uploadLabel{display:flex;align-items:center;justify-content:center;padding:11px;border-radius:13px;border:1px dashed rgba(255,255,255,.18);
+background:rgba(255,255,255,.025);color:#d0d7e9;font-weight:900;cursor:pointer}
+.uploadLabel input{display:none}
+.btn{border:1px solid rgba(255,255,255,.10);border-radius:13px;padding:11px 12px;color:#fff;font-weight:900;cursor:pointer;
+background:linear-gradient(180deg,#313a61,#1d2440);box-shadow:0 7px 16px rgba(0,0,0,.17);transition:.18s}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.08)} .btn:disabled{opacity:.42;cursor:not-allowed;transform:none}
+.btn.good{background:linear-gradient(180deg,#55efa9,#19b06b);color:#07170e}
+.btn.gold{background:linear-gradient(180deg,#ffd568,#e9991a);color:#1b1206}
+.btn.red{background:linear-gradient(180deg,#ff6e86,#c72c48)}
+.btn.cyan{background:linear-gradient(180deg,#61dfff,#2b88d0);color:#06131a}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.list{flex:1;min-height:0;overflow:auto;border-radius:15px;border:1px solid var(--line);background:rgba(0,0,0,.16);padding:5px}
+.item{display:flex;align-items:center;gap:8px;padding:7px;border-bottom:1px solid rgba(255,255,255,.05)}
+.item:last-child{border-bottom:0}
+.item img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.18);background:#293250}
+.name{flex:1;font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kick{padding:6px 8px;border-radius:10px;background:rgba(255,96,122,.13);color:#ff9caf;border:1px solid rgba(255,96,122,.2);font-size:10px}
+.history{max-height:120px;overflow:auto;border-radius:14px;background:rgba(255,255,255,.025);border:1px solid var(--line);padding:6px}
+.hist{font-size:11px;color:#c5cde0;padding:6px;border-bottom:1px solid rgba(255,255,255,.05)} .hist:last-child{border-bottom:0}
+
+.bottom{display:none !important;height:0!important;min-height:0!important;overflow:hidden!important}
+.hint{font-size:12px;color:var(--muted)} .hint b{color:#fff}
+.actions{display:flex;justify-content:flex-end;gap:7px}
+.quickPanelBtn{position:fixed;left:12px;bottom:10px;z-index:12;padding:9px 13px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(37,45,78,.92),rgba(10,14,28,.96));color:#fff;font-weight:1000;box-shadow:0 12px 30px rgba(0,0,0,.28);cursor:pointer;backdrop-filter:blur(10px)}
+.quickPanelBtn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+
+.overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(1,3,9,.84);backdrop-filter:blur(10px);z-index:30}
+.overlay.show{display:flex}
+.panel{width:min(1000px,93vw);max-height:90vh;overflow:auto;border-radius:30px;padding:21px;background:linear-gradient(180deg,#20294d,#080d1d);
+border:1px solid rgba(255,255,255,.14);box-shadow:0 36px 100px rgba(0,0,0,.64)}
+.panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.panelHead h2{font-size:32px;margin:0;color:var(--gold)} .panelHead p{font-size:13px;color:#c4cce0;margin:4px 0 0}
+.chooser{display:flex;align-items:center;gap:13px;border-radius:19px;padding:12px;background:rgba(255,255,255,.045);border:1px solid var(--line)}
+.chooser img{width:65px;height:65px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,.75);background:#273150}
+.flagsGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:15px}
+.flagCard{padding:11px;border-radius:19px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+border:1px solid rgba(255,255,255,.11);text-align:center;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.flagCard:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 14px 30px rgba(0,0,0,.26);border-color:rgba(255,215,108,.42);cursor:pointer}
+.flagCard:before{content:"";position:absolute;inset:-40%;background:linear-gradient(120deg,transparent 42%,rgba(255,255,255,.08) 50%,transparent 58%);transform:translateX(-70%);transition:.35s}
+.flagCard:hover:before{transform:translateX(70%)}
+.flagWrap{height:72px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.18);margin-bottom:9px}
+.flagWrap img{width:96px;height:60px;object-fit:cover;border-radius:8px;border:2px solid rgba(255,255,255,.65);box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.flagName{font-size:15px;font-weight:1000} .flagSub{font-size:10px;color:var(--muted);margin-top:3px}
+.reveal{display:none;margin-top:16px;border-radius:22px;padding:17px;text-align:center;background:rgba(255,255,255,.05);border:1px solid var(--line)}
+.reveal.show{display:block;animation:pop .28s ease}
+.reveal img{width:104px;height:104px;border-radius:50%;object-fit:cover;border:5px solid white;background:#273150}
+.reveal .label{font-size:28px;color:#ffdf96;font-weight:1000;margin-top:8px} .reveal .who{font-size:36px;font-weight:1000;margin:7px 0}
+
+.duel{width:min(760px,92vw);text-align:center}
+.duelTitle{font-size:36px;color:var(--gold);font-weight:1000;margin-bottom:14px}
+.duelPlayers{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center}
+.duelPlayer{padding:18px;border-radius:24px;background:rgba(255,255,255,.045);border:1px solid var(--line)}
+.duelPlayer img{width:130px;height:130px;border-radius:50%;object-fit:cover;border:5px solid white;background:#273150}
+.duelPlayer b{display:block;font-size:27px;margin-top:10px}
+.vs{font-size:34px;font-weight:1000;color:#ffb95b}
+.winnerPanel{width:min(620px,92vw);text-align:center}
+.winnerPanel img{width:160px;height:160px;border-radius:50%;object-fit:cover;border:6px solid white;background:#273150;box-shadow:0 0 50px rgba(255,202,87,.35)}
+.winnerTitle{font-size:38px;color:var(--gold);font-weight:1000;margin-top:12px} .winnerName{font-size:44px;font-weight:1000;margin:8px 0}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:35;overflow:hidden}
+.c{position:absolute;top:-20px;width:8px;height:14px;border-radius:2px;animation:fall 2.2s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.9}}
+@keyframes pop{from{transform:scale(.95);opacity:.35}to{transform:scale(1);opacity:1}}
+
+.flagNumber{
+  position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;font-size:17px;font-weight:1000;color:#1b1206;
+  background:radial-gradient(circle at 35% 30%,#fff6c1,#ffd56b 42%,#df9220 100%);
+  border:3px solid rgba(255,255,255,.9);box-shadow:0 5px 14px rgba(0,0,0,.32);z-index:3
+}
+.commentChooseBar{
+  margin-top:12px;padding:11px 13px;border-radius:16px;
+  display:flex;align-items:center;gap:10px;
+  background:rgba(98,220,255,.06);border:1px solid rgba(98,220,255,.18)
+}
+.commentChooseBar b{font-size:13px;color:#e4f8ff}
+.commentChooseBar span{font-size:11px;color:#aeb8d1}
+.commentPulse{
+  width:10px;height:10px;border-radius:50%;background:#62dcff;
+  box-shadow:0 0 14px #62dcff;animation:commentPulse 1s ease-in-out infinite
+}
+@keyframes commentPulse{50%{opacity:.35;transform:scale(.8)}}
+
+.joinBox{border-radius:16px;padding:10px;background:linear-gradient(180deg,rgba(98,220,255,.07),rgba(167,104,255,.035));border:1px solid rgba(98,220,255,.16)}
+.joinHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+.joinHead b{font-size:13px;color:#e2f7ff}.joinHead span{font-size:10px;color:var(--muted)}
+.joinStatus{display:flex;align-items:center;gap:8px;font-size:11px;color:#cbd6eb}
+.joinLamp{width:10px;height:10px;border-radius:50%;background:#4ce6a0;box-shadow:0 0 12px #4ce6a0}.joinLamp.closed{background:#ff607a;box-shadow:0 0 12px #ff607a}
+.joinToggle{padding:7px 9px;border-radius:10px;border:1px solid rgba(98,220,255,.19);background:rgba(98,220,255,.07);color:#dff6ff;font-size:10px;font-weight:900;cursor:pointer}
+
+.commentTestRow{display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:7px}
+.commentTestRow input{
+  width:100%;padding:9px 10px;border-radius:11px;border:1px solid var(--line);
+  background:#090e1d;color:#fff;outline:none
+}
+.commentTestRow button{
+  padding:9px 11px;border-radius:11px;border:1px solid rgba(98,220,255,.2);
+  background:rgba(98,220,255,.08);color:#dff6ff;font-weight:900;cursor:pointer
+}
+
+
+.elimPanel{width:min(660px,92vw);text-align:center;position:relative;overflow:hidden}
+.elimPanel:before{content:"";position:absolute;inset:-30%;background:
+radial-gradient(circle at 50% 20%,rgba(255,96,122,.16),transparent 34%),
+radial-gradient(circle at 20% 80%,rgba(255,215,108,.12),transparent 30%);
+pointer-events:none}
+.elimContent{position:relative;z-index:2}
+.elimBadge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
+background:rgba(255,96,122,.12);border:1px solid rgba(255,96,122,.26);color:#ff9caf;font-weight:1000;margin-bottom:15px}
+.elimFlag{width:142px;height:88px;object-fit:cover;border-radius:14px;border:4px solid rgba(255,255,255,.88);
+box-shadow:0 12px 30px rgba(0,0,0,.32);margin:0 auto 14px;display:block}
+.elimAvatar{width:138px;height:138px;border-radius:50%;object-fit:cover;border:6px solid #fff;background:#273150;
+box-shadow:0 0 42px rgba(255,96,122,.26);margin:0 auto 13px;display:block}
+.elimText{font-size:36px;font-weight:1000;line-height:1.35;margin:8px 0;color:#fff}
+.elimText .playerName{color:#ffd76c}
+.elimText .countryName{color:#62dcff}
+.elimSub{font-size:13px;color:#c9d2e7;margin-top:8px}
+.elimCountdown{margin:16px auto 0;width:70%;height:5px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.elimCountdown span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#ff607a,#ffd76c);transform-origin:right center;
+animation:elimProgress 2.1s linear forwards}
+@keyframes elimProgress{to{transform:scaleX(0)}}
+
+.reviveBox{border-radius:16px;padding:10px;background:linear-gradient(180deg,rgba(76,230,160,.07),rgba(98,220,255,.035));
+border:1px solid rgba(76,230,160,.16)}
+.reviveTitle{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+.reviveTitle b{font-size:13px;color:#dfffee}
+.reviveTitle span{font-size:10px;color:var(--muted)}
+.reviveList{max-height:108px;overflow:auto}
+.reviveItem{display:flex;align-items:center;gap:7px;padding:6px;border-top:1px solid rgba(255,255,255,.045)}
+.reviveItem:first-child{border-top:0}
+.reviveItem img{width:31px;height:31px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.18);background:#293250}
+.reviveName{flex:1;font-size:11px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.reviveUses{font-size:9px;color:#b9c4dc;white-space:nowrap}
+.reviveTest{padding:5px 7px;border-radius:9px;border:1px solid rgba(76,230,160,.22);background:rgba(76,230,160,.09);color:#9cffcc;font-size:9px;font-weight:900;cursor:pointer}
+.reviveTest:disabled{opacity:.35;cursor:not-allowed}
+.reviveNotice{width:min(650px,92vw);text-align:center;position:relative;overflow:hidden}
+.reviveNotice:before{content:"";position:absolute;inset:-25%;background:
+radial-gradient(circle at 50% 20%,rgba(76,230,160,.18),transparent 34%),
+radial-gradient(circle at 20% 80%,rgba(98,220,255,.13),transparent 30%);pointer-events:none}
+.reviveNoticeContent{position:relative;z-index:2}
+.reviveIcon{font-size:44px;margin-bottom:5px}
+.reviveAvatarBig{width:138px;height:138px;border-radius:50%;object-fit:cover;border:6px solid #fff;background:#273150;
+box-shadow:0 0 44px rgba(76,230,160,.30);display:block;margin:0 auto 13px}
+.reviveHeadline{font-size:36px;font-weight:1000;color:#7dffc0;margin:7px 0}
+.revivePlayerBig{font-size:40px;font-weight:1000;color:#ffd76c;margin:5px 0}
+.reviveCounterBig{display:inline-block;padding:8px 15px;border-radius:999px;background:rgba(98,220,255,.09);
+border:1px solid rgba(98,220,255,.21);font-size:13px;color:#dff6ff;margin-top:8px}
+
+
+.toast{position:fixed;top:102px;left:50%;transform:translateX(-50%) translateY(-14px);opacity:0;z-index:50;padding:12px 21px;border-radius:999px;
+background:#141a31;border:1px solid var(--line);font-weight:900;transition:.2s}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:1320px){.main{grid-template-columns:1fr 270px} .flagsGrid{grid-template-columns:repeat(3,1fr)} .title{font-size:23px}}
+
+/* ===== لوحة تحكم PRO المختصرة ===== */
+.main{grid-template-columns:minmax(0,1fr) 286px}
+.side{padding:9px;gap:6px;border-radius:24px}
+.controlTitle{display:flex;align-items:center;justify-content:space-between;margin:0!important;font-size:15px!important}
+.modeBadge{font-size:9px;padding:5px 8px;border-radius:999px;border:1px solid rgba(98,220,255,.18);background:rgba(98,220,255,.07);color:#dff6ff}
+.controlHub{padding:8px;border-radius:15px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));display:grid;gap:7px}
+.modeSwitch{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.modeBtn{height:36px;border:1px solid rgba(255,255,255,.10);border-radius:11px;background:rgba(255,255,255,.035);color:#cbd4e8;font-weight:1000;cursor:pointer;transition:.18s}
+.modeBtn:hover{filter:brightness(1.08)}
+.modeBtn.active.manual{background:linear-gradient(180deg,rgba(98,220,255,.22),rgba(98,220,255,.08));border-color:rgba(98,220,255,.35);color:#e9fbff;box-shadow:0 0 18px rgba(98,220,255,.08)}
+.modeBtn.active.auto{background:linear-gradient(180deg,rgba(76,230,160,.25),rgba(76,230,160,.08));border-color:rgba(76,230,160,.38);color:#eafff3;box-shadow:0 0 18px rgba(76,230,160,.10)}
+.spinTimeRow{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center}
+.spinTimeInfo{min-width:0;padding:0 3px}.spinTimeInfo b{display:block;font-size:11px}.spinTimeInfo span{display:block;font-size:9px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.timeBtn{min-width:74px;height:34px;border-radius:11px;border:1px solid rgba(255,215,108,.26);background:rgba(255,215,108,.09);color:#ffe8a6;font-weight:1000;cursor:pointer}
+.autoPulse{width:7px;height:7px;border-radius:50%;display:inline-block;margin-left:5px;background:#7d879f;box-shadow:none}.autoPulse.on{background:var(--green);box-shadow:0 0 11px var(--green);animation:commentPulse 1s ease-in-out infinite}
+.stats.compact{gap:5px}.stats.compact .stat{padding:6px;border-radius:11px}.stats.compact .stat b{font-size:17px}.stats.compact .stat span{font-size:9px}
+.joinBox{padding:8px;border-radius:13px}.joinHead{margin-bottom:5px}.joinStatus{gap:6px}.selectedBar{padding:7px 8px;min-height:52px;border-radius:14px}.selectedBar img{width:38px;height:38px}.statePill{padding:6px 7px;font-size:9px}
+.sectionLine{display:flex;align-items:center;justify-content:space-between;margin:2px 2px 0}.sectionLine b{font-size:12px}.sectionLine span{font-size:9px;color:var(--muted)}
+.list{max-height:170px;padding:4px;border-radius:12px}.item{padding:5px!important}.item img{width:32px!important;height:32px!important}.item .name{font-size:11px!important}.kick{padding:5px 7px!important;font-size:9px!important}
+.compactDetails{border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.022);overflow:hidden;flex:0 0 auto}
+.compactDetails summary{list-style:none;cursor:pointer;padding:8px 10px;font-size:11px;font-weight:1000;color:#dbe3f5;display:flex;align-items:center;justify-content:space-between;user-select:none}
+.compactDetails summary::-webkit-details-marker{display:none}.compactDetails summary:after{content:'⌄';color:var(--muted);transition:.18s}.compactDetails[open] summary:after{transform:rotate(180deg)}
+.compactDetails .detailBody{padding:0 8px 8px;display:grid;gap:6px}.compactDetails .input{padding:8px 9px;border-radius:10px}.compactDetails .uploadLabel{padding:8px;border-radius:10px;font-size:10px}.compactDetails .btn{padding:8px 9px;border-radius:10px;font-size:10px}
+.compactDetails .reviveBox{padding:0;border:0;background:transparent}.compactDetails .reviveTitle{display:none}.compactDetails .reviveList{max-height:110px}
+.compactDetails .history{max-height:105px;border:0;background:transparent;padding:0}
+.quickPanelBtn{padding:8px 12px!important;font-size:10px!important}
+@media(max-width:1320px){.main{grid-template-columns:1fr 258px}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top glass">
+    <div class="brand">
+      <div class="brandIcon">🎡</div>
+      <div>
+        <div class="title">روليت المتابعين REALISTIC</div>
+        <div class="sub">TikFinity • أعلام • إقصاء • رجوع بالهدية • تدوير يدوي وتلقائي</div>
+      </div>
+    </div>
+    <div class="topActions">
+      <button class="iconBtn" id="collapseBtn" title="طي لوحة التحكم">☰</button>
+      <button class="iconBtn" id="fullBtn" title="ملء الشاشة">⛶</button>
+      <div class="status" id="tikfinityStatus" title="حالة اتصال TikFinity"><span class="dot" id="tikfinityDot"></span><span id="tikfinityStatusText">جاري الاتصال</span></div>
+    </div>
+  </div>
+
+  <div class="main" id="mainLayout">
+    <section class="stage glass">
+      <div class="stageHead">
+        <div>
+          <b id="stageTitle">بانتظار المتابعين</b>
+          <div class="meta" id="stageMeta">أضف اللاعبين ثم ابدأ تدوير الروليت</div>
+        </div>
+        <div class="steps">
+          <div class="step active" id="s1">1 الروليت</div>
+          <div class="step" id="s2">2 العلم</div>
+          <div class="step" id="s3">3 الطرد</div>
+        </div>
+      </div>
+
+      <div class="wheelZone">
+        <div class="wheelFrame">
+          <div class="wheelAura"></div>
+          <div class="spinGlow" id="spinGlow"></div>
+          <canvas id="wheel" width="1200" height="1200"></canvas>
+          <div class="pointer"></div>
+          <button class="wheelSpinButton" id="spinBtn" title="تدوير الروليت">
+            <span class="spinIcon">↻</span>
+            <span class="spinText">تدوير الروليت</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="side glass" id="sidePanel">
+      <h3 class="controlTitle"><span>لوحة التحكم</span><span class="modeBadge" id="modeBadge">يدوي</span></h3>
+
+      <div class="controlHub">
+        <div class="modeSwitch">
+          <button class="modeBtn manual active" id="manualModeBtn">☝ يدوي</button>
+          <button class="modeBtn auto" id="autoModeBtn">⚡ تلقائي</button>
+        </div>
+        <div class="spinTimeRow">
+          <div class="spinTimeInfo">
+            <b><span class="autoPulse" id="autoPulse"></span><span id="spinModeHint">التدوير عند الضغط فقط</span></b>
+            <span>مدة دوران الروليت</span>
+          </div>
+          <button class="timeBtn" id="spinTimeBtn" title="تغيير مدة الدوران من 1 إلى 5 ثوانٍ">⏱ 5 ث</button>
+        </div>
+      </div>
+
+      <div class="stats compact">
+        <div class="stat"><b id="count">0</b><span>لاعب</span></div>
+        <div class="stat"><b id="rounds">0</b><span>لفة</span></div>
+        <div class="stat"><b id="kicked">0</b><span>طرد</span></div>
+      </div>
+
+      <div class="joinBox">
+        <div class="joinHead">
+          <b>💬 الانضمام</b>
+          <span>«انضم»</span>
+        </div>
+        <div class="joinStatus">
+          <span class="joinLamp" id="joinLamp"></span>
+          <span id="joinStatusText">الانضمام مفتوح</span>
+          <button class="joinToggle" id="joinToggleBtn">إغلاق</button>
+        </div>
+      </div>
+
+      <div class="selectedBar">
+        <img id="selAvatar" alt="">
+        <div class="selectedInfo">
+          <b id="selName">لم يتم اختيار لاعب بعد</b>
+          <span id="selHint">سيظهر اللاعب المختار هنا</span>
+        </div>
+        <div class="statePill" id="selState">جاهز</div>
+      </div>
+
+      <details class="compactDetails">
+        <summary>🛠 أدوات المشرف</summary>
+        <div class="detailBody">
+          <input class="input" id="nameInput" placeholder="اسم المتابع">
+          <label class="uploadLabel">📷 صورة المتابع <input id="imageInput" type="file" accept="image/*"></label>
+          <button class="btn good" id="addBtn">إضافة المتابع</button>
+          <div class="row2">
+            <button class="btn" id="demoBtn">تجريبي</button>
+            <button class="btn" id="shuffleBtn">خلط</button>
+          </div>
+          <div class="row2">
+            <button class="btn cyan" id="undoBtn" disabled>↶ تراجع</button>
+            <button class="btn red" id="resetBtn">إعادة</button>
+          </div>
+        </div>
+      </details>
+
+      <div class="sectionLine"><b>اللاعبون</b><span id="playerCountMini">0 داخل الروليت</span></div>
+      <div class="list" id="playerList"></div>
+
+      <details class="compactDetails">
+        <summary>🎁 الرجوع بالهدية <span style="font-size:9px;color:var(--muted)">1 عملة • مرتان</span></summary>
+        <div class="detailBody">
+          <div class="reviveBox">
+            <div class="reviveTitle"><b>الرجوع</b><span>1 عملة • مرتان فقط</span></div>
+            <div class="reviveList" id="reviveList"><div class="hist">لا يوجد لاعب مقصى</div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="compactDetails">
+        <summary>📋 سجل الجولات</summary>
+        <div class="detailBody"><div class="history" id="history"><div class="hist">لا يوجد سجل بعد</div></div></div>
+      </details>
+    </aside>
+  </div>
+
+  <button class="quickPanelBtn" id="showPanelBtn">لوحة التحكم</button>
+</div>
+
+<div class="overlay" id="flagsOverlay">
+  <div class="panel">
+    <div class="panelHead">
+      <div>
+        <h2>اختر علماً</h2>
+        <p>خلف كل علم لاعب مخفي من الموجودين في الروليت — وقد يكون اللاعب المختار نفسه</p>
+      </div>
+      <button class="btn" id="closeFlags">إغلاق</button>
+    </div>
+    <div class="chooser">
+      <img id="chooserAvatar" alt="">
+      <div style="flex:1">
+        <div style="font-size:11px;color:#a9b3ca">اللاعب الذي اختاره الروليت</div>
+        <div id="chooserName" style="font-size:25px;font-weight:1000"></div>
+      </div>
+      <div class="statePill">اختيار العلم</div>
+    </div>
+
+    <div class="commentChooseBar">
+      <span class="commentPulse"></span>
+      <div style="flex:1">
+        <b>بانتظار اختيار اللاعب أو المشرف</b>
+        <span id="commentChooseText">اللاعب يكتب رقم العلم في التعليقات، أو المشرف يضغط على العلم مباشرة</span>
+      </div>
+    </div>
+
+    <div class="commentTestRow">
+      <input id="testCommentInput" placeholder="اختبار تعليق اللاعب المختار: اكتب رقم مثل 3">
+      <button id="testCommentBtn">إرسال تعليق تجريبي</button>
+    </div>
+
+    <div class="flagsGrid" id="flagsGrid"></div>
+  </div>
+</div>
+
+
+<div class="overlay" id="eliminationOverlay">
+  <div class="panel elimPanel">
+    <div class="elimContent">
+      <div class="elimBadge">🚫 إقصاء من الروليت</div>
+      <img class="elimFlag" id="elimFlag" alt="">
+      <img class="elimAvatar" id="elimAvatar" alt="">
+      <div class="elimText">
+        تم إقصاء اللاعب <span class="playerName" id="elimPlayerName"></span><br>
+        في <span class="countryName" id="elimCountryName"></span>
+      </div>
+      <div class="elimSub">سيتم حذف اللاعب من العجلة والعودة إلى الروليت</div>
+      <div class="elimCountdown"><span id="elimProgressBar"></span></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="overlay" id="reviveOverlay">
+  <div class="panel reviveNotice">
+    <div class="reviveNoticeContent">
+      <div class="reviveIcon">🎁✨</div>
+      <img class="reviveAvatarBig" id="reviveAvatarBig" alt="">
+      <div class="reviveHeadline">عاد إلى الروليت!</div>
+      <div class="revivePlayerBig" id="revivePlayerBig"></div>
+      <div style="font-size:14px;color:#cbd4e8">أرسل هدية بقيمة عملة واحدة وتمت إعادته للمنافسة</div>
+      <div class="reviveCounterBig" id="reviveCounterBig">الرجعة 1 من 2</div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="duelOverlay" style="display:none!important">
+  <div class="panel duel">
+    <div class="duelTitle">🔥 الجولة النهائية</div>
+    <div style="color:#cbd3e5;margin-bottom:16px">بقي لاعبان فقط — جولة حسم أخيرة</div>
+    <div class="duelPlayers">
+      <div class="duelPlayer"><img id="duelAImg"><b id="duelAName"></b></div>
+      <div class="vs">VS</div>
+      <div class="duelPlayer"><img id="duelBImg"><b id="duelBName"></b></div>
+    </div>
+    <button class="btn gold" id="duelBtn" style="margin-top:20px;font-size:19px;padding:14px 28px">🎯 حسم النهائي</button>
+  </div>
+</div>
+
+<div class="overlay" id="winnerOverlay">
+  <div class="panel winnerPanel">
+    <img id="winnerAvatar">
+    <div class="winnerTitle">🏆 بطل الروليت</div>
+    <div class="winnerName" id="winnerName"></div>
+    <div style="font-size:13px;color:#c9d2e7">آخر لاعب بقي في المنافسة</div>
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:18px">
+      <button class="btn gold" id="samePlayersBtn">جولة جديدة</button>
+      <button class="btn" id="closeWinner">إغلاق</button>
+    </div>
+  </div>
+</div>
+
+<div class="confetti" id="confetti"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const canvas=$('wheel'),ctx=canvas.getContext('2d');
+const FLAG_POOL=[{'name': 'العراق', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%27180%27%20height%3D%2737.34%27%20fill%3D%27%23ce1126%27/%3E%3Crect%20y%3D%2737.34%27%20width%3D%27180%27%20height%3D%2737.33%27%20fill%3D%27%23fff%27/%3E%0A%20%20%20%20%20%20%3Crect%20y%3D%2774.67%27%20width%3D%27180%27%20height%3D%2737.33%27%20fill%3D%27%23000%27/%3E%3Ctext%20x%3D%2790%27%20y%3D%2764%27%20font-family%3D%27Tahoma%27%20font-size%3D%2718%27%20text-anchor%3D%27middle%27%20fill%3D%27%23168b43%27%20font-weight%3D%27bold%27%3E%D8%A7%D9%84%D9%84%D9%87%20%D8%A3%D9%83%D8%A8%D8%B1%3C/text%3E%0A%20%20%20%20%3C/svg%3E'}, {'name': 'مصر', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%27180%27%20height%3D%2737.34%27%20fill%3D%27%23ce1126%27/%3E%3Crect%20y%3D%2737.34%27%20width%3D%27180%27%20height%3D%2737.33%27%20fill%3D%27%23fff%27/%3E%0A%20%20%20%20%20%20%3Crect%20y%3D%2774.67%27%20width%3D%27180%27%20height%3D%2737.33%27%20fill%3D%27%23000%27/%3E%3Ccircle%20cx%3D%2790%27%20cy%3D%2756%27%20r%3D%279%27%20fill%3D%27%23d5ac34%27/%3E%0A%20%20%20%20%3C/svg%3E'}, {'name': 'الإمارات', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%2745%27%20height%3D%27112%27%20fill%3D%27%23ff0000%27/%3E%3Crect%20x%3D%2745%27%20width%3D%27135%27%20height%3D%2737.34%27%20fill%3D%27%2300732f%27/%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2745%27%20y%3D%2737.34%27%20width%3D%27135%27%20height%3D%2737.33%27%20fill%3D%27%23fff%27/%3E%3Crect%20x%3D%2745%27%20y%3D%2774.67%27%20width%3D%27135%27%20height%3D%2737.33%27%20fill%3D%27%23000%27/%3E%0A%20%20%20%20%3C/svg%3E'}, {'name': 'الأردن', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%27180%27%20height%3D%2737.34%27%20fill%3D%27%23000%27/%3E%3Crect%20y%3D%2737.34%27%20width%3D%27180%27%20height%3D%2737.33%27%20fill%3D%27%23fff%27/%3E%0A%20%20%20%20%20%20%3Crect%20y%3D%2774.67%27%20width%3D%27180%27%20height%3D%2737.33%27%20fill%3D%27%23007a3d%27/%3E%3Cpolygon%20points%3D%270%2C0%2074%2C56%200%2C112%27%20fill%3D%27%23ce1126%27/%3E%3Ccircle%20cx%3D%2727%27%20cy%3D%2756%27%20r%3D%276%27%20fill%3D%27%23fff%27/%3E%0A%20%20%20%20%3C/svg%3E'}, {'name': 'الكويت', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2734%27%20width%3D%27146%27%20height%3D%2737.34%27%20fill%3D%27%23007a3d%27/%3E%3Crect%20x%3D%2734%27%20y%3D%2737.34%27%20width%3D%27146%27%20height%3D%2737.33%27%20fill%3D%27%23fff%27/%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%2734%27%20y%3D%2774.67%27%20width%3D%27146%27%20height%3D%2737.33%27%20fill%3D%27%23ce1126%27/%3E%3Cpolygon%20points%3D%270%2C0%2050%2C0%2034%2C56%2050%2C112%200%2C112%27%20fill%3D%27%23000%27/%3E%0A%20%20%20%20%3C/svg%3E'}, {'name': 'قطر', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%27180%27%20height%3D%27112%27%20fill%3D%27%238d1b3d%27/%3E%3Crect%20width%3D%2748%27%20height%3D%27112%27%20fill%3D%27%23fff%27/%3E%0A%20%20%20%20%20%20%3Cpolygon%20points%3D%2748%2C0%2065%2C11%2048%2C22%2065%2C33%2048%2C44%2065%2C56%2048%2C67%2065%2C78%2048%2C89%2065%2C100%2048%2C112%27%20fill%3D%27%23fff%27/%3E%0A%20%20%20%20%3C/svg%3E'}, {'name': 'البحرين', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%27180%27%20height%3D%27112%27%20fill%3D%27%23ce1126%27/%3E%3Crect%20width%3D%2749%27%20height%3D%27112%27%20fill%3D%27%23fff%27/%3E%0A%20%20%20%20%20%20%3Cpolygon%20points%3D%2749%2C0%2068%2C11%2049%2C22%2068%2C33%2049%2C44%2068%2C56%2049%2C67%2068%2C78%2049%2C89%2068%2C100%2049%2C112%27%20fill%3D%27%23fff%27/%3E%0A%20%20%20%20%3C/svg%3E'}, {'name': 'السعودية', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%27180%27%20height%3D%27112%27%20fill%3D%27%23006c35%27/%3E%3Ctext%20x%3D%2790%27%20y%3D%2747%27%20font-family%3D%27Tahoma%27%20font-size%3D%2715%27%20text-anchor%3D%27middle%27%20fill%3D%27%23fff%27%20font-weight%3D%27bold%27%3E%D9%84%D8%A7%20%D8%A5%D9%84%D9%87%20%D8%A5%D9%84%D8%A7%20%D8%A7%D9%84%D9%84%D9%87%3C/text%3E%0A%20%20%20%20%20%20%3Ctext%20x%3D%2790%27%20y%3D%2767%27%20font-family%3D%27Tahoma%27%20font-size%3D%2715%27%20text-anchor%3D%27middle%27%20fill%3D%27%23fff%27%20font-weight%3D%27bold%27%3E%D9%85%D8%AD%D9%85%D8%AF%20%D8%B1%D8%B3%D9%88%D9%84%20%D8%A7%D9%84%D9%84%D9%87%3C/text%3E%3Crect%20x%3D%2749%27%20y%3D%2782%27%20width%3D%2782%27%20height%3D%276%27%20rx%3D%273%27%20fill%3D%27%23fff%27/%3E%0A%20%20%20%20%3C/svg%3E'}, {'name': 'عُمان', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%27180%27%20height%3D%2737.34%27%20fill%3D%27%23fff%27/%3E%3Crect%20y%3D%2737.34%27%20width%3D%27180%27%20height%3D%2737.33%27%20fill%3D%27%23ce1126%27/%3E%3Crect%20y%3D%2774.67%27%20width%3D%27180%27%20height%3D%2737.33%27%20fill%3D%27%23009a49%27/%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%2744%27%20height%3D%27112%27%20fill%3D%27%23ce1126%27/%3E%3Ccircle%20cx%3D%2722%27%20cy%3D%2722%27%20r%3D%278%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-width%3D%273%27/%3E%0A%20%20%20%20%3C/svg%3E'}, {'name': 'فلسطين', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%27180%27%20height%3D%2737.34%27%20fill%3D%27%23000%27/%3E%3Crect%20y%3D%2737.34%27%20width%3D%27180%27%20height%3D%2737.33%27%20fill%3D%27%23fff%27/%3E%3Crect%20y%3D%2774.67%27%20width%3D%27180%27%20height%3D%2737.33%27%20fill%3D%27%23149954%27/%3E%0A%20%20%20%20%20%20%3Cpolygon%20points%3D%270%2C0%2070%2C56%200%2C112%27%20fill%3D%27%23ce1126%27/%3E%0A%20%20%20%20%3C/svg%3E'}, {'name': 'المغرب', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%27180%27%20height%3D%27112%27%20fill%3D%27%23c1272d%27/%3E%3Cpath%20d%3D%27M90%2031%20L97%2051%20L118%2051%20L101%2063%20L107%2084%20L90%2072%20L73%2084%20L79%2063%20L62%2051%20L83%2051%20Z%27%0A%20%20%20%20%20%20fill%3D%27none%27%20stroke%3D%27%23006233%27%20stroke-width%3D%274%27/%3E%0A%20%20%20%20%3C/svg%3E'}, {'name': 'الجزائر', 'uri': 'data:image/svg+xml;utf8,%0A%20%20%20%20%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27180%27%20height%3D%27112%27%20viewBox%3D%270%200%20180%20112%27%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%2790%27%20height%3D%27112%27%20fill%3D%27%23006233%27/%3E%3Crect%20x%3D%2790%27%20width%3D%2790%27%20height%3D%27112%27%20fill%3D%27%23fff%27/%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%2792%27%20cy%3D%2756%27%20r%3D%2724%27%20fill%3D%27%23d21034%27/%3E%3Ccircle%20cx%3D%27100%27%20cy%3D%2756%27%20r%3D%2720%27%20fill%3D%27%23fff%27/%3E%3Cpath%20d%3D%27M111%2043%20L116%2052%20L126%2053%20L118%2060%20L121%2070%20L111%2064%20L103%2070%20L106%2060%20L98%2053%20L108%2052%20Z%27%20fill%3D%27%23d21034%27/%3E%0A%20%20%20%20%3C/svg%3E'}];
+const COLORS=['#355b8d','#7a3f62','#28695e','#89522f','#3c4d93','#6d4e86','#2f7082','#8e692f','#50447d','#7a4052','#2d6b5a','#805b3b','#3d58a0','#91503c','#2a5b81','#7c3d67'];
+
+let players=[],rotation=0,spinning=false,rounds=0,kickedCount=0;
+let eliminatedPlayers=[];
+let currentChooser=null,currentAssignments=[],historyLog=[],lastKick=null,lastChosen=null,panelCollapsed=true;
+let joinOpen=true;
+// يمنع تكرار اختيار نفس اللاعب قبل مرور الدور على بقية اللاعبين النشطين.
+let chosenCycleIds=new Set();
+let lastTickAt=0;
+let spinMode=localStorage.getItem('hamadaSpinMode')==='auto'?'auto':'manual';
+let spinDurationSec=Math.max(1,Math.min(5,Number(localStorage.getItem('hamadaSpinDuration')||5)));
+let autoSpinTimer=null;
+let wheelSpinAnimation=null;
+let wheelTickTimer=null;
+
+
+function hasBlockingOverlay(){
+ return ['flagsOverlay','eliminationOverlay','reviveOverlay','winnerOverlay'].some(id=>$(id)?.classList.contains('show'));
+}
+function updateSpinControlUI(){
+ const manual=$('manualModeBtn'),auto=$('autoModeBtn'),badge=$('modeBadge'),hint=$('spinModeHint'),pulse=$('autoPulse'),time=$('spinTimeBtn');
+ if(manual)manual.classList.toggle('active',spinMode==='manual');
+ if(auto)auto.classList.toggle('active',spinMode==='auto');
+ if(badge){badge.textContent=spinMode==='auto'?'تلقائي':'يدوي';badge.style.color=spinMode==='auto'?'#baffda':'#dff6ff'}
+ if(hint)hint.textContent=spinMode==='auto'?'يدور تلقائياً بعد كل إقصاء':'التدوير عند الضغط فقط';
+ if(pulse)pulse.classList.toggle('on',spinMode==='auto');
+ if(time)time.textContent=`⏱ ${spinDurationSec} ث`;
+ if($('spinBtn')) $('spinBtn').title=spinMode==='auto'?'تدوير الآن — الوضع التلقائي مفعّل':'تدوير الروليت يدوياً';
+}
+function clearAutoSpin(){clearTimeout(autoSpinTimer);autoSpinTimer=null;}
+function scheduleAutoSpin(delay=900){
+ clearAutoSpin();
+ if(spinMode!=='auto'||spinning||players.length<2||hasBlockingOverlay())return;
+ autoSpinTimer=setTimeout(()=>{
+   autoSpinTimer=null;
+   if(spinMode==='auto'&&!spinning&&players.length>=2&&!hasBlockingOverlay())spin();
+ },delay);
+}
+function setSpinMode(mode){
+ spinMode=mode==='auto'?'auto':'manual';
+ localStorage.setItem('hamadaSpinMode',spinMode);
+ clearAutoSpin();updateSpinControlUI();
+ if(spinMode==='auto'){
+   toast('التدوير التلقائي مفعّل');
+   if(players.length>=2)scheduleAutoSpin(900);
+ }else toast('التدوير اليدوي مفعّل');
+}
+function cycleSpinDuration(){
+ spinDurationSec=spinDurationSec>=5?1:spinDurationSec+1;
+ localStorage.setItem('hamadaSpinDuration',String(spinDurationSec));
+ updateSpinControlUI();toast(`مدة الدوران: ${spinDurationSec} ثانية`);
+}
+
+function initials(n){return (n||'?').trim().split(/\s+/).map(x=>x[0]).join('').slice(0,2)||'?'}
+function placeholder(name){
+ const c=document.createElement('canvas');c.width=c.height=220;const x=c.getContext('2d');
+ const g=x.createLinearGradient(0,0,220,220);g.addColorStop(0,'#59dcff');g.addColorStop(1,'#765aff');x.fillStyle=g;x.fillRect(0,0,220,220);
+ x.fillStyle='#fff';x.font='900 82px Tahoma';x.textAlign='center';x.textBaseline='middle';x.fillText(initials(name),110,116);return c.toDataURL();
+}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function toast(m){$('toast').textContent=m;$('toast').classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>$('toast').classList.remove('show'),1800)}
+function beep(freq=260,dur=.04,vol=.018){
+ const A=window.AudioContext||window.webkitAudioContext;if(!A)return;const ac=window.ac||(window.ac=new A()),o=ac.createOscillator(),g=ac.createGain();
+ o.connect(g);g.connect(ac.destination);o.frequency.value=freq;g.gain.value=vol;o.start();o.stop(ac.currentTime+dur)
+}
+function fanfare(){beep(520,.12,.035);setTimeout(()=>beep(680,.13,.035),120);setTimeout(()=>beep(860,.22,.04),260)}
+function setSteps(n){['s1','s2','s3'].forEach((id,i)=>$(id).classList.toggle('active',i<n))}
+function setSelected(p,state='جاهز',hint='عند توقف العجلة سيظهر اللاعب هنا ثم ينتقل إلى مرحلة الأعلام'){
+ $('selAvatar').src=p?p.img:placeholder('?');$('selName').textContent=p?p.name:'لم يتم اختيار لاعب بعد';$('selState').textContent=state;$('selHint').textContent=hint
+}
+function addHistory(text){historyLog.unshift(text);historyLog=historyLog.slice(0,12);renderHistory()}
+
+function renderReviveList(){
+ const list=$('reviveList');
+ if(!list)return;
+ if(!eliminatedPlayers.length){
+   list.innerHTML='<div class="hist">لا يوجد لاعب مقصى</div>';
+   return;
+ }
+ list.innerHTML=eliminatedPlayers.map(p=>{
+   const uses=p.reviveCount||0;
+   const left=Math.max(0,2-uses);
+   return `<div class="reviveItem">
+     <img src="${p.img}">
+     <div class="reviveName">${esc(p.name)}</div>
+     <div class="reviveUses">${left} رجعة متبقية</div>
+     <button class="reviveTest" ${left<=0?'disabled':''} onclick="simulateOneCoinGift('${p.id}')">اختبار 🎁1</button>
+   </div>`;
+ }).join('');
+}
+function rememberEliminated(player,country=''){
+ if(!player)return;
+ if(typeof player.reviveCount!=='number')player.reviveCount=0;
+ player.lastEliminationCountry=country||player.lastEliminationCountry||'';
+ const existing=eliminatedPlayers.find(x=>x.id===player.id);
+ if(!existing)eliminatedPlayers.push(player);
+ renderReviveList();
+}
+function showRevivePopup(player){
+ $('reviveAvatarBig').src=player.img;
+ $('revivePlayerBig').textContent=player.name;
+ $('reviveCounterBig').textContent=`الرجعة ${player.reviveCount} من 2`;
+ $('reviveOverlay').classList.add('show');
+ fanfare();
+ setTimeout(()=>$('reviveOverlay').classList.remove('show'),1900);
+}
+function reviveByGift(nameOrId,coinValue=1){
+ const coins=Number(coinValue||0);
+ if(coins<1)return false;
+ const key=String(nameOrId||'').trim();
+ const p=eliminatedPlayers.find(x=>x.id===key||x.name===key||String(x.joinKey||'').trim()===key);
+ if(!p)return false;
+ if((p.reviveCount||0)>=2){
+   toast(`${p.name} استنفد الرجوع مرتين`);
+   return false;
+ }
+ if(players.some(x=>x.id===p.id))return false;
+
+ p.reviveCount=(p.reviveCount||0)+1;
+ eliminatedPlayers=eliminatedPlayers.filter(x=>x.id!==p.id);
+ players.push(p);
+ loadImg(p);
+ kickedCount=Math.max(0,kickedCount-1);
+ lastKick=null;
+
+ // If the game had already reached the winner/final screen, reopen the competition.
+ $('winnerOverlay').classList.remove('show');
+ $('duelOverlay').classList.remove('show');
+ currentAssignments=[];
+ currentChooser=null;
+ lastChosen=null;
+ rotation=0;
+ setSteps(1);
+
+ addHistory(`🎁 عاد ${p.name} إلى الروليت — الرجعة ${p.reviveCount} من 2`);
+ showRevivePopup(p);
+ render();
+ if(spinMode==='auto')setTimeout(()=>scheduleAutoSpin(700),2000);
+ return true;
+}
+function simulateOneCoinGift(id){
+ reviveByGift(id,1);
+}
+
+function renderHistory(){$('history').innerHTML=historyLog.length?historyLog.map(x=>`<div class="hist">${esc(x)}</div>`).join(''):'<div class="hist">لا يوجد سجل بعد</div>'}
+function addPlayer(name,img,joinKey=''){
+ name=(name||'').trim();
+ joinKey=String(joinKey||name).trim();
+ if(!name)return false;
+ if(players.length>=18){toast('الحد الأقصى 18 لاعباً');return false}
+ const duplicate=[...players,...eliminatedPlayers].some(p=>String(p.joinKey||p.name).trim()===joinKey || p.name===name);
+ if(duplicate){return false}
+ const p={id:String(Date.now()+Math.random()),name,joinKey,img:img||placeholder(name),imageObj:null,reviveCount:0};
+ players.push(p);loadImg(p);render();return true
+}
+function loadImg(p){const im=new Image();im.src=p.img;im.onload=()=>{p.imageObj=im;drawWheel()}}
+function kickManual(id){
+ const p=players.find(x=>x.id===id);if(!p)return;lastKick={player:p,index:players.indexOf(p),reason:'طرد يدوي'};players=players.filter(x=>x.id!==id);kickedCount++;
+ addHistory(`طرد يدوي: ${p.name}`);render();toast(`تم طرد اللاعب: ${p.name}`)
+}
+function undoKick(){
+ if(!lastKick)return;const i=Math.min(lastKick.index,players.length);players.splice(i,0,lastKick.player);kickedCount=Math.max(0,kickedCount-1);
+ loadImg(lastKick.player);addHistory(`تم إرجاع اللاعب: ${lastKick.player.name}`);toast(`تم إرجاع ${lastKick.player.name}`);lastKick=null;render()
+}
+function render(){
+ $('count').textContent=players.length;$('rounds').textContent=rounds;$('kicked').textContent=kickedCount;$('undoBtn').disabled=!lastKick;if($('playerCountMini'))$('playerCountMini').textContent=`${players.length} داخل الروليت`;updateSpinControlUI();
+ $('spinBtn').disabled=players.length<2||spinning;
+ $('stageTitle').textContent=players.length?'الروليت جاهز':'بانتظار المتابعين';
+ $('stageMeta').textContent=players.length?`${players.length} لاعب داخل المنافسة`:'أضف اللاعبين ثم ابدأ تدوير الروليت';
+ $('playerList').innerHTML=players.map(p=>`<div class="item"><img src="${p.img}"><div class="name">${esc(p.name)}</div><button class="kick" onclick="kickManual('${p.id}')">طرد</button></div>`).join('');
+ if(!lastChosen)setSelected(null);drawWheel();renderHistory();renderReviveList();updateJoinUI()
+}
+function circleImage(img,x,y,r){
+ if(!img)return;ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.clip();
+ const ratio=Math.max((r*2)/img.width,(r*2)/img.height),w=img.width*ratio,h=img.height*ratio;ctx.drawImage(img,x-w/2,y-h/2,w,h);ctx.restore();
+ ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.strokeStyle='rgba(255,255,255,.96)';ctx.lineWidth=5;ctx.stroke()
+}
+function applyWheelRotation(){
+ canvas.style.setProperty('--wheel-angle',`${rotation}rad`);
+}
+function drawWheel(){
+ applyWheelRotation();
+ const W=canvas.width,H=canvas.height,cx=W/2,cy=H/2,R=486,outerR=545;
+ ctx.clearRect(0,0,W,H);ctx.save();ctx.translate(cx,cy);
+
+ // ظل سفلي وطبقات معدنية تعطي العجلة عمقاً حقيقياً.
+ ctx.save();ctx.translate(0,18);ctx.beginPath();ctx.arc(0,0,outerR,0,Math.PI*2);ctx.fillStyle='rgba(0,0,0,.38)';ctx.shadowColor='rgba(0,0,0,.72)';ctx.shadowBlur=34;ctx.fill();ctx.restore();
+ let rim=ctx.createRadialGradient(-120,-140,50,0,0,outerR);
+ rim.addColorStop(0,'#fff2b0');rim.addColorStop(.18,'#d9a03b');rim.addColorStop(.52,'#6d3f11');rim.addColorStop(.77,'#e6b24e');rim.addColorStop(1,'#3b2109');
+ ctx.beginPath();ctx.arc(0,0,outerR,0,Math.PI*2);ctx.fillStyle=rim;ctx.fill();
+ ctx.beginPath();ctx.arc(0,0,outerR-18,0,Math.PI*2);ctx.lineWidth=6;ctx.strokeStyle='rgba(255,245,204,.78)';ctx.stroke();
+ ctx.beginPath();ctx.arc(0,0,R+30,0,Math.PI*2);ctx.fillStyle='#090d19';ctx.fill();
+ ctx.save();ctx.lineCap='round';ctx.beginPath();ctx.arc(0,0,outerR-10,Math.PI*1.08,Math.PI*1.72);ctx.lineWidth=5;ctx.strokeStyle='rgba(255,255,255,.34)';ctx.stroke();ctx.restore();
+
+ // الخانات تُرسم مرة واحدة، والدوران نفسه يتم عبر GPU بتحويل CSS فقط.
+ if(!players.length){
+   let g=ctx.createRadialGradient(-90,-110,24,0,0,R);g.addColorStop(0,'#34437d');g.addColorStop(.62,'#192442');g.addColorStop(1,'#090e1d');
+   ctx.beginPath();ctx.arc(0,0,R,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+   ctx.beginPath();ctx.arc(0,0,R,0,Math.PI*2);ctx.lineWidth=14;ctx.strokeStyle='#d5a344';ctx.stroke();
+   ctx.fillStyle='#eaf0ff';ctx.font='900 52px Tahoma';ctx.textAlign='center';ctx.textBaseline='middle';ctx.shadowColor='rgba(0,0,0,.75)';ctx.shadowBlur=14;ctx.fillText('أضف متابعين',0,0);
+   ctx.restore();return
+ }
+
+ const seg=Math.PI*2/players.length;
+ players.forEach((p,i)=>{
+   const a0=i*seg,a1=(i+1)*seg,mid=a0+seg/2;
+   ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,R,a0,a1);ctx.closePath();
+   const grad=ctx.createRadialGradient(0,0,45,0,0,R);
+   grad.addColorStop(0,'#10182d');grad.addColorStop(.24,COLORS[i%COLORS.length]);grad.addColorStop(.80,COLORS[i%COLORS.length]);grad.addColorStop(1,'#111725');
+   ctx.fillStyle=grad;ctx.fill();
+
+   // لمعة خفيفة على كل خانة لخلق سطح لامع بدلاً من لون مسطح.
+   ctx.save();ctx.clip();
+   const shine=ctx.createLinearGradient(-R*.2,-R*.7,R*.8,R*.45);shine.addColorStop(0,'rgba(255,255,255,.18)');shine.addColorStop(.28,'rgba(255,255,255,.025)');shine.addColorStop(.72,'rgba(0,0,0,.10)');shine.addColorStop(1,'rgba(0,0,0,.26)');ctx.fillStyle=shine;ctx.fillRect(-R,-R,R*2,R*2);ctx.restore();
+
+   ctx.lineWidth=4;ctx.strokeStyle='rgba(255,255,255,.22)';ctx.stroke();
+   ctx.save();ctx.rotate(mid);
+   const pr=players.length>14?35:players.length>10?42:52;
+   ctx.save();ctx.shadowColor='rgba(0,0,0,.55)';ctx.shadowBlur=11;circleImage(p.imageObj,R*.66,0,pr);ctx.restore();
+   ctx.translate(R*.84,0);ctx.rotate(Math.PI/2);ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#fff';ctx.shadowColor='rgba(0,0,0,.96)';ctx.shadowBlur=10;
+   ctx.font=`900 ${players.length>14?17:players.length>10?20:24}px Tahoma`;let label=p.name.length>11?p.name.slice(0,10)+'…':p.name;ctx.fillText(label,0,0);ctx.restore();
+ });
+
+ // مسامير معدنية عند حدود الخانات، وهي أيضاً نقاط اصطدام المؤشر بصرياً.
+ for(let i=0;i<players.length;i++){
+   const a=i*seg,x=Math.cos(a)*(R+9),y=Math.sin(a)*(R+9);
+   const peg=ctx.createRadialGradient(x-5,y-5,1,x,y,12);peg.addColorStop(0,'#fffbd7');peg.addColorStop(.34,'#ffd66a');peg.addColorStop(.72,'#b46c12');peg.addColorStop(1,'#4a2807');
+   ctx.beginPath();ctx.arc(x,y,10,0,Math.PI*2);ctx.fillStyle=peg;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle='rgba(255,255,255,.75)';ctx.stroke();
+ }
+
+ ctx.beginPath();ctx.arc(0,0,R+17,0,Math.PI*2);ctx.lineWidth=17;ctx.strokeStyle='#bb7a24';ctx.stroke();
+ ctx.beginPath();ctx.arc(0,0,R+9,0,Math.PI*2);ctx.lineWidth=4;ctx.strokeStyle='rgba(255,244,202,.78)';ctx.stroke();
+ ctx.beginPath();ctx.arc(0,0,R-16,0,Math.PI*2);ctx.lineWidth=5;ctx.strokeStyle='rgba(255,255,255,.30)';ctx.stroke();
+
+ // قلب العجلة المعدني.
+ let hub=ctx.createRadialGradient(-28,-30,7,0,0,93);hub.addColorStop(0,'#fff7c4');hub.addColorStop(.35,'#f2b83f');hub.addColorStop(.68,'#8b4e0d');hub.addColorStop(1,'#352008');
+ ctx.beginPath();ctx.arc(0,0,90,0,Math.PI*2);ctx.fillStyle=hub;ctx.fill();ctx.lineWidth=7;ctx.strokeStyle='rgba(255,246,206,.8)';ctx.stroke();
+ ctx.beginPath();ctx.arc(0,0,65,0,Math.PI*2);ctx.fillStyle='rgba(18,13,7,.28)';ctx.fill();ctx.lineWidth=3;ctx.strokeStyle='rgba(255,255,255,.26)';ctx.stroke();
+ ctx.restore();
+}
+
+function physicalSpinProgress(x){
+ // تسارع قصير، سرعة ثابتة، ثم تباطؤ طويل وناعم مثل عجلة فعلية.
+ const a=.11,b=.29,total=.5*a+(b-a)+.5*(1-b);
+ let area;
+ if(x<a){area=(x*x)/(2*a)}
+ else if(x<b){area=.5*a+(x-a)}
+ else{
+   const u=(x-b)/(1-b);
+   area=.5*a+(b-a)+(1-b)*(u-u*u*u+.5*u*u*u*u);
+ }
+ return Math.max(0,Math.min(1,area/total));
+}
+
+function wheelTick(speedRatio=1){
+ const now=performance.now();
+ // منع ضغط المؤثرات والصوت عند السرعة العالية حتى لا تسبب تقطيعاً.
+ if(now-lastTickAt<42)return;
+ lastTickAt=now;
+ const pointer=document.querySelector('.pointer');
+ if(pointer&&pointer.animate){
+   pointer.getAnimations().forEach(a=>a.cancel());
+   pointer.animate([
+     {transform:'translateY(-50%) rotate(0deg)'},
+     {transform:'translateY(-50%) rotate(-8deg)',offset:.45},
+     {transform:'translateY(-50%) rotate(0deg)'}
+   ],{duration:110,easing:'cubic-bezier(.2,.9,.35,1)'});
+ }
+ const freq=245+Math.round(95*Math.max(.15,Math.min(1,speedRatio)));
+ beep(freq,.024,.009+.005*Math.max(.15,Math.min(1,speedRatio)));
+}
+
+function settleWheel(target,idx,seg,settleDur=220){
+ const amp=Math.min(.022,seg*.045);
+ const anim=canvas.animate([
+   {transform:`translateZ(0) rotate(${target}rad)`,offset:0},
+   {transform:`translateZ(0) rotate(${target-amp}rad)`,offset:.34},
+   {transform:`translateZ(0) rotate(${target+amp*.38}rad)`,offset:.68},
+   {transform:`translateZ(0) rotate(${target}rad)`,offset:1}
+ ],{duration:settleDur,easing:'cubic-bezier(.18,.8,.24,1)',fill:'forwards'});
+ wheelSpinAnimation=anim;
+ anim.onfinish=()=>{
+   rotation=target;applyWheelRotation();
+   try{anim.cancel()}catch(_){}
+   wheelSpinAnimation=null;
+   finishSpin(idx);
+ };
+}
+
+function spin(){
+ if(spinning||players.length<2)return;
+ clearAutoSpin();
+ if(joinOpen){joinOpen=false;updateJoinUI();addHistory('تم إغلاق الانضمام مع بدء الجولة')}
+ spinning=true;rounds++;setSteps(1);$('spinGlow').classList.add('on');$('spinBtn').disabled=true;
+ document.querySelector('.wheelFrame')?.classList.add('spinning');
+ $('stageTitle').textContent='العجلة تدور';$('stageMeta').textContent=`دوران ${spinDurationSec} ثانية — جارٍ اختيار لاعب`;
+ setSelected(lastChosen,'يدور','الروليت يختار لاعباً الآن');
+
+ // كل لاعب يُختار مرة واحدة قبل بدء دورة اختيار جديدة.
+ const activeIds=new Set(players.map(p=>p.id));
+ chosenCycleIds=new Set([...chosenCycleIds].filter(id=>activeIds.has(id)));
+ let eligible=players.filter(p=>!chosenCycleIds.has(p.id));
+ if(!eligible.length){
+   chosenCycleIds.clear();
+   eligible=players.filter(p=>!lastChosen||p.id!==lastChosen.id);
+   if(!eligible.length)eligible=[...players];
+ }
+ const chosenPlayer=eligible[Math.floor(Math.random()*eligible.length)];
+ chosenCycleIds.add(chosenPlayer.id);
+ const idx=players.findIndex(p=>p.id===chosenPlayer.id),seg=Math.PI*2/players.length,start=rotation,targetBase=-(idx*seg+seg/2);
+ const turns=(7+Math.floor(Math.random()*3))*Math.PI*2;
+ let delta=targetBase-start;while(delta<0)delta+=Math.PI*2;
+ const target=start+turns+delta;
+
+ // الحركة الأساسية ينفذها محرك الرسوم/GPU مباشرة لتقليل التقطيع.
+ const totalDur=spinDurationSec*1000;
+ const settleDur=Math.max(150,Math.min(260,totalDur*.09));
+ const mainDur=Math.max(650,totalDur-settleDur);
+ const anim=canvas.animate([
+   {transform:`translateZ(0) rotate(${start}rad)`},
+   {transform:`translateZ(0) rotate(${target}rad)`}
+ ],{duration:mainDur,easing:'cubic-bezier(.08,.70,.10,1)',fill:'forwards'});
+ wheelSpinAnimation=anim;
+ const tickStart=performance.now();
+ clearInterval(wheelTickTimer);
+ wheelTickTimer=setInterval(()=>{
+   const x=Math.min(1,(performance.now()-tickStart)/mainDur);
+   if(x>=1){clearInterval(wheelTickTimer);wheelTickTimer=null;return;}
+   wheelTick(Math.max(.13,1-x*.9));
+ },110);
+ anim.onfinish=()=>{
+   clearInterval(wheelTickTimer);wheelTickTimer=null;
+   rotation=target;applyWheelRotation();
+   try{anim.cancel()}catch(_){}
+   wheelSpinAnimation=null;
+   settleWheel(target,idx,seg,settleDur);
+ };
+}
+function finishSpin(idx){
+ spinning=false;$('spinGlow').classList.remove('on');document.querySelector('.wheelFrame')?.classList.remove('spinning');rotation%=Math.PI*2;applyWheelRotation();
+ const chosen=players[idx];currentChooser=chosen;lastChosen=chosen;
+ setSelected(chosen,'مختار','تم اختيار هذا اللاعب، الآن يختار علماً');$('stageTitle').textContent='تم اختيار لاعب';$('stageMeta').textContent=`${chosen.name} سيختار علماً`;
+ addHistory(`الروليت اختار: ${chosen.name}`);fanfare();setSteps(2);render();setTimeout(()=>openFlags(chosen),650)
+}
+function openFlags(chosen){
+ // يشمل اللاعب المختار نفسه ضمن اللاعبين المخفيين خلف الأعلام،
+ // لذلك يمكن أن يختار علماً يؤدي إلى إقصاء نفسه.
+ const targets=[...players];
+ const count=Math.min(targets.length,FLAG_POOL.length);const t=[...targets].sort(()=>Math.random()-.5).slice(0,count);const f=[...FLAG_POOL].sort(()=>Math.random()-.5).slice(0,count);
+ currentAssignments=t.map((player,i)=>({player,country:f[i].name,flag:f[i].uri}));
+ $('chooserAvatar').src=chosen.img;$('chooserName').textContent=chosen.name;$('commentChooseText').textContent=`${chosen.name} يكتب رقم العلم في التعليقات، أو يمكنك الضغط على العلم بالنيابة عنه`;
+ $('flagsGrid').innerHTML=currentAssignments.map((x,i)=>`<div class="flagCard" data-i="${i}">
+   <div class="flagNumber">${i+1}</div>
+   <div class="flagWrap"><img src="${x.flag}"></div>
+   <div class="flagName">${x.country}</div>
+   <div class="flagSub">رقم ${i+1} • اللاعب يكتب الرقم أو المشرف يضغط هنا</div>
+ </div>`).join('');
+ [...document.querySelectorAll('.flagCard')].forEach(c=>{
+   c.style.cursor='pointer';
+   c.onclick=()=>{
+     const idx=+c.dataset.i;
+     const item=currentAssignments[idx];
+     if(!item)return;
+     addHistory(`المشرف اختار ${item.country} بالنيابة عن ${currentChooser.name}`);
+     $('commentChooseText').textContent=`المشرف اختار ${item.country} بالنيابة عن ${currentChooser.name}`;
+     selectFlag(idx);
+   };
+ });
+ $('flagsOverlay').classList.add('show');toast('اختر علماً')
+}
+
+function normalizeCommentNumber(text){
+ const raw=String(text??'').trim();
+ const arabic='٠١٢٣٤٥٦٧٨٩';
+ const persian='۰۱۲۳۴۵۶۷۸۹';
+ let s='';
+ for(const ch of raw){
+   let idx=arabic.indexOf(ch);
+   if(idx>=0){s+=String(idx);continue;}
+   idx=persian.indexOf(ch);
+   if(idx>=0){s+=String(idx);continue;}
+   s+=ch;
+ }
+ const m=s.match(/^\s*(\d{1,2})\s*$/);
+ return m?Number(m[1]):null;
+}
+
+
+function updateJoinUI(){
+ const lamp=$('joinLamp'),txt=$('joinStatusText'),btn=$('joinToggleBtn');
+ if(!lamp||!txt||!btn)return;
+ lamp.classList.toggle('closed',!joinOpen);
+ txt.textContent=joinOpen?'الانضمام مفتوح — اكتب «انضم»':'الانضمام مغلق';
+ btn.textContent=joinOpen?'إغلاق':'فتح';
+}
+function setJoinOpen(value){
+ joinOpen=!!value;updateJoinUI();
+ toast(joinOpen?'تم فتح الانضمام':'تم إغلاق الانضمام');
+}
+function isJoinComment(text){
+ const s=String(text||'').trim().replace(/\s+/g,' ');
+ return s==='انضم' || s==='إنضم';
+}
+function receiveJoinComment(username,text,avatar='',displayName=''){
+ if(!isJoinComment(text))return false;
+ const key=String(username||'').trim();
+ if(!key)return false;
+ if(!joinOpen){toast('الانضمام مغلق حالياً');return true}
+ const shown=String(displayName||key).trim()||key;
+ const exists=[...players,...eliminatedPlayers].some(p=>String(p.joinKey||p.name).trim()===key || p.name===shown);
+ if(exists){toast(`${shown} موجود بالفعل في الروليت`);return true}
+ if(players.length>=18){toast('اكتمل عدد اللاعبين');return true}
+ const ok=addPlayer(shown,avatar||placeholder(shown),key);
+ if(ok){addHistory(`انضم ${shown} إلى الروليت`);toast(`انضم ${shown} إلى الروليت`)}
+ return true;
+}
+function routeViewerComment(username,text,avatar='',displayName=''){
+ // كلمة انضم لها أولوية قبل اختيار الأعلام.
+ if(receiveJoinComment(username,text,avatar,displayName))return true;
+ return receiveViewerComment(username,text);
+}
+
+function receiveViewerComment(username,text){
+ if(!$('flagsOverlay').classList.contains('show'))return false;
+ if(!currentChooser||!currentAssignments.length)return false;
+
+ const user=String(username||'').trim();
+ const chooserName=String(currentChooser.name||'').trim();
+ const chooserKey=String(currentChooser.joinKey||currentChooser.name||'').trim();
+
+ // Only the exact selected player is allowed to choose.
+ if(!user||(user!==chooserKey && user!==chooserName))return false;
+
+ const num=normalizeCommentNumber(text);
+ if(!num)return false;
+ if(num<1||num>currentAssignments.length){
+   toast(`${chooserName}: اختر رقماً من 1 إلى ${currentAssignments.length}`);
+   return false;
+ }
+
+ const item=currentAssignments[num-1];
+ $('commentChooseText').textContent=`${chooserName} اختار رقم ${num} — ${item.country}`;
+ addHistory(`${chooserName} كتب ${num} واختار ${item.country}`);
+ selectFlag(num-1);
+ return true;
+}
+
+function simulateChooserComment(){
+ if(!currentChooser){
+   toast('لا يوجد لاعب مختار حالياً');
+   return;
+ }
+ const text=$('testCommentInput').value.trim();
+ if(!text)return;
+ receiveViewerComment(currentChooser.name,text);
+ $('testCommentInput').value='';
+}
+
+function selectFlag(i){
+ const x=currentAssignments[i];
+ if(!x)return;
+
+ document.querySelectorAll('.flagCard').forEach(c=>c.style.pointerEvents='none');
+ setSteps(3);
+
+ // Close flags screen and open a completely separate elimination popup.
+ $('flagsOverlay').classList.remove('show');
+ $('elimFlag').src=x.flag;
+ $('elimAvatar').src=x.player.img;
+ $('elimPlayerName').textContent=x.player.name;
+ $('elimCountryName').textContent=x.country;
+
+ // Restart the countdown animation every time.
+ const oldBar=$('elimProgressBar');
+ const newBar=oldBar.cloneNode(true);
+ oldBar.parentNode.replaceChild(newBar,oldBar);
+
+ $('eliminationOverlay').classList.add('show');
+ fanfare();
+
+ lastKick={player:x.player,index:players.indexOf(x.player),reason:`خلف علم ${x.country}`};
+ kickedCount++;
+ addHistory(`${currentChooser.name} اختار ${x.country} → تم إقصاء ${x.player.name}`);
+
+ setTimeout(()=>{
+   rememberEliminated(x.player,x.country);players=players.filter(p=>p.id!==x.player.id);
+   $('eliminationOverlay').classList.remove('show');
+   currentAssignments=[];
+   render();
+
+   setSelected(currentChooser,'اكتمل',`اختار ${x.country} وتم إقصاء ${x.player.name}`);
+   $('stageTitle').textContent='تم إقصاء لاعب';
+   $('stageMeta').textContent=`تم إقصاء ${x.player.name} في ${x.country}`;
+   setSteps(1);
+
+   if(players.length===1) setTimeout(()=>showWinner(players[0]),500);
+   else scheduleAutoSpin(850);
+ },2100);
+}
+function startDuel(){
+ // تم تعطيل الحسم الخاص: آخر لاعبين يستمران بالدوران داخل الروليت بشكل طبيعي.
+ if(players.length===2){$('duelOverlay').classList.remove('show');$('stageTitle').textContent='آخر لاعبين';$('stageMeta').textContent='العجلة تستمر بين اللاعبين بدون حسم تلقائي';render();}
+}
+function resolveDuel(){
+ $('duelOverlay').classList.remove('show');
+ toast('لا يوجد حسم تلقائي — دوّر العجلة بين آخر لاعبين');
+}
+function confetti(){
+ const host=$('confetti');host.innerHTML='';const cols=['#ffd76c','#62dcff','#ff607a','#4ce6a0','#a768ff'];
+ for(let i=0;i<90;i++){const d=document.createElement('i');d.className='c';d.style.left=Math.random()*100+'%';d.style.background=cols[i%cols.length];d.style.animationDelay=(Math.random()*.7)+'s';d.style.transform=`rotate(${Math.random()*360}deg)`;host.appendChild(d)}
+ setTimeout(()=>host.innerHTML='',3000)
+}
+function showWinner(p){$('winnerAvatar').src=p.img;$('winnerName').textContent=p.name;$('winnerOverlay').classList.add('show');setSelected(p,'فائز','بطل الروليت');fanfare();confetti();render()}
+function shuffle(){if(spinning)return;players.sort(()=>Math.random()-.5);rotation=0;drawWheel();toast('تم خلط اللاعبين')}
+function resetGame(){clearAutoSpin();try{wheelSpinAnimation?.cancel()}catch(_){};clearInterval(wheelTickTimer);wheelTickTimer=null;players=[];eliminatedPlayers=[];joinOpen=true;rotation=0;spinning=false;rounds=0;kickedCount=0;currentChooser=null;currentAssignments=[];historyLog=[];lastKick=null;lastChosen=null;chosenCycleIds.clear();
+ ['flagsOverlay','eliminationOverlay','reviveOverlay','duelOverlay','winnerOverlay'].forEach(id=>$(id).classList.remove('show'));setSteps(1);render();updateJoinUI();toast('تمت إعادة اللعبة')}
+function newRound(){clearAutoSpin();$('winnerOverlay').classList.remove('show');players.forEach(p=>p.reviveCount=0);eliminatedPlayers=[];rounds=0;kickedCount=0;historyLog=[];lastKick=null;lastChosen=null;chosenCycleIds.clear();rotation=0;setSteps(1);render();toast('جولة جديدة')}
+function togglePanel(force){
+ panelCollapsed=typeof force==='boolean'?force:!panelCollapsed;
+ $('mainLayout').classList.toggle('panel-collapsed',panelCollapsed);
+ $('showPanelBtn').textContent=panelCollapsed?'إظهار لوحة التحكم':'إخفاء لوحة التحكم';
+ $('collapseBtn').textContent=panelCollapsed?'☰':'✕';
+ $('collapseBtn').title=panelCollapsed?'إظهار لوحة التحكم':'طي لوحة التحكم';
+}
+
+
+$('addBtn').onclick=()=>{const name=$('nameInput').value.trim(),file=$('imageInput').files[0];if(!name){toast('اكتب اسم المتابع');return}
+ if(file){const r=new FileReader();r.onload=e=>{addPlayer(name,e.target.result);$('nameInput').value='';$('imageInput').value=''};r.readAsDataURL(file)}else{addPlayer(name);$('nameInput').value=''}
+};
+$('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('addBtn').click()});
+$('joinToggleBtn').onclick=()=>setJoinOpen(!joinOpen);
+$('testCommentBtn').onclick=simulateChooserComment;
+$('testCommentInput').addEventListener('keydown',e=>{if(e.key==='Enter')simulateChooserComment()});
+
+$('demoBtn').onclick=()=>['علي','حسين','زهراء','نور','محمد','مريم','سجاد','آية','كرار','شهد'].forEach(n=>{if(players.length<18)addPlayer(n)});
+$('shuffleBtn').onclick=shuffle;$('spinBtn').onclick=spin;$('undoBtn').onclick=undoKick;$('resetBtn').onclick=resetGame;
+$('manualModeBtn').onclick=()=>setSpinMode('manual');$('autoModeBtn').onclick=()=>setSpinMode('auto');$('spinTimeBtn').onclick=cycleSpinDuration;
+$('duelBtn').onclick=resolveDuel;$('samePlayersBtn').onclick=newRound;$('closeWinner').onclick=()=>$('winnerOverlay').classList.remove('show');
+$('closeFlags').onclick=()=>$('flagsOverlay').classList.remove('show');
+$('collapseBtn').onclick=()=>togglePanel();$('showPanelBtn').onclick=()=>togglePanel();
+togglePanel(false);updateSpinControlUI();
+$('fullBtn').onclick=async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch(e){}};
+
+window.kickManual=kickManual;
+window.simulateOneCoinGift=simulateOneCoinGift;
+window.HamadaRoulette={
+ addFollower:(n,img)=>addPlayer(n,img),
+ removeFollower:n=>{const p=players.find(x=>x.name===n);if(p)kickManual(p.id)},
+ receiveGift:(nameOrId,coinValue=1)=>reviveByGift(nameOrId,coinValue),
+ receiveComment:(username,text,avatar="",displayName="")=>routeViewerComment(username,text,avatar,displayName),
+ setJoinOpen:(open)=>setJoinOpen(open),
+ setSpinMode,
+ setSpinDuration:(sec)=>{spinDurationSec=Math.max(1,Math.min(5,Number(sec)||5));localStorage.setItem('hamadaSpinDuration',String(spinDurationSec));updateSpinControlUI();},
+ spin,
+ reset:resetGame,
+ getState:()=>JSON.parse(JSON.stringify({
+   players:players.map(p=>({id:p.id,name:p.name,joinKey:p.joinKey||p.name,img:p.img,reviveCount:p.reviveCount||0})),
+   eliminatedPlayers:eliminatedPlayers.map(p=>({id:p.id,name:p.name,joinKey:p.joinKey||p.name,img:p.img,reviveCount:p.reviveCount||0})),
+   rounds,kickedCount,spinning
+ }))
+};
+
+// ===== TikFinity LIVE direct connector =====
+// TikFinity Desktop must be running on this same computer.
+// The connector accepts common TikFinity Events API payload shapes and reconnects automatically.
+let tikfinitySocket=null;
+let tikfinityReconnectTimer=null;
+let tikfinityEndpointIndex=0;
+let tikfinityEverConnected=false;
+const TIKFINITY_WS_ENDPOINTS=[
+ 'hamada://center-live',
+ 'hamada://center-live'
+];
+
+function setTikfinityStatus(state,text){
+ const box=$('tikfinityStatus'),dot=$('tikfinityDot'),label=$('tikfinityStatusText');
+ if(!box||!dot||!label)return;
+ label.textContent=text||state;
+ const connected=state==='connected';
+ const connecting=state==='connecting';
+ dot.style.background=connected?'#4ce6a0':connecting?'#ffd76c':'#ff607a';
+ dot.style.boxShadow=`0 0 13px ${connected?'#4ce6a0':connecting?'#ffd76c':'#ff607a'}`;
+ box.style.borderColor=connected?'rgba(76,230,160,.24)':connecting?'rgba(255,215,108,.26)':'rgba(255,96,122,.28)';
+ box.style.background=connected?'rgba(76,230,160,.08)':connecting?'rgba(255,215,108,.08)':'rgba(255,96,122,.08)';
+}
+
+function extractTikfinityUser(d){
+ if(!d||typeof d!=='object')return {key:'',displayName:'',avatar:''};
+ const userObj=(d.user && typeof d.user==='object')?d.user:{};
+ const key=String(
+   d.uniqueId??d.uniqueID??d.username??d.userName??d.user_name??d.userId??d.user_id??(typeof d.user==='string'?d.user:'')??
+   userObj.uniqueId??userObj.uniqueID??userObj.username??userObj.userName??userObj.id??''
+ ).trim().replace(/^@/, '');
+ const displayName=String(
+   d.nickname??d.displayName??d.userNickname??d.nickName??d.name??
+   userObj.nickname??userObj.displayName??userObj.nickName??key
+ ).trim()||key;
+ let avatar=d.profilePictureUrl??d.profilePictureURL??d.avatarUrl??d.avatarURL??d.avatar??d.profileImage??d.picture??d.photo??d.image??
+   userObj.profilePictureUrl??userObj.profilePictureURL??userObj.avatarUrl??userObj.avatar??'';
+ if(!avatar && d.profilePicture && typeof d.profilePicture==='object')avatar=d.profilePicture.url||d.profilePicture.src||'';
+ if(!avatar && userObj.profilePicture && typeof userObj.profilePicture==='object')avatar=userObj.profilePicture.url||userObj.profilePicture.src||'';
+ if(!avatar && Array.isArray(d.profilePictureUrls))avatar=d.profilePictureUrls[0]||'';
+ return {key,displayName,avatar:String(avatar||'')};
+}
+
+function normalizeTikfinityType(v){
+ return String(v??'').toLowerCase().replace(/[\s_\-.:]/g,'');
+}
+
+function dispatchTikfinityEvent(rawType,payload){
+ if(!payload||typeof payload!=='object')payload={value:payload};
+ const d=payload;
+ const type=normalizeTikfinityType(rawType||d.type||d.event||d.eventType||d.eventName||d.msgType||d.messageType||d.action);
+ const {key,displayName,avatar}=extractTikfinityUser(d);
+
+ // Chat/comment events: the word «انضم» joins the roulette.
+ if(type.includes('chat')||type.includes('comment')||type==='message'||type.includes('chatmessage')){
+   const text=d.comment??d.commentText??d.text??d.message??d.commandParams??d.content??'';
+   if(key)routeViewerComment(key,String(text??''),avatar,displayName);
+   return true;
+ }
+
+ // Gift events keep the existing 1-coin revive feature working.
+ if(type.includes('gift')){
+   const coins=Number(d.coinValue??d.coins??d.coinCount??d.diamondCount??d.diamonds??d.value??1);
+   if(key)reviveByGift(key,Number.isFinite(coins)&&coins>0?coins:1);
+   return true;
+ }
+ return false;
+}
+
+function handleTikfinityPacket(packet){
+ let root=packet;
+ try{if(typeof root==='string')root=JSON.parse(root)}catch(_){return false}
+ if(root==null)return false;
+
+ // Some websocket bridges send [eventName, payload].
+ if(Array.isArray(root)){
+   if(root.length>=2 && typeof root[0]==='string' && root[1] && typeof root[1]==='object'){
+     if(dispatchTikfinityEvent(root[0],root[1]))return true;
+   }
+   let hit=false;
+   root.forEach(x=>{if(handleTikfinityPacket(x))hit=true});
+   return hit;
+ }
+ if(typeof root!=='object')return false;
+
+ const outerType=root.type||root.event||root.eventType||root.eventName||root.msgType||root.messageType||root.action||'';
+ const nested=(root.data && typeof root.data==='object')?root.data:
+              (root.payload && typeof root.payload==='object')?root.payload:
+              (root.eventData && typeof root.eventData==='object')?root.eventData:null;
+ if(nested){
+   const merged=Array.isArray(nested)?nested:Object.assign({},root,nested);
+   if(Array.isArray(merged)){
+     let hit=false; merged.forEach(x=>{if(dispatchTikfinityEvent(outerType,x)||handleTikfinityPacket(x))hit=true}); return hit;
+   }
+   if(dispatchTikfinityEvent(outerType,merged))return true;
+ }
+ if(dispatchTikfinityEvent(outerType,root))return true;
+
+ // Last-resort scan for nested event objects.
+ for(const k of ['events','messages','items','results']){
+   if(Array.isArray(root[k])){
+     let hit=false; root[k].forEach(x=>{if(handleTikfinityPacket(x))hit=true}); if(hit)return true;
+   }
+ }
+ return false;
+}
+
+function scheduleTikfinityReconnect(){
+ clearTimeout(tikfinityReconnectTimer);
+ tikfinityReconnectTimer=setTimeout(connectTikfinity,2200);
+}
+
+function connectTikfinity(){
+ clearTimeout(tikfinityReconnectTimer);
+ if(tikfinitySocket && (tikfinitySocket.readyState===WebSocket.OPEN||tikfinitySocket.readyState===WebSocket.CONNECTING))return;
+ const url=TIKFINITY_WS_ENDPOINTS[tikfinityEndpointIndex%TIKFINITY_WS_ENDPOINTS.length];
+ tikfinityEndpointIndex++;
+ setTikfinityStatus('connecting','ربط TikFinity…');
+ try{
+   const ws=new WebSocket(url);
+   tikfinitySocket=ws;
+   const guard=setTimeout(()=>{try{if(ws.readyState===WebSocket.CONNECTING)ws.close()}catch(_){}},3500);
+   ws.onopen=()=>{
+     clearTimeout(guard);
+     if(tikfinitySocket!==ws)return;
+     tikfinityEverConnected=true;
+     setTikfinityStatus('connected','متصل');
+     addHistory('تم الاتصال بـ TikFinity');
+     toast('تم ربط TikFinity بنجاح');
+   };
+   ws.onmessage=e=>{try{handleTikfinityPacket(e.data)}catch(err){console.warn('TikFinity event error',err)}};
+   ws.onerror=()=>{};
+   ws.onclose=()=>{
+     clearTimeout(guard);
+     if(tikfinitySocket===ws)tikfinitySocket=null;
+     setTikfinityStatus('disconnected',tikfinityEverConnected?'TikFinity غير متصل':'افتح TikFinity');
+     scheduleTikfinityReconnect();
+   };
+ }catch(e){
+   tikfinitySocket=null;
+   setTikfinityStatus('disconnected','افتح TikFinity');
+   scheduleTikfinityReconnect();
+ }
+}
+
+// Keep the existing postMessage bridge too, useful if the game is hosted inside another wrapper.
+window.addEventListener('message',ev=>{
+ try{handleTikfinityPacket(ev.data)}catch(e){}
+});
+
+window.HamadaRoulette.connectTikfinity=connectTikfinity;
+window.HamadaRoulette.handleTikfinityPacket=handleTikfinityPacket;
+connectTikfinity();
+
+setSteps(1);render();
+
+
+// إبقاء الروليت في منتصف مساحة اللعب بالكامل ومنع قصه من أي جهة.
+function fitWheelPerfectly(){
+ const zone=document.querySelector('.wheelZone');
+ const frame=document.querySelector('.wheelFrame');
+ if(!zone||!frame)return;
+ const rect=zone.getBoundingClientRect();
+ // احتياط علوي/سفلي بسيط + مساحة للمؤشر على اليمين.
+ const verticalSafe=56;
+ const horizontalSafe=118;
+ const maxByHeight=Math.max(360,rect.height-verticalSafe);
+ const maxByWidth=Math.max(360,rect.width-horizontalSafe);
+ // حجم كبير مع ضمان ظهوره كاملاً داخل الشاشة.
+ const size=Math.floor(Math.min(maxByHeight,maxByWidth,1020));
+ frame.style.width=size+'px';
+ frame.style.height=size+'px';
+ frame.style.left='50%';
+ frame.style.top='50%';
+ frame.style.transform='translate(-50%,-50%)';
+}
+window.addEventListener('resize',()=>requestAnimationFrame(fitWheelPerfectly));
+window.addEventListener('orientationchange',()=>setTimeout(fitWheelPerfectly,120));
+setTimeout(fitWheelPerfectly,0);
+setTimeout(fitWheelPerfectly,120);
+
+</script>
+</body>
+</html>
