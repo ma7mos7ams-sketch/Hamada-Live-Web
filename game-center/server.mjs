@@ -9,6 +9,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3000);
 const HOST = '0.0.0.0';
 const CENTER_FILE = path.join(__dirname, 'index.html');
+const ROBOTS_FILE = path.join(__dirname, 'robots.txt');
+const SITEMAP_FILE = path.join(__dirname, 'sitemap.xml');
 const MAX_SESSIONS = Math.max(1, Number(process.env.MAX_SESSIONS || 100));
 
 function avatarOf(u = {}) {
@@ -172,6 +174,22 @@ const server = http.createServer((req, res) => {
     fs.readFile(file, (err, data) => {
       if (err) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Game not found'); return; }
       res.writeHead(200, {'Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'});
+      res.end(data);
+    });
+    return;
+  }
+  if (url === '/robots.txt') {
+    fs.readFile(ROBOTS_FILE, (err, data) => {
+      if (err) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Not found'); return; }
+      res.writeHead(200, {'Content-Type':'text/plain; charset=utf-8','Cache-Control':'public, max-age=3600'});
+      res.end(data);
+    });
+    return;
+  }
+  if (url === '/sitemap.xml') {
+    fs.readFile(SITEMAP_FILE, (err, data) => {
+      if (err) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Not found'); return; }
+      res.writeHead(200, {'Content-Type':'application/xml; charset=utf-8','Cache-Control':'public, max-age=3600'});
       res.end(data);
     });
     return;

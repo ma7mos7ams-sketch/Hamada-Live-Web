@@ -1,0 +1,10 @@
+تحديث فهرسة Google لمركز ألعاب حماده
+
+1) فك الضغط.
+2) انسخ الملفات الأربعة: index.html و server.mjs و robots.txt و sitemap.xml
+3) الصقها داخل مجلد game-center في نسخة GitHub Desktop المحلية.
+4) وافق على استبدال index.html و server.mjs.
+5) في GitHub Desktop اكتب Summary: Prepare Google SEO
+6) اضغط Commit to main ثم Push origin.
+
+بعد الـPush سيعيد Railway النشر تلقائياً.
