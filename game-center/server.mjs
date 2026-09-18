@@ -156,6 +156,24 @@ class LiveSession {
   async close() { this.closed = true; this.autoReconnect = false; await this.disconnect(false); }
 }
 
+function prepareCenterHtml(data) {
+  let html = data.toString('utf8');
+  html = html.replace(
+    '<title>مركز ألعاب حماده</title>',
+    '<title>مركز ألعاب حماده | ألعاب تفاعلية للبث المباشر</title>'
+  );
+  html = html.replace(/\.entryCard h1/g, '.entryCard h2');
+  html = html.replace(
+    '<h1>مركز ألعاب حماده</h1>',
+    '<h2>مركز ألعاب حماده</h2>'
+  );
+  html = html.replace(
+    '<div><strong>مطور الألعاب: حماده</strong></div>',
+    '<div><strong>مطور الألعاب: حماده</strong><span style="margin-right:10px;font-size:11px"><a href="/games/mohaibes.html" style="color:#d9bd7d">المحيبس</a> · <a href="/games/musical-chairs.html" style="color:#d9bd7d">الكراسي</a> · <a href="/games/maze.html" style="color:#d9bd7d">المتاهة</a></span></div>'
+  );
+  return html;
+}
+
 const sessions = new Set();
 const server = http.createServer((req, res) => {
   const url = (req.url || '/').split('?')[0];
@@ -163,7 +181,7 @@ const server = http.createServer((req, res) => {
     fs.readFile(CENTER_FILE, (err, data) => {
       if (err) { res.writeHead(500, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Center file not found'); return; }
       res.writeHead(200, {'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store, no-cache, must-revalidate','X-Content-Type-Options':'nosniff'});
-      res.end(data);
+      res.end(prepareCenterHtml(data));
     });
     return;
   }
