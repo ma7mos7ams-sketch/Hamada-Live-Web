@@ -1,6 +1,7 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 import { TikTokLiveConnection } from 'tiktok-live-connector';
 import { WebSocketServer } from 'ws';
@@ -12,6 +13,44 @@ const CENTER_FILE = path.join(__dirname, 'index.html');
 const ROBOTS_FILE = path.join(__dirname, 'robots.txt');
 const SITEMAP_FILE = path.join(__dirname, 'sitemap.xml');
 const MAX_SESSIONS = Math.max(1, Number(process.env.MAX_SESSIONS || 100));
+
+const SITE_ORIGIN = 'https://game-center-live-app-production.up.railway.app';
+const GAME_SEO = [
+  {key:'سباق المتابعين',slug:'followers-race',file:'followers-race.html',name:'سباق المتابعين',title:'سباق المتابعين للبث المباشر | مركز ألعاب حماده',description:'لعبة سباق تفاعلية للمتابعين في البث المباشر، تتقدم فيها المشاركات واللايكات والهدايا داخل مركز ألعاب حماده.'},
+  {key:'الكراسي الموسيقية',slug:'musical-chairs',file:'musical-chairs.html',name:'الكراسي الموسيقية',title:'لعبة الكراسي للمتابعين | مركز ألعاب حماده',description:'لعبة كراسي موسيقية تفاعلية للبث المباشر مع انضمام المتابعين والإقصاء وإعلان الفائز.'},
+  {key:'شقلب واقلب',slug:'flip-turn',file:'flip-turn.html',name:'شقلب واقلب',title:'شقلب واقلب للبث المباشر | مركز ألعاب حماده',description:'لعبة تفاعلية سريعة للمتابعين تعتمد على الاختيارات والنقاط والمفاجآت أثناء البث المباشر.'},
+  {key:'لعبة المحيبس',slug:'mohaibes',file:'mohaibes.html',name:'لعبة المحيبس',title:'لعبة المحيبس للبث المباشر | مركز ألعاب حماده',description:'لعبة المحيبس العراقية التفاعلية للمتابعين في TikTok LIVE مع الكفوف والخاتم والجولات المباشرة.'},
+  {key:'لعبة الجزائيات',slug:'penalties',file:'penalties.html',name:'لعبة الجزائيات',title:'لعبة الجزائيات للمتابعين | مركز ألعاب حماده',description:'تحدي ركلات جزاء تفاعلي للمتابعين في البث المباشر مع الحارس والتسديدات والنتائج.'},
+  {key:'تحدي الأكواب الخمسة',slug:'cups',file:'cups.html',name:'تحدي الأكواب',title:'تحدي الأكواب للبث المباشر | مركز ألعاب حماده',description:'لعبة أكواب تفاعلية للمتابعين، تابع الخلط وخمّن مكان الكرة أثناء البث المباشر.'},
+  {key:'شد الحبل - بنات ضد شباب',slug:'tug-war',file:'tug-war.html',name:'شد الحبل',title:'شد الحبل بنات ضد شباب | مركز ألعاب حماده',description:'مواجهة تفاعلية بين فريق البنات وفريق الشباب تعتمد على تفاعل المتابعين واللايكات أثناء البث.'},
+  {key:'القنبلة الموقوتة',slug:'bomb',file:'bomb.html',name:'القنبلة الموقوتة',title:'القنبلة الموقوتة للمتابعين | مركز ألعاب حماده',description:'لعبة قنبلة موقوتة تفاعلية للبث المباشر، يمررها المتابعون قبل انتهاء الوقت.'},
+  {key:'متاهة حماده',slug:'maze',file:'maze.html',name:'متاهة حماده',title:'متاهة تفاعلية للمتابعين | مركز ألعاب حماده',description:'سباق متابعين داخل متاهة تفاعلية، يتحرك اللاعبون بالتعليقات للوصول إلى بوابة الفوز.'},
+  {key:'تحدي الحروف',slug:'challenge-letters',file:'challenge-letters.html',name:'تحدي الحروف',title:'تحدي الحروف للبث المباشر | مركز ألعاب حماده',description:'تحدي كلمات وحروف تفاعلي وسريع للمتابعين في البث المباشر.'},
+  {key:'لعبة الأحرف 300',slug:'letters-300',file:'letters-300.html',name:'لعبة الأحرف 300',title:'300 سؤال وحروف للبث | مركز ألعاب حماده',description:'لعبة 300 سؤال وأجوبة بالحروف للجولات التفاعلية مع المتابعين في البث المباشر.'},
+  {key:'تحدي الشباب والبنات',slug:'boys-girls',file:'boys-girls.html',name:'تحدي الشباب والبنات',title:'تحدي الشباب والبنات للبث | مركز ألعاب حماده',description:'معركة تفاعلية بين الشباب والبنات تعتمد على تفاعل الجمهور واللايكات في البث المباشر.'},
+  {key:'تحدي التخمين',slug:'guessing',file:'guessing.html',name:'تحدي التخمين',title:'لعبة التخمين للمتابعين | مركز ألعاب حماده',description:'أسئلة تخمين تفاعلية وسريعة تشمل دول وأكلات ومدن وأسماء ولاعبين للمتابعين في البث.'},
+  {key:'جلك حماده',slug:'jalak',file:'jalak.html',name:'جلك',title:'لعبة جلك التفاعلية | مركز ألعاب حماده',description:'لعبة جلك للاعبين والمتابعين مع جولات مباشرة وربط تفاعلي بالبث.'},
+  {key:'السلم والثعبان',slug:'snakes-ladders',file:'snakes-ladders.html',name:'السلم والثعبان',title:'السلم والثعبان للمتابعين | مركز ألعاب حماده',description:'لعبة سلم وثعبان تفاعلية مع النرد واللاعبين من البث المباشر.'},
+  {key:'روليت أعلامنا',slug:'flags-roulette',file:'flags-roulette.html',name:'روليت أعلامنا',title:'روليت الأعلام للمتابعين | مركز ألعاب حماده',description:'روليت أعلام تفاعلي للاختيار والتحديات مع المتابعين أثناء البث المباشر.'},
+  {key:'روليت الجوعانين',slug:'hungry-roulette',file:'hungry-roulette.html',name:'روليت الجوعانين',title:'روليت الجوعانين والأكلات | مركز ألعاب حماده',description:'روليت أكلات عراقية تفاعلي للمتابعين في البث المباشر مع الإقصاء والاختيارات.'},
+  {key:'طاولي حماده',slug:'backgammon',file:'backgammon.html',name:'طاولي حماده',title:'لعبة الطاولي للمتابعين | مركز ألعاب حماده',description:'لعبة طاولي تفاعلية للعب المباشر مع المتابعين والنرد والحجر.'},
+  {key:'طبقها',slug:'match-it',file:'match-it.html',name:'طبقها',title:'لعبة المطابقة للمتابعين | مركز ألعاب حماده',description:'لعبة مطابقة بطاقات وذاكرة تفاعلية بتحديات سريعة للمتابعين أثناء البث.'},
+  {key:'لودو حماده',slug:'ludo',file:'ludo.html',name:'لودو حماده',title:'لودو تفاعلية للمتابعين | مركز ألعاب حماده',description:'لعبة لودو تفاعلية مع النرد والحركة والتحكم من المتابعين في البث المباشر.'}
+];
+const GAME_BY_SLUG = new Map(GAME_SEO.map(g => [g.slug, g]));
+const GAME_BY_KEY = new Map(GAME_SEO.map(g => [g.key, g]));
+
+function gameLandingHtml(game) {
+  const canonical = SITE_ORIGIN + '/play/' + game.slug;
+  const schema = JSON.stringify({
+    '@context':'https://schema.org','@type':'VideoGame',
+    name:game.name,url:canonical,description:game.description,
+    gamePlatform:'Web browser',inLanguage:'ar-IQ',
+    isPartOf:{'@type':'WebSite',name:'مركز ألعاب حماده',url:SITE_ORIGIN+'/'}
+  }).replace(/</g,'\\u003c');
+  return `<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${game.title}</title><meta name="description" content="${game.description}"><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"><link rel="canonical" href="${canonical}"><meta property="og:type" content="website"><meta property="og:locale" content="ar_IQ"><meta property="og:title" content="${game.title}"><meta property="og:description" content="${game.description}"><meta property="og:url" content="${canonical}"><script type="application/ld+json">${schema}</script><style>*{box-sizing:border-box}body{margin:0;background:#070706;color:#fff;font-family:Tahoma,Arial,sans-serif;min-height:100vh;display:grid;place-items:center;padding:24px}.box{width:min(820px,100%);background:#11100d;border:1px solid #765623;border-radius:22px;padding:34px;box-shadow:0 24px 70px #000}.crumb{color:#c9ad70;font-size:14px}.crumb a{color:#f2d589}h1{color:#ffe49a;font-size:clamp(28px,5vw,44px);margin:18px 0 12px}p{color:#d0c5ae;line-height:2;font-size:17px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.btn{display:inline-block;padding:13px 20px;border-radius:12px;text-decoration:none;font-weight:800}.primary{background:#e9b84f;color:#171006}.secondary{border:1px solid #826126;color:#f5dda3}.more{margin-top:28px;padding-top:20px;border-top:1px solid #3c321f;color:#a99b80;font-size:14px}</style></head><body><main class="box"><div class="crumb"><a href="/">مركز ألعاب حماده</a> ← ${game.name}</div><h1>${game.name}</h1><p>${game.description}</p><p>هذه اللعبة جزء من مجموعة ألعاب تفاعلية مصممة للبث المباشر وتفاعل الجمهور من التعليقات واللايكات والهدايا.</p><div class="actions"><a class="btn primary" href="/games/${game.file}">تشغيل اللعبة</a><a class="btn secondary" href="/">عرض جميع الألعاب</a></div><div class="more">ألعاب تيك توك لايف • ألعاب للمتابعين • ألعاب تفاعلية للبث المباشر</div></main></body></html>`;
+}
+
 
 function avatarOf(u = {}) {
   const candidates = [u.profilePictureUrl, u.avatarUrl, u.avatarThumb, u.avatarMedium, u.avatarLarger, u.profilePicture];
@@ -196,14 +235,31 @@ const server = http.createServer((req, res) => {
     });
     return;
   }
+  if (url.startsWith('/play/')) {
+    const slug = decodeURIComponent(url.slice('/play/'.length)).replace(/\/$/, '');
+    const game = GAME_BY_SLUG.get(slug);
+    if (!game) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Not found'); return; }
+    const body = gameLandingHtml(game);
+    res.writeHead(200, {'Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=600','X-Content-Type-Options':'nosniff'});
+    res.end(body);
+    return;
+  }
   if (url.startsWith('/games/')) {
     const rel = decodeURIComponent(url.slice('/games/'.length));
     if (!/^[A-Za-z0-9._-]+\.html$/.test(rel)) { res.writeHead(400); res.end('Bad request'); return; }
     const file = path.join(__dirname, 'games', rel);
-    fs.readFile(file, (err, data) => {
-      if (err) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Game not found'); return; }
-      res.writeHead(200, {'Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'});
-      res.end(data);
+    fs.stat(file, (err, stat) => {
+      if (err || !stat.isFile()) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Game not found'); return; }
+      const headers = {'Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff','X-Robots-Tag':'noindex, follow','Vary':'Accept-Encoding'};
+      const source = fs.createReadStream(file);
+      if (String(req.headers['accept-encoding'] || '').includes('gzip')) {
+        headers['Content-Encoding'] = 'gzip';
+        res.writeHead(200, headers);
+        source.pipe(zlib.createGzip({level:4})).pipe(res);
+      } else {
+        res.writeHead(200, headers);
+        source.pipe(res);
+      }
     });
     return;
   }
