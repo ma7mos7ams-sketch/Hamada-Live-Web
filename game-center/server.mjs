@@ -208,7 +208,7 @@ function prepareCenterHtml(data) {
   );
   html = html.replace(
     '<div><strong>مطور الألعاب: حماده</strong></div>',
-    '<div><strong>مطور الألعاب: حماده</strong><span style="margin-right:10px;font-size:11px"><a href="/guide/tiktok-live-games.html" style="color:#d9bd7d">ألعاب تيك توك لايف</a> · <a href="/guide/live-stream-games.html" style="color:#d9bd7d">ألعاب للبث المباشر</a> · <a href="/guide/mohaibes-live.html" style="color:#d9bd7d">المحيبس للبث</a></span></div>'
+    '<div><strong>مطور الألعاب: حماده</strong><span style="margin-right:10px;font-size:11px"><a href="/guide/index.html" style="color:#d9bd7d">دليل ألعاب البث</a> · <a href="/guide/interactive-games-followers.html" style="color:#d9bd7d">ألعاب تفاعلية للمتابعين</a> · <a href="/guide/iraqi-live-games.html" style="color:#d9bd7d">ألعاب عراقية للبث</a> · <a href="/guide/tiktok-comment-games.html" style="color:#d9bd7d">ألعاب التعليقات</a></span></div>'
   );
   html = html.replace(/<article class="card([^"]*)" onclick="openGame\('([^']+)'\)">/g, (m, extra, name) => {
     const game = GAME_BY_KEY.get(name);
@@ -231,6 +231,11 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, {'Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=300, stale-while-revalidate=600','X-Content-Type-Options':'nosniff'});
       res.end(prepareCenterHtml(data));
     });
+    return;
+  }
+  if (url === '/guide' || url === '/guide/') {
+    res.writeHead(301, {'Location':'/guide/index.html','Cache-Control':'public, max-age=3600'});
+    res.end();
     return;
   }
   if (url.startsWith('/guide/')) {
