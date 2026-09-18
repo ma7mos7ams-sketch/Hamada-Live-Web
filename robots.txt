@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /api/
-Disallow: /overlay
-Disallow: /health
-Disallow: /music/
-
-Sitemap: https://game-center-live-app-production.up.railway.app/sitemap.xml
