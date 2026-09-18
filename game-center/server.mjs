@@ -169,7 +169,7 @@ function prepareCenterHtml(data) {
   );
   html = html.replace(
     '<div><strong>مطور الألعاب: حماده</strong></div>',
-    '<div><strong>مطور الألعاب: حماده</strong><span style="margin-right:10px;font-size:11px"><a href="/games/mohaibes.html" style="color:#d9bd7d">المحيبس</a> · <a href="/games/musical-chairs.html" style="color:#d9bd7d">الكراسي</a> · <a href="/games/maze.html" style="color:#d9bd7d">المتاهة</a></span></div>'
+    '<div><strong>مطور الألعاب: حماده</strong><span style="margin-right:10px;font-size:11px"><a href="/guide/tiktok-live-games.html" style="color:#d9bd7d">ألعاب تيك توك لايف</a> · <a href="/guide/live-stream-games.html" style="color:#d9bd7d">ألعاب للبث المباشر</a> · <a href="/guide/mohaibes-live.html" style="color:#d9bd7d">المحيبس للبث</a></span></div>'
   );
   return html;
 }
@@ -182,6 +182,17 @@ const server = http.createServer((req, res) => {
       if (err) { res.writeHead(500, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Center file not found'); return; }
       res.writeHead(200, {'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store, no-cache, must-revalidate','X-Content-Type-Options':'nosniff'});
       res.end(prepareCenterHtml(data));
+    });
+    return;
+  }
+  if (url.startsWith('/guide/')) {
+    const rel = decodeURIComponent(url.slice('/guide/'.length));
+    if (!/^[A-Za-z0-9._-]+\.html$/.test(rel)) { res.writeHead(400); res.end('Bad request'); return; }
+    const file = path.join(__dirname, 'guide', rel);
+    fs.readFile(file, (err, data) => {
+      if (err) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Guide not found'); return; }
+      res.writeHead(200, {'Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff'});
+      res.end(data);
     });
     return;
   }
