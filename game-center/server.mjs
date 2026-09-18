@@ -151,7 +151,9 @@ class LiveSession {
     });
     conn.on('error', err => {
       if (gen !== this.generation || this.closed) return;
-      this.setStatus('error', { message:String(err?.info || err?.message || err || 'خطأ في اتصال TikTok') });
+      const detail = String(err?.info || err?.message || err || 'خطأ في اتصال TikTok');
+      console.warn('[TikTok LIVE] connection event error', { username:this.username, detail });
+      this.setStatus('error', { message:detail });
     });
     conn.on('disconnected', () => {
       if (gen !== this.generation || this.closed) return;
@@ -175,17 +177,20 @@ class LiveSession {
     const old = this.live; this.live = null; this.roomId = '';
     if (old) { try { await old.disconnect(); } catch {} }
     this.setStatus(isRetry ? 'reconnecting' : 'connecting', { message:isRetry ? `إعادة الاتصال ببث @${clean}…` : `جاري الاتصال ببث @${clean}…`, attempt:this.retryCount });
+    console.log('[TikTok LIVE] connect attempt', { username:clean, retry:isRetry, attempt:this.retryCount });
     const conn = new TikTokLiveConnection(clean, { processInitialData:false, fetchRoomInfoOnConnect:true, enableExtendedGiftInfo:false });
     this.live = conn; this.bind(conn, gen);
     try {
       const state = await conn.connect();
       if (gen !== this.generation || this.closed) return;
       this.roomId = String(state?.roomId || conn.roomId || ''); this.retryCount = 0;
+      console.log('[TikTok LIVE] connected', { username:clean, roomId:this.roomId });
       this.setStatus('connected', { message:`متصل ببث @${clean}` });
     } catch (err) {
       if (gen !== this.generation || this.closed) return;
       this.live = null; this.roomId = '';
       const msg = String(err?.message || err || '');
+      console.warn('[TikTok LIVE] connect failed', { username:clean, name:String(err?.name || ''), message:msg });
       const offline = /offline|not live|useroffline|room.*not.*found/i.test(msg);
       if (offline) { this.setStatus('offline', { message:`الحساب @${clean} ليس في بث مباشر الآن` }); this.scheduleReconnect('البث غير متاح الآن'); }
       else { this.setStatus('error', { message:`تعذر الاتصال بالبث: ${msg}` }); this.scheduleReconnect('فشل الاتصال'); }
