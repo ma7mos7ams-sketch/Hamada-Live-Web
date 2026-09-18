@@ -6,7 +6,7 @@
   "engines": { "node": ">=20" },
   "scripts": { "start": "node server.mjs", "check": "node --check server.mjs" },
   "dependencies": {
-    "tiktok-live-connector": "latest",
+    "tiktok-live-connector": "2.5.0",
     "ws": "^8.18.0"
   }
 }
