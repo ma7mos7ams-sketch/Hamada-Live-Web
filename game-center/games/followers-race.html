@@ -1868,102 +1868,281 @@ window.MAX_RACERS=20;
 #raceCapacityBadge{position:absolute;z-index:1100;left:14px;top:14px;padding:6px 9px;border-radius:9px;background:#06101ad9;border:1px solid #ffffff18;color:#a9c1d6;font-size:9px;pointer-events:none}
 @media(max-width:850px){#raceTestToggle{top:8px;right:8px}#raceTestPanel{top:48px;right:8px;width:220px}#raceCapacityBadge{display:none}}
 </style>
-<script id="hamada-race-large-audience-v45-js">
+<style id="hamada-race-v46-main-lane">
+/* V46 — 10 racers maximum, all inside the single main lane */
+#road.hamadaRaceMain{
+  display:block!important;
+  padding:8px 22px!important;
+  direction:ltr!important;
+}
+#road.hamadaRaceMain>.finish{display:block!important;z-index:7!important}
+#road.hamadaRaceMain>.hamadaMainLane{
+  position:absolute!important;
+  inset:6px 18px!important;
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  border-radius:14px!important;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.025),transparent 58%),
+    repeating-linear-gradient(0deg,transparent 0 9.8%,rgba(255,255,255,.045) 9.8% 10%)!important;
+}
+#road.hamadaRaceMain>.hamadaMainLane:before,
+#road.hamadaRaceMain>.hamadaMainLane:after{display:none!important}
+#road.hamadaRaceMain .racer{
+  top:var(--race-slot-y,50%)!important;
+  transform:translateY(-50%)!important;
+  height:auto!important;
+  min-width:210px!important;
+  max-width:none!important;
+  gap:4px!important;
+  direction:ltr!important;
+}
+#road.hamadaRaceMain .carbody{width:104px!important;height:43px!important}
+#road.hamadaRaceMain .avatar{width:30px!important;height:30px!important;flex-basis:30px!important;border-width:1.5px!important}
+#road.hamadaRaceMain .name{max-width:78px!important;font-size:8.5px!important;padding:2px 4px!important}
+#road.hamadaRaceMain .pos{font-size:8px!important;padding:2px 4px!important}
+#road.hamadaRaceMain .speedTag{font-size:7px!important;padding:2px 3px!important}
+#road.hamadaRaceMain .trackProgress{bottom:-2px!important;height:2px!important}
+#raceTestPanel .raceTestCounts{grid-template-columns:1fr!important}
+body.hamadaRaceTestMode #win,
+body.hamadaRaceTestMode #v28WinnerOverlay,
+body.hamadaRaceTestMode #v33Winner,
+body.hamadaRaceTestMode #v37Podium{display:none!important}
+</style>
+<script id="hamada-race-large-audience-v46-js">
 (function(){
-  const MAX_RACERS=50;
+  const MAX_RACERS=10;
   const stage=document.querySelector('.stage');
   const raceRoad=document.getElementById('road');
   if(!stage||!raceRoad)return;
 
-  function columnCount(n){
-    if(n<=12)return 1;
-    if(n<=28)return 2;
-    if(n<=42)return 3;
-    return 4;
+  let testMode=false;
+  let centralReady=false;
+
+  function setTestMode(on){
+    testMode=!!on;
+    document.body.classList.toggle('hamadaRaceTestMode',testMode);
+    if(!testMode){
+      try{speechSynthesis.cancel()}catch(e){}
+    }
   }
+
+  function setCentralStatus(ok){
+    centralReady=!!ok;
+    const live=document.querySelector('.top .live');
+    const tf=document.getElementById('tf');
+    const dot=live?.querySelector('.dot');
+    live?.classList.toggle('connected',centralReady);
+    if(tf){
+      tf.textContent=centralReady?'● متصل':'● غير متصل';
+      tf.style.color=centralReady?'#74efaa':'#ff6a7d';
+    }
+    if(dot){
+      dot.style.background=centralReady?'#31e47c':'#ff315d';
+      dot.style.boxShadow='0 0 15px '+(centralReady?'#31e47c':'#ff315d');
+    }
+  }
+
+  function handleCentralPacket(packet){
+    if(!packet||typeof packet!=='object')return;
+    const ev=String(packet.event||packet.eventType||packet.type||'').toLowerCase();
+    const d=(packet.data&&typeof packet.data==='object')?packet.data:packet;
+    const u=user(d),a=avatar(d);
+    if((ev==='chat'||ev==='comment')&&u){
+      const text=String(pick(d,['comment','commentText','message','text','content'])||'').trim();
+      if(text)receiveComment(u,text,a);
+    }else if(ev==='like'&&u){
+      boost(u,Math.max(0.05,Math.min(0.40,Number(pick(d,['likeCount','count','likes'])||1)*0.006)),'❤️ لايك');
+    }else if(ev==='share'&&u){
+      boost(u,1,'🔁 مشاركة');
+    }else if(ev==='follow'&&u){
+      boost(u,7,'⭐ متابعة');
+    }else if(ev==='subscribe'&&u){
+      boost(u,12,'🌟 اشتراك');
+    }else if(ev==='gift'&&u){
+      const rep=Number(pick(d,['repeatCount','gift.repeatCount','count'])||1);
+      const dia=Number(pick(d,['diamondCount','gift.diamondCount'])||0);
+      const gn=String(pick(d,['giftName','gift.name','name'])||'هدية');
+      const gi=String(pick(d,['giftPictureUrl','gift.pictureUrl','gift.imageUrl','gift.icon','giftIcon','gift.image','giftPicture','imageUrl'])||'');
+      rememberGift(gn,dia,gi);
+      giftProgress(u,dia,rep,gn);
+    }
+  }
+
+  /* Stop the race's legacy socket loop and use the Game Center bridge directly. */
+  try{
+    clearTimeout(retry);
+    if(ws){
+      ws.onopen=ws.onclose=ws.onmessage=ws.onerror=null;
+      try{ws.close()}catch(e){}
+      ws=null;
+    }
+  }catch(e){}
+  window.connect=connect=function(){
+    try{parent.postMessage({source:'hamada-game',type:'request-status'},'*')}catch(e){}
+  };
+  addEventListener('message',e=>{
+    if(e.source!==parent)return;
+    const m=e.data||{};
+    if(m.source!=='hamada-center')return;
+    if(m.type==='central-status')setCentralStatus(!!m.connected);
+    else if(m.type==='live-event')handleCentralPacket(m.payload||{});
+  });
+  connect();
+
   function applyLayout(){
-    const n=Math.max(1, racers.length||1);
-    const cols=columnCount(n), rows=Math.ceil(n/cols);
-    raceRoad.classList.add('hamadaRaceGrid');
-    raceRoad.classList.toggle('raceCompact',n>=13&&n<29);
-    raceRoad.classList.toggle('raceDense',n>=29&&n<43);
-    raceRoad.classList.toggle('raceUltra',n>=43);
-    raceRoad.style.setProperty('--race-cols',String(cols));
-    raceRoad.style.setProperty('--race-rows',String(rows));
+    raceRoad.classList.add('hamadaRaceMain');
+    raceRoad.classList.remove('hamadaRaceGrid','raceCompact','raceDense','raceUltra');
     const badge=document.getElementById('raceCapacityBadge');
-    if(badge)badge.textContent='المتسابقون '+racers.length+' / '+MAX_RACERS+' • '+cols+' مسار جماعي';
+    if(badge)badge.textContent='المتسابقون '+racers.length+' / '+MAX_RACERS+' • الحارة الرئيسية';
   }
 
-  /* نحتفظ بكل إضافات النسخة الحالية إلى rebuild ثم نضيف تخطيط السعة الكبيرة */
-  const previousRebuild=window.rebuild;
-  if(typeof previousRebuild==='function'){
-    window.rebuild=rebuild=function(){
-      const result=previousRebuild.apply(this,arguments);
-      applyLayout();
-      return result;
-    };
-  }
+  window.rebuild=rebuild=function(){
+    raceRoad.querySelectorAll('.lane').forEach(e=>e.remove());
+    const lane=document.createElement('div');
+    lane.className='lane hamadaMainLane';
+    raceRoad.appendChild(lane);
+    const total=Math.max(1,racers.length);
+    racers.forEach((r,i)=>{
+      const el=document.createElement('div');
+      el.className='racer';
+      el.style.setProperty('--race-slot-y',(((i+.5)/total)*100).toFixed(3)+'%');
+      const av=r.avatar?'<img src="'+esc(r.avatar)+'" onerror="this.parentElement.textContent=\'👤\'">':'👤';
+      el.innerHTML='<div class="carbody car-'+(r.car||((i%12)+1))+'"></div><div class="followerInfo"><div class="avatar">'+av+'</div><div class="name">'+esc(r.name)+'</div></div><div class="pos">#'+(i+1)+'</div><div class="speedTag">0 km/h</div><div class="trackProgress"><i></i></div>';
+      lane.appendChild(el);
+      r.el=el;
+    });
+    stats();
+    applyLayout();
+  };
 
-  /* إزالة حد 20 القديم ورفع السعة إلى 50 */
   window.addRacer=addRacer=function(name,avatar=''){
     name=String(name||'').trim();
     if(running||!name||racers.length>=MAX_RACERS||racers.some(r=>r.name===name))return false;
+    setTestMode(false);
     const ci=(racers.length%12)+1;
     racers.push({name,avatar,p:0,boost:0,pace:.97+Math.random()*.06,car:ci,carName:CAR_NAMES[ci-1],interactions:0});
     rebuild();fx('🏎️');log('👤 انضم '+name);
     return true;
   };
 
-  /* مسافة الحركة تتكيف مع عرض كل مجموعة حتى لا تدخل السيارة على المجموعة المجاورة */
   window.loop=loop=function(t){
     if(!running)return;
     const dt=Math.min(.05,(t-last)/1000);last=t;
     const base=.39+(+document.getElementById('speed').value*.035);
     let winner=null;
-    const n=racers.length, cols=columnCount(Math.max(1,n));
-    const reserve=n>=43?118:n>=29?142:n>=13?178:215;
     racers.forEach(r=>{
       r.p+=base*r.pace*dt+(r.boost*.15)*dt;
       r.boost=Math.max(0,r.boost-dt*2.2);
       const progress=Math.min(1,r.p/RACE_DISTANCE);
       const laneWidth=r.el&&r.el.parentElement?r.el.parentElement.clientWidth:0;
-      const travel=Math.max(42,laneWidth-reserve);
+      const travel=Math.max(48,laneWidth-225);
       if(r.el)r.el.style.left=(5+progress*travel)+'px';
-      const pb=r.el&&r.el.querySelector('.trackProgress i');if(pb)pb.style.width=(progress*100)+'%';
+      const pb=r.el&&r.el.querySelector('.trackProgress i');
+      if(pb)pb.style.width=(progress*100)+'%';
       if(r.p>=RACE_DISTANCE&&!winner)winner=r;
     });
-    rank();if(winner)return finish(winner);raf=requestAnimationFrame(loop);
+    rank();
+    if(winner)return finish(winner);
+    raf=requestAnimationFrame(loop);
   };
+
+  function hideWinnerUI(){
+    for(const id of ['win','v28WinnerOverlay','v33Winner','v37Podium']){
+      const el=document.getElementById(id);
+      if(el)el.style.display='none';
+    }
+  }
 
   function resetForTest(){
     try{running=false;raceFinished=false;cancelAnimationFrame(raf)}catch(e){}
-    const win=document.getElementById('win');if(win)win.style.display='none';
-    const win2=document.getElementById('v33Winner');if(win2)win2.style.display='none';
+    hideWinnerUI();
+    try{speechSynthesis.cancel()}catch(e){}
+    const applause=document.getElementById('globalWinApplause');
+    if(applause){try{applause.pause();applause.currentTime=0}catch(e){}}
     racers.length=0;actions=0;
   }
-  function makeTest(count){
+
+  function makeTest(count=10){
+    setTestMode(true);
     count=Math.max(2,Math.min(MAX_RACERS,Number(count)||10));
     resetForTest();
+    setTestMode(true);
     for(let i=1;i<=count;i++){
       const ci=((i-1)%12)+1;
       racers.push({name:'متابع '+String(i).padStart(2,'0'),avatar:'',p:0,boost:0,pace:.97+Math.random()*.06,car:ci,carName:CAR_NAMES[ci-1],interactions:0});
     }
     rebuild();
-    log('🧪 وضع التجربة: '+count+' متسابق');
+    log('🧪 وضع التجربة: '+count+' متسابق في الحارة الرئيسية');
   }
 
-  const toggle=document.createElement('button');
-  toggle.id='raceTestToggle';toggle.type='button';toggle.textContent='🧪 تجربة';
-  const panel=document.createElement('div');
-  panel.id='raceTestPanel';
-  panel.innerHTML='<b>وضع تجربة السباق</b><small>اختر عدد متسابقين وهميين لمشاهدة توزيع المسارات قبل بدء البث.</small><div class="raceTestCounts"><button type="button" data-n="10">10</button><button type="button" data-n="20">20</button><button type="button" data-n="30">30</button><button type="button" data-n="50">50</button></div><button type="button" id="raceTestStart">🚦 ابدأ التجربة</button><button type="button" id="raceTestClear">مسح التجربة</button>';
-  const badge=document.createElement('div');badge.id='raceCapacityBadge';badge.textContent='المتسابقون 0 / '+MAX_RACERS;
-  stage.append(toggle,panel,badge);
-  toggle.addEventListener('click',()=>panel.classList.toggle('show'));
-  panel.querySelectorAll('[data-n]').forEach(btn=>btn.addEventListener('click',()=>makeTest(btn.dataset.n)));
-  panel.querySelector('#raceTestStart').addEventListener('click',()=>{panel.classList.remove('show');if(racers.length<2)makeTest(10);startRace()});
-  panel.querySelector('#raceTestClear').addEventListener('click',()=>{resetForTest();rebuild();panel.classList.remove('show');log('🧹 تم مسح تجربة السباق')});
+  /* No winner card and no winner audio while test mode is active. */
+  const liveFinish=window.finish;
+  window.finish=finish=function(w){
+    if(testMode){
+      if(raceFinished)return;
+      raceFinished=true;running=false;
+      try{cancelAnimationFrame(raf)}catch(e){}
+      hideWinnerUI();
+      try{speechSynthesis.cancel()}catch(e){}
+      const applause=document.getElementById('globalWinApplause');
+      if(applause){try{applause.pause();applause.currentTime=0}catch(e){}}
+      log('🧪 انتهت تجربة السباق');
+      return;
+    }
+    return liveFinish.apply(this,arguments);
+  };
 
+  try{
+    const synth=window.speechSynthesis;
+    if(synth&&typeof synth.speak==='function'){
+      const nativeSpeak=synth.speak.bind(synth);
+      synth.speak=function(u){if(testMode)return;return nativeSpeak(u)};
+    }
+  }catch(e){}
+  const applause=document.getElementById('globalWinApplause');
+  if(applause&&typeof applause.play==='function'){
+    const nativePlay=applause.play.bind(applause);
+    applause.play=function(){if(testMode)return Promise.resolve();return nativePlay()};
+  }
+
+  const toggle=document.getElementById('raceTestToggle');
+  const panel=document.getElementById('raceTestPanel');
+  if(panel){
+    const counts=panel.querySelector('.raceTestCounts');
+    if(counts)counts.innerHTML='<button type="button" data-n="10">10 لاعبين</button>';
+    panel.querySelectorAll('[data-n]').forEach(btn=>btn.addEventListener('click',()=>makeTest(10)));
+    const startBtn=panel.querySelector('#raceTestStart');
+    if(startBtn){
+      const clone=startBtn.cloneNode(true);
+      startBtn.replaceWith(clone);
+      clone.addEventListener('click',()=>{
+        panel.classList.remove('show');
+        if(!testMode||racers.length<2)makeTest(10);
+        startRace();
+      });
+    }
+    const clearBtn=panel.querySelector('#raceTestClear');
+    if(clearBtn){
+      const clone=clearBtn.cloneNode(true);
+      clearBtn.replaceWith(clone);
+      clone.addEventListener('click',()=>{
+        resetForTest();setTestMode(false);rebuild();panel.classList.remove('show');log('🧹 تم مسح تجربة السباق');
+      });
+    }
+  }
+  if(toggle){
+    const clone=toggle.cloneNode(true);
+    toggle.replaceWith(clone);
+    clone.addEventListener('click',()=>document.getElementById('raceTestPanel')?.classList.toggle('show'));
+  }
+
+  rebuild();
   applyLayout();
   addEventListener('resize',applyLayout);
 })();
