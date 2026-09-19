@@ -1939,10 +1939,10 @@ body[data-dice-skin] #diceDock .dice-fx-b{
         <input class="setting-input" id="joinKeywordInput" maxlength="18" value="انضم" autocomplete="off">
       </div>
       <div class="setting-block">
-        <label for="wsUrlInput"><strong>عنوان الربط المحلي</strong></label>
-        <input class="setting-input" id="wsUrlInput" value="ws://127.0.0.1:21213/" autocomplete="off" spellcheck="false" dir="ltr">
+        <label for="wsUrlInput" style="display:none"><strong>اتصال TikFinity المركزي</strong></label>
+        <input class="setting-input" id="wsUrlInput" type="hidden" value="hamada://center-live" autocomplete="off" spellcheck="false" dir="ltr">
         <div class="connection-tools">
-          <button class="secondary-button" id="reconnectBtn" type="button">إعادة الربط</button>
+          <button class="secondary-button" id="reconnectBtn" type="button" style="display:none">إعادة الربط</button>
           <button class="secondary-button" id="testJoinBtn" type="button">تجربة انضمام</button>
         </div>
       </div>
@@ -2082,7 +2082,7 @@ body[data-dice-skin] #diceDock .dice-fx-b{
       connected: false,
       joinKeyword: safeStore.get('hamadaLudoJoinKeyword', 'انضم') || 'انضم',
       rollKeyword: safeStore.get('hamadaLudoRollKeyword', 'نرد') || 'نرد',
-      wsUrl: safeStore.get('hamadaLudoWsUrl', 'ws://127.0.0.1:21213/') || 'ws://127.0.0.1:21213/',
+      wsUrl: safeStore.get('hamadaLudoWsUrl', 'hamada://center-live') || 'hamada://center-live',
       lobby: [],
       reconnectTimer: null,
       manualClose: false,
@@ -3642,7 +3642,7 @@ body[data-dice-skin] #diceDock .dice-fx-b{
   function saveLiveSettings() {
     const joinKeyword = String($('#joinKeywordInput')?.value || '').trim() || 'انضم';
     const rollKeyword = String($('#rollKeywordInput')?.value || '').trim() || 'نرد';
-    const wsUrl = String($('#wsUrlInput')?.value || '').trim() || 'ws://127.0.0.1:21213/';
+    const wsUrl = String($('#wsUrlInput')?.value || '').trim() || 'hamada://center-live';
     const wsChanged = wsUrl !== state.live.wsUrl;
     state.live.joinKeyword = joinKeyword;
     state.live.rollKeyword = rollKeyword;
