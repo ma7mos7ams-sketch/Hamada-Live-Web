@@ -328,6 +328,8 @@ async function prepareGameHtml(name){
  const res=await fetch('games/'+encodeURIComponent(file),{cache:'no-store'});
  if(!res.ok) throw new Error('تعذر تحميل اللعبة: '+name);
  let html=await res.text();
+ // TikFinity-only runtime: neutralize any legacy direct local WebSocket URL before the game executes.
+ html=html.replace(/ws:\/\/(?:localhost|127\.0\.0\.1):21213\/?/gi,'hamada://center-live');
  const shim=decodeGame(HAMADA_GAME_SHIM_B64).replace('__HAMADA_GAME_NAME_JSON__',JSON.stringify(name));
  if(/<head(?:\s[^>]*)?>/i.test(html)) html=html.replace(/<head(\s[^>]*)?>/i,(m)=>m+shim);
  else if(/<html(?:\s[^>]*)?>/i.test(html)) html=html.replace(/<html(\s[^>]*)?>/i,(m)=>m+'<head>'+shim+'</head>');
