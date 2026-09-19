@@ -12,6 +12,115 @@ const ROBOTS_FILE = path.join(__dirname, 'robots.txt');
 const SITEMAP_FILE = path.join(__dirname, 'sitemap.xml');
 const MAX_SESSIONS = Math.max(1, Number(process.env.MAX_SESSIONS || 100));
 
+const GAME_BRIDGE_JS = String.raw`
+(()=>{
+  if (window.__HAMADA_CENTER_BRIDGE__) return;
+  window.__HAMADA_CENTER_BRIDGE__ = true;
+
+  const NativeWebSocket = window.WebSocket;
+  const centerSockets = new Set();
+
+  class CenterLiveSocket extends EventTarget {
+    constructor(url) {
+      super();
+      this.url = String(url || 'hamada://center-live');
+      this.readyState = 0;
+      this.protocol = '';
+      this.extensions = '';
+      this.binaryType = 'blob';
+      this.bufferedAmount = 0;
+      this.onopen = null;
+      this.onmessage = null;
+      this.onerror = null;
+      this.onclose = null;
+      centerSockets.add(this);
+      queueMicrotask(() => {
+        try {
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({source:'hamada-game',type:'request-status'}, location.origin);
+          }
+        } catch (_) {}
+      });
+    }
+    _emit(type, ev) {
+      try {
+        const fn = this['on' + type];
+        if (typeof fn === 'function') fn.call(this, ev);
+      } catch (_) {}
+      try { this.dispatchEvent(ev); } catch (_) {}
+    }
+    _open() {
+      if (this.readyState !== 0) return;
+      this.readyState = 1;
+      this._emit('open', new Event('open'));
+    }
+    _message(payload) {
+      if (this.readyState !== 1) return;
+      let data = payload;
+      try { if (typeof data !== 'string') data = JSON.stringify(data); } catch (_) { return; }
+      this._emit('message', new MessageEvent('message', {data}));
+    }
+    _close(code=1000, reason='') {
+      if (this.readyState === 3) return;
+      this.readyState = 3;
+      centerSockets.delete(this);
+      let ev;
+      try { ev = new CloseEvent('close', {code,reason,wasClean:code===1000}); }
+      catch (_) { ev = new Event('close'); }
+      this._emit('close', ev);
+    }
+    send(_) {
+      if (this.readyState !== 1) return;
+    }
+    close(code=1000, reason='') {
+      if (this.readyState === 2 || this.readyState === 3) return;
+      this.readyState = 2;
+      queueMicrotask(() => this._close(code, reason));
+    }
+  }
+
+  function RoutedWebSocket(url, protocols) {
+    const target = String(url || '');
+    if (target.startsWith('hamada://center-live')) return new CenterLiveSocket(target);
+    if (protocols === undefined) return new NativeWebSocket(url);
+    return new NativeWebSocket(url, protocols);
+  }
+  RoutedWebSocket.CONNECTING = 0;
+  RoutedWebSocket.OPEN = 1;
+  RoutedWebSocket.CLOSING = 2;
+  RoutedWebSocket.CLOSED = 3;
+  RoutedWebSocket.prototype = NativeWebSocket.prototype;
+  window.WebSocket = RoutedWebSocket;
+
+  window.addEventListener('message', (e) => {
+    if (e.source !== window.parent || e.origin !== location.origin) return;
+    const m = e.data;
+    if (!m || m.source !== 'hamada-center') return;
+    if (m.type === 'central-status') {
+      if (m.connected) {
+        centerSockets.forEach(s => s._open());
+      } else {
+        centerSockets.forEach(s => {
+          if (s.readyState === 1) s._close(1006, 'TikFinity disconnected');
+        });
+      }
+      return;
+    }
+    if (m.type === 'live-event') {
+      const packet = (m.payload && typeof m.payload === 'object') ? m.payload : {};
+      centerSockets.forEach(s => s._message(packet));
+    }
+  });
+
+  try {
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({source:'hamada-game',type:'request-status'}, location.origin);
+    }
+  } catch (_) {}
+})();
+`;
+
+
 const SITE_ORIGIN = 'https://game-center-live-app-production.up.railway.app';
 const GAME_SEO = [
   {key:'سباق المتابعين',slug:'followers-race',file:'followers-race.html',name:'سباق المتابعين',title:'سباق المتابعين للبث المباشر | مركز ألعاب حماده',description:'لعبة سباق تفاعلية للمتابعين في البث المباشر، تتقدم فيها المشاركات واللايكات والهدايا داخل مركز ألعاب حماده.'},
@@ -104,6 +213,15 @@ const server = http.createServer((req, res) => {
     });
     return;
   }
+  if (url === '/hamada-bridge.js') {
+    res.writeHead(200, {
+      'Content-Type':'application/javascript; charset=utf-8',
+      'Cache-Control':'no-store',
+      'X-Content-Type-Options':'nosniff'
+    });
+    res.end(GAME_BRIDGE_JS);
+    return;
+  }
   if (url.startsWith('/play/')) {
     const slug = decodeURIComponent(url.slice('/play/'.length)).replace(/\/$/, '');
     const game = GAME_BY_SLUG.get(slug);
@@ -119,17 +237,26 @@ const server = http.createServer((req, res) => {
     const game = GAME_SEO.find(g => g.file === rel);
     if (game && req.headers['sec-fetch-dest'] === 'document') { res.writeHead(302, {Location:'/?game='+encodeURIComponent(game.key)}); res.end(); return; }
     const file = path.join(__dirname, 'games', rel);
-    fs.stat(file, (err, stat) => {
-      if (err || !stat.isFile()) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Game not found'); return; }
-      const headers = {'Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff','X-Robots-Tag':'noindex, follow','Vary':'Accept-Encoding'};
-      const source = fs.createReadStream(file);
+    fs.readFile(file, (err, data) => {
+      if (err) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Game not found'); return; }
+      let html = data.toString('utf8');
+      const bridgeTag = '<script src="/hamada-bridge.js"></script>';
+      if (!html.includes('/hamada-bridge.js')) {
+        if (/<head(?:\\s[^>]*)?>/i.test(html)) html = html.replace(/<head(?:\\s[^>]*)?>/i, m => m + bridgeTag);
+        else html = bridgeTag + html;
+      }
+      const body = Buffer.from(html, 'utf8');
+      const headers = {'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache','X-Content-Type-Options':'nosniff','X-Robots-Tag':'noindex, follow','Vary':'Accept-Encoding'};
       if (String(req.headers['accept-encoding'] || '').includes('gzip')) {
-        headers['Content-Encoding'] = 'gzip';
-        res.writeHead(200, headers);
-        source.pipe(zlib.createGzip({level:4})).pipe(res);
+        zlib.gzip(body, {level:4}, (zipErr, zipped) => {
+          if (zipErr) { res.writeHead(500, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Compression error'); return; }
+          headers['Content-Encoding'] = 'gzip';
+          res.writeHead(200, headers);
+          res.end(zipped);
+        });
       } else {
         res.writeHead(200, headers);
-        source.pipe(res);
+        res.end(body);
       }
     });
     return;
@@ -152,7 +279,7 @@ const server = http.createServer((req, res) => {
   }
   if (url === '/health') {
     res.writeHead(200, {'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
-    res.end(JSON.stringify({ ok:true, liveProvider:'tikfinity-local', revision:'tikfinity-direct-v1' }));
+    res.end(JSON.stringify({ ok:true, liveProvider:'tikfinity-local', revision:'tikfinity-central-bridge-v2' }));
     return;
   }
   res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Not found');
