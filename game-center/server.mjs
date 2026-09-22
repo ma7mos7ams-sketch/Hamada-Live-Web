@@ -59,10 +59,6 @@ function prepareCenterHtml(data) {
   );
   html = html.replace(/\.entryCard h1/g, '.entryCard h2');
   html = html.replace(
-    '<h1>مركز ألعاب حماده</h1>',
-    '<h2>مركز ألعاب حماده</h2>'
-  );
-  html = html.replace(
     '<div><strong>مطور الألعاب: حماده</strong></div>',
     '<div><strong>مطور الألعاب: حماده</strong><span style="margin-right:10px;font-size:11px"><a href="/guide/index.html" style="color:#d9bd7d">دليل ألعاب البث</a> · <a href="/guide/interactive-games-followers.html" style="color:#d9bd7d">ألعاب تفاعلية للمتابعين</a> · <a href="/guide/iraqi-live-games.html" style="color:#d9bd7d">ألعاب عراقية للبث</a> · <a href="/guide/tiktok-comment-games.html" style="color:#d9bd7d">ألعاب التعليقات</a></span></div>'
   );
