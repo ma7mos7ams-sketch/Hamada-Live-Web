@@ -10,6 +10,7 @@ const HOST = '0.0.0.0';
 const CENTER_FILE = path.join(__dirname, 'index.html');
 const ROBOTS_FILE = path.join(__dirname, 'robots.txt');
 const SITEMAP_FILE = path.join(__dirname, 'sitemap.xml');
+const MILLIONAIRE_FILE = path.join(__dirname, 'millionaire.html');
 const MAX_SESSIONS = Math.max(1, Number(process.env.MAX_SESSIONS || 100));
 
 
@@ -82,6 +83,23 @@ const server = http.createServer((req, res) => {
       if (err) { res.writeHead(500, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Center file not found'); return; }
       res.writeHead(200, {'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache','X-Content-Type-Options':'nosniff'});
       res.end(prepareCenterHtml(data));
+    });
+    return;
+  }
+  if (url === '/millionaire' || url === '/millionaire/') {
+    fs.readFile(MILLIONAIRE_FILE, (err, data) => {
+      if (err) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Game not found'); return; }
+      const headers = {'Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=600','X-Content-Type-Options':'nosniff','Vary':'Accept-Encoding'};
+      if (String(req.headers['accept-encoding'] || '').includes('gzip')) {
+        headers['Content-Encoding'] = 'gzip';
+        res.writeHead(200, headers);
+        zlib.gzip(data, {level:4}, (zipErr, zipped) => {
+          if (zipErr) { res.end(data); return; }
+          res.end(zipped);
+        });
+      } else {
+        res.writeHead(200, headers); res.end(data);
+      }
     });
     return;
   }

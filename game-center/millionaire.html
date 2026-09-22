@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>لعبة من سيربح المليون حماده | لعبة خفيفة للبث المباشر</title>
+<meta name="description" content="لعبة من سيربح المليون حماده للمتعة والبث المباشر، 15 سؤالًا مع وسائل المساعدة وتصميم خفيف وسريع للمتصفح.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link rel="canonical" href="https://game-center-live-app-production.up.railway.app/millionaire">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_IQ">
+<meta property="og:title" content="لعبة من سيربح المليون حماده">
+<meta property="og:description" content="نسخة خفيفة للبث المباشر مع 15 سؤالًا ووسائل المساعدة.">
+<meta property="og:url" content="https://game-center-live-app-production.up.railway.app/millionaire">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"لعبة من سيربح المليون حماده","url":"https://game-center-live-app-production.up.railway.app/millionaire","inLanguage":"ar-IQ","gamePlatform":"Web browser","description":"لعبة أسئلة من سيربح المليون بنسخة خفيفة للبث المباشر."}</script>
+<style>html,body{margin:0;background:#00031a;color:#fff;font-family:Tahoma,Arial,sans-serif;height:100%}.loading{min-height:100%;display:grid;place-items:center;text-align:center;padding:24px}.loading h1{font-size:clamp(28px,5vw,52px);margin:0 0 12px;color:#fff}.loading p{color:#b9c7ef}</style>
+</head>
+<body>
+<main class="loading"><div><h1>من سيربح المليون</h1><p>جاري تشغيل اللعبة…</p></div></main>
+<script>
+(async()=>{
+  const files=["/games/millionaire-part-01.html","/games/millionaire-part-02.html","/games/millionaire-part-03.html","/games/millionaire-part-04.html","/games/millionaire-part-05.html","/games/millionaire-part-06.html","/games/millionaire-part-07.html","/games/millionaire-part-08.html","/games/millionaire-part-09.html","/games/millionaire-part-10.html","/games/millionaire-part-11.html","/games/millionaire-part-12.html"];
+  try{
+    const responses=await Promise.all(files.map(f=>fetch(f,{cache:"force-cache"})));
+    if(responses.some(r=>!r.ok)) throw new Error("load");
+    const html=(await Promise.all(responses.map(r=>r.text()))).join("");
+    document.open();document.write(html);document.close();
+  }catch(e){
+    document.body.innerHTML='<main class="loading"><div><h1>من سيربح المليون</h1><p>تعذر تحميل ملفات اللعبة. أعد تحديث الصفحة.</p></div></main>';
+  }
+})();
+</script>
+</body>
+</html>
