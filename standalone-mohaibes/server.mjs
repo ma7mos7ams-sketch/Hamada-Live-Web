@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname=path.dirname(fileURLToPath(import.meta.url));
 const PORT=Number(process.env.PORT||3000);
+const NUMBER_SETTINGS_FILE=path.join(__dirname,'number-settings.js');
 
 function gameSource(){
   const names=fs.readdirSync(__dirname).filter(n=>/\.html$/i.test(n) && n!=='seo-preview.html');
@@ -60,6 +61,14 @@ function enhance(html,base){
 
 const server=http.createServer((req,res)=>{
   const pathname=(req.url||'/').split('?')[0];
+  if(pathname==='/number-settings.js'){
+    fs.readFile(NUMBER_SETTINGS_FILE,(err,data)=>{
+      if(err){res.writeHead(404,{'Content-Type':'text/plain; charset=utf-8'});res.end('Not found');return;}
+      res.writeHead(200,{'Content-Type':'application/javascript; charset=utf-8','Cache-Control':'no-cache','X-Content-Type-Options':'nosniff'});
+      res.end(data);
+    });
+    return;
+  }
   if(pathname==='/health'){
     const src=gameSource();
     res.writeHead(src?200:503,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
