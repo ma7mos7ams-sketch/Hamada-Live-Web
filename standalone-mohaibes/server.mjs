@@ -7,9 +7,34 @@ import { fileURLToPath } from 'node:url';
 const __dirname=path.dirname(fileURLToPath(import.meta.url));
 const PORT=Number(process.env.PORT||3000);
 
-function gameFile(){
+function gameSource(){
   const names=fs.readdirSync(__dirname).filter(n=>/\.html$/i.test(n) && n!=='seo-preview.html');
-  return names.find(n=>/محيبس/i.test(n)) || names[0] || null;
+  const direct=names.find(n=>/محيبس/i.test(n)) || names[0] || null;
+  if(direct) return {kind:'file',name:direct,path:path.join(__dirname,direct)};
+
+  const partsDir=path.join(__dirname,'index.parts');
+  if(fs.existsSync(partsDir)){
+    const parts=fs.readdirSync(partsDir)
+      .filter(n=>/^part-\d+\.txt$/i.test(n))
+      .sort((a,b)=>a.localeCompare(b,undefined,{numeric:true}))
+      .map(n=>path.join(partsDir,n));
+    if(parts.length) return {kind:'parts',name:'index.parts',parts};
+  }
+  return null;
+}
+let partsCache=null;
+let partsCacheKey='';
+function readGameSource(source,cb){
+  if(!source) return cb(new Error('No game source'));
+  if(source.kind==='file') return fs.readFile(source.path,cb);
+  try{
+    const key=source.parts.map(p=>p+':'+fs.statSync(p).mtimeMs+':'+fs.statSync(p).size).join('|');
+    if(!partsCache || partsCacheKey!==key){
+      partsCache=Buffer.concat(source.parts.map(p=>fs.readFileSync(p)));
+      partsCacheKey=key;
+    }
+    cb(null,partsCache);
+  }catch(err){cb(err);}
 }
 function origin(req){
   const proto=String(req.headers['x-forwarded-proto']||'https').split(',')[0].trim();
@@ -36,9 +61,9 @@ function enhance(html,base){
 const server=http.createServer((req,res)=>{
   const pathname=(req.url||'/').split('?')[0];
   if(pathname==='/health'){
-    const f=gameFile();
-    res.writeHead(f?200:503,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
-    res.end(JSON.stringify({ok:!!f,file:f}));
+    const src=gameSource();
+    res.writeHead(src?200:503,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});
+    res.end(JSON.stringify({ok:!!src,file:src?.name||null,source:src?.kind||null,parts:src?.parts?.length||0}));
     return;
   }
   if(pathname==='/robots.txt'){
@@ -56,13 +81,13 @@ const server=http.createServer((req,res)=>{
   if(pathname!=='/' && pathname!=='/index.html'){
     res.writeHead(404,{'Content-Type':'text/plain; charset=utf-8'});res.end('Not found');return;
   }
-  const f=gameFile();
-  if(!f){
+  const src=gameSource();
+  if(!src){
     res.writeHead(503,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});
-    res.end('<!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8"><title>لعبة المحيبس</title><body style="background:#070707;color:#fff;font-family:Tahoma;padding:40px"><h1>لعبة المحيبس</h1><p>ملف اللعبة لم يُرفع بعد.</p></body></html>');
+    res.end('<!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8"><title>لعبة المحيبس</title><body style="background:#070707;color:#fff;font-family:Tahoma;padding:40px"><h1>لعبة المحيبس</h1><p>ملف اللعبة أو أجزاؤه غير موجودة.</p></body></html>');
     return;
   }
-  fs.readFile(path.join(__dirname,f),(err,data)=>{
+  readGameSource(src,(err,data)=>{
     if(err){res.writeHead(500);res.end('Read error');return;}
     const body=Buffer.from(enhance(data,origin(req)),'utf8');
     const headers={'Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=300','Vary':'Accept-Encoding','X-Content-Type-Options':'nosniff'};
