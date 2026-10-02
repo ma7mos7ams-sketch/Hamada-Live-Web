@@ -4,7 +4,7 @@
   let state={...defaults};
   try{state={...defaults,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(_){}
   const q=s=>document.querySelector(s);
-  const css=String.raw\`
+  const css=String.raw`
 :root{--mnum-box:52px;--mnum-height:42px;--mnum-font:23px;--mnum-bg:#e0b84f;--mnum-color:#160f04;--mnum-x:0px;--mnum-y:0px}
 body.mnum-hidden .hand .num{display:none!important}
 .hand .num{width:var(--mnum-box)!important;height:var(--mnum-height)!important;min-width:0!important;min-height:0!important;font-size:var(--mnum-font)!important;color:var(--mnum-color)!important;background:var(--mnum-bg)!important;border:2px solid rgba(255,240,175,.8)!important;box-shadow:0 6px 16px #0009,0 0 16px rgba(224,184,79,.18)!important;display:flex!important;align-items:center!important;justify-content:center!important;line-height:1!important;z-index:70!important;overflow:hidden!important;translate:var(--mnum-x) var(--mnum-y)!important;transition:left .22s ease,right .22s ease,top .22s ease,bottom .22s ease,width .22s ease,height .22s ease,border-radius .22s ease,background .22s ease,color .22s ease!important}
@@ -37,7 +37,7 @@ html[data-mnum-motion="shine"] .hand .num:after{content:""!important;position:ab
 .mnsGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mnsField{display:grid;gap:6px;padding:10px;border-radius:14px;background:#ffffff06;border:1px solid #ffffff0c}.mnsField label{font-size:11px;color:#c8cfda;font-weight:800}.mnsField select,.mnsField input[type="range"]{width:100%}.mnsField select{background:#0a0d13;color:#fff;border:1px solid #ffffff16;border-radius:10px;padding:9px}.mnsRow{display:flex;align-items:center;gap:10px}.mnsRow input[type="color"]{width:44px;height:34px;border:0;background:transparent}.mnsValue{min-width:44px;text-align:center;color:#f0d079;font-weight:900;font-size:11px}.mnsCheck{display:flex;align-items:center;gap:8px;font-size:12px;color:#d8dde5}
 .mnsPreview{margin:12px 0 2px;height:100px;display:grid;place-items:center;border-radius:16px;background:radial-gradient(circle,#20242e,#0b0d12);border:1px solid #ffffff0d;overflow:hidden}#mnsPreviewNum{display:grid;place-items:center;font-weight:1000;box-shadow:0 7px 18px #000a}.mnsActions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}.mnsActions button{border:0;border-radius:12px;padding:11px 8px;font-weight:1000;cursor:pointer}#mnsSave{background:linear-gradient(180deg,#ffe89b,#c9952d);color:#171006}#mnsReset{background:#ffffff0d;color:#fff;border:1px solid #ffffff12}#mnsApply{background:#1b2740;color:#dbe8ff;border:1px solid #38517f}#mnsToast{height:18px;text-align:center;margin-top:8px;font-size:11px;color:#82e6ad}
 @media(max-width:620px){.mnsGrid{grid-template-columns:1fr}.mnsActions{grid-template-columns:1fr}.mnsTitle{font-size:18px}}
-\`;
+`;
   function clamp(n,a,b){n=Number(n);return Math.max(a,Math.min(b,Number.isFinite(n)?n:a))}
   function normalize(){
     const allow=(v,a,d)=>a.includes(v)?v:d;
