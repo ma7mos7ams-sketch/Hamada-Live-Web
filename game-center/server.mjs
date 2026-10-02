@@ -11,6 +11,7 @@ const CENTER_FILE = path.join(__dirname, 'index.html');
 const ROBOTS_FILE = path.join(__dirname, 'robots.txt');
 const SITEMAP_FILE = path.join(__dirname, 'sitemap.xml');
 const MILLIONAIRE_FILE = path.join(__dirname, 'millionaire.html');
+const MOHAIBES_NUMBER_SETTINGS_FILE = path.join(__dirname, 'mohaibes-number-settings.js');
 const MAX_SESSIONS = Math.max(1, Number(process.env.MAX_SESSIONS || 100));
 
 
@@ -128,12 +129,35 @@ const server = http.createServer((req, res) => {
     res.end(body);
     return;
   }
+  if (url === '/mohaibes-number-settings.js') {
+    fs.readFile(MOHAIBES_NUMBER_SETTINGS_FILE, (err, data) => {
+      if (err) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Not found'); return; }
+      res.writeHead(200, {'Content-Type':'application/javascript; charset=utf-8','Cache-Control':'no-cache','X-Content-Type-Options':'nosniff'});
+      res.end(data);
+    });
+    return;
+  }
   if (url.startsWith('/games/')) {
     const rel = decodeURIComponent(url.slice('/games/'.length));
     if (!/^[A-Za-z0-9._-]+\.html$/.test(rel)) { res.writeHead(400); res.end('Bad request'); return; }
     const game = GAME_SEO.find(g => g.file === rel);
     if (game && req.headers['sec-fetch-dest'] === 'document') { res.writeHead(302, {Location:'/?game='+encodeURIComponent(game.key)}); res.end(); return; }
     const file = path.join(__dirname, 'games', rel);
+    if (rel === 'mohaibes.html') {
+      fs.readFile(file, (err, data) => {
+        if (err) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Game not found'); return; }
+        const inject = Buffer.from('\n<script src="/mohaibes-number-settings.js?v=1"></script>\n','utf8');
+        const body = Buffer.concat([data, inject]);
+        const headers = {'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache','X-Content-Type-Options':'nosniff','X-Robots-Tag':'noindex, follow','Vary':'Accept-Encoding'};
+        if (String(req.headers['accept-encoding'] || '').includes('gzip')) {
+          zlib.gzip(body, {level:4}, (zipErr, zipped) => {
+            if (zipErr) { res.writeHead(200, headers); res.end(body); return; }
+            headers['Content-Encoding']='gzip';res.writeHead(200, headers);res.end(zipped);
+          });
+        } else { res.writeHead(200, headers);res.end(body); }
+      });
+      return;
+    }
     fs.stat(file, (err, stat) => {
       if (err || !stat.isFile()) { res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'}); res.end('Game not found'); return; }
       const headers = {'Content-Type':'text/html; charset=utf-8','Cache-Control':'public, max-age=3600','X-Content-Type-Options':'nosniff','X-Robots-Tag':'noindex, follow','Vary':'Accept-Encoding'};
