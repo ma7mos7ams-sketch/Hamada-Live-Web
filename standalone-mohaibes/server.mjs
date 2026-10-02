@@ -56,6 +56,7 @@ function enhance(html,base){
   ].join('');
   if(!/name=["']description["']/i.test(s)) s=s.replace(/<head([^>]*)>/i,'<head$1>'+meta);
   s=s.replace(/<title>\s*لعبة المحيبس\s*<\/title>/i,'<title>لعبة المحيبس للبث المباشر | حماده</title>');
+  if(!s.includes('/number-settings.js')) s += '\n<script src="/number-settings.js?v=2"></script>\n';
   return s;
 }
 
