@@ -1170,8 +1170,74 @@ body{
 /* المحبس V20 ليس عنصراً عائماً: هو مخبوز داخل صورة راحة اليد في مرحلتي الكشف والنهاية. */
 .card.v20-embedded-ring .hand-visual .ring,
 .card.v20-embedded-ring.win .hand-visual .ring,
-.card.v20-embedded-ring.correct .hand-visual .ring,
-.card.v20-embedded-ring.ring-revealing .hand-visual .ring{display:none!important;opacity:0!important;animation:none!important;}
+.card.v20-embedded-ring.correct .hand-visual .ring{display:none!important;opacity:0!important;animation:none!important;}
+
+/* V31: حركة المحيبس عند الكشف — يظهر من الكف، يرتفع، يدور ثم يسقط ويستقر مع لمعة. */
+.card.v20-embedded-ring.ring-revealing .hand-visual .ring{
+  display:block!important;
+  opacity:1!important;
+  z-index:20!important;
+  left:50%!important;
+  top:59%!important;
+  width:52px!important;
+  height:52px!important;
+  transform-origin:50% 50%!important;
+  pointer-events:none!important;
+  animation:hmRingLiftSpinDrop 1.45s cubic-bezier(.18,.72,.18,1) both!important;
+  filter:drop-shadow(0 0 12px rgba(255,225,140,1)) drop-shadow(0 7px 9px rgba(0,0,0,.68))!important;
+}
+.card.v20-embedded-ring.ring-revealing .hand-visual .ring::after{
+  content:""!important;
+  position:absolute!important;
+  left:-52%!important;
+  top:-42%!important;
+  width:46%!important;
+  height:185%!important;
+  background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,0) 35%,rgba(255,255,255,1) 50%,rgba(255,244,196,.72) 56%,rgba(255,255,255,0) 67%,transparent 100%)!important;
+  transform:rotate(24deg)!important;
+  filter:blur(.35px)!important;
+  mix-blend-mode:screen!important;
+  pointer-events:none!important;
+  opacity:0;
+  animation:hmRingLandingShine .88s ease-out 1.08s both!important;
+}
+.card.v20-embedded-ring.ring-revealing .hand-visual .ring::before{
+  content:""!important;
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  width:92px!important;
+  height:92px!important;
+  transform:translate(-50%,-50%) scale(.18) rotate(0deg);
+  opacity:0;
+  pointer-events:none!important;
+  background:
+    linear-gradient(90deg,transparent 46%,rgba(255,255,255,.98) 49%,rgba(255,246,196,.98) 51%,transparent 54%),
+    linear-gradient(0deg,transparent 46%,rgba(255,255,255,.98) 49%,rgba(255,246,196,.98) 51%,transparent 54%);
+  filter:drop-shadow(0 0 8px rgba(255,222,120,.95)) blur(.15px);
+  animation:hmRingImpactSpark .82s cubic-bezier(.18,.78,.22,1) 1.05s both!important;
+}
+@keyframes hmRingLiftSpinDrop{
+  0%{transform:translate(-50%,-50%) scale(.70) rotate(0deg);opacity:1}
+  12%{transform:translate(-50%,-62%) scale(.78) rotate(70deg);opacity:1}
+  40%{transform:translate(-50%,-158%) scale(.92) rotate(430deg);opacity:1}
+  58%{transform:translate(-50%,-122%) scale(.86) rotate(650deg);opacity:1}
+  78%{transform:translate(-50%,-38%) scale(.73) rotate(710deg);opacity:1}
+  89%{transform:translate(-50%,-59%) scale(.77) rotate(718deg);opacity:1}
+  100%{transform:translate(-50%,-50%) scale(.72) rotate(720deg);opacity:1}
+}
+@keyframes hmRingImpactSpark{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.16) rotate(-12deg)}
+  28%{opacity:1;transform:translate(-50%,-50%) scale(1.18) rotate(8deg)}
+  55%{opacity:.82;transform:translate(-50%,-50%) scale(.86) rotate(24deg)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.34) rotate(42deg)}
+}
+@keyframes hmRingLandingShine{
+  0%{opacity:0;left:-52%}
+  18%{opacity:1}
+  58%{opacity:1;left:108%}
+  100%{opacity:0;left:122%}
+}
 .card.v20-embedded-ring.ring-baked-visible .handImg-sequence,
 .card.v20-embedded-ring.opened .handImg-sequence{
   filter:drop-shadow(0 8px 12px rgba(0,0,0,.44)) drop-shadow(0 0 3px rgba(255,220,145,.10))!important;
