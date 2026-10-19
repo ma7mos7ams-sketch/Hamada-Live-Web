@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>تجربة الاتصال المباشر — مركز ألعاب حماده</title>
+<style>body{font-family:Tahoma,Arial;background:#101114;color:#eee;max-width:680px;margin:35px auto;padding:20px}input,button{font:inherit;padding:12px;border-radius:9px}input{background:#191d24;color:white;border:1px solid #555;width:70%}button{background:#c99c48;border:0;cursor:pointer}#light{display:inline-block;background:#e33;width:13px;height:13px;border-radius:50%}pre{background:#161a20;border:1px solid #333;min-height:160px;padding:12px;white-space:pre-wrap;max-height:55vh;overflow:auto}.muted{color:#aaa}</style></head>
+<body><h2>تجربة اتصال تيك توك المباشر — بدون اشتراك</h2>
+<p>اكتب يوزر حساب يكون في بث مباشر ثم اضغط اتصال. النقطة خضراء فقط بعد نجاح الاتصال ببث تيك توك، وليس عند فتح WebSocket وحده.</p>
+<input id="username" placeholder="يوزر تيك توك بدون @"><button id="connect">اتصال</button>
+<button id="disconnect">فصل</button>
+<p>حالة الاتصال: <span id="light"></span> <span id="state">غير متصل</span></p>
+<p class="muted">تجربة محدودة بثلاث جلسات متزامنة لحماية موارد Railway المجانية. لا تستخدم كلمات مرور أو كوكيز.</p>
+<pre id="events"></pre>
+<script>
+const log=(text)=>{const el=document.getElementById('events');el.textContent=(new Date().toLocaleTimeString('ar-IQ')+' — '+text+'\\n'+el.textContent).slice(0,12000)};
+const state=(up,label)=>{document.getElementById('light').style.background=up?'#2e5':'#e33';document.getElementById('state').textContent=label};
+let socket=null;
+document.getElementById('connect').onclick=()=>{
+ const username=document.getElementById('username').value.trim().replace(/^@/,'');
+ if(!/^[A-Za-z0-9._]{2,32}$/.test(username)){log('اكتب يوزر صحيحاً');return}
+ if(socket)socket.close();
+ const proto=location.protocol==='https:'?'wss:':'ws:';
+ socket=new WebSocket(proto+'//'+location.host+'/ws');
+ state(false,'جارٍ فتح القناة');
+ socket.onopen=()=>{state(false,'جارٍ الاتصال بالبث');socket.send(JSON.stringify({__hamadaDirect:true,action:'connect',username}))};
+ socket.onmessage=evt=>{
+   let msg;try{msg=JSON.parse(evt.data)}catch{return}
+   if(!msg.__hamadaDirect)return;
+   if(msg.kind==='status')state(msg.connected===true,msg.connected?'متصل ببث '+(msg.username||username):'غير متصل');
+   if(msg.kind==='connecting')state(false,'جارٍ الاتصال بالبث');
+   if(msg.kind==='error'){state(false,'تعذّر الاتصال');log('خطأ: '+msg.message)}
+   if(msg.kind==='event')log(msg.event+' من '+(msg.data?.nickname||msg.data?.uniqueId||'مستخدم')+(msg.event==='chat'?' — '+msg.data?.comment:''));
+ };
+ socket.onclose=()=>state(false,'مغلق');
+ socket.onerror=()=>log('فشل الاتصال بالخادم');
+};
+document.getElementById('disconnect').onclick=()=>{if(socket){socket.send(JSON.stringify({__hamadaDirect:true,action:'disconnect'}));socket.close();socket=null}state(false,'غير متصل')};
+</script></body></html>

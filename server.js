@@ -275,12 +275,127 @@ app.get('/api/state', (_req,res) => res.json({ ok:true, connected, username: cur
 app.get('/health', (_req,res) => res.json({ ok:true, connected, username: currentUsername }));
 app.get('/overlay', (_req,res) => res.sendFile(path.join(publicDir, 'overlay.html')));
 
+// Experimental no-subscription connector. Each WebSocket controls its own LIVE room;
+// do not broadcast participants' comments to other subscribers.
+const hamadaDirectSessions = new Set();
+const HAMADA_DIRECT_LIMIT = 3; // protect the Railway free allowance during the pilot
+function hamadaDirectSession(ws) {
+  let live = null;
+  let generation = 0;
+  const send = (message) => {
+    if (ws.readyState === 1) {
+      try { ws.send(JSON.stringify({ __hamadaDirect: true, ...message })); } catch {}
+    }
+  };
+  const stop = async () => {
+    ++generation;
+    const previous = live;
+    live = null;
+    hamadaDirectSessions.delete(ws);
+    send({ kind: 'status', connected: false });
+    if (previous) try { await previous.disconnect(); } catch {}
+  };
+  const userData = (event = {}) => {
+    const src = event.user || event;
+    const profile = src.profilePictureUrl || src.avatarThumb?.urlList?.[0] || '';
+    return {
+      uniqueId: String(src.uniqueId || event.uniqueId || ''),
+      userId: String(src.userId || event.userId || ''),
+      nickname: String(src.nickname || event.nickname || ''),
+      profilePictureUrl: typeof profile === 'string' ? profile : '',
+      isModerator: Boolean(src.isModerator || event.isModerator)
+    };
+  };
+  const publish = (eventName, event) => {
+    const identity = userData(event);
+    const gift = event.giftDetails || event.gift || {};
+    const data = {
+      ...identity, user: identity,
+      comment: String(event.comment || ''),
+      commentText: String(event.comment || ''),
+      text: String(event.comment || ''),
+      likeCount: Math.max(1, Number(event.likeCount || 1)),
+      count: Math.max(1, Number(event.likeCount || 1)),
+      giftId: event.giftId || gift.id || 0,
+      giftName: event.giftName || gift.giftName || gift.name || '',
+      diamondCount: Math.max(0, Number(event.diamondCount ?? gift.diamondCount ?? 0)),
+      repeatCount: Math.max(1, Number(event.repeatCount || 1)),
+      repeatEnd: Boolean(event.repeatEnd),
+      giftType: event.giftType,
+    };
+    send({ kind: 'event', event: eventName, data });
+  };
+  const connect = async (rawUsername) => {
+    const username = String(rawUsername || '').trim().replace(/^@/, '');
+    if (!/^[A-Za-z0-9._]{2,32}$/.test(username)) {
+      send({ kind: 'error', message: 'اكتب يوزر تيك توك صحيحاً بدون رابط' }); return;
+    }
+    await stop();
+    if (ws.readyState !== 1) return;
+    if (hamadaDirectSessions.size >= HAMADA_DIRECT_LIMIT) {
+      send({ kind: 'error', message: 'وصلنا لحد التجربة المجانية المتزامنة؛ جرّب لاحقاً' }); return;
+    }
+    hamadaDirectSessions.add(ws);
+    const token = ++generation;
+    send({ kind: 'connecting', username });
+    const client = new TikTokLiveConnection(username, {
+      processInitialData: false,
+      enableExtendedGiftInfo: true
+    });
+    live = client;
+    const valid = () => token === generation && live === client && ws.readyState === 1;
+    client.on('connected', () => { if (valid()) send({ kind:'status', connected:true, username }); });
+    client.on('disconnected', () => { if (valid()) send({ kind:'status', connected:false, username }); });
+    client.on('error', (err) => {
+      if (valid()) send({kind:'error', message: String(err?.message || err?.info || 'تعذر الاتصال بتيك توك').slice(0,350)});
+    });
+    for (const name of ['chat','like','follow','member','share','gift']) {
+      client.on(name, (event) => {
+        if (!valid()) return;
+        if (name === 'gift' && Number(event.giftType) === 1 && !event.repeatEnd) return;
+        publish(name, event);
+      });
+    }
+    client.on('social', event => {
+      if (!valid()) return;
+      const label = String(event.displayType || event.label || '').toLowerCase();
+      if (label.includes('share')) publish('share', event);
+      else if (label.includes('follow')) publish('follow', event);
+    });
+    try {
+      const info = await client.connect();
+      if (valid()) send({ kind:'status', connected:true, username, roomId: String(info?.roomId || '') });
+      else try { await client.disconnect(); } catch {}
+    } catch (err) {
+      if (valid()) {
+        await stop();
+        send({ kind:'error', message: String(err?.message || err).slice(0,350) });
+      }
+    }
+  };
+  return {
+    async handle(message) {
+      if (message.action === 'connect') return connect(message.username);
+      if (message.action === 'disconnect') return stop();
+    },
+    close() { void stop(); }
+  };
+}
+
 wss.on('connection', ws => {
+  const direct = hamadaDirectSession(ws);
   ws.send(JSON.stringify({ type:'state', connected, username: currentUsername, state:{...state, ranking: rank()} }));
   ws.on('message', data => {
     const msg = String(data || '');
-    if (msg === 'ping') { try { ws.send(JSON.stringify({type:'pong'})); } catch {} }
+    if (msg === 'ping') { try { ws.send(JSON.stringify({type:'pong'})); } catch {} return; }
+    if (msg.length > 512) return;
+    let request;
+    try { request = JSON.parse(msg); } catch { return; }
+    if (request && request.__hamadaDirect === true && ['connect','disconnect'].includes(request.action)) {
+      void direct.handle(request);
+    }
   });
+  ws.on('close', () => direct.close());
 });
 
 server.listen(PORT, '0.0.0.0', () => console.log(`Hamada Live Web running on :${PORT}`));
