@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Tik Hamada Overlay V36 — عشرة إطارات متحركة وتأثيرات الأسماء</title>
+<title>Tik Hamada Overlay V37 — عشرة إطارات متحركة وتأثيرات الأسماء</title>
 <style>
 :root{--bg:#17181e;--panel:#24262e;--panel2:#1e2027;--line:#3e414d;--text:#fff;--muted:#aeb2bd;--pink:#ff2b8f;--purple:#9d48ff;--cyan:#45dfff;--green:#35dfa1;--amber:#ffd166;--red:#ff637c;--shadow:0 18px 55px rgba(0,0,0,.28)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Segoe UI,Tahoma,Arial,sans-serif;color:var(--text);background:var(--bg)}button,input,select{font:inherit}.hidden{display:none!important}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) 170px;direction:ltr;background:radial-gradient(circle at 25% 0,rgba(255,43,143,.07),transparent 34%),radial-gradient(circle at 76% 82%,rgba(157,72,255,.07),transparent 35%),var(--bg)}
@@ -331,6 +331,69 @@ html:has(body.overlayBody),html.overlayHtml{background:transparent!important}
 @media(max-width:620px){.latestUnit .fxPic{width:62px!important;height:62px!important;flex-basis:62px!important}.latestUnit .latestCopy{max-width:calc(88vw - 92px)}.latestUnit .latestCopy b{max-width:calc(88vw - 92px)}.latestPanel .miniPerson .fxPic{width:60px!important;height:60px!important;flex-basis:60px!important}.latestPanel .miniPerson .miniText{max-width:calc(100% - 79px)}}
 @media(prefers-reduced-motion:reduce){.fxPic::before,.fxPic::after,.latestCopy::before,.latestCopy::after,.miniText::before,.miniText::after,.frameThumb::before,.frameThumb::after{animation-duration:8s!important}}
 
+/* V37: actual different silhouettes (SVG), smaller photo placed beside the title, no broadcast panel. */
+:is(.latestUnit,.latestPanel .miniPerson){position:relative;display:flex!important;flex-direction:row!important;align-items:center!important;direction:ltr!important;justify-content:flex-start!important;overflow:visible!important}
+.latestUnit,#lastFollowerUnit,#lastTapUnit{gap:7px!important;padding:3px 8px!important;min-height:100px!important;max-width:min(45vw,500px)}
+.latestOverlay{align-items:flex-start;gap:32px!important}
+.latestUnit .fxPic,.latestPanel .miniPerson .fxPic{position:relative;display:grid;place-items:center;overflow:visible;width:98px!important;height:98px!important;flex:0 0 98px!important;border:0!important;background:transparent!important;isolation:isolate;--fx-a:var(--rim-a)}
+.latestPanel .miniPerson .fxPic{width:90px!important;height:90px!important;flex:0 0 90px!important}
+.latestUnit .fxPic::before,.latestUnit .fxPic::after,.latestPanel .miniPerson .fxPic::before,.latestPanel .miniPerson .fxPic::after{content:none!important;display:none!important;animation:none!important}
+.latestUnit .fxPic img,.latestPanel .miniPerson .fxPic img{position:relative!important;z-index:2!important;width:54px!important;height:54px!important;min-width:54px!important;min-height:54px!important;border:2px solid rgba(255,255,255,.65)!important;border-radius:50%!important;object-fit:cover;background:#19202d;box-shadow:0 0 13px rgba(0,0,0,.5)!important;flex:none}
+.latestPanel .miniPerson .fxPic img{width:50px!important;height:50px!important;min-width:50px!important;min-height:50px!important}
+.latestUnit .frameArt,.latestPanel .miniPerson .frameArt{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:visible;filter:drop-shadow(0 0 3px var(--fx-a));animation:artHalo 3.5s ease-in-out infinite;transform-origin:50% 50%;color:var(--fx-a)}
+.frameArt .artLine{stroke:var(--fx-a);stroke-width:3.2;fill:none}
+.frameArt .artFine{stroke:var(--fx-b);stroke-width:1.8;opacity:.75;fill:none}
+.frameArt .artHeavy{stroke:var(--fx-a);stroke-width:5;fill:none}
+.frameArt .artGem{stroke:var(--fx-b);fill:var(--fx-a);stroke-width:1.2}
+.frameArt .artFill{stroke:var(--fx-b);fill:var(--fx-a);fill-opacity:.54;stroke-width:2.2}
+.frameArt .artPetal{stroke:var(--fx-b);fill:var(--fx-a);fill-opacity:.26;stroke-width:2}
+.frameArt .artRotorSlow,.frameArt .artFlames{transform-origin:70px 70px;animation:artSpin 9s linear infinite}
+.frameArt .artHeart{transform-origin:70px 69px;animation:artHeartBeat 2s ease-in-out infinite}
+.frameArt .artBoltL,.frameArt .artBoltR{animation:artBolt 1.6s steps(2) infinite}
+.frameArt .wingLeft,.frameArt .wingRight{transform-origin:70px 70px;animation:artWing 2.6s ease-in-out infinite}
+.frame-follow-2 .frameArt{animation:artHalo 3s steps(4) infinite}
+.frame-follow-3 .frameArt{animation:artWing 3.6s ease-in-out infinite}
+.frame-follow-4 .frameArt{animation:artPrism 4s ease-in-out infinite}
+.frame-follow-5 .frameArt .artRotorSlow{animation-duration:13s}
+.frame-tap-1 .frameArt{animation:artHeartBeat 1.6s ease-in-out infinite}
+.frame-tap-2 .frameArt{animation:artPrism 4s ease-in-out infinite}
+.frame-tap-3 .frameArt{animation:artBolt 1.4s steps(2) infinite}
+.frame-tap-4 .frameArt .artFlames{animation:artFlame 2s ease-in-out infinite}
+.frame-tap-5 .frameArt{animation:artHalo 2s steps(3) infinite}
+/* Names always sit next to, never above or below, the photo. */
+.latestUnit .latestCopy,.latestPanel .miniPerson .miniText{direction:rtl!important;text-align:right!important;align-items:flex-start!important;min-width:0;max-width:min(28vw,350px)!important;flex:0 1 auto;overflow:visible!important}
+.latestUnit .latestCopy span{font-size:13px!important}
+.latestUnit .latestCopy b{font-size:clamp(18px,1.65vw,24px)!important;max-width:min(28vw,350px)!important;margin-top:3px!important}
+.latestUnit .latestCopy b.longName{font-size:20px!important}.latestUnit .latestCopy b.veryLongName{font-size:17px!important}
+.latestPanel .miniPerson{gap:8px!important;min-height:108px!important;padding:6px!important}
+.latestPanel .miniPerson .miniText{max-width:calc(100% - 102px)!important}
+.latestPanel .miniPerson .miniText b{font-size:21px!important}
+/* Picker thumbnails show the true frame shapes rather than a recolored ring. */
+.frameChoice{min-height:100px;gap:10px;padding:9px 3px 8px}
+.frameThumb{position:relative;display:grid;place-items:center;flex:0 0 56px;width:56px;height:56px;border:0!important;border-radius:0!important;background:radial-gradient(circle at center,#2b3344 0 28%,transparent 29%)!important;overflow:visible;color:var(--fx-a)}
+.frameThumb::before,.frameThumb::after{content:none!important;display:none!important;animation:none!important}
+.frameThumb .frameArt{width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 0 2px var(--fx-a))}
+.frameThumb .artLine{stroke:var(--fx-a);fill:none;stroke-width:4}.frameThumb .artFine{stroke:var(--fx-b);stroke-width:2;opacity:.8;fill:none}.frameThumb .artHeavy{stroke:var(--fx-a);stroke-width:6;fill:none}.frameThumb .artGem{stroke:var(--fx-b);fill:var(--fx-a)}.frameThumb .artFill{stroke:var(--fx-b);fill:var(--fx-a);fill-opacity:.5}.frameThumb .artPetal{stroke:var(--fx-b);fill:var(--fx-a);fill-opacity:.35}
+/* Red hearts are reserved for likes/taps, rendered on top of transparent broadcast source. */
+.tapHearts{position:absolute;inset:0;overflow:visible;pointer-events:none;z-index:5;opacity:0;transform:translateZ(0)}
+#lastTapUnit.show .tapHearts,.latestPanel.tapPanel .miniPerson .tapHearts{opacity:1}
+.tapHeart{position:absolute;bottom:9px;left:42px;display:block;font-style:normal;line-height:1;font-family:Arial,sans-serif;width:23px;height:23px;color:#ff263d!important;opacity:0;animation:tapRedHearts 2.25s ease-out var(--delay) infinite;will-change:transform,opacity;user-select:none}
+.tapHeart svg{display:block;width:100%;height:100%;filter:drop-shadow(0 0 3px #f12643)}
+.tapHeart:nth-child(even){width:18px;height:18px}.tapHeart:nth-child(3n){width:26px;height:26px}
+.latestPanel.tapPanel .miniPerson .tapHeart{width:15px;height:15px;animation-duration:2.6s}
+/* ensure hearts are no longer visible once the timed card disappears */
+#lastTapUnit:not(.show) .tapHearts{visibility:hidden}
+@keyframes tapRedHearts{0%{transform:translate(0,8px) scale(.6) rotate(-14deg);opacity:0}15%{opacity:1}70%{opacity:.92}100%{transform:translate(var(--dx),var(--dy)) scale(1.15) rotate(14deg);opacity:0}}
+@keyframes artHalo{0%,100%{opacity:.75;filter:drop-shadow(0 0 2px var(--fx-a))}50%{opacity:1;filter:drop-shadow(0 0 6px var(--fx-a))}}
+@keyframes artSpin{to{transform:rotate(360deg)}}
+@keyframes artHeartBeat{0%,100%{transform:scale(.96)}30%{transform:scale(1.035)}50%{transform:scale(.99)}70%{transform:scale(1.035)}}
+@keyframes artWing{0%,100%{transform:scaleX(.98) scaleY(1)}50%{transform:scaleX(1.04) scaleY(1.02)}}
+@keyframes artPrism{0%,100%{opacity:.65;filter:drop-shadow(0 0 3px var(--fx-a))}50%{opacity:1;filter:drop-shadow(0 0 10px var(--fx-b))}}
+@keyframes artBolt{0%,100%{opacity:1}50%{opacity:.58}}
+@keyframes artFlame{0%,100%{transform:scale(.95) rotate(-5deg)}50%{transform:scale(1.06) rotate(5deg)}}
+@media(max-width:650px){.latestOverlay{gap:6px!important}.latestUnit,#lastFollowerUnit,#lastTapUnit{max-width:88vw!important;gap:2px!important;padding:3px 0!important}.latestUnit .fxPic{width:82px!important;height:82px!important;flex-basis:82px!important}.latestUnit .fxPic img{width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important}.latestUnit .latestCopy{max-width:calc(88vw - 92px)!important}.latestUnit .latestCopy b{max-width:calc(88vw - 92px)!important;font-size:20px!important}.latestPanel .miniPerson .fxPic{width:76px!important;height:76px!important;flex-basis:76px!important}.latestPanel .miniPerson .miniText{max-width:calc(100% - 88px)!important}.tapHeart{left:35px}}
+@media(prefers-reduced-motion:reduce){.frameArt,.frameArt g,.tapHeart{animation-duration:10s!important}}
+
 </style>
 <style>
 .tfDiagnostic{position:fixed;left:24px;bottom:22px;z-index:20000;max-width:min(640px,calc(100vw - 48px));max-height:55vh;overflow:auto;padding:18px 20px;border:1px solid #657088;border-radius:17px;background:#131925;box-shadow:0 15px 45px #000a;color:#fff;direction:rtl;text-align:right;line-height:1.7;font-size:13px}
@@ -344,10 +407,10 @@ html:has(body.overlayBody),html.overlayHtml{background:transparent!important}
 <body>
 <div id="app" class="app">
 <main class="main">
-<header class="top"><div class="brand"><strong>Tik Hamada Overlay</strong><small>V36 · عشرة إطارات متحركة وتأثيرات حول الأسماء</small></div><div class="connect"><span class="state" id="liveState">غير متصل</span><input class="user" id="username" placeholder="@username" title="المعرف للعرض فقط؛ يتم اختيار البث المتصل من داخل TikFinity Desktop"/><button id="connectBtn" class="btn green">اتصال</button><button id="diagnosticBtn" class="btn small" type="button">فحص الاتصال</button><button class="btn pink" id="copyOverlay">معاينة الأليرتات</button><button class="btn small" id="openAllOverlay" type="button">فتح عرض البث</button></div></header>
+<header class="top"><div class="brand"><strong>Tik Hamada Overlay</strong><small>V37 · عشرة موديلات هندسية مختلفة وقلوب للتكبيس</small></div><div class="connect"><span class="state" id="liveState">غير متصل</span><input class="user" id="username" placeholder="@username" title="المعرف للعرض فقط؛ يتم اختيار البث المتصل من داخل TikFinity Desktop"/><button id="connectBtn" class="btn green">اتصال</button><button id="diagnosticBtn" class="btn small" type="button">فحص الاتصال</button><button class="btn pink" id="copyOverlay">معاينة الأليرتات</button><button class="btn small" id="openAllOverlay" type="button">فتح عرض البث</button></div></header>
 <section class="content">
 <div id="view-widgets" class="view active">
-  <div class="title"><div><h1>التركيبات</h1><p>10 إطارات متحركة مختلفة للاختيار، وصور أصغر وتأثيرات حول الأسماء، مع خلفية بث شفافة ومؤقتات مستقلة.</p></div></div>
+  <div class="title"><div><h1>التركيبات</h1><p>10 موديلات مختلفة بالشكل الحقيقي، صور صغيرة بجانب الأسماء وقلوب حمراء للمكبّسين، مع عرض شفاف ومؤقتات مستقلة.</p></div></div>
   <div class="grid2 latestPanels">
     <div class="panel latestPanel followPanel" id="followerWidgetCard">
       <div class="panelHead"><b><span style="color:var(--cyan)">●</span> آخر متابع <span class="widgetBadge">مستقل</span></b><span id="latestFollowOn" class="switch on" role="switch" aria-label="إظهار آخر متابع" aria-checked="true" tabindex="0"></span></div>
@@ -358,13 +421,13 @@ html:has(body.overlayBody),html.overlayHtml{background:transparent!important}
         <div class="widgetSettings">
           
           <div class="framePickerGroup">
-            <div class="settingTitle">تصميم إطار المتابع — اختر واحداً من 5</div>
+            <div class="settingTitle">موديل إطار المتابع — 5 أشكال مختلفة</div>
             <div class="framePicker" id="followFramePicker" role="group" aria-label="تصميم إطار آخر متابع">
-              <button class="frameChoice frame-follow-1" type="button" data-frame="1" aria-pressed="true"><i class="frameThumb"></i><span>مدار سماوي</span></button>
-              <button class="frameChoice frame-follow-2" type="button" data-frame="2" aria-pressed="false"><i class="frameThumb"></i><span>هالة زمرد</span></button>
-              <button class="frameChoice frame-follow-3" type="button" data-frame="3" aria-pressed="false"><i class="frameThumb"></i><span>جليد متحرك</span></button>
-              <button class="frameChoice frame-follow-4" type="button" data-frame="4" aria-pressed="false"><i class="frameThumb"></i><span>نجوم بنفسجية</span></button>
-              <button class="frameChoice frame-follow-5" type="button" data-frame="5" aria-pressed="false"><i class="frameThumb"></i><span>موجة بحرية</span></button>
+              <button class="frameChoice frame-follow-1" type="button" data-frame="1" aria-pressed="true"><i class="frameThumb"></i><span>أقمار مدارية</span></button>
+              <button class="frameChoice frame-follow-2" type="button" data-frame="2" aria-pressed="false"><i class="frameThumb"></i><span>درع سداسي</span></button>
+              <button class="frameChoice frame-follow-3" type="button" data-frame="3" aria-pressed="false"><i class="frameThumb"></i><span>أجنحة ملكية</span></button>
+              <button class="frameChoice frame-follow-4" type="button" data-frame="4" aria-pressed="false"><i class="frameThumb"></i><span>كريستال هندسي</span></button>
+              <button class="frameChoice frame-follow-5" type="button" data-frame="5" aria-pressed="false"><i class="frameThumb"></i><span>بتلات زهور</span></button>
             </div>
           </div>
 <label class="settingTitle" for="followTitleInput">النص الظاهر فوق اسم المتابع</label>
@@ -384,19 +447,19 @@ html:has(body.overlayBody),html.overlayHtml{background:transparent!important}
     <div class="panel latestPanel tapPanel" id="tapperWidgetCard">
       <div class="panelHead"><b><span style="color:var(--pink)">●</span> آخر مكبّس <span class="widgetBadge">مستقل</span></b><span id="latestTapOn" class="switch on" role="switch" aria-label="إظهار آخر مكبس" aria-checked="true" tabindex="0"></span></div>
       <div class="panelBody">
-        <div class="widgetHint hint">تظهر صورة واسم المكبّس بحركة انبثاق ثم يختفيان. التكبيسات المتتالية من الشخص نفسه لا تكرر النافذة بلا توقف.</div>
+        <div class="widgetHint hint">تظهر صورة صغيرة بجانب الاسم مع قلوب حمراء متطايرة. التكبيسات المتتالية من الشخص نفسه تحدّث العدد من دون تكرار النافذة بلا توقف.</div>
         <div class="previewArea" aria-label="معاينة آخر مكبس"><div class="miniPerson"><div class="fxPic" style="--a:#ff4aa4"><img id="previewTapAv" alt="صورة آخر مكبس"></div><div class="miniText"><span id="previewTapTitle">آخر مكبّس</span><b id="previewTapName">علي</b><small id="previewTapCount" class="hint" style="display:block;margin-top:5px">+32 تكبيس</small></div></div></div>
         
         <div class="widgetSettings">
           
           <div class="framePickerGroup">
-            <div class="settingTitle">تصميم إطار المكبّس — 5 تصاميم مختلفة</div>
+            <div class="settingTitle">موديل إطار المكبّس — 5 أشكال مختلفة</div>
             <div class="framePicker" id="tapFramePicker" role="group" aria-label="تصميم إطار آخر مكبّس">
-              <button class="frameChoice frame-tap-1" type="button" data-frame="1" aria-pressed="true"><i class="frameThumb"></i><span>ذهب مشتعل</span></button>
-              <button class="frameChoice frame-tap-2" type="button" data-frame="2" aria-pressed="false"><i class="frameThumb"></i><span>قلب نيون</span></button>
-              <button class="frameChoice frame-tap-3" type="button" data-frame="3" aria-pressed="false"><i class="frameThumb"></i><span>صاعقة</span></button>
-              <button class="frameChoice frame-tap-4" type="button" data-frame="4" aria-pressed="false"><i class="frameThumb"></i><span>تاج ملكي</span></button>
-              <button class="frameChoice frame-tap-5" type="button" data-frame="5" aria-pressed="false"><i class="frameThumb"></i><span>شهاب أحمر</span></button>
+              <button class="frameChoice frame-tap-1" type="button" data-frame="1" aria-pressed="true"><i class="frameThumb"></i><span>قلوب نابضة</span></button>
+              <button class="frameChoice frame-tap-2" type="button" data-frame="2" aria-pressed="false"><i class="frameThumb"></i><span>تاج ونجوم</span></button>
+              <button class="frameChoice frame-tap-3" type="button" data-frame="3" aria-pressed="false"><i class="frameThumb"></i><span>برق مزدوج</span></button>
+              <button class="frameChoice frame-tap-4" type="button" data-frame="4" aria-pressed="false"><i class="frameThumb"></i><span>لهب أحمر</span></button>
+              <button class="frameChoice frame-tap-5" type="button" data-frame="5" aria-pressed="false"><i class="frameThumb"></i><span>جيمينغ تقني</span></button>
             </div>
           </div>
 <label class="settingTitle" for="tapTitleInput">النص الظاهر فوق اسم المكبّس</label>
@@ -589,6 +652,52 @@ function fitLatestName(el,name){
   el.classList.toggle('longName',count>18&&count<=34);
   el.classList.toggle('veryLongName',count>34);
 }
+// V37: geometrically distinct SVG frame models rather than color-only variants.
+function frameArt(kind,n){
+  const circle=(r,attrs='')=>`<circle cx="70" cy="70" r="${r}" ${attrs}/>`;
+  const path=(d,attrs='')=>`<path d="${d}" ${attrs}/>`;
+  const shapes={
+    follow:[
+      // Orbiting moons: three elliptical orbits with autonomous satellites.
+      `<g class="artRotorSlow">${circle(43,'class="artFine" stroke-dasharray="5 10"')}${path('M17 70a53 27 0 1 0 106 0a53 27 0 1 0 -106 0','class="artLine"')}${path('M70 17a27 53 0 1 0 0 106a27 53 0 1 0 0 -106','class="artFine"')}${circle(5,'cx="0" class="artGem" transform="translate(16 -14)"')}${circle(4,'class="artGem" transform="translate(119 85)"')}${circle(3,'class="artGem" transform="translate(63 18)"')}</g>`,
+      // Genuine angular hex shield with bracket armor.
+      `${path('M70 13 L116 39 L116 96 L70 124 L24 96 L24 39 Z','class="artLine"')}${path('M70 22 L107 43 L107 91 L70 114 L33 91 L33 43 Z','class="artFine"')}${path('M49 19 L70 7 L91 19 M116 49 L126 56 L126 84 L116 91 M24 49 L14 56 L14 84 L24 91','class="artHeavy"')}${[0,60,120,180,240,300].map(a=>`<path d="M70 13 L70 24" class="artGem" transform="rotate(${a} 70 70)"/>`).join('')}`,
+      // Big wing feathers stretch sideways; golden central crest.
+      `<g class="wingLeft">${path('M42 57 Q27 31 7 39 Q20 50 32 64 M39 65 Q18 47 3 58 Q20 64 32 75 M39 76 Q24 71 12 85 Q30 84 44 88','class="artLine"')}</g><g class="wingRight">${path('M98 57 Q113 31 133 39 Q120 50 108 64 M101 65 Q122 47 137 58 Q120 64 108 75 M101 76 Q116 71 128 85 Q110 84 96 88','class="artLine"')}</g>${circle(38,'class="artFine"')}${path('M56 28 L63 17 L70 26 L77 17 L84 28 Z','class="artFill"')}${path('M64 113 L70 121 L76 113','class="artGem"')}`,
+      // Large faceted diamond facets & corner shards.
+      `${path('M70 7 L110 35 L124 70 L110 105 L70 133 L30 105 L16 70 L30 35 Z','class="artLine"')}${path('M70 7 L82 32 L110 35 L97 52 M124 70 L101 81 L110 105 L82 104 L70 133 L58 104 L30 105 L39 81 L16 70 L39 59 L30 35 L58 32 Z','class="artFine"')}${path('M60 12 L70 0 L80 12 M114 53 L140 70 L114 87 M60 128 L70 140 L80 128 M26 53 L0 70 L26 87','class="artGem"')}`,
+      // 8 recognizable flowers/petals and delicate leaves.
+      `<g class="artRotorSlow">${Array.from({length:8},(_,i)=>`<ellipse cx="70" cy="18" rx="12" ry="17" transform="rotate(${i*45} 70 70)" class="artPetal"/>`).join('')}</g>${circle(39,'class="artFine"')}${Array.from({length:4},(_,i)=>`<path d="M70 21 Q59 8 70 3 Q81 8 70 21" class="artGem" transform="rotate(${i*90+23} 70 70)"/>`).join('')}`
+    ],
+    tap:[
+      // Heart-shaped silhouette (not a recolored circular ring).
+      `<g class="artHeart">${path('M70 122 C50 105 12 86 12 55 C12 21 51 20 70 44 C89 20 128 21 128 55 C128 86 90 105 70 122 Z','class="artLine"')}${path('M70 111 C50 95 23 80 23 55 C23 34 51 30 70 54 C89 30 117 34 117 55 C117 80 90 95 70 111','class="artFine"')}${path('M18 22 C15 11 3 12 3 23 C3 29 18 38 18 38 C18 38 32 29 32 23 C32 12 20 11 18 22 Z','class="artFill"')}${path('M122 23 C119 14 109 13 109 24 C109 29 122 36 122 36 C122 36 136 28 136 23 C136 13 125 13 122 23 Z','class="artFill"')}</g>`,
+      // Jewel crown + star spikes surround photo.
+      `${path('M29 44 L30 16 L48 33 L70 5 L92 33 L110 16 L111 44 L105 52 L35 52 Z','class="artFill"')}${path('M29 44 L111 44 L105 52 L35 52 Z M35 61 Q70 35 105 61','class="artLine"')}${circle(38,'class="artFine"')}${path('M70 9 l4 8 -4 8 -4 -8 Z M19 79 l5 7 -5 7 -5 -7 Z M121 79 l5 7 -5 7 -5 -7 Z','class="artGem"')}${path('M34 112 Q70 133 106 112','class="artLine"')}`,
+      // Jagged two lightning bolt blades, separate from ring.
+      `${path('M47 7 L16 53 L37 53 L14 107 L66 60 L45 60 L62 29 Z','class="artFill artBoltL"')}${path('M93 7 L124 53 L103 53 L126 107 L74 60 L95 60 L78 29 Z','class="artFill artBoltR"')}${path('M48 115 L70 130 L92 115 M45 25 L70 12 L95 25','class="artLine"')}${circle(36,'class="artFine"')}`,
+      // Flame-tipped multi-layer frame.
+      `<g class="artFlames">${[0,45,90,135,180,225,270,315].map((a,i)=>`<path d="M59 37 Q50 17 70 3 Q64 23 79 30 L76 43 Z" class="${i%2?'artFill':'artLine'}" transform="rotate(${a} 70 70)"/>`).join('')}</g>${circle(39,'class="artFine"')}${path('M42 112 Q70 135 98 112','class="artLine"')}`,
+      // Gamer/arcade rectangular brackets with gamepad ears/buttons.
+      `${path('M31 14 L14 14 L14 43 M109 14 L126 14 L126 43 M14 96 L14 126 L43 126 M97 126 L126 126 L126 96','class="artHeavy"')}${path('M34 24 L106 24 L116 34 L116 106 L106 116 L34 116 L24 106 L24 34 Z','class="artFine"')}${path('M28 67 L42 67 M35 60 L35 74','class="artLine"')}${circle(4,'class="artGem" transform="translate(101 -1)"')}${circle(4,'class="artGem" transform="translate(107 12)"')}${path('M47 118 L58 126 L82 126 L93 118','class="artLine"')}`
+    ]
+  };
+  const content=shapes[kind]?.[n-1]||shapes.follow[0];
+  return `<svg class="frameArt" viewBox="0 0 140 140" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round">${content}</svg>`;
+}
+function ensureTapHearts(parent,preview=false){
+  if(!parent||parent.querySelector(':scope > .tapHearts'))return;
+  const hearts=document.createElement('div');hearts.className='tapHearts';hearts.setAttribute('aria-hidden','true');
+  for(let i=0;i<10;i++){
+    const heart=document.createElement('span');heart.className='tapHeart';heart.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.2 3.5 12.9C-1.7 7.6 2 1.9 7.2 3.1 9.3 3.5 11 5.6 12 6.9 13 5.6 14.7 3.5 16.8 3.1 22 1.9 25.7 7.6 20.5 12.9Z" fill="#ff233f" stroke="#ff7a86" stroke-width=".75"/></svg>';
+    heart.style.setProperty('--i',i);
+    heart.style.setProperty('--dx',[-52,24,-8,105,-30,81,40,129,8,67][i]+'px');
+    heart.style.setProperty('--dy',[-59,-82,-70,-72,-104,-93,-61,-97,-118,-75][i]+'px');
+    heart.style.setProperty('--delay',(-i*.23)+'s');hearts.appendChild(heart);
+  }
+  parent.appendChild(hearts);
+}
+function renewTapHearts(){const t=$('lastTapUnit');if(!t)return;const e=t.querySelector('.tapHearts');if(!e)return;e.classList.remove('heartsReplay');void e.offsetWidth;e.classList.add('heartsReplay');}
 // V36 frame selection is shared by broadcast sources and control-panel previews.
 function applySelectedFrames(){
   for(const [key,unitId,cardId,pickerId,kind] of [
@@ -603,8 +712,16 @@ function applySelectedFrames(){
       if(!el)continue;
       for(let i=1;i<=5;i++)el.classList.remove('frame-'+kind+'-'+i);
       el.classList.add(chosen);
+      const pic=el.querySelector('.fxPic');
+      if(pic){
+        let art=pic.querySelector('.frameArt');if(art)art.remove();
+        pic.insertAdjacentHTML('beforeend',frameArt(kind,num));
+      }
+      if(kind==='tap')ensureTapHearts(el,el.classList.contains('miniPerson'));
     }
     $(pickerId)?.querySelectorAll('.frameChoice').forEach(b=>{
+      const thumb=b.querySelector('.frameThumb');
+      if(thumb&&!thumb.querySelector('.frameArt'))thumb.innerHTML=frameArt(kind,Number(b.dataset.frame));
       const selected=Number(b.dataset.frame)===num;
       b.classList.toggle('selected',selected);
       b.setAttribute('aria-pressed',String(selected));
@@ -629,6 +746,7 @@ function nextLatest(kind){
   st.current=item;st.phase='visible';setLatestContent(kind,item);
   const unit=$(kind==='follower'?'lastFollowerUnit':'lastTapUnit');if(!unit)return;
   unit.classList.remove('show','popIn','popOut');void unit.offsetWidth;unit.classList.add('show','popIn');
+  if(kind==='tapper')renewTapHearts();
   const p=kind==='follower'?'follow':'tap';
   st.timer=setTimeout(()=>{
     if(st.phase!=='visible')return;
@@ -645,7 +763,7 @@ function pushLatest(kind,user){
   // Repeated like packets for the same current person update the displayed count,
   // instead of producing dozens of duplicate popup cards.
   if(kind==='tapper'&&st.phase==='visible'&&st.current?.id===user.id){
-    st.current=user;setLatestContent(kind,user);return;
+    st.current=user;setLatestContent(kind,user);renewTapHearts();return;
   }
   if(kind==='tapper'&&st.queue.length&&st.queue[st.queue.length-1].id===user.id){st.queue[st.queue.length-1]=user;return}
   st.queue.push({...user});
