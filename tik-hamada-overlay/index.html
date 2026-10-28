@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Tik Hamada Overlay V35 — إطارات شفافة جديدة</title>
+<title>Tik Hamada Overlay V36 — عشرة إطارات متحركة وتأثيرات الأسماء</title>
 <style>
 :root{--bg:#17181e;--panel:#24262e;--panel2:#1e2027;--line:#3e414d;--text:#fff;--muted:#aeb2bd;--pink:#ff2b8f;--purple:#9d48ff;--cyan:#45dfff;--green:#35dfa1;--amber:#ffd166;--red:#ff637c;--shadow:0 18px 55px rgba(0,0,0,.28)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Segoe UI,Tahoma,Arial,sans-serif;color:var(--text);background:var(--bg)}button,input,select{font:inherit}.hidden{display:none!important}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) 170px;direction:ltr;background:radial-gradient(circle at 25% 0,rgba(255,43,143,.07),transparent 34%),radial-gradient(circle at 76% 82%,rgba(157,72,255,.07),transparent 35%),var(--bg)}
@@ -241,6 +241,96 @@ html:has(body.overlayBody),html.overlayHtml{background:transparent!important}
  .latestPanel .miniPerson .miniText{max-width:calc(100% - 95px);min-width:110px}
 }
 
+
+/* V36 — ten individually tuned, animated designs. No background rectangle. */
+.framePickerGroup{display:grid;gap:9px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.075)}
+.framePicker{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;direction:rtl}
+.frameChoice{min-height:82px;min-width:0;padding:10px 3px 8px;display:flex;align-items:center;justify-content:center;gap:8px;flex-direction:column;background:#191d29;border:1px solid #44495a;border-radius:12px;color:#d3d7e0;font-size:10px;font-weight:850;transition:background .2s,border-color .2s;cursor:pointer}
+.frameChoice.selected{border:2px solid var(--fx-a,#53dbff);background:#202e3a;box-shadow:inset 0 0 0 1px #ffffff10}
+.frameChoice:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.frameChoice:hover{background:#2c3040}
+.frameChoice>span{display:block;white-space:normal;text-align:center;line-height:1.4}
+.frameThumb{position:relative;width:30px;height:30px;flex:0 0 30px;border-radius:50%;background:#313746;border:2px solid #c9d2e2;display:block}
+.frameThumb::before{content:"";position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(var(--fx-a) 0 55deg,transparent 55deg 85deg,var(--fx-b) 85deg 170deg,transparent 170deg 230deg,var(--fx-c) 230deg 360deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));animation:rimOrbit 3s linear infinite}
+.frameThumb::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px dashed var(--fx-a);opacity:.8;animation:rimCounter 5s linear infinite}
+/* Both controls & actual overlays receive the same frame class. */
+:is(.latestUnit,.miniPerson).frame-follow-1,.frameChoice.frame-follow-1{--fx-a:#29e8ff;--fx-b:#d2ffff;--fx-c:#1688b5;--fx-mark:"✦"}
+:is(.latestUnit,.miniPerson).frame-follow-2,.frameChoice.frame-follow-2{--fx-a:#56f8bb;--fx-b:#adfff3;--fx-c:#1a9a75;--fx-mark:"✧"}
+:is(.latestUnit,.miniPerson).frame-follow-3,.frameChoice.frame-follow-3{--fx-a:#b6e5ff;--fx-b:#ffffff;--fx-c:#4e97ff;--fx-mark:"❄"}
+:is(.latestUnit,.miniPerson).frame-follow-4,.frameChoice.frame-follow-4{--fx-a:#d08eff;--fx-b:#f9caff;--fx-c:#766bff;--fx-mark:"✶"}
+:is(.latestUnit,.miniPerson).frame-follow-5,.frameChoice.frame-follow-5{--fx-a:#1cd8e9;--fx-b:#6de0ff;--fx-c:#3967ec;--fx-mark:"✧"}
+:is(.latestUnit,.miniPerson).frame-tap-1,.frameChoice.frame-tap-1{--fx-a:#ffba3d;--fx-b:#ffe6a4;--fx-c:#ee5a28;--fx-mark:"✦"}
+:is(.latestUnit,.miniPerson).frame-tap-2,.frameChoice.frame-tap-2{--fx-a:#ff4ab3;--fx-b:#ffd0f1;--fx-c:#e23d79;--fx-mark:"♥"}
+:is(.latestUnit,.miniPerson).frame-tap-3,.frameChoice.frame-tap-3{--fx-a:#ffeb4d;--fx-b:#f4fbff;--fx-c:#985cff;--fx-mark:"ϟ"}
+:is(.latestUnit,.miniPerson).frame-tap-4,.frameChoice.frame-tap-4{--fx-a:#b080ff;--fx-b:#fff1b6;--fx-c:#ffb14f;--fx-mark:"♛"}
+:is(.latestUnit,.miniPerson).frame-tap-5,.frameChoice.frame-tap-5{--fx-a:#ff5870;--fx-b:#ffb0bc;--fx-c:#ec267b;--fx-mark:"✸"}
+.latestUnit .fxPic,.latestPanel .miniPerson .fxPic{width:74px!important;height:74px!important;flex:0 0 74px!important;--rim-a:var(--fx-a,#48edff);--rim-b:var(--fx-b,#fff);--rim-c:var(--fx-c,#168cba)}
+.latestPanel .miniPerson .fxPic{width:66px!important;height:66px!important;flex-basis:66px!important}
+.latestUnit .fxPic img,.latestPanel .miniPerson .fxPic img{width:100%;height:100%;border:2px solid #12202e;box-shadow:0 2px 9px rgba(0,0,0,.6)}
+.latestUnit .fxPic::before,.latestPanel .miniPerson .fxPic::before{
+  inset:-5px;border:0!important;border-radius:50%;opacity:1;
+  background:conic-gradient(from 0deg,var(--fx-a) 0 45deg,transparent 45deg 74deg,var(--fx-b) 74deg 130deg,transparent 130deg 173deg,var(--fx-c) 173deg 245deg,transparent 245deg 285deg,var(--fx-a) 285deg 354deg,transparent 354deg 360deg)!important;
+  filter:drop-shadow(0 0 5px var(--fx-a))!important;
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 4px),#000 calc(100% - 3px));
+  animation:rimOrbit 3.8s linear infinite!important;
+}
+.latestUnit .fxPic::after,.latestPanel .miniPerson .fxPic::after{
+  inset:-11px;border:1.5px dashed var(--fx-a)!important;opacity:.66;
+  box-shadow:0 0 7px var(--fx-a)!important;
+  animation:rimCounter 7s linear infinite!important;
+}
+/* Unique motion/silhouettes for each frame */
+.frame-follow-2 .fxPic::before{background:conic-gradient(from 30deg,transparent,var(--fx-a),var(--fx-b),transparent,var(--fx-c),var(--fx-a),transparent)!important;animation:auroraOrbit 4.5s ease-in-out infinite!important}
+.frame-follow-2 .fxPic::after{border-style:solid!important;animation:rimBreathe 2.7s ease-in-out infinite!important}
+.frame-follow-3 .fxPic::before{background:repeating-conic-gradient(from 12deg,var(--fx-b) 0deg 14deg,transparent 14deg 27deg,var(--fx-c) 27deg 35deg,transparent 35deg 51deg)!important;animation:rimCounter 5s linear infinite!important}
+.frame-follow-3 .fxPic::after{border-style:dotted!important;animation:rimOrbit 8s linear infinite!important}
+.frame-follow-4 .fxPic::before{background:repeating-conic-gradient(from 0deg,var(--fx-b) 0 7deg,transparent 7deg 55deg,var(--fx-a) 55deg 64deg,transparent 64deg 90deg)!important;animation:rimOrbit 6s linear infinite!important}
+.frame-follow-4 .fxPic::after{border-style:dotted!important;animation:rimBreathe 2s ease-in-out infinite!important}
+.frame-follow-5 .fxPic::before{background:conic-gradient(var(--fx-a),transparent 12%,var(--fx-b) 20%,transparent 33%,var(--fx-c) 50%,transparent 61%,var(--fx-a) 82%,transparent)!important;animation:rimOrbit 2.8s linear infinite!important}
+.frame-follow-5 .fxPic::after{border-style:double!important;border-width:3px!important;animation:rimBreathe 1.9s ease-in-out infinite!important}
+.frame-tap-1 .fxPic::before{background:conic-gradient(var(--fx-a),transparent 40deg,var(--fx-c) 115deg,transparent 160deg,var(--fx-b) 235deg,var(--fx-c) 305deg,var(--fx-a))!important;animation:rimOrbit 2.6s linear infinite!important}
+.frame-tap-1 .fxPic::after{border-style:dotted!important;animation:rimBreathe 1.5s ease-in-out infinite!important}
+.frame-tap-2 .fxPic::before{background:conic-gradient(var(--fx-a),var(--fx-b),var(--fx-c),var(--fx-a))!important;animation:heartBeat 1.6s ease-in-out infinite!important}
+.frame-tap-2 .fxPic::after{border-style:solid!important;animation:rimBreathe 1.6s ease-in-out infinite!important}
+.frame-tap-3 .fxPic::before{background:repeating-conic-gradient(var(--fx-b) 0deg 11deg,transparent 11deg 46deg,var(--fx-a) 46deg 67deg,transparent 67deg 90deg)!important;animation:rimOrbit 1.8s steps(12) infinite!important}
+.frame-tap-3 .fxPic::after{border-style:dashed!important;animation:rimCounter 2.9s steps(8) infinite!important}
+.frame-tap-4 .fxPic::before{background:conic-gradient(var(--fx-b) 0 30deg,transparent 30deg 70deg,var(--fx-a) 70deg 160deg,transparent 160deg 210deg,var(--fx-c) 210deg 320deg,var(--fx-b) 320deg)!important;animation:rimOrbit 8s linear infinite!important}
+.frame-tap-4 .fxPic::after{border-style:double!important;border-width:4px!important;animation:rimCounter 8s linear infinite!important}
+.frame-tap-5 .fxPic::before{background:conic-gradient(from 45deg,var(--fx-c),transparent 45deg 130deg,var(--fx-a) 160deg 210deg,transparent 215deg 295deg,var(--fx-b) 320deg,var(--fx-c))!important;animation:rimOrbit 1.9s linear infinite!important}
+.frame-tap-5 .fxPic::after{border-style:dotted!important;animation:rimBreathe 2.3s ease-in-out infinite!important}
+/* Animated flourishes around names, using no image files or heavy particles. */
+.latestUnit .latestCopy,.latestPanel .miniPerson .miniText{position:relative;overflow:visible;isolation:isolate;--announce-color:var(--fx-a,#45dfff)}
+.latestUnit .latestCopy::before,.latestPanel .miniPerson .miniText::before{
+  content:var(--fx-mark,"✦");position:absolute;inset-inline-start:-19px;top:17%;
+  z-index:1;font-size:17px;color:var(--fx-b,#fff);pointer-events:none;
+  text-shadow:0 0 5px var(--fx-a),0 0 10px var(--fx-a);
+  animation:nameTwinkle 2.5s ease-in-out infinite;
+}
+.latestUnit .latestCopy::after,.latestPanel .miniPerson .miniText::after{
+  content:"";display:block;position:relative;width:100px;max-width:70%;height:3px;
+  margin-top:8px;border-radius:10px;background:linear-gradient(90deg,transparent,var(--fx-a),var(--fx-b),transparent);
+  background-size:220% 100%;box-shadow:0 0 8px var(--fx-a);opacity:.9;
+  animation:nameSweep 2.8s ease-in-out infinite;
+}
+.latestUnit .latestCopy b,.latestPanel .miniPerson .miniText b{
+  text-shadow:0 2px 5px #000,0 0 10px var(--fx-a),0 0 22px var(--fx-c);
+}
+.latestUnit .latestCopy span,.latestPanel .miniPerson .miniText span{color:var(--fx-b,#fff)}
+.latestUnit,#lastFollowerUnit,#lastTapUnit{min-height:94px!important;gap:15px!important;padding:10px 13px!important}
+.latestUnit .latestCopy b{font-size:clamp(20px,1.9vw,28px)}
+.latestPanel .miniPerson{gap:16px!important;padding:13px 9px!important}
+@keyframes rimOrbit{to{transform:rotate(360deg)}}
+@keyframes rimCounter{to{transform:rotate(-360deg)}}
+@keyframes rimBreathe{0%,100%{opacity:.35;transform:scale(.93)}50%{opacity:1;transform:scale(1.07)}}
+@keyframes auroraOrbit{0%{transform:rotate(0deg) scale(.95);filter:hue-rotate(0deg)}50%{transform:rotate(180deg) scale(1.07);filter:hue-rotate(28deg)}100%{transform:rotate(360deg) scale(.95);filter:hue-rotate(0deg)}}
+@keyframes heartBeat{0%,100%{transform:scale(.95) rotate(0deg)}25%,65%{transform:scale(1.12) rotate(3deg)}45%{transform:scale(.97) rotate(-2deg)}}
+@keyframes nameTwinkle{0%,100%{opacity:.45;transform:translateY(2px) scale(.75) rotate(-15deg)}45%{opacity:1;transform:translateY(-5px) scale(1.25) rotate(9deg)}}
+@keyframes nameSweep{0%{background-position:100% 0;transform:scaleX(.75);opacity:.5}55%{background-position:0 0;transform:scaleX(1);opacity:1}100%{background-position:100% 0;transform:scaleX(.75);opacity:.5}}
+@media(max-width:760px){.framePicker{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.latestUnit .fxPic{width:62px!important;height:62px!important;flex-basis:62px!important}.latestUnit .latestCopy{max-width:calc(88vw - 92px)}.latestUnit .latestCopy b{max-width:calc(88vw - 92px)}.latestPanel .miniPerson .fxPic{width:60px!important;height:60px!important;flex-basis:60px!important}.latestPanel .miniPerson .miniText{max-width:calc(100% - 79px)}}
+@media(prefers-reduced-motion:reduce){.fxPic::before,.fxPic::after,.latestCopy::before,.latestCopy::after,.miniText::before,.miniText::after,.frameThumb::before,.frameThumb::after{animation-duration:8s!important}}
+
 </style>
 <style>
 .tfDiagnostic{position:fixed;left:24px;bottom:22px;z-index:20000;max-width:min(640px,calc(100vw - 48px));max-height:55vh;overflow:auto;padding:18px 20px;border:1px solid #657088;border-radius:17px;background:#131925;box-shadow:0 15px 45px #000a;color:#fff;direction:rtl;text-align:right;line-height:1.7;font-size:13px}
@@ -254,10 +344,10 @@ html:has(body.overlayBody),html.overlayHtml{background:transparent!important}
 <body>
 <div id="app" class="app">
 <main class="main">
-<header class="top"><div class="brand"><strong>Tik Hamada Overlay</strong><small>V35 · إطارات شفافة وانبثاق</small></div><div class="connect"><span class="state" id="liveState">غير متصل</span><input class="user" id="username" placeholder="@username" title="المعرف للعرض فقط؛ يتم اختيار البث المتصل من داخل TikFinity Desktop"/><button id="connectBtn" class="btn green">اتصال</button><button id="diagnosticBtn" class="btn small" type="button">فحص الاتصال</button><button class="btn pink" id="copyOverlay">معاينة الأليرتات</button><button class="btn small" id="openAllOverlay" type="button">فتح عرض البث</button></div></header>
+<header class="top"><div class="brand"><strong>Tik Hamada Overlay</strong><small>V36 · عشرة إطارات متحركة وتأثيرات حول الأسماء</small></div><div class="connect"><span class="state" id="liveState">غير متصل</span><input class="user" id="username" placeholder="@username" title="المعرف للعرض فقط؛ يتم اختيار البث المتصل من داخل TikFinity Desktop"/><button id="connectBtn" class="btn green">اتصال</button><button id="diagnosticBtn" class="btn small" type="button">فحص الاتصال</button><button class="btn pink" id="copyOverlay">معاينة الأليرتات</button><button class="btn small" id="openAllOverlay" type="button">فتح عرض البث</button></div></header>
 <section class="content">
 <div id="view-widgets" class="view active">
-  <div class="title"><div><h1>التركيبات</h1><p>خانتان بإطارات جديدة وخلفية شفافة، مع ظهور واختفاء مستقل. تعملان عند استقبال أحداث TikFinity.</p></div></div>
+  <div class="title"><div><h1>التركيبات</h1><p>10 إطارات متحركة مختلفة للاختيار، وصور أصغر وتأثيرات حول الأسماء، مع خلفية بث شفافة ومؤقتات مستقلة.</p></div></div>
   <div class="grid2 latestPanels">
     <div class="panel latestPanel followPanel" id="followerWidgetCard">
       <div class="panelHead"><b><span style="color:var(--cyan)">●</span> آخر متابع <span class="widgetBadge">مستقل</span></b><span id="latestFollowOn" class="switch on" role="switch" aria-label="إظهار آخر متابع" aria-checked="true" tabindex="0"></span></div>
@@ -266,7 +356,18 @@ html:has(body.overlayBody),html.overlayHtml{background:transparent!important}
         <div class="previewArea" aria-label="معاينة آخر متابع"><div class="miniPerson"><div class="fxPic" style="--a:#45dfff"><img id="previewFollowerAv" alt="صورة آخر متابع"></div><div class="miniText"><span id="previewFollowerTitle">آخر متابع</span><b id="previewFollowerName">سارة</b></div></div></div>
         
         <div class="widgetSettings">
-          <label class="settingTitle" for="followTitleInput">النص الظاهر فوق اسم المتابع</label>
+          
+          <div class="framePickerGroup">
+            <div class="settingTitle">تصميم إطار المتابع — اختر واحداً من 5</div>
+            <div class="framePicker" id="followFramePicker" role="group" aria-label="تصميم إطار آخر متابع">
+              <button class="frameChoice frame-follow-1" type="button" data-frame="1" aria-pressed="true"><i class="frameThumb"></i><span>مدار سماوي</span></button>
+              <button class="frameChoice frame-follow-2" type="button" data-frame="2" aria-pressed="false"><i class="frameThumb"></i><span>هالة زمرد</span></button>
+              <button class="frameChoice frame-follow-3" type="button" data-frame="3" aria-pressed="false"><i class="frameThumb"></i><span>جليد متحرك</span></button>
+              <button class="frameChoice frame-follow-4" type="button" data-frame="4" aria-pressed="false"><i class="frameThumb"></i><span>نجوم بنفسجية</span></button>
+              <button class="frameChoice frame-follow-5" type="button" data-frame="5" aria-pressed="false"><i class="frameThumb"></i><span>موجة بحرية</span></button>
+            </div>
+          </div>
+<label class="settingTitle" for="followTitleInput">النص الظاهر فوق اسم المتابع</label>
           <input class="field" type="text" id="followTitleInput" maxlength="50" placeholder="آخر متابع" autocomplete="off">
           <div class="widgetTimeRow">
             <label for="followShowSec">مدة الظهور (ثوانٍ)
@@ -287,7 +388,18 @@ html:has(body.overlayBody),html.overlayHtml{background:transparent!important}
         <div class="previewArea" aria-label="معاينة آخر مكبس"><div class="miniPerson"><div class="fxPic" style="--a:#ff4aa4"><img id="previewTapAv" alt="صورة آخر مكبس"></div><div class="miniText"><span id="previewTapTitle">آخر مكبّس</span><b id="previewTapName">علي</b><small id="previewTapCount" class="hint" style="display:block;margin-top:5px">+32 تكبيس</small></div></div></div>
         
         <div class="widgetSettings">
-          <label class="settingTitle" for="tapTitleInput">النص الظاهر فوق اسم المكبّس</label>
+          
+          <div class="framePickerGroup">
+            <div class="settingTitle">تصميم إطار المكبّس — 5 تصاميم مختلفة</div>
+            <div class="framePicker" id="tapFramePicker" role="group" aria-label="تصميم إطار آخر مكبّس">
+              <button class="frameChoice frame-tap-1" type="button" data-frame="1" aria-pressed="true"><i class="frameThumb"></i><span>ذهب مشتعل</span></button>
+              <button class="frameChoice frame-tap-2" type="button" data-frame="2" aria-pressed="false"><i class="frameThumb"></i><span>قلب نيون</span></button>
+              <button class="frameChoice frame-tap-3" type="button" data-frame="3" aria-pressed="false"><i class="frameThumb"></i><span>صاعقة</span></button>
+              <button class="frameChoice frame-tap-4" type="button" data-frame="4" aria-pressed="false"><i class="frameThumb"></i><span>تاج ملكي</span></button>
+              <button class="frameChoice frame-tap-5" type="button" data-frame="5" aria-pressed="false"><i class="frameThumb"></i><span>شهاب أحمر</span></button>
+            </div>
+          </div>
+<label class="settingTitle" for="tapTitleInput">النص الظاهر فوق اسم المكبّس</label>
           <input class="field" type="text" id="tapTitleInput" maxlength="50" placeholder="آخر مكبّس" autocomplete="off">
           <div class="widgetTimeRow">
             <label for="tapShowSec">مدة الظهور (ثوانٍ)
@@ -336,14 +448,14 @@ html:has(body.overlayBody),html.overlayHtml{background:transparent!important}
 const $=id=>document.getElementById(id), $$=s=>[...document.querySelectorAll(s)], esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const cleanUser=s=>String(s||'').trim().replace(/^@/,'').toLowerCase(); const fmt=n=>new Intl.NumberFormat('en-US').format(Number(n)||0); const params=new URLSearchParams(location.search), overlayType=params.get('overlay')||'', overlayMode=!!overlayType; let previewMode=false; const ALL_URL=location.href.split('?')[0]+'?overlay=all';const FOLLOW_URL=location.href.split('?')[0]+'?overlay=follower',TAP_URL=location.href.split('?')[0]+'?overlay=tapper';
 function fallback(name){const ch=(name||'م').trim()[0]||'م';const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><defs><linearGradient id="g"><stop stop-color="#ff2b8f"/><stop offset="1" stop-color="#9d48ff"/></linearGradient></defs><rect width="140" height="140" rx="70" fill="url(#g)"/><text x="70" y="88" text-anchor="middle" font-family="Arial" font-size="60" fill="white">${ch}</text></svg>`;return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)}
-const DEF={username:'',latest:{follow:true,tap:true,followTitle:'آخر متابع',tapTitle:'آخر مكبّس',followShowSec:5,followHideSec:1,tapShowSec:5,tapHideSec:1},ranking:{on:true,count:5},actions:{joinOn:true,joinText:'دخل البث الآن',tapOn:true,tapThreshold:100,followOn:true,giftOn:true},tts:{on:false,mods:true,followers:false,users:[]},music:{mods:true,users:[],volume:100,songs:[]}};
+const DEF={username:'',latest:{follow:true,tap:true,followTitle:'آخر متابع',tapTitle:'آخر مكبّس',followShowSec:5,followHideSec:1,tapShowSec:5,tapHideSec:1,followFrame:1,tapFrame:1},ranking:{on:true,count:5},actions:{joinOn:true,joinText:'دخل البث الآن',tapOn:true,tapThreshold:100,followOn:true,giftOn:true},tts:{on:false,mods:true,followers:false,users:[]},music:{mods:true,users:[],volume:100,songs:[]}};
 let old={};try{old=JSON.parse(localStorage.getItem('tha_v25')||'{}')}catch{}let cfg;try{cfg=JSON.parse(localStorage.getItem('tha_simple_v31')||localStorage.getItem('tha_simple_v30')||localStorage.getItem('tha_simple_v29')||localStorage.getItem('tha_simple_v27')||localStorage.getItem('tha_simple_v26')||'null')}catch{};if(!cfg)cfg=structuredClone(DEF);cfg={...structuredClone(DEF),...cfg};cfg.latest={...DEF.latest,...(cfg.latest||{})};cfg.ranking={...DEF.ranking,...(cfg.ranking||{})};cfg.actions={...DEF.actions,...(cfg.actions||{})};cfg.tts={...DEF.tts,...(cfg.tts||{})};cfg.music={...DEF.music,...(cfg.music||{})};if(!cfg.username&&old.username)cfg.username=old.username;if(!Array.isArray(cfg.tts.users))cfg.tts.users=[];if(!Array.isArray(cfg.music.users))cfg.music.users=[];if(!Array.isArray(cfg.music.songs))cfg.music.songs=[];
 // Browser Source runs with its own storage; attach a safe settings snapshot to each broadcast URL.
 if(overlayMode){try{const snap=JSON.parse(params.get('settings')||'null');if(snap&&typeof snap==='object')for(const key of ['latest','ranking','actions','tts','music'])if(snap[key]&&typeof snap[key]==='object')cfg[key]={...cfg[key],...snap[key]}}catch{}}
 let cfgSyncTimer=0;async function syncCfg(){}const save=()=>{try{localStorage.setItem('tha_simple_v31',JSON.stringify(cfg))}catch{}};
 // Protect controls and URL-snapshots from invalid or excessively large durations.
 const clampSec=(v,min,max,def)=>{const n=Number(v);return Number.isFinite(n)?Math.max(min,Math.min(max,Math.round(n*2)/2)):def};
-for(const kind of ['follow','tap']){cfg.latest[kind+'Title']=String(cfg.latest[kind+'Title']||DEF.latest[kind+'Title']).trim().slice(0,50);cfg.latest[kind+'ShowSec']=clampSec(cfg.latest[kind+'ShowSec'],1,60,5);cfg.latest[kind+'HideSec']=clampSec(cfg.latest[kind+'HideSec'],0,30,1)}
+for(const kind of ['follow','tap']){cfg.latest[kind+'Title']=String(cfg.latest[kind+'Title']||DEF.latest[kind+'Title']).trim().slice(0,50);cfg.latest[kind+'ShowSec']=clampSec(cfg.latest[kind+'ShowSec'],1,60,5);cfg.latest[kind+'HideSec']=clampSec(cfg.latest[kind+'HideSec'],0,30,1);cfg.latest[kind+'Frame']=Math.max(1,Math.min(5,Math.round(Number(cfg.latest[kind+'Frame'])||1)))}
 let socket=null,connected=false,reTimer=0,relayCursor=-1,relayTimer=0,serverRank=[],tappers=new Map(),latestFollower=null,latestTap=null,tapAlerted=new Set(),joinSeen=new Map(),musicState={index:-1,currentKey:'',paused:false,stopped:true}; let alertTimer=0,alertQueue=[],alertBusy=false,overlayAudio=null;
 function toast(t){const e=$('toast');if(!e)return;e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2200)}
 function nav(v){$$('.nav').forEach(n=>n.classList.toggle('active',n.dataset.view===v));$$('.view').forEach(x=>x.classList.remove('active'));$('view-'+v)?.classList.add('active')}$$('.nav').forEach(n=>n.onclick=()=>nav(n.dataset.view));
@@ -477,6 +589,28 @@ function fitLatestName(el,name){
   el.classList.toggle('longName',count>18&&count<=34);
   el.classList.toggle('veryLongName',count>34);
 }
+// V36 frame selection is shared by broadcast sources and control-panel previews.
+function applySelectedFrames(){
+  for(const [key,unitId,cardId,pickerId,kind] of [
+    ['follow','lastFollowerUnit','followerWidgetCard','followFramePicker','follow'],
+    ['tap','lastTapUnit','tapperWidgetCard','tapFramePicker','tap']
+  ]){
+    const num=Math.max(1,Math.min(5,Math.round(Number(cfg.latest[key+'Frame'])||1)));
+    cfg.latest[key+'Frame']=num;
+    const chosen='frame-'+kind+'-'+num;
+    const targets=[$(unitId),$(cardId)?.querySelector('.miniPerson')];
+    for(const el of targets){
+      if(!el)continue;
+      for(let i=1;i<=5;i++)el.classList.remove('frame-'+kind+'-'+i);
+      el.classList.add(chosen);
+    }
+    $(pickerId)?.querySelectorAll('.frameChoice').forEach(b=>{
+      const selected=Number(b.dataset.frame)===num;
+      b.classList.toggle('selected',selected);
+      b.setAttribute('aria-pressed',String(selected));
+    });
+  }
+}
 function setLatestContent(kind,user){
   const follow=kind==='follower';
   const id=follow?'lastFollower':'lastTap';
@@ -572,6 +706,19 @@ if(linksTarget){for(const [mode,title,desc] of liveParts){
 
 
 $('previewFollowerAv').src=fallback('س');$('previewTapAv').src=fallback('ع');
+// Choose between five distinct animated frames for each independent widget.
+for(const [key,pickerId,cardId] of [['follow','followFramePicker','followerWidgetCard'],['tap','tapFramePicker','tapperWidgetCard']]){
+  $(pickerId)?.querySelectorAll('.frameChoice').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      cfg.latest[key+'Frame']=Number(btn.dataset.frame);
+      save();applySelectedFrames();
+      const demo=$(cardId)?.querySelector('.miniPerson');
+      if(demo){clearTimeout(demo._demoTimer);demo.classList.remove('demoHidden','demoOut','demoIn');void demo.offsetWidth;demo.classList.add('demoIn')}
+    });
+  });
+}
+applySelectedFrames();
+
 // Independent editable captions and visibility/hidden intervals, saved in the broadcast links.
 for(const spec of [
   {key:'follow',title:'followTitleInput',show:'followShowSec',hide:'followHideSec'},
@@ -612,7 +759,7 @@ if(overlayType==='music')document.body.classList.add('overlayOnlyMusic');$('app'
 for(const [imageId,nameId] of [['previewFollowerAv','previewFollowerName'],['previewTapAv','previewTapName'],['lastFollowerAv','lastFollowerName'],['lastTapAv','lastTapName'],['alertAvatar','alertName']]){
  const img=$(imageId);if(img)img.onerror=()=>{img.onerror=null;img.src=fallback($(nameId)?.textContent||'م')}
 }
-initControls();initOverlay();initSocket();updateTFDiagnostic();
+initControls();initOverlay();applySelectedFrames();initSocket();updateTFDiagnostic();
 function openPreview(){previewMode=true;document.body.classList.add('previewActive');$('overlayStage').classList.remove('hidden');$('previewTools').classList.remove('hidden');renderLatestOverlay({followOn:cfg.latest.follow,tapOn:cfg.latest.tap});renderRankOverlay(sortedRank(),cfg.ranking.on)}
 function closePreview(){previewMode=false;resetLatest('follower');resetLatest('tapper');document.body.classList.remove('previewActive');$('overlayStage').classList.add('hidden');$('previewTools').classList.add('hidden');const a=$('alertOverlay');if(a)a.classList.remove('show');alertBusy=false;alertQueue=[];clearTimeout(alertTimer);if(window.speechSynthesis)window.speechSynthesis.cancel()}
 $('pClose').onclick=closePreview;$('pFollow').onclick=()=>{const u={name:'متابع تجريبي',id:'follower1',avatar:fallback('م')};onFollow(u,true);sendActionAlert(u,'بدأ متابعتك','follow')};$('pLike').onclick=()=>{const u={name:'متابع متفاعل',id:'fan1',avatar:fallback('ع')};onLike(u,250,250,true)};$('pGift').onclick=()=>sendActionAlert({name:'داعم البث',id:'support1',avatar:fallback('د')},'أرسل هدية وردة × 5','gift');$('pTts').onclick=()=>relaySend({type:'tts',user:{name:'حماده'},text:'هذه تجربة للقارئ الصوتي'});
