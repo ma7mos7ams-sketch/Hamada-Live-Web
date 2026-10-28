@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Tik Hamada Overlay V33 — روابط جميع الأليرتات</title>
+<style>
+:root{--bg:#17181e;--panel:#24262e;--panel2:#1e2027;--line:#3e414d;--text:#fff;--muted:#aeb2bd;--pink:#ff2b8f;--purple:#9d48ff;--cyan:#45dfff;--green:#35dfa1;--amber:#ffd166;--red:#ff637c;--shadow:0 18px 55px rgba(0,0,0,.28)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Segoe UI,Tahoma,Arial,sans-serif;color:var(--text);background:var(--bg)}button,input,select{font:inherit}.hidden{display:none!important}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) 170px;direction:ltr;background:radial-gradient(circle at 25% 0,rgba(255,43,143,.07),transparent 34%),radial-gradient(circle at 76% 82%,rgba(157,72,255,.07),transparent 35%),var(--bg)}
+.main{direction:rtl;min-width:0}.top{height:86px;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:0 22px;position:sticky;top:0;z-index:10;background:rgba(30,32,39,.96);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(14px)}.brand strong{font-size:26px;font-weight:1000;background:linear-gradient(90deg,#fff,#ff59ad 55%,#77e8ff);-webkit-background-clip:text;background-clip:text;color:transparent}.brand small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.connect{display:flex;align-items:center;gap:7px;direction:rtl}.user{width:190px;height:38px;border:1px solid var(--line);border-radius:10px;background:#191b21;color:#fff;padding:0 10px;direction:ltr;outline:0}.user:focus{border-color:var(--pink)}.btn{height:36px;border:1px solid var(--line);border-radius:10px;background:#30333d;color:#fff;padding:0 13px;font-size:12px;font-weight:800}.btn:hover{filter:brightness(1.08)}.btn.pink{background:linear-gradient(90deg,var(--pink),#d543ef);border-color:#ff68b8}.btn.green{background:linear-gradient(90deg,#10c77c,var(--green));border-color:#55e7b2;color:#071c14}.btn.red{background:#4d2430;border-color:#713747;color:#ffd0da}.btn.small{height:30px;font-size:11px;padding:0 9px}.state{font-size:11px;color:#ff8fbb;min-width:68px;text-align:center}.state.ok{color:#53e8af}.state.wait{color:var(--amber)}
+.side{direction:rtl;height:100vh;position:sticky;top:0;padding:12px 9px;background:#202229;border-left:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column}.logo{height:76px;display:grid;place-items:center;border-bottom:1px solid rgba(255,255,255,.06)}.logoMark{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-weight:1000;font-size:22px;background:linear-gradient(145deg,var(--pink),var(--purple),var(--cyan));box-shadow:0 0 22px rgba(255,43,143,.25)}.menu{display:grid;gap:5px;margin-top:12px}.nav{height:47px;border:0;border-radius:10px;background:transparent;color:#d7d9df;display:flex;align-items:center;gap:9px;padding:0 11px;font-size:12px;font-weight:900;text-align:right}.nav i{font-style:normal;font-size:17px;width:25px;text-align:center}.nav:hover{background:rgba(255,255,255,.04)}.nav.active{color:#ff6ab4;background:rgba(255,43,143,.09);box-shadow:inset -3px 0 var(--pink)}.sideFoot{margin-top:auto;padding:10px;border:1px solid rgba(255,255,255,.07);border-radius:10px;font-size:9px;color:var(--muted)}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#777;margin-left:5px}.dot.ok{background:var(--green);box-shadow:0 0 9px var(--green)}.dot.bad{background:var(--red)}
+.content{padding:22px}.view{display:none}.view.active{display:block}.title{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:16px}.title h1{font-size:25px;margin:0}.title p{margin:5px 0 0;color:var(--muted);font-size:11px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.panel{border:1px solid rgba(255,255,255,.09);border-radius:15px;background:linear-gradient(180deg,#282a33,#202229);box-shadow:var(--shadow);overflow:hidden}.panelHead{height:51px;padding:0 14px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between}.panelHead b{font-size:13px}.panelBody{padding:14px}.setting{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(255,255,255,.055)}.setting:last-child{border-bottom:0}.setting label{font-size:12px;font-weight:800}.hint{font-size:10px;color:var(--muted);line-height:1.7}.field,select{height:36px;border:1px solid var(--line);border-radius:9px;background:#191b21;color:#fff;padding:0 10px;font-size:12px;outline:0}.field:focus,select:focus{border-color:var(--pink)}.switch{width:42px;height:23px;border-radius:99px;background:#4a4d58;border:1px solid #626673;position:relative;display:inline-block;flex:0 0 auto}.switch:after{content:"";position:absolute;width:17px;height:17px;top:2px;right:3px;border-radius:50%;background:#fff;transition:.18s}.switch.on{background:#18c782;border-color:#42e2a7}.switch.on:after{right:20px}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.1);border-radius:99px;padding:5px 9px;background:#191b21;font-size:10px}.chip button{border:0;background:transparent;color:var(--red);font-weight:1000}.adder{display:flex;gap:7px;margin-top:9px}.adder .field{flex:1}.empty{padding:22px;text-align:center;color:#8f949f;border:1px dashed rgba(255,255,255,.1);border-radius:11px;font-size:11px}
+.previewArea{min-height:210px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(255,43,143,.09),transparent 55%);overflow:hidden}.previewStrip{display:flex;align-items:center;justify-content:center;gap:35px;direction:rtl}.miniPerson{display:flex;align-items:center;gap:13px;direction:rtl}.fxPic{width:72px;height:72px;border-radius:50%;position:relative;display:grid;place-items:center}.fxPic:before,.fxPic:after{content:"";position:absolute;border-radius:50%;inset:-5px;border:2px solid var(--a,#ff3ca0);box-shadow:0 0 18px var(--a,#ff3ca0);animation:spin 2.2s linear infinite}.fxPic:after{inset:-11px;border-style:dashed;opacity:.55;animation-direction:reverse;animation-duration:4s}.fxPic img{width:66px;height:66px;border-radius:50%;object-fit:cover;border:3px solid #fff;position:relative;z-index:2;background:#363944}.miniText span{font-size:9px;color:var(--muted);display:block}.miniText b{font-size:15px;display:block;margin-top:3px;text-shadow:0 0 12px rgba(255,255,255,.2)}
+.rankList{display:grid;gap:8px}.rankItem{display:grid;grid-template-columns:31px 48px minmax(0,1fr) auto;gap:10px;align-items:center;padding:7px 8px;border-bottom:1px solid rgba(255,255,255,.05)}.rankItem:last-child{border-bottom:0}.rankPos{font-weight:1000;font-size:16px;text-align:center}.rankAvWrap{width:44px;height:44px;position:relative}.rankAvWrap:before{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid #ff4aa4;box-shadow:0 0 12px rgba(255,74,164,.5);animation:pulse 1.5s ease-in-out infinite}.rankAv{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #fff;position:relative;z-index:2}.rankName{display:inline-flex;align-items:center;width:max-content;max-width:100%;border:1px solid rgba(255,84,175,.7);border-radius:10px;padding:5px 10px;box-shadow:0 0 11px rgba(255,43,143,.16);font-size:12px;font-weight:900}.rankItem.first .rankName{border-color:#ffd166;box-shadow:0 0 18px rgba(255,209,102,.34)}.crown{display:none;margin-left:5px;filter:drop-shadow(0 0 6px #ffd166);animation:crownFloat 1.4s ease-in-out infinite}.rankItem.first .crown{display:inline}.rankCount{font-size:11px;color:#f5d78d;font-weight:900;white-space:nowrap}
+.actionRow{display:grid;grid-template-columns:minmax(0,1fr) 150px 90px;gap:9px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.055)}.actionRow:last-child{border-bottom:0}.actionInfo b{font-size:12px;display:block}.actionInfo span{font-size:10px;color:var(--muted);display:block;margin-top:4px}.actionControls{display:flex;gap:7px;align-items:center}.number{width:90px}.checkLine{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800}.checkLine input{accent-color:var(--pink);width:16px;height:16px}.musicNow{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:11px;background:#191b21}.musicNow b{font-size:13px}.musicNow span{font-size:10px;color:var(--muted)}.songList{display:grid;gap:6px;margin-top:10px;max-height:310px;overflow:auto}.song{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 9px;border:1px solid rgba(255,255,255,.07);border-radius:9px;background:#1b1d23;font-size:11px}.commands{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:10px}.cmd{direction:rtl;border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:8px;background:#1b1d23;font-size:10px}.cmd code{direction:ltr;color:#78e8ff}
+/* overlay */
+.overlayBody{background:transparent!important;overflow:hidden} .previewActive{background:#15151bbb!important} .previewActive #previewTools{display:flex!important} .previewActive #singleNote{display:none} .previewActive .overlayStage{pointer-events:auto} .previewActive .overlayStage:before{content:"معاينة داخلية — وليست بثاً حقيقياً";position:absolute;top:12px;right:14px;color:#ffb4cb;font-weight:700;font-size:12px} .previewActive .overlayStage .latestOverlay{top:9%} .previewActive .overlayStage .alertOverlay{top:9%}.overlayStage{position:fixed;inset:0;background:transparent;pointer-events:none;color:#fff}.latestOverlay{position:absolute;left:3.2%;top:4%;display:flex;align-items:flex-start;gap:42px;direction:ltr}.latestUnit{display:flex;align-items:center;gap:14px;direction:ltr;opacity:0;transform:translateY(-12px) scale(.96);transition:.35s}.latestUnit.show{opacity:1;transform:none}.latestUnit .fxPic{width:84px;height:84px}.latestUnit .fxPic img{width:78px;height:78px}.latestCopy{direction:rtl;text-align:left}.latestCopy span{font-size:13px;color:#fff;text-shadow:0 2px 10px #000}.latestCopy b{font-size:21px;display:block;margin-top:4px;text-shadow:0 0 14px rgba(255,255,255,.55),0 2px 8px #000}.latestCopy small{font-size:12px;color:#ffd985;text-shadow:0 2px 8px #000}.alertOverlay{--a:#ff3ca0;position:absolute;left:50%;top:4%;transform:translate(-50%,-18px) scale(.92);opacity:0;transition:.28s;text-align:center;min-width:260px}.alertOverlay.show{opacity:1;transform:translate(-50%,0) scale(1)}.alertOverlay .fxPic{width:112px;height:112px;margin:0 auto 10px}.alertOverlay .fxPic img{width:104px;height:104px}.alertOverlay h2{font-size:28px;margin:4px 0 3px;text-shadow:0 0 18px var(--a),0 3px 8px #000}.alertOverlay p{font-size:16px;margin:0;color:#fff;text-shadow:0 2px 8px #000}.rankOverlay{position:absolute;right:3%;top:6%;width:370px;display:grid;gap:10px}.rankOverlay .rankItem{grid-template-columns:30px 54px minmax(0,1fr) auto;border:0;padding:5px 0}.rankOverlay .rankAvWrap,.rankOverlay .rankAv{width:50px;height:50px}.rankOverlay .rankName{background:rgba(15,16,20,.38);backdrop-filter:blur(4px);font-size:14px;border-width:2px;text-shadow:0 2px 6px #000}.rankOverlay .rankCount{text-shadow:0 2px 6px #000}.subtitle{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);font-size:19px;text-shadow:0 2px 10px #000;opacity:0;transition:.2s}.subtitle.show{opacity:1}
+.toast{position:fixed;left:18px;bottom:18px;z-index:9999;background:#252832;border:1px solid #ff4ca6;border-radius:10px;padding:10px 13px;font-size:11px;opacity:0;transform:translateY(8px);transition:.2s}.toast.show{opacity:1;transform:none}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{transform:scale(1.08);opacity:.65}}@keyframes crownFloat{50%{transform:translateY(-4px) rotate(-4deg)}}
+@media(max-width:980px){.app{grid-template-columns:minmax(0,1fr) 125px}.top{height:auto;min-height:105px;flex-wrap:wrap;padding:13px}.brand strong{font-size:20px}.connect{flex-wrap:wrap}.grid2{grid-template-columns:1fr}.actionRow{grid-template-columns:1fr}.commands{grid-template-columns:1fr}.nav{font-size:10px;padding:0 6px}.side{padding:8px 5px}}
+
+/* Separate, independently configurable widgets within the same التركيبات tab */
+.latestPanels{align-items:stretch}
+.latestPanel{display:flex;flex-direction:column}
+.latestPanel .panelHead{min-height:66px;height:auto;gap:12px}
+.latestPanel .panelHead b{display:flex;align-items:center;gap:10px;font-size:15px}
+.latestPanel .panelHead .widgetBadge{font-size:10px;font-weight:800;padding:5px 8px;border:1px solid rgba(255,255,255,.12);background:#1d1f28;border-radius:99px;color:var(--muted)}
+.latestPanel .panelBody{display:flex;flex-direction:column;gap:14px;flex:1}
+.latestPanel .previewArea{border:1px dashed rgba(255,255,255,.12);border-radius:13px;min-height:173px;background:radial-gradient(circle at center,rgba(255,43,143,.08),transparent 70%),rgba(12,14,20,.20)}
+.latestPanel.followPanel .previewArea{background:radial-gradient(circle at center,rgba(69,223,255,.1),transparent 68%),rgba(12,14,20,.2)}
+.latestPanel .miniPerson{justify-content:center;min-width:0;max-width:100%;padding:12px;overflow:hidden}
+.latestPanel .miniText{min-width:0;overflow-wrap:anywhere}
+.latestPanel .miniText b{font-size:18px}
+.latestPanel .widgetActions{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.latestPanel .widgetActions .btn{min-width:140px}
+.latestPanel .widgetStatus{font-size:11px;font-weight:900;color:var(--green)}
+.latestPanel.is-off .widgetStatus{color:var(--red)}
+.latestPanel.is-off .previewArea{opacity:.45;filter:grayscale(.9)}
+.latestPanel .widgetHint{min-height:35px}
+@media(max-width:500px){.latestPanel .widgetActions .btn{width:100%}}
+
+/* V31 TikFinity standalone overlay controls */
+.widgetLinks{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.widgetLinks .btn{border-color:rgba(69,223,255,.32);background:#1c2834}
+.overlayBody .latestOverlay{max-width:95vw}
+.overlayBody.overlayOnlyFollower .latestOverlay,.overlayBody.overlayOnlyTap .latestOverlay{left:3.2%;top:5%}
+.overlayBody.overlayOnlyFollower #rankOverlay,.overlayBody.overlayOnlyTap #rankOverlay,
+.overlayBody.overlayOnlyFollower #alertOverlay,.overlayBody.overlayOnlyTap #alertOverlay,
+.overlayBody.overlayOnlyFollower #subtitle,.overlayBody.overlayOnlyTap #subtitle{display:none!important}
+.latestUnit.recentPulse{animation:latestPulse .44s ease-out}
+@keyframes latestPulse{0%{filter:brightness(1.85);transform:translateY(-6px) scale(1.04)}100%{filter:brightness(1);transform:translateY(0) scale(1)}}
+@media(max-width:870px){.top{height:auto;min-height:86px;flex-wrap:wrap;padding:12px}.connect{flex-wrap:wrap}.connect .user{width:145px}}
+
+/* V33: independent transparent browser-source links for EVERY feature */
+body.overlayBody.overlayOnlyRanking #latestOverlay,
+body.overlayBody.overlayOnlyRanking #alertOverlay,
+body.overlayBody.overlayOnlyRanking #subtitle,
+body.overlayBody.overlayOnlyAlerts #latestOverlay,
+body.overlayBody.overlayOnlyAlerts #rankOverlay,
+body.overlayBody.overlayOnlyAlerts #subtitle,
+body.overlayBody.overlayOnlyVoice #latestOverlay,
+body.overlayBody.overlayOnlyVoice #rankOverlay,
+body.overlayBody.overlayOnlyVoice #alertOverlay,
+body.overlayBody.overlayOnlyMusic #latestOverlay,
+body.overlayBody.overlayOnlyMusic #rankOverlay,
+body.overlayBody.overlayOnlyMusic #alertOverlay,
+body.overlayBody.overlayOnlyMusic #subtitle{display:none!important}
+body.overlayBody.overlayOnlyVoice #subtitle {display:block!important}
+.broadcastLinks{margin-top:18px}
+.broadcastLinks .panelBody{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:10px}
+.broadcastLinks .linkRow{border:1px solid #353442;border-radius:14px;background:#131520;padding:11px;display:grid;gap:7px}
+.broadcastLinks .linkRow b{font-size:14px;color:#fff}.broadcastLinks .linkRow span{font-size:11px;color:#aeb7c9}
+.broadcastLinks .linkButtons{display:flex;gap:6px;flex-wrap:wrap}.broadcastLinks .linkButtons button{flex:1}
+.broadcastLinks .linkWarn{grid-column:1/-1;color:#ffd9a0;font-size:12px;line-height:1.8}
+@media(max-width:670px){.broadcastLinks .panelBody{grid-template-columns:1fr}}
+</style>
+<style>
+.tfDiagnostic{position:fixed;left:24px;bottom:22px;z-index:20000;max-width:min(640px,calc(100vw - 48px));max-height:55vh;overflow:auto;padding:18px 20px;border:1px solid #657088;border-radius:17px;background:#131925;box-shadow:0 15px 45px #000a;color:#fff;direction:rtl;text-align:right;line-height:1.7;font-size:13px}
+.tfDiagnostic strong{font-size:17px;color:#f4f7ff}
+.tfChecks{display:grid;grid-template-columns:1fr;gap:4px;color:#afc5e7;margin:10px 0;word-break:break-all}
+.tfDiagnostic p{margin:8px 0 14px;color:#e8cf99}
+.tfDiagnostic button{margin-left:8px}
+.overlayBody #tfDiagnostic{display:none!important}
+</style>
+</head>
+<body>
+<div id="app" class="app">
+<main class="main">
+<header class="top"><div class="brand"><strong>Tik Hamada Overlay</strong><small>V33 · روابط بث لجميع الأقسام</small></div><div class="connect"><span class="state" id="liveState">غير متصل</span><input class="user" id="username" placeholder="@username" title="المعرف للعرض فقط؛ يتم اختيار البث المتصل من داخل TikFinity Desktop"/><button id="connectBtn" class="btn green">اتصال</button><button id="diagnosticBtn" class="btn small" type="button">فحص الاتصال</button><button class="btn pink" id="copyOverlay">معاينة الأليرتات</button><button class="btn small" id="openAllOverlay" type="button">فتح عرض البث</button></div></header>
+<section class="content">
+<div id="view-widgets" class="view active">
+  <div class="title"><div><h1>التركيبات</h1><p>خانتان مستقلتان وباقي الأقسام لها روابط عرض شفافة؛ تعمل عند نجاح استقبال أحداث TikFinity.</p></div></div>
+  <div class="grid2 latestPanels">
+    <div class="panel latestPanel followPanel" id="followerWidgetCard">
+      <div class="panelHead"><b><span style="color:var(--cyan)">●</span> آخر متابع <span class="widgetBadge">مستقل</span></b><span id="latestFollowOn" class="switch on" role="switch" aria-label="إظهار آخر متابع" aria-checked="true" tabindex="0"></span></div>
+      <div class="panelBody">
+        <div class="widgetHint hint">عند وصول حدث متابعة من TikFinity يتغير الاسم والصورة فوراً، ويبقى آخر متابع ظاهراً إلى وصول متابعة أخرى.</div>
+        <div class="previewArea" aria-label="معاينة آخر متابع"><div class="miniPerson"><div class="fxPic" style="--a:#45dfff"><img id="previewFollowerAv" alt="صورة آخر متابع"></div><div class="miniText"><span>آخر متابع</span><b id="previewFollowerName">سارة</b></div></div></div>
+        <div class="widgetActions"><span id="followerWidgetStatus" class="widgetStatus">مفعّل</span><button id="testFollower" class="btn pink" type="button">تجربة آخر متابع</button></div>
+<div class="widgetLinks"><button class="btn small" id="openFollowOverlay" type="button">فتح عرض آخر متابع</button><button class="btn small" id="copyFollowOverlay" type="button">نسخ رابط العرض</button></div>
+      </div>
+    </div>
+    <div class="panel latestPanel tapPanel" id="tapperWidgetCard">
+      <div class="panelHead"><b><span style="color:var(--pink)">●</span> آخر مكبّس <span class="widgetBadge">مستقل</span></b><span id="latestTapOn" class="switch on" role="switch" aria-label="إظهار آخر مكبس" aria-checked="true" tabindex="0"></span></div>
+      <div class="panelBody">
+        <div class="widgetHint hint">يتحدث تلقائياً عند وصول حدث لايك من TikFinity، من دون أن يغيّر آخر متابع.</div>
+        <div class="previewArea" aria-label="معاينة آخر مكبس"><div class="miniPerson"><div class="fxPic" style="--a:#ff4aa4"><img id="previewTapAv" alt="صورة آخر مكبس"></div><div class="miniText"><span>آخر مكبس</span><b id="previewTapName">علي</b><small id="previewTapCount" class="hint" style="display:block;margin-top:5px">+32 تكبيس</small></div></div></div>
+        <div class="widgetActions"><span id="tapperWidgetStatus" class="widgetStatus">مفعّل</span><button id="testTapper" class="btn pink" type="button">تجربة آخر مكبس</button></div>
+<div class="widgetLinks"><button class="btn small" id="openTapOverlay" type="button">فتح عرض آخر مكبّس</button><button class="btn small" id="copyTapOverlay" type="button">نسخ رابط العرض</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel broadcastLinks" id="allBroadcastLinks">
+    <div class="panelHead"><b>روابط البث لجميع أقسام البرنامج</b><span class="hint">انسخ رابط HTTPS داخل TikTok LIVE Studio</span></div>
+    <div class="panelBody" id="broadcastLinksList">
+      <div class="linkWarn">ارفع ملف HTML على استضافة HTTPS أولاً. يجب أن يبقى TikFinity Desktop شغّالاً في نفس جهاز LIVE Studio. على Chrome أو Edge قد تحتاج السماح بالوصول إلى الشبكة المحلية.</div>
+    </div>
+  </div>
+</div>
+<div id="view-ranking" class="view"><div class="title"><div><h1>التصنيف</h1><p>اختر من مركز واحد إلى خمسة. المركز الأول يظهر بتاج وتأثيرات أقوى.</p></div><button id="demoRanking" class="btn pink">تجربة 5</button></div><div class="grid2"><div class="panel"><div class="panelHead"><b>إعداد التصنيف</b></div><div class="panelBody"><div class="setting"><label>عدد المراكز</label><select id="topCount"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div><div class="setting"><label>إظهار التصنيف في البث</label><span id="rankOn" class="switch on"></span></div></div></div><div class="panel"><div class="panelHead"><b>التصنيف الحالي</b></div><div class="panelBody"><div id="rankListControl" class="rankList"></div></div></div></div></div>
+<div id="view-actions" class="view"><div class="title"><div><h1>الإجراءات</h1><p>أليرت بسيط أعلى وسط الشاشة: الصورة فوق والاسم تحتها بدون بطاقة خلفية.</p></div><button id="testAction" class="btn pink">تجربة أليرت</button></div><div class="panel"><div class="panelHead"><b>اختر الإجراءات</b></div><div class="panelBody"><div class="actionRow"><div class="actionInfo"><b>انضمام شخص إلى البث</b><span>عند دخول شخص إلى LIVE يظهر اسمه وصورته.</span></div><input id="joinAlertText" class="field" value="دخل البث الآن"><span id="joinActionOn" class="switch on"></span></div><div class="actionRow"><div class="actionInfo"><b>الوصول إلى حد من التكبيسات</b><span>يظهر مرة واحدة لكل متابع عند وصوله للحد الذي تحدده.</span></div><div class="actionControls"><input id="tapThreshold" class="field number" type="number" min="1" step="1" value="100"><span class="hint">تكبيس</span></div><span id="tapActionOn" class="switch on"></span></div><div class="actionRow"><div class="actionInfo"><b>متابعة جديدة</b><span>إظهار صورة واسم الشخص الذي تابع الحساب.</span></div><span class="hint">أليرت المتابعة</span><span id="followActionOn" class="switch on"></span></div><div class="actionRow"><div class="actionInfo"><b>هدية جديدة</b><span>إظهار صورة واسم الداعم واسم الهدية عند انتهاء سلسلة الهدايا.</span></div><span class="hint">أليرت الهدايا</span><span id="giftActionOn" class="switch on"></span></div></div></div></div>
+<div id="view-tts" class="view"><div class="title"><div><h1>القارئ الصوتي</h1><p>حدد فقط من تسمح له أن تُقرأ تعليقاته.</p></div><button id="testTts" class="btn pink">تجربة قراءة</button></div><div class="grid2"><div class="panel"><div class="panelHead"><b>من يُقرأ تعليقه؟</b></div><div class="panelBody"><div class="setting"><label>تشغيل القارئ الصوتي</label><span id="ttsOn" class="switch"></span></div><div class="setting"><label class="checkLine"><input id="ttsMods" type="checkbox"> المشرفون</label></div><div class="setting"><label class="checkLine"><input id="ttsFollowers" type="checkbox"> المتابعون</label></div></div></div><div class="panel"><div class="panelHead"><b>يوزرات مميزة</b></div><div class="panelBody"><div class="hint">أي يوزر تضيفه هنا ستُقرأ تعليقاته حتى لو لم يكن ضمن الخيارات الأخرى.</div><div class="adder"><input id="ttsUserInput" class="field" placeholder="username"><button id="addTtsUser" class="btn pink">إضافة</button></div><div id="ttsUsers" class="chips"></div></div></div></div></div>
+<div id="view-music" class="view"><div class="title"><div><h1>مشغل الموسيقى</h1><p>تحكم بالأغاني من تعليقات TikTok للمشرفين أو يوزرات تختارها.</p></div><button id="addSongsBtn" class="btn pink">+ إضافة أغاني</button></div><div class="grid2"><div class="panel"><div class="panelHead"><b>السماح بالتحكم</b></div><div class="panelBody"><div class="setting"><label class="checkLine"><input id="musicMods" type="checkbox"> المشرفون</label></div><div class="setting"><label>مستوى الصوت الحالي</label><b id="musicVolumeLabel">100%</b></div><div class="hint">اليوزرات التي تضيفها هنا تستطيع استخدام أوامر الموسيقى أيضًا.</div><div class="adder"><input id="musicUserInput" class="field" placeholder="username"><button id="addMusicUser" class="btn pink">إضافة</button></div><div id="musicUsers" class="chips"></div><div class="commands"><div class="cmd"><code>!تشغيل اسم الأغنية</code><br>تشغيل أغنية بالاسم</div><div class="cmd"><code>!صوت5</code> أو <code>!صوت10</code><br>تغيير الصوت من 0 إلى 100</div><div class="cmd"><code>!تخطي</code><br>الانتقال للأغنية التالية</div><div class="cmd"><code>!ايقاف</code><br>إيقاف الأغنية</div><div class="cmd"><code>!ايقاف مؤقت</code><br>إيقاف مؤقت</div><div class="cmd"><code>!تشغيل</code><br>استكمال الأغنية الموقوفة مؤقتًا</div></div></div></div><div class="panel"><div class="panelHead"><b>الأغاني</b><span class="hint" id="songCount">0 أغنية</span></div><div class="panelBody"><div class="adder"><input class="field" type="url" id="remoteSongUrl" placeholder="رابط MP3 مباشر يبدأ بـ https://"><button class="btn small pink" id="addRemoteSong" type="button">إضافة رابط</button></div><div class="hint">للصوت في مصدر رابط LIVE Studio، أضف رابط صوت HTTPS مباشر؛ ملفات الجهاز المحلي قد لا تعمل داخل مصدر المتصفح.</div><div class="musicNow"><div><span>الآن</span><b id="musicNow">لا يوجد تشغيل</b></div><button id="testMusic" class="btn small">تشغيل أول أغنية</button></div><div id="songList" class="songList"></div></div></div></div></div>
+</section></main>
+<aside class="side"><div class="logo"><div class="logoMark">H</div></div><div class="menu"><button class="nav active" data-view="widgets"><i>▣</i>التركيبات</button><button class="nav" data-view="ranking"><i>👑</i>التصنيف</button><button class="nav" data-view="actions"><i>✦</i>الإجراءات</button><button class="nav" data-view="tts"><i>🔊</i>القارئ الصوتي</button><button class="nav" data-view="music"><i>♫</i>الموسيقى</button></div><div class="sideFoot"><span id="relayDot" class="dot bad"></span><b id="relayText">TikFinity غير متصل</b><div style="margin-top:4px">V33 · HTML واحد</div></div></aside>
+</div>
+<div id="overlayStage" class="overlayStage hidden"><div id="latestOverlay" class="latestOverlay"><div id="lastFollowerUnit" class="latestUnit"><div class="fxPic" style="--a:#45dfff"><img id="lastFollowerAv"></div><div class="latestCopy"><span>آخر متابع</span><b id="lastFollowerName">متابع</b></div></div><div id="lastTapUnit" class="latestUnit"><div class="fxPic" style="--a:#ff4aa4"><img id="lastTapAv"></div><div class="latestCopy"><span>آخر مكبس</span><b id="lastTapName">متابع</b><small id="lastTapCount"></small></div></div></div><div id="alertOverlay" class="alertOverlay"><div class="fxPic"><img id="alertAvatar"></div><h2 id="alertName">متابع</h2><p id="alertText"></p></div><div id="rankOverlay" class="rankOverlay"></div><div id="subtitle" class="subtitle"></div></div>
+<input id="songPicker" class="hidden" type="file" accept="audio/*" multiple>
+<div id="toast" class="toast"></div>
+<div id="tfDiagnostic" class="tfDiagnostic hidden" role="region" aria-label="فحص الاتصال بتيك فينتي">
+  <strong>فحص اتصال TikFinity</strong>
+  <div id="tfDiagnosticStatus" style="margin:8px 0">لم يبدأ الفحص بعد.</div>
+  <div class="tfChecks"><span>المصدر: <b id="tfPageOrigin">—</b></span><span>العنوان: <b id="tfEndpoint">ws://127.0.0.1:21213/</b></span><span>آخر حدث: <b id="tfLastEvent">لم يصل بعد</b></span></div>
+  <p id="tfTips">شغّل TikFinity Desktop ووصل بثك، ثم اضغط إعادة الفحص. إذا ظهر طلب صلاحية الشبكة المحلية من Chrome أو Edge، اختر سماح.</p>
+  <button class="btn pink" type="button" id="tfRetest">إعادة الفحص</button>
+  <button class="btn small" type="button" id="tfCopyReport">نسخ تقرير الفحص</button>
+</div>
+<div id="singleNote" role="status" style="background:#382532;border-bottom:1px solid #754154;color:#ffe2ed;padding:10px 20px;font-size:12px;line-height:1.65;font-weight:700;text-align:center">ربط مباشر مع TikFinity Desktop عبر المنفذ 21213. شغّل TikFinity واتصل بالبث أولاً؛ ظهور الأخضر يعني اتصال الأداة بـ TikFinity وليس إثباتاً أن بثك مباشر.</div>
+<div id="previewTools" class="hidden" style="position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:9px;align-items:center;justify-content:center;direction:rtl;z-index:100005;background:#1b1e28e8;border:1px solid #ffffff30;border-radius:15px;padding:12px;pointer-events:auto;box-shadow:0 12px 40px #0009">
+<button class="btn pink" id="pFollow">تجربة متابعة</button><button class="btn pink" id="pLike">تجربة تكبيس</button><button class="btn pink" id="pGift">تجربة هدية</button><button class="btn" id="pTts">تجربة صوت</button><button class="btn red" id="pClose">إغلاق المعاينة</button>
+</div>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id), $$=s=>[...document.querySelectorAll(s)], esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const cleanUser=s=>String(s||'').trim().replace(/^@/,'').toLowerCase(); const fmt=n=>new Intl.NumberFormat('en-US').format(Number(n)||0); const params=new URLSearchParams(location.search), overlayType=params.get('overlay')||'', overlayMode=!!overlayType; let previewMode=false; const ALL_URL=location.href.split('?')[0]+'?overlay=all';const FOLLOW_URL=location.href.split('?')[0]+'?overlay=follower',TAP_URL=location.href.split('?')[0]+'?overlay=tapper';
+function fallback(name){const ch=(name||'م').trim()[0]||'م';const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><defs><linearGradient id="g"><stop stop-color="#ff2b8f"/><stop offset="1" stop-color="#9d48ff"/></linearGradient></defs><rect width="140" height="140" rx="70" fill="url(#g)"/><text x="70" y="88" text-anchor="middle" font-family="Arial" font-size="60" fill="white">${ch}</text></svg>`;return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)}
+const DEF={username:'',latest:{follow:true,tap:true},ranking:{on:true,count:5},actions:{joinOn:true,joinText:'دخل البث الآن',tapOn:true,tapThreshold:100,followOn:true,giftOn:true},tts:{on:false,mods:true,followers:false,users:[]},music:{mods:true,users:[],volume:100,songs:[]}};
+let old={};try{old=JSON.parse(localStorage.getItem('tha_v25')||'{}')}catch{}let cfg;try{cfg=JSON.parse(localStorage.getItem('tha_simple_v31')||localStorage.getItem('tha_simple_v30')||localStorage.getItem('tha_simple_v29')||localStorage.getItem('tha_simple_v27')||localStorage.getItem('tha_simple_v26')||'null')}catch{};if(!cfg)cfg=structuredClone(DEF);cfg={...structuredClone(DEF),...cfg};cfg.latest={...DEF.latest,...(cfg.latest||{})};cfg.ranking={...DEF.ranking,...(cfg.ranking||{})};cfg.actions={...DEF.actions,...(cfg.actions||{})};cfg.tts={...DEF.tts,...(cfg.tts||{})};cfg.music={...DEF.music,...(cfg.music||{})};if(!cfg.username&&old.username)cfg.username=old.username;if(!Array.isArray(cfg.tts.users))cfg.tts.users=[];if(!Array.isArray(cfg.music.users))cfg.music.users=[];if(!Array.isArray(cfg.music.songs))cfg.music.songs=[];
+// Browser Source runs with its own storage; attach a safe settings snapshot to each broadcast URL.
+if(overlayMode){try{const snap=JSON.parse(params.get('settings')||'null');if(snap&&typeof snap==='object')for(const key of ['latest','ranking','actions','tts','music'])if(snap[key]&&typeof snap[key]==='object')cfg[key]={...cfg[key],...snap[key]}}catch{}}
+let cfgSyncTimer=0;async function syncCfg(){}const save=()=>{try{localStorage.setItem('tha_simple_v31',JSON.stringify(cfg))}catch{}};
+let socket=null,connected=false,reTimer=0,relayCursor=-1,relayTimer=0,serverRank=[],tappers=new Map(),latestFollower=null,latestTap=null,tapAlerted=new Set(),joinSeen=new Map(),musicState={index:-1,currentKey:'',paused:false,stopped:true}; let alertTimer=0,alertQueue=[],alertBusy=false,overlayAudio=null;
+function toast(t){const e=$('toast');if(!e)return;e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2200)}
+function nav(v){$$('.nav').forEach(n=>n.classList.toggle('active',n.dataset.view===v));$$('.view').forEach(x=>x.classList.remove('active'));$('view-'+v)?.classList.add('active')}$$('.nav').forEach(n=>n.onclick=()=>nav(n.dataset.view));
+function toggle(id,val,cb){const e=$(id);if(!e)return;e.classList.toggle('on',!!val);if(e.hasAttribute('aria-checked'))e.setAttribute('aria-checked',String(!!val));const activate=()=>{const n=!e.classList.contains('on');e.classList.toggle('on',n);if(e.hasAttribute('aria-checked'))e.setAttribute('aria-checked',String(n));cb(n)};e.onclick=activate;if(e.hasAttribute('tabindex'))e.onkeydown=ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();activate()}}}
+function setLive(c,t){if(!$('liveState'))return;$('liveState').className='state '+c;$('liveState').textContent=t;$('connectBtn').textContent=c==='ok'?'قطع الاتصال':(c==='wait'?'جاري الاتصال':'اتصال')}
+function mapUser(m){
+ m=(m&&typeof m==='object')?m:{};
+ const p=m.user&&typeof m.user==='object'?{...m,...m.user}:m;
+ const name=String(p.nickname||p.displayName||p.uniqueId||p.username||'متابع').slice(0,100);
+ const av=p.profilePictureUrl||p.profilePicture||p.avatar||p.avatarUrl||p.userDetails?.profilePictureUrls?.[0]||'';
+ // Do not let remote event data inject an executable/non-image URL into the DOM.
+ const avatar=typeof av==='string'&&/^(https?:\/\/|data:image\/(png|jpe?g|webp|gif);base64,)/i.test(av)?av:'';
+ return{name,id:cleanUser(p.uniqueId||p.username||p.userId||p.id||name),avatar,
+  moderator:!!(p.isModerator||p.moderator),follower:!!(p.isFollower||Number(p.followRole)>0||p.followRole===true||Number(p.followStatus)>0)};
+}
+// TikFinity Desktop Event API: local WebSocket; no CMD or private Node.js server.
+const TF_URLS=['ws://127.0.0.1:21213/','ws://localhost:21213/'];let currentTFIndex=0,lastTFError='لم يبدأ الاتصال';const TF_URL=TF_URLS[0];
+let shouldConnect=false,connecting=false,reconnectAttempt=0,liveSocket=null,manuallyStopped=false;
+let lastEventAt=0;
+const SNAP_KEY='tik_hamada_v31_live_snapshot';
+let relayChannel=null;
+try{if('BroadcastChannel' in window)relayChannel=new BroadcastChannel('tik_hamada_v31_events')}catch{}
+function wsUrl(){return TF_URLS[currentTFIndex]}
+function relayUi(ok){if($('relayDot'))$('relayDot').className='dot '+(ok?'ok':'bad');if($('relayText'))$('relayText').textContent=ok?'TikFinity متصل':'TikFinity غير متصل'}
+function setTFStatus(kind,msg){connected=kind==='ok';connecting=kind==='wait';relayUi(connected);setLive(kind,msg);lastTFError=msg;updateTFDiagnostic()}
+function getTFDiagnosis(){return connected?'WebSocket متصل (لا يعني أن TikTok LIVE بدأ)':(connecting?'جاري الاتصال: '+lastTFError:'لا يوجد اتصال: '+lastTFError)}
+function updateTFDiagnostic(){
+ const d=$('tfDiagnosticStatus');if(!d)return;
+ d.textContent=getTFDiagnosis();d.style.color=connected?'#62ebb0':connecting?'#ffe19a':'#ffa5a5';
+ const o=$('tfPageOrigin');if(o)o.textContent=location.protocol==='file:'?'ملف محلي file://':location.origin;
+ const a=$('tfEndpoint');if(a)a.textContent=wsUrl();
+ const e=$('tfLastEvent');if(e)e.textContent=lastEventAt?new Date(lastEventAt).toLocaleTimeString('ar-IQ'):'لم يصل حدث';
+ const tip=$('tfTips');if(tip)tip.textContent=connected?'الاتصال بـ TikFinity نجح. جرّب متابعة حقيقية للتأكد من استقبال الأحداث؛ ظهور العلامة الخضراء وحده لا يثبت استقبال متابعة.':location.protocol==='https:'?'هذه صفحة HTTPS؛ تأكد من السماح لهذا الموقع بالوصول للشبكة المحلية في إعدادات Chrome/Edge، وشغّل TikFinity Desktop على نفس الجهاز. قد لا يدعم مصدر المتصفح في LIVE Studio طلب الصلاحية.':'شغّل TikFinity Desktop، اتصل بالبث، وتأكد أن المنفذ المحلي 21213 متاح. إن فشل 127.0.0.1 سيحاول البرنامج localhost تلقائياً.';
+}
+
+function safeSnap(){try{let d=JSON.parse(localStorage.getItem(SNAP_KEY)||'null');if(d&&Date.now()-d.at<24*3600000){latestFollower=d.follower||null;latestTap=d.tapper||null;if(!overlayMode)refreshLatestCards();emitLatest()}}catch{}}
+function persistSnap(){try{localStorage.setItem(SNAP_KEY,JSON.stringify({at:Date.now(),follower:latestFollower,tapper:latestTap}))}catch{}}
+function relaySend(o){handleRelay(o);if(relayChannel&&(!connected||o.type==='config'||o.isDemo))try{relayChannel.postMessage({kind:'relay',value:o})}catch{};return true}
+if(relayChannel)relayChannel.onmessage=ev=>{const o=ev.data;if(o?.kind==='relay'&&(!connected||o.value?.isDemo||o.value?.type==='config'))handleRelay(o.value)};
+function scheduleTFReconnect(){clearTimeout(reTimer);if(!shouldConnect||manuallyStopped)return;reconnectAttempt++;
+ const delay=Math.min(12000,Math.round(1300*Math.pow(1.7,Math.min(5,reconnectAttempt-1))));
+ setTFStatus('wait','إعادة الاتصال…');reTimer=setTimeout(openTF,delay)
+}
+function acceptEvent(payload){
+ if(!payload||typeof payload!=='object')return;
+ const event=String(payload.event||payload.type||'').toLowerCase();
+ const d=(payload.data&&typeof payload.data==='object')?payload.data:payload;
+ const u=mapUser(d);const name=u.name;
+ if(!name||name==='متابع'&&!u.id)return;
+ lastEventAt=Date.now();updateTFDiagnostic();
+ switch(event){
+  case 'follow':onFollow(u);if(cfg.actions.followOn!==false)sendActionAlert(u,'بدأ متابعتك','follow');break;
+  case 'like':{
+    // TikFinity likeCount is the number in THIS event, not a life-time total.
+    const count=Math.max(1,Math.min(1000000,Number(d.likeCount??d.count??d.likes??1)||1));
+    onLike(u,count,Number(d.totalLikeCount||0));break;
+  }
+  case 'chat':onChat(u,String(d.comment||d.text||d.message||''));break;
+  case 'gift':{
+    if(cfg.actions.giftOn!==false){
+      const repeat=Number(d.repeatCount||1);
+      // Wait for a streak to end; don't display multiple alerts per single gift streak.
+      if(!d.giftType||Number(d.giftType)!==1||d.repeatEnd){
+       const g=String(d.giftName||d.gift?.name||'هدية').slice(0,80);
+       sendActionAlert(u,`أرسل ${g}${repeat>1?' × '+fmt(repeat):''}`,'gift')}
+    }break;
+  }
+  case 'member':case 'roomuser':onMember(u);break;
+ }
+}
+function handleTFMessage(message){let data;try{data=JSON.parse(message)}catch{return}if(Array.isArray(data)){data.forEach(acceptEvent);return}acceptEvent(data)}
+function openTF(){
+ if(!shouldConnect||manuallyStopped||liveSocket&&[WebSocket.OPEN,WebSocket.CONNECTING].includes(liveSocket.readyState))return;
+ if(!('WebSocket' in window)){setTFStatus('','المتصفح لا يدعم WebSocket');return}
+ setTFStatus('wait','جاري الاتصال…');
+ let ws;try{ws=new WebSocket(wsUrl())}catch(e){setTFStatus('','تعذّر فتح WebSocket: '+(e?.message||'مرفوض'));currentTFIndex=(currentTFIndex+1)%TF_URLS.length;scheduleTFReconnect();return}
+ liveSocket=ws;
+ const guard=setTimeout(()=>{if(ws.readyState===WebSocket.CONNECTING)try{ws.close()}catch{}},8000);
+ ws.onopen=()=>{clearTimeout(guard);if(ws!==liveSocket)return;reconnectAttempt=0;setTFStatus('ok','متصل بـ TikFinity');if(!overlayMode)toast('اتصلت بـ TikFinity. يجب أن يكون البث متصلاً داخل TikFinity.')};
+ ws.onmessage=ev=>{if(ws!==liveSocket)return;handleTFMessage(ev.data)};
+ ws.onerror=()=>{if(ws!==liveSocket)return;if(ws.readyState!==WebSocket.OPEN)setTFStatus('wait','الاتصال مرفوض أو TikFinity غير جاهز')};
+ ws.onclose=()=>{clearTimeout(guard);if(ws!==liveSocket)return;liveSocket=null;currentTFIndex=(currentTFIndex+1)%TF_URLS.length;setTFStatus('','انقطع الاتصال — جارٍ تجربة عنوان محلي آخر');scheduleTFReconnect()};
+}
+function stopTF(){manuallyStopped=true;shouldConnect=false;clearTimeout(reTimer);reconnectAttempt=0;const ws=liveSocket;liveSocket=null;if(ws)try{ws.close()}catch{};setTFStatus('','غير متصل')}
+function connectLive(){
+ const u=cleanUser($('username')?.value||cfg.username);
+ if(u){cfg.username=u;save()}
+ if(shouldConnect){stopTF();toast('تم قطع الاتصال بـ TikFinity');return}
+ manuallyStopped=false;shouldConnect=true;openTF();
+}
+function initSocket(){
+ relayUi(false);setTFStatus('','غير متصل');safeSnap();
+ // Sources in LIVE Studio must each connect to TikFinity independently.
+ if(overlayMode){shouldConnect=true;manuallyStopped=false;openTF();}
+ return true;
+}
+
+function handleRelay(o){if(o.type==="latest"){if(overlayMode||previewMode)renderLatestOverlay(o);latestFollower=o.follower||latestFollower;latestTap=o.tapper||latestTap;if(!overlayMode)refreshLatestCards()}if(o.type==="ranking"){serverRank=Array.isArray(o.list)?o.list:[];if(overlayMode||previewMode)renderRankOverlay(serverRank,o.on!==false);else renderRankControl(serverRank)}if(o.type==="actionAlert"){if((overlayMode&&['all','alerts','actions'].includes(overlayType))||previewMode)queueAlert(o);else showControlAlert(o.user||{},o.text||"")}if(o.type==="tts"&&((overlayMode&&['all','tts','voice'].includes(overlayType))||previewMode))speakOverlay(o.user,o.text);if(o.type==="music"&&((overlayMode&&['all','music'].includes(overlayType))||previewMode))musicOverlay(o)}
+function emitLatest(){relaySend({type:'latest',followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap})}
+function refreshLatestCards(){
+ const fc=$('followerWidgetCard'),tc=$('tapperWidgetCard');
+ if(fc){fc.classList.toggle('is-off',!cfg.latest.follow);$('followerWidgetStatus').textContent=cfg.latest.follow?'مفعّل':'متوقف'}
+ if(tc){tc.classList.toggle('is-off',!cfg.latest.tap);$('tapperWidgetStatus').textContent=cfg.latest.tap?'مفعّل':'متوقف'}
+ if(latestFollower){$('previewFollowerName').textContent=latestFollower.name||'متابع';$('previewFollowerAv').src=latestFollower.avatar||fallback(latestFollower.name)}
+ if(latestTap){$('previewTapName').textContent=latestTap.name||'متابع';$('previewTapAv').src=latestTap.avatar||fallback(latestTap.name);$('previewTapCount').textContent=latestTap.burst?`+${fmt(latestTap.burst)} تكبيس`:''}
+}
+function onFollow(user){latestFollower=user;refreshLatestCards();emitLatest();persistSnap()}
+function onLike(user,count,total){const key=user.id||user.name;const x=tappers.get(key)||{...user,likes:0};x.name=user.name||x.name;x.avatar=user.avatar||x.avatar;x.id=user.id||x.id;x.likes+=count;tappers.set(key,x);latestTap={...user,likes:x.likes,burst:count};refreshLatestCards();emitLatest();persistSnap();publishRanking();if(cfg.actions.tapOn&&x.likes>=Number(cfg.actions.tapThreshold||1)&&!tapAlerted.has(key)){tapAlerted.add(key);sendActionAlert(user,`وصل إلى ${fmt(cfg.actions.tapThreshold)} تكبيس`,'tap')}}
+function onMember(user){if(!cfg.actions.joinOn)return;const key=user.id||user.name,now=Date.now();if(now-(joinSeen.get(key)||0)<30000)return;joinSeen.set(key,now);sendActionAlert(user,cfg.actions.joinText||'دخل البث الآن','join')}
+function allowed(user,rules){const id=cleanUser(user.id||user.name);return !!((rules.mods&&user.moderator)||(rules.followers&&user.follower)||(rules.users||[]).map(cleanUser).includes(id))}
+function onChat(user,text){const isMusic=handleMusicCommand(user,text);if(!isMusic&&cfg.tts.on&&allowed(user,cfg.tts))relaySend({type:'tts',user,text})}
+function sendActionAlert(user,text,kind='join'){relaySend({type:'actionAlert',user,text,kind})}
+function showControlAlert(user,text){toast(`${user.name}: ${text}`)}
+function sortedRank(){return [...tappers.values()].sort((a,b)=>b.likes-a.likes).slice(0,Math.max(1,Math.min(5,Number(cfg.ranking.count)||5)))}
+function rankHtml(x,i,overlay=false){return `<div class="rankItem ${i===0?'first':''}"><span class="rankPos">${i+1}</span><span class="rankAvWrap"><img class="rankAv" src="${esc(x.avatar||fallback(x.name))}"></span><span class="rankName"><span class="crown">👑</span>${esc(x.name||'متابع')}</span><span class="rankCount">${fmt(x.likes)} 👆</span></div>`}
+function renderRankControl(list=null){const l=Array.isArray(list)?list:sortedRank();if($('rankListControl'))$('rankListControl').innerHTML=l.length?l.map((x,i)=>rankHtml(x,i)).join(''):'<div class="empty">لا توجد تكبيسات بعد</div>'}
+function publishRanking(){renderRankControl();relaySend({type:'ranking',on:cfg.ranking.on,list:sortedRank()})}
+function renderRankOverlay(list,on){const e=$('rankOverlay');if(!e)return;e.style.display=on?'grid':'none';e.innerHTML=list.map((x,i)=>rankHtml(x,i,true)).join('')}
+function renderLatestOverlay(o){const f=$('lastFollowerUnit'),t=$('lastTapUnit');const showF=overlayType!=='tapper'&&overlayType!=='tap'&&o.followOn!==false,showT=overlayType!=='follower'&&overlayType!=='follow'&&o.tapOn!==false;if(f){f.style.display=showF?'flex':'none';if(o.follower){$('lastFollowerAv').src=o.follower.avatar||fallback(o.follower.name);$('lastFollowerName').textContent=o.follower.name||'متابع';f.classList.add('show')}}if(t){t.style.display=showT?'flex':'none';if(o.tapper){$('lastTapAv').src=o.tapper.avatar||fallback(o.tapper.name);$('lastTapName').textContent=o.tapper.name||'متابع';$('lastTapCount').textContent=o.tapper.burst?`+${fmt(o.tapper.burst)} تكبيس`:'';t.classList.add('show')}}}
+function queueAlert(o){if(alertBusy){alertQueue.push(o);return}alertBusy=true;const b=$('alertOverlay');b.style.setProperty('--a',o.kind==='tap'?'#ffd166':'#ff3ca0');$('alertAvatar').src=o.user?.avatar||fallback(o.user?.name);$('alertName').textContent=o.user?.name||'متابع';$('alertText').textContent=o.text||'';b.classList.add('show');clearTimeout(alertTimer);alertTimer=setTimeout(()=>{b.classList.remove('show');alertBusy=false;if(alertQueue.length)setTimeout(()=>queueAlert(alertQueue.shift()),250)},4300)}
+function speakOverlay(user,text){if(!('speechSynthesis'in window))return;const u=new SpeechSynthesisUtterance(`${user?.name||'متابع'} يقول: ${text}`);u.lang='ar-IQ';u.rate=1;speechSynthesis.speak(u);const s=$('subtitle');if(s){s.textContent=`${user?.name||'متابع'}: ${text}`;s.classList.add('show');setTimeout(()=>s.classList.remove('show'),4000)}}
+function normalizeTitle(s){return String(s||'').toLowerCase().replace(/\.[^.]+$/,'').replace(/[ـ_\-]+/g,' ').replace(/\s+/g,' ').trim()}
+function findSong(q){q=normalizeTitle(q);if(!q)return null;return cfg.music.songs.find(s=>normalizeTitle(s.title)===q)||cfg.music.songs.find(s=>normalizeTitle(s.title).includes(q)||q.includes(normalizeTitle(s.title)))}
+function musicAllowed(user){return allowed(user,{mods:cfg.music.mods,followers:false,users:cfg.music.users})}
+function handleMusicCommand(user,raw){const text=String(raw||'').trim();if(!text.startsWith('!'))return false;let m;if((m=text.match(/^!صوت\s*(\d{1,3})$/))){if(!musicAllowed(user))return true;const v=Math.max(0,Math.min(100,Number(m[1])));cfg.music.volume=v;save();updateMusicUi();relaySend({type:'music',action:'volume',volume:v});return true}if(text==='!ايقاف مؤقت'||text==='!إيقاف مؤقت'){if(!musicAllowed(user))return true;musicState.paused=true;relaySend({type:'music',action:'pause'});updateMusicUi();return true}if(text==='!ايقاف'||text==='!إيقاف'){if(!musicAllowed(user))return true;musicState.paused=false;musicState.stopped=true;relaySend({type:'music',action:'stop'});updateMusicUi();return true}if(text==='!تخطي'){if(!musicAllowed(user))return true;playNext();return true}if((m=text.match(/^!تشغيل(?:\s*\+\s*(.+)|\s+(.+))?$/))){if(!musicAllowed(user))return true;const q=(m[1]||m[2]||'').trim();if(q){const song=findSong(q);if(song)playSong(song);else toast('لم أجد الأغنية: '+q)}else if(musicState.paused){musicState.paused=false;musicState.stopped=false;relaySend({type:'music',action:'resume',volume:cfg.music.volume});updateMusicUi()}else if(musicState.stopped&&musicState.currentKey){const s=cfg.music.songs.find(x=>x.key===musicState.currentKey);if(s)playSong(s)}else if(cfg.music.songs.length){playSong(cfg.music.songs[0])}return true}return false}
+function playSong(song){const i=cfg.music.songs.findIndex(x=>x.key===song.key);musicState={index:i,currentKey:song.key,paused:false,stopped:false};relaySend({type:'music',action:'play',song,volume:cfg.music.volume});updateMusicUi()}
+function playNext(){if(!cfg.music.songs.length)return;let i=musicState.index<0?0:(musicState.index+1)%cfg.music.songs.length;playSong(cfg.music.songs[i])}
+async function musicOverlay(o){if(!overlayAudio){overlayAudio=new Audio();overlayAudio.preload='auto';}if(o.action==='volume'){overlayAudio.volume=Math.max(0,Math.min(1,Number(o.volume)/100));return}if(o.action==='pause'){overlayAudio.pause();return}if(o.action==='resume'){overlayAudio.volume=Math.max(0,Math.min(1,Number(o.volume??cfg.music.volume)/100));overlayAudio.play().catch(()=>{});return}if(o.action==='stop'){overlayAudio.pause();try{overlayAudio.currentTime=0}catch{}return}if(o.action==='play'&&o.song?.key){try{
+ if(o.song.url&&o.song.url.startsWith('https://')){overlayAudio.pause();overlayAudio.src=o.song.url;overlayAudio.volume=Math.max(0,Math.min(1,Number(o.volume??100)/100));overlayAudio.play().catch(()=>toast('مصدر البث منع تشغيل الصوت؛ فعّل الصوت فيه'));return}
+ const blob=await getStoredSong(o.song.key);if(!blob){toast('الملف الصوتي غير متوفر. أعد إضافته.');return}overlayAudio.pause();if(overlayAudio._blobURL)URL.revokeObjectURL(overlayAudio._blobURL);overlayAudio._blobURL=URL.createObjectURL(blob);overlayAudio.src=overlayAudio._blobURL;overlayAudio.volume=Math.max(0,Math.min(1,Number(o.volume??100)/100));overlayAudio.play().catch(()=>toast('اضغط تشغيل مرة أخرى إذا منع المتصفح الصوت'))}catch{toast('تعذّر تشغيل هذا الصوت')}}}
+function mediaKey(){return 'song_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,9)}
+const fileCache=new Map();let mediaDB=null;function openMediaDB(){if(mediaDB)return mediaDB;mediaDB=new Promise(resolve=>{try{const q=indexedDB.open('tik_hamada_single_media_v29',1);q.onupgradeneeded=()=>{if(!q.result.objectStoreNames.contains('songs'))q.result.createObjectStore('songs')};q.onsuccess=()=>resolve(q.result);q.onerror=()=>resolve(null)}catch{resolve(null)}});return mediaDB}async function storeSong(key,file){fileCache.set(key,file);const db=await openMediaDB();if(db)try{await new Promise((res,rej)=>{const t=db.transaction('songs','readwrite');t.objectStore('songs').put(file,key);t.oncomplete=res;t.onerror=rej})}catch{}}async function getStoredSong(key){if(fileCache.has(key))return fileCache.get(key);const db=await openMediaDB();if(!db)return null;return new Promise(res=>{try{const r=db.transaction('songs','readonly').objectStore('songs').get(key);r.onsuccess=()=>res(r.result||null);r.onerror=()=>res(null)}catch{res(null)}})}async function deleteStoredSong(key){fileCache.delete(key);const db=await openMediaDB();if(db)try{db.transaction('songs','readwrite').objectStore('songs').delete(key)}catch{}}async function uploadSong(file){const key=mediaKey();await storeSong(key,file);return{key,name:file.name,title:normalizeTitle(file.name),type:file.type||'audio/mpeg',size:file.size}}
+function renderUsers(id,arr,removeCb){const e=$(id);if(!e)return;e.innerHTML=arr.length?arr.map((u,i)=>`<span class="chip">@${esc(u)} <button data-i="${i}">×</button></span>`).join(''):'<span class="hint">لا توجد يوزرات</span>';e.querySelectorAll('button').forEach(b=>b.onclick=()=>removeCb(Number(b.dataset.i)))}
+function renderSongs(){if($('songCount'))$('songCount').textContent=`${cfg.music.songs.length} أغنية`;const e=$('songList');if(!e)return;e.innerHTML=cfg.music.songs.length?cfg.music.songs.map((s,i)=>`<div class="song"><span>${i+1}. ${esc(s.title)}</span><button class="btn small red" data-i="${i}">حذف</button></div>`).join(''):'<div class="empty">أضف الأغاني التي تريد التحكم بها من التعليقات.</div>';e.querySelectorAll('button').forEach(b=>b.onclick=()=>{const i=Number(b.dataset.i),s=cfg.music.songs[i];if(s)deleteStoredSong(s.key);cfg.music.songs.splice(i,1);save();renderSongs()})}
+function updateMusicUi(){if($('musicVolumeLabel'))$('musicVolumeLabel').textContent=cfg.music.volume+'%';const s=cfg.music.songs.find(x=>x.key===musicState.currentKey);if($('musicNow'))$('musicNow').textContent=s?(musicState.paused?'موقوف مؤقتًا: ':musicState.stopped?'متوقف: ':'يعمل: ')+s.title:'لا يوجد تشغيل'}
+function initControls(){if(overlayMode)return;$('username').value=cfg.username||'';$('connectBtn').onclick=connectLive;$('username').onkeydown=e=>e.key==='Enter'&&connectLive();const dg=$('tfDiagnostic');$('diagnosticBtn').onclick=()=>{dg.classList.toggle('hidden');updateTFDiagnostic()};$('tfRetest').onclick=()=>{manuallyStopped=false;shouldConnect=true;clearTimeout(reTimer);if(liveSocket){try{liveSocket.close()}catch{}liveSocket=null}reconnectAttempt=0;openTF()};$('tfCopyReport').onclick=()=>{const report='Tik Hamada Overlay V32 | '+location.href+' | '+getTFDiagnosis()+' | origin: '+location.origin+' | last event: '+(lastEventAt?new Date(lastEventAt).toISOString():'none');navigator.clipboard?.writeText(report).then(()=>toast('تم نسخ التقرير')).catch(()=>toast('تعذّر النسخ'))};$('copyOverlay').onclick=()=>openPreview();
+const makeLiveUrl=(name)=>{
+ const link=new URL(location.href.split('?')[0]);link.searchParams.set('overlay',name);
+ const snap={latest:cfg.latest,ranking:cfg.ranking,actions:cfg.actions,tts:cfg.tts,music:{mods:cfg.music.mods,users:cfg.music.users,volume:cfg.music.volume,songs:cfg.music.songs.filter(x=>x.url)}};
+ link.searchParams.set('settings',JSON.stringify(snap));return link.href;
+};
+const openView=url=>window.open(url,'_blank','noopener,noreferrer');
+const copyView=async(url)=>{let ok=false;try{await navigator.clipboard.writeText(url);ok=true}catch{}
+ if(!ok){const t=document.createElement('textarea');t.value=url;t.style.cssText='position:fixed;top:-9999px;opacity:0';document.body.appendChild(t);t.focus();t.select();try{ok=document.execCommand('copy')}catch{}t.remove()}
+ toast(ok?'تم نسخ رابط العرض':'تعذّر النسخ تلقائياً؛ افتح العرض وانسخ رابطه من شريط العنوان')};
+$('openFollowOverlay').onclick=()=>openView(makeLiveUrl('follower'));
+$('copyFollowOverlay').onclick=()=>copyView(makeLiveUrl('follower'));
+$('openTapOverlay').onclick=()=>openView(makeLiveUrl('tapper'));
+$('copyTapOverlay').onclick=()=>copyView(makeLiveUrl('tapper'));
+$('openAllOverlay').onclick=()=>openView(makeLiveUrl('all'));
+
+const liveParts=[['all','العرض الكامل','كل المكونات في مصدر واحد'],['follower','آخر متابع','اسم وصورة المتابع'],['tapper','آخر مكبّس','تكبيسات مستقلة'],['ranking','التصنيف','أفضل 1 إلى 5'],['alerts','الأليرتات','المتابعة والهدايا والانضمام وحد التكبيس'],['tts','القارئ الصوتي','قراءة التعليقات المسموحة'],['music','مشغل الموسيقى','صوت مستقل للبث']];
+const linksTarget=$('broadcastLinksList');
+if(linksTarget){for(const [mode,title,desc] of liveParts){
+ const div=document.createElement('div');div.className='linkRow';div.innerHTML='<b>'+title+'</b><span>'+desc+'</span><div class="linkButtons"><button class="btn small copy">نسخ الرابط</button><button class="btn small open">معاينة</button></div>';
+ div.querySelector('.copy').onclick=()=>{if(location.protocol==='file:')toast('هذا ملف محلي. لاستخدام رابط LIVE Studio يجب نشره أولاً.');copyView(makeLiveUrl(mode))};
+ div.querySelector('.open').onclick=()=>openView(makeLiveUrl(mode));linksTarget.append(div)
+}}
+
+
+$('previewFollowerAv').src=fallback('س');$('previewTapAv').src=fallback('ع');toggle('latestFollowOn',cfg.latest.follow,v=>{cfg.latest.follow=v;save();refreshLatestCards();emitLatest()});toggle('latestTapOn',cfg.latest.tap,v=>{cfg.latest.tap=v;save();refreshLatestCards();emitLatest()});$('testFollower').onclick=()=>{onFollow({name:'سارة',id:'sara',avatar:fallback('س')});if(relayChannel)relayChannel.postMessage({kind:'relay',value:{type:'latest',isDemo:true,followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap}});toast('تم اختبار خانة آخر متابع فقط')};$('testTapper').onclick=()=>{latestTap={name:'علي',id:'ali',avatar:fallback('ع'),burst:32,likes:32};refreshLatestCards();emitLatest();persistSnap();if(relayChannel)relayChannel.postMessage({kind:'relay',value:{type:'latest',isDemo:true,followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap}});toast('تم اختبار خانة آخر مكبس فقط')};refreshLatestCards();
+$('topCount').value=String(cfg.ranking.count);$('topCount').onchange=e=>{cfg.ranking.count=Number(e.target.value);save();publishRanking()};toggle('rankOn',cfg.ranking.on,v=>{cfg.ranking.on=v;save();publishRanking()});$('demoRanking').onclick=()=>{[['علي','ali',1850],['سارة','sara',1320],['محمد','moh',920],['كرار','karrar',610],['نور','noor',440]].forEach(([name,id,likes])=>tappers.set(id,{name,id,likes,avatar:fallback(name)}));publishRanking()};renderRankControl();
+$('joinAlertText').value=cfg.actions.joinText;$('joinAlertText').onchange=e=>{cfg.actions.joinText=e.target.value||'دخل البث الآن';save()};toggle('joinActionOn',cfg.actions.joinOn,v=>{cfg.actions.joinOn=v;save()});$('tapThreshold').value=cfg.actions.tapThreshold;$('tapThreshold').onchange=e=>{cfg.actions.tapThreshold=Math.max(1,Number(e.target.value)||1);tapAlerted.clear();save()};toggle('tapActionOn',cfg.actions.tapOn,v=>{cfg.actions.tapOn=v;save()});$('testAction').onclick=()=>sendActionAlert({name:'متابع تجريبي',id:'demo',avatar:fallback('ح')},'وصل إلى الحد المطلوب','tap');
+toggle('followActionOn',cfg.actions.followOn!==false,v=>{cfg.actions.followOn=v;save()});toggle('giftActionOn',cfg.actions.giftOn!==false,v=>{cfg.actions.giftOn=v;save()});toggle('ttsOn',cfg.tts.on,v=>{cfg.tts.on=v;save()});$('ttsMods').checked=cfg.tts.mods;$('ttsFollowers').checked=cfg.tts.followers;$('ttsMods').onchange=e=>{cfg.tts.mods=e.target.checked;save()};$('ttsFollowers').onchange=e=>{cfg.tts.followers=e.target.checked;save()};function rt(){renderUsers('ttsUsers',cfg.tts.users,i=>{cfg.tts.users.splice(i,1);save();rt()})}rt();$('addTtsUser').onclick=()=>{const u=cleanUser($('ttsUserInput').value);if(u&&!cfg.tts.users.includes(u)){cfg.tts.users.push(u);save();rt()}$('ttsUserInput').value=''};$('testTts').onclick=()=>relaySend({type:'tts',user:{name:'حماده'},text:'هذا اختبار للقارئ الصوتي'});
+$('addRemoteSong').onclick=()=>{const x=String($('remoteSongUrl').value||'').trim();if(!x.startsWith('https://')){toast('أدخل رابط HTTPS مباشر للصوت');return}let name;try{name=decodeURIComponent(new URL(x).pathname.split('/').pop()||'أغنية')}catch{name='أغنية'}const song={key:mediaKey(),title:normalizeTitle(name),name,url:x};cfg.music.songs.push(song);save();renderSongs();$('remoteSongUrl').value='';toast('أُضيف رابط الصوت؛ انسخ رابط البث مجدداً')};
+$('musicMods').checked=cfg.music.mods;$('musicMods').onchange=e=>{cfg.music.mods=e.target.checked;save()};function rm(){renderUsers('musicUsers',cfg.music.users,i=>{cfg.music.users.splice(i,1);save();rm()})}rm();$('addMusicUser').onclick=()=>{const u=cleanUser($('musicUserInput').value);if(u&&!cfg.music.users.includes(u)){cfg.music.users.push(u);save();rm()}$('musicUserInput').value=''};$('addSongsBtn').onclick=()=>$('songPicker').click();$('songPicker').onchange=async e=>{const fs=[...(e.target.files||[])];for(const f of fs){try{toast('إضافة '+f.name);cfg.music.songs.push(await uploadSong(f));save();renderSongs()}catch{toast('فشل إضافة '+f.name)}}e.target.value=''};$('testMusic').onclick=()=>cfg.music.songs.length?playSong(cfg.music.songs[0]):toast('أضف أغنية أولًا');renderSongs();updateMusicUi()}
+function initOverlay(){if(!overlayMode)return;document.body.classList.add('overlayBody');if(['follower','follow'].includes(overlayType))document.body.classList.add('overlayOnlyFollower');if(['tapper','tap'].includes(overlayType))document.body.classList.add('overlayOnlyTap');
+if(overlayType==='ranking')document.body.classList.add('overlayOnlyRanking');
+if(['alerts','actions'].includes(overlayType))document.body.classList.add('overlayOnlyAlerts');
+if(['tts','voice'].includes(overlayType))document.body.classList.add('overlayOnlyVoice');
+if(overlayType==='music')document.body.classList.add('overlayOnlyMusic');$('app').classList.add('hidden');$('overlayStage').classList.remove('hidden');renderLatestOverlay({followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:null,tapper:null});renderRankOverlay([],!['follower','follow','tapper','tap'].includes(overlayType)&&cfg.ranking.on)}
+for(const [imageId,nameId] of [['previewFollowerAv','previewFollowerName'],['previewTapAv','previewTapName'],['lastFollowerAv','lastFollowerName'],['lastTapAv','lastTapName'],['alertAvatar','alertName']]){
+ const img=$(imageId);if(img)img.onerror=()=>{img.onerror=null;img.src=fallback($(nameId)?.textContent||'م')}
+}
+initControls();initOverlay();initSocket();updateTFDiagnostic();
+function openPreview(){previewMode=true;document.body.classList.add('previewActive');$('overlayStage').classList.remove('hidden');$('previewTools').classList.remove('hidden');renderLatestOverlay({followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap});renderRankOverlay(sortedRank(),cfg.ranking.on)}
+function closePreview(){previewMode=false;document.body.classList.remove('previewActive');$('overlayStage').classList.add('hidden');$('previewTools').classList.add('hidden');const a=$('alertOverlay');if(a)a.classList.remove('show');alertBusy=false;alertQueue=[];clearTimeout(alertTimer);if(window.speechSynthesis)window.speechSynthesis.cancel()}
+$('pClose').onclick=closePreview;$('pFollow').onclick=()=>{const u={name:'متابع تجريبي',id:'follower1',avatar:fallback('م')};onFollow(u);if(relayChannel)relayChannel.postMessage({kind:'relay',value:{type:'latest',isDemo:true,followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap}});sendActionAlert(u,'بدأ متابعتك','follow')};$('pLike').onclick=()=>{const u={name:'متابع متفاعل',id:'fan1',avatar:fallback('ع')};onLike(u,250,250);if(relayChannel)relayChannel.postMessage({kind:'relay',value:{type:'latest',isDemo:true,followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap}})};$('pGift').onclick=()=>sendActionAlert({name:'داعم البث',id:'support1',avatar:fallback('د')},'أرسل هدية وردة × 5','gift');$('pTts').onclick=()=>relaySend({type:'tts',user:{name:'حماده'},text:'هذه تجربة للقارئ الصوتي'});
+if(overlayMode){const x=$('singleNote');if(x)x.remove()}
+})();
+</script>
+</body></html>
