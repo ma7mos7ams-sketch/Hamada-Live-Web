@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Tik Hamada Overlay V33 — روابط جميع الأليرتات</title>
+<title>Tik Hamada Overlay V34 — الانبثاق ومؤقتات العرض</title>
 <style>
 :root{--bg:#17181e;--panel:#24262e;--panel2:#1e2027;--line:#3e414d;--text:#fff;--muted:#aeb2bd;--pink:#ff2b8f;--purple:#9d48ff;--cyan:#45dfff;--green:#35dfa1;--amber:#ffd166;--red:#ff637c;--shadow:0 18px 55px rgba(0,0,0,.28)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Segoe UI,Tahoma,Arial,sans-serif;color:var(--text);background:var(--bg)}button,input,select{font:inherit}.hidden{display:none!important}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:minmax(0,1fr) 170px;direction:ltr;background:radial-gradient(circle at 25% 0,rgba(255,43,143,.07),transparent 34%),radial-gradient(circle at 76% 82%,rgba(157,72,255,.07),transparent 35%),var(--bg)}
@@ -73,6 +73,49 @@ body.overlayBody.overlayOnlyVoice #subtitle {display:block!important}
 .broadcastLinks .linkButtons{display:flex;gap:6px;flex-wrap:wrap}.broadcastLinks .linkButtons button{flex:1}
 .broadcastLinks .linkWarn{grid-column:1/-1;color:#ffd9a0;font-size:12px;line-height:1.8}
 @media(max-width:670px){.broadcastLinks .panelBody{grid-template-columns:1fr}}
+
+
+/* V34 — independent animated follower/like announcements */
+.latestUnit{
+  min-height:100px; max-width:min(42vw,460px); padding:10px 20px 10px 14px;
+  border-radius:23px; border:1px solid rgba(255,255,255,.19);
+  background:linear-gradient(125deg,rgba(17,25,41,.94),rgba(26,24,39,.88));
+  box-shadow:0 14px 37px rgba(0,0,0,.56),inset 0 1px rgba(255,255,255,.13);
+  backdrop-filter:blur(9px); -webkit-backdrop-filter:blur(9px);
+  visibility:hidden; opacity:0; transform:translateY(18px) scale(.88);
+  transition:none; pointer-events:none; overflow:visible; will-change:transform,opacity,filter;
+}
+#lastFollowerUnit{--announce-color:#45dfff;border-color:rgba(69,223,255,.32)}
+#lastTapUnit{--announce-color:#ff4aa4;border-color:rgba(255,74,164,.34)}
+.latestUnit .latestCopy{min-width:0}
+.latestUnit .latestCopy b{font-size:clamp(17px,2vw,23px);overflow-wrap:anywhere;max-width:255px}
+.latestUnit .latestCopy span{color:var(--announce-color);font-weight:900;font-size:14px}
+.latestUnit.show{visibility:visible;opacity:1;transform:translateY(0) scale(1)}
+.latestUnit.popIn{animation:latestPopupIn .42s cubic-bezier(.2,1.28,.35,1) both}
+.latestUnit.popOut{animation:latestPopupOut .38s cubic-bezier(.45,0,.5,1) both}
+@keyframes latestPopupIn{
+  0%{opacity:0;filter:blur(7px);transform:translateY(32px) scale(.77)}
+  65%{opacity:1;filter:blur(0);transform:translateY(-5px) scale(1.04)}
+  100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1)}
+}
+@keyframes latestPopupOut{
+  0%{opacity:1;filter:blur(0);transform:translateY(0) scale(1)}
+  100%{opacity:0;filter:blur(5px);transform:translateY(-16px) scale(.86)}
+}
+.widgetSettings{display:grid;gap:10px;border-radius:13px;padding:13px;background:rgba(10,13,21,.37);border:1px solid rgba(255,255,255,.10)}
+.widgetSettings .settingTitle{font-size:11px;color:#cdd2e6;font-weight:900}
+.widgetSettings .field{width:100%;height:38px}
+.widgetTimeRow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.widgetTimeRow label{display:grid;gap:6px;font-size:11px;font-weight:800;color:#d9dce8}
+.widgetTimeRow .field{direction:ltr;text-align:center;font-variant-numeric:tabular-nums}
+.widgetSettings .settingHelp{color:#aeb2c6;font-size:10px;line-height:1.7}
+.latestPanel .miniText span{color:var(--cyan);font-size:12px;font-weight:800}
+.latestPanel.tapPanel .miniText span{color:#ff82bd}
+.latestPanel .miniPerson{background:rgba(16,21,32,.76);border-radius:19px;border:1px solid rgba(255,255,255,.12);min-width:min(92%,320px);padding:13px;box-shadow:0 12px 30px #0004}
+.latestPanel .miniPerson.demoIn{animation:latestPopupIn .42s cubic-bezier(.2,1.28,.35,1) both}
+.latestPanel .miniPerson.demoOut{animation:latestPopupOut .38s cubic-bezier(.45,0,.5,1) both}
+.latestPanel .miniPerson.demoHidden{opacity:0;visibility:hidden}
+@media(max-width:620px){.widgetTimeRow{grid-template-columns:1fr}.latestUnit{max-width:80vw;padding:8px 12px;gap:10px}.latestUnit .fxPic{width:63px;height:63px}.latestUnit .fxPic img{width:58px;height:58px}}
 </style>
 <style>
 .tfDiagnostic{position:fixed;left:24px;bottom:22px;z-index:20000;max-width:min(640px,calc(100vw - 48px));max-height:55vh;overflow:auto;padding:18px 20px;border:1px solid #657088;border-radius:17px;background:#131925;box-shadow:0 15px 45px #000a;color:#fff;direction:rtl;text-align:right;line-height:1.7;font-size:13px}
@@ -94,8 +137,20 @@ body.overlayBody.overlayOnlyVoice #subtitle {display:block!important}
     <div class="panel latestPanel followPanel" id="followerWidgetCard">
       <div class="panelHead"><b><span style="color:var(--cyan)">●</span> آخر متابع <span class="widgetBadge">مستقل</span></b><span id="latestFollowOn" class="switch on" role="switch" aria-label="إظهار آخر متابع" aria-checked="true" tabindex="0"></span></div>
       <div class="panelBody">
-        <div class="widgetHint hint">عند وصول حدث متابعة من TikFinity يتغير الاسم والصورة فوراً، ويبقى آخر متابع ظاهراً إلى وصول متابعة أخرى.</div>
-        <div class="previewArea" aria-label="معاينة آخر متابع"><div class="miniPerson"><div class="fxPic" style="--a:#45dfff"><img id="previewFollowerAv" alt="صورة آخر متابع"></div><div class="miniText"><span>آخر متابع</span><b id="previewFollowerName">سارة</b></div></div></div>
+        <div class="widgetHint hint">تظهر صورة واسم كل متابع بحركة انبثاق، ثم يختفيان بعد المدة المحددة. إذا وصلت متابعات متتالية تُعرض واحدة بعد الأخرى.</div>
+        <div class="previewArea" aria-label="معاينة آخر متابع"><div class="miniPerson"><div class="fxPic" style="--a:#45dfff"><img id="previewFollowerAv" alt="صورة آخر متابع"></div><div class="miniText"><span id="previewFollowerTitle">آخر متابع</span><b id="previewFollowerName">سارة</b></div></div></div>
+        
+        <div class="widgetSettings">
+          <label class="settingTitle" for="followTitleInput">النص الظاهر فوق اسم المتابع</label>
+          <input class="field" type="text" id="followTitleInput" maxlength="50" placeholder="آخر متابع" autocomplete="off">
+          <div class="widgetTimeRow">
+            <label for="followShowSec">مدة الظهور (ثوانٍ)
+              <input class="field" type="number" id="followShowSec" min="1" max="60" step="0.5" inputmode="decimal"></label>
+            <label for="followHideSec">مدة الاختفاء بين الأشخاص (ثوانٍ)
+              <input class="field" type="number" id="followHideSec" min="0" max="30" step="0.5" inputmode="decimal"></label>
+          </div>
+          <div class="settingHelp">كل متابعة تظهر لوحدها، ثم تختفي. 0 ثانية للاختفاء يعني الانتقال مباشرة للمتابع التالي بعد حركة الإغلاق.</div>
+        </div>
         <div class="widgetActions"><span id="followerWidgetStatus" class="widgetStatus">مفعّل</span><button id="testFollower" class="btn pink" type="button">تجربة آخر متابع</button></div>
 <div class="widgetLinks"><button class="btn small" id="openFollowOverlay" type="button">فتح عرض آخر متابع</button><button class="btn small" id="copyFollowOverlay" type="button">نسخ رابط العرض</button></div>
       </div>
@@ -103,8 +158,20 @@ body.overlayBody.overlayOnlyVoice #subtitle {display:block!important}
     <div class="panel latestPanel tapPanel" id="tapperWidgetCard">
       <div class="panelHead"><b><span style="color:var(--pink)">●</span> آخر مكبّس <span class="widgetBadge">مستقل</span></b><span id="latestTapOn" class="switch on" role="switch" aria-label="إظهار آخر مكبس" aria-checked="true" tabindex="0"></span></div>
       <div class="panelBody">
-        <div class="widgetHint hint">يتحدث تلقائياً عند وصول حدث لايك من TikFinity، من دون أن يغيّر آخر متابع.</div>
-        <div class="previewArea" aria-label="معاينة آخر مكبس"><div class="miniPerson"><div class="fxPic" style="--a:#ff4aa4"><img id="previewTapAv" alt="صورة آخر مكبس"></div><div class="miniText"><span>آخر مكبس</span><b id="previewTapName">علي</b><small id="previewTapCount" class="hint" style="display:block;margin-top:5px">+32 تكبيس</small></div></div></div>
+        <div class="widgetHint hint">تظهر صورة واسم المكبّس بحركة انبثاق ثم يختفيان. التكبيسات المتتالية من الشخص نفسه لا تكرر النافذة بلا توقف.</div>
+        <div class="previewArea" aria-label="معاينة آخر مكبس"><div class="miniPerson"><div class="fxPic" style="--a:#ff4aa4"><img id="previewTapAv" alt="صورة آخر مكبس"></div><div class="miniText"><span id="previewTapTitle">آخر مكبّس</span><b id="previewTapName">علي</b><small id="previewTapCount" class="hint" style="display:block;margin-top:5px">+32 تكبيس</small></div></div></div>
+        
+        <div class="widgetSettings">
+          <label class="settingTitle" for="tapTitleInput">النص الظاهر فوق اسم المكبّس</label>
+          <input class="field" type="text" id="tapTitleInput" maxlength="50" placeholder="آخر مكبّس" autocomplete="off">
+          <div class="widgetTimeRow">
+            <label for="tapShowSec">مدة الظهور (ثوانٍ)
+              <input class="field" type="number" id="tapShowSec" min="1" max="60" step="0.5" inputmode="decimal"></label>
+            <label for="tapHideSec">مدة الاختفاء بين الأشخاص (ثوانٍ)
+              <input class="field" type="number" id="tapHideSec" min="0" max="30" step="0.5" inputmode="decimal"></label>
+          </div>
+          <div class="settingHelp">لكل مكبّس ظهور مستقل؛ إذا كبّس الشخص نفسه عدة مرات يتم تحديث عدده ضمن ظهوره الحالي.</div>
+        </div>
         <div class="widgetActions"><span id="tapperWidgetStatus" class="widgetStatus">مفعّل</span><button id="testTapper" class="btn pink" type="button">تجربة آخر مكبس</button></div>
 <div class="widgetLinks"><button class="btn small" id="openTapOverlay" type="button">فتح عرض آخر مكبّس</button><button class="btn small" id="copyTapOverlay" type="button">نسخ رابط العرض</button></div>
       </div>
@@ -113,7 +180,7 @@ body.overlayBody.overlayOnlyVoice #subtitle {display:block!important}
   <div class="panel broadcastLinks" id="allBroadcastLinks">
     <div class="panelHead"><b>روابط البث لجميع أقسام البرنامج</b><span class="hint">انسخ رابط HTTPS داخل TikTok LIVE Studio</span></div>
     <div class="panelBody" id="broadcastLinksList">
-      <div class="linkWarn">ارفع ملف HTML على استضافة HTTPS أولاً. يجب أن يبقى TikFinity Desktop شغّالاً في نفس جهاز LIVE Studio. على Chrome أو Edge قد تحتاج السماح بالوصول إلى الشبكة المحلية.</div>
+      <div class="linkWarn">ارفع ملف HTML على استضافة HTTPS أولاً. شغّل TikFinity Desktop على نفس جهاز LIVE Studio. <b>بعد تغيير النص أو مدة الظهور/الاختفاء، انسخ الرابط مجدداً واستبدله داخل LIVE Studio</b> حتى تنتقل الإعدادات إلى مصدر المتصفح المستقل.</div>
     </div>
   </div>
 </div>
@@ -122,9 +189,9 @@ body.overlayBody.overlayOnlyVoice #subtitle {display:block!important}
 <div id="view-tts" class="view"><div class="title"><div><h1>القارئ الصوتي</h1><p>حدد فقط من تسمح له أن تُقرأ تعليقاته.</p></div><button id="testTts" class="btn pink">تجربة قراءة</button></div><div class="grid2"><div class="panel"><div class="panelHead"><b>من يُقرأ تعليقه؟</b></div><div class="panelBody"><div class="setting"><label>تشغيل القارئ الصوتي</label><span id="ttsOn" class="switch"></span></div><div class="setting"><label class="checkLine"><input id="ttsMods" type="checkbox"> المشرفون</label></div><div class="setting"><label class="checkLine"><input id="ttsFollowers" type="checkbox"> المتابعون</label></div></div></div><div class="panel"><div class="panelHead"><b>يوزرات مميزة</b></div><div class="panelBody"><div class="hint">أي يوزر تضيفه هنا ستُقرأ تعليقاته حتى لو لم يكن ضمن الخيارات الأخرى.</div><div class="adder"><input id="ttsUserInput" class="field" placeholder="username"><button id="addTtsUser" class="btn pink">إضافة</button></div><div id="ttsUsers" class="chips"></div></div></div></div></div>
 <div id="view-music" class="view"><div class="title"><div><h1>مشغل الموسيقى</h1><p>تحكم بالأغاني من تعليقات TikTok للمشرفين أو يوزرات تختارها.</p></div><button id="addSongsBtn" class="btn pink">+ إضافة أغاني</button></div><div class="grid2"><div class="panel"><div class="panelHead"><b>السماح بالتحكم</b></div><div class="panelBody"><div class="setting"><label class="checkLine"><input id="musicMods" type="checkbox"> المشرفون</label></div><div class="setting"><label>مستوى الصوت الحالي</label><b id="musicVolumeLabel">100%</b></div><div class="hint">اليوزرات التي تضيفها هنا تستطيع استخدام أوامر الموسيقى أيضًا.</div><div class="adder"><input id="musicUserInput" class="field" placeholder="username"><button id="addMusicUser" class="btn pink">إضافة</button></div><div id="musicUsers" class="chips"></div><div class="commands"><div class="cmd"><code>!تشغيل اسم الأغنية</code><br>تشغيل أغنية بالاسم</div><div class="cmd"><code>!صوت5</code> أو <code>!صوت10</code><br>تغيير الصوت من 0 إلى 100</div><div class="cmd"><code>!تخطي</code><br>الانتقال للأغنية التالية</div><div class="cmd"><code>!ايقاف</code><br>إيقاف الأغنية</div><div class="cmd"><code>!ايقاف مؤقت</code><br>إيقاف مؤقت</div><div class="cmd"><code>!تشغيل</code><br>استكمال الأغنية الموقوفة مؤقتًا</div></div></div></div><div class="panel"><div class="panelHead"><b>الأغاني</b><span class="hint" id="songCount">0 أغنية</span></div><div class="panelBody"><div class="adder"><input class="field" type="url" id="remoteSongUrl" placeholder="رابط MP3 مباشر يبدأ بـ https://"><button class="btn small pink" id="addRemoteSong" type="button">إضافة رابط</button></div><div class="hint">للصوت في مصدر رابط LIVE Studio، أضف رابط صوت HTTPS مباشر؛ ملفات الجهاز المحلي قد لا تعمل داخل مصدر المتصفح.</div><div class="musicNow"><div><span>الآن</span><b id="musicNow">لا يوجد تشغيل</b></div><button id="testMusic" class="btn small">تشغيل أول أغنية</button></div><div id="songList" class="songList"></div></div></div></div></div>
 </section></main>
-<aside class="side"><div class="logo"><div class="logoMark">H</div></div><div class="menu"><button class="nav active" data-view="widgets"><i>▣</i>التركيبات</button><button class="nav" data-view="ranking"><i>👑</i>التصنيف</button><button class="nav" data-view="actions"><i>✦</i>الإجراءات</button><button class="nav" data-view="tts"><i>🔊</i>القارئ الصوتي</button><button class="nav" data-view="music"><i>♫</i>الموسيقى</button></div><div class="sideFoot"><span id="relayDot" class="dot bad"></span><b id="relayText">TikFinity غير متصل</b><div style="margin-top:4px">V33 · HTML واحد</div></div></aside>
+<aside class="side"><div class="logo"><div class="logoMark">H</div></div><div class="menu"><button class="nav active" data-view="widgets"><i>▣</i>التركيبات</button><button class="nav" data-view="ranking"><i>👑</i>التصنيف</button><button class="nav" data-view="actions"><i>✦</i>الإجراءات</button><button class="nav" data-view="tts"><i>🔊</i>القارئ الصوتي</button><button class="nav" data-view="music"><i>♫</i>الموسيقى</button></div><div class="sideFoot"><span id="relayDot" class="dot bad"></span><b id="relayText">TikFinity غير متصل</b><div style="margin-top:4px">V34 · HTML واحد</div></div></aside>
 </div>
-<div id="overlayStage" class="overlayStage hidden"><div id="latestOverlay" class="latestOverlay"><div id="lastFollowerUnit" class="latestUnit"><div class="fxPic" style="--a:#45dfff"><img id="lastFollowerAv"></div><div class="latestCopy"><span>آخر متابع</span><b id="lastFollowerName">متابع</b></div></div><div id="lastTapUnit" class="latestUnit"><div class="fxPic" style="--a:#ff4aa4"><img id="lastTapAv"></div><div class="latestCopy"><span>آخر مكبس</span><b id="lastTapName">متابع</b><small id="lastTapCount"></small></div></div></div><div id="alertOverlay" class="alertOverlay"><div class="fxPic"><img id="alertAvatar"></div><h2 id="alertName">متابع</h2><p id="alertText"></p></div><div id="rankOverlay" class="rankOverlay"></div><div id="subtitle" class="subtitle"></div></div>
+<div id="overlayStage" class="overlayStage hidden"><div id="latestOverlay" class="latestOverlay"><div id="lastFollowerUnit" class="latestUnit"><div class="fxPic" style="--a:#45dfff"><img id="lastFollowerAv"></div><div class="latestCopy"><span id="lastFollowerTitle">آخر متابع</span><b id="lastFollowerName">متابع</b></div></div><div id="lastTapUnit" class="latestUnit"><div class="fxPic" style="--a:#ff4aa4"><img id="lastTapAv"></div><div class="latestCopy"><span id="lastTapTitle">آخر مكبّس</span><b id="lastTapName">متابع</b><small id="lastTapCount"></small></div></div></div><div id="alertOverlay" class="alertOverlay"><div class="fxPic"><img id="alertAvatar"></div><h2 id="alertName">متابع</h2><p id="alertText"></p></div><div id="rankOverlay" class="rankOverlay"></div><div id="subtitle" class="subtitle"></div></div>
 <input id="songPicker" class="hidden" type="file" accept="audio/*" multiple>
 <div id="toast" class="toast"></div>
 <div id="tfDiagnostic" class="tfDiagnostic hidden" role="region" aria-label="فحص الاتصال بتيك فينتي">
@@ -144,11 +211,14 @@ body.overlayBody.overlayOnlyVoice #subtitle {display:block!important}
 const $=id=>document.getElementById(id), $$=s=>[...document.querySelectorAll(s)], esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const cleanUser=s=>String(s||'').trim().replace(/^@/,'').toLowerCase(); const fmt=n=>new Intl.NumberFormat('en-US').format(Number(n)||0); const params=new URLSearchParams(location.search), overlayType=params.get('overlay')||'', overlayMode=!!overlayType; let previewMode=false; const ALL_URL=location.href.split('?')[0]+'?overlay=all';const FOLLOW_URL=location.href.split('?')[0]+'?overlay=follower',TAP_URL=location.href.split('?')[0]+'?overlay=tapper';
 function fallback(name){const ch=(name||'م').trim()[0]||'م';const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140"><defs><linearGradient id="g"><stop stop-color="#ff2b8f"/><stop offset="1" stop-color="#9d48ff"/></linearGradient></defs><rect width="140" height="140" rx="70" fill="url(#g)"/><text x="70" y="88" text-anchor="middle" font-family="Arial" font-size="60" fill="white">${ch}</text></svg>`;return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)}
-const DEF={username:'',latest:{follow:true,tap:true},ranking:{on:true,count:5},actions:{joinOn:true,joinText:'دخل البث الآن',tapOn:true,tapThreshold:100,followOn:true,giftOn:true},tts:{on:false,mods:true,followers:false,users:[]},music:{mods:true,users:[],volume:100,songs:[]}};
+const DEF={username:'',latest:{follow:true,tap:true,followTitle:'آخر متابع',tapTitle:'آخر مكبّس',followShowSec:5,followHideSec:1,tapShowSec:5,tapHideSec:1},ranking:{on:true,count:5},actions:{joinOn:true,joinText:'دخل البث الآن',tapOn:true,tapThreshold:100,followOn:true,giftOn:true},tts:{on:false,mods:true,followers:false,users:[]},music:{mods:true,users:[],volume:100,songs:[]}};
 let old={};try{old=JSON.parse(localStorage.getItem('tha_v25')||'{}')}catch{}let cfg;try{cfg=JSON.parse(localStorage.getItem('tha_simple_v31')||localStorage.getItem('tha_simple_v30')||localStorage.getItem('tha_simple_v29')||localStorage.getItem('tha_simple_v27')||localStorage.getItem('tha_simple_v26')||'null')}catch{};if(!cfg)cfg=structuredClone(DEF);cfg={...structuredClone(DEF),...cfg};cfg.latest={...DEF.latest,...(cfg.latest||{})};cfg.ranking={...DEF.ranking,...(cfg.ranking||{})};cfg.actions={...DEF.actions,...(cfg.actions||{})};cfg.tts={...DEF.tts,...(cfg.tts||{})};cfg.music={...DEF.music,...(cfg.music||{})};if(!cfg.username&&old.username)cfg.username=old.username;if(!Array.isArray(cfg.tts.users))cfg.tts.users=[];if(!Array.isArray(cfg.music.users))cfg.music.users=[];if(!Array.isArray(cfg.music.songs))cfg.music.songs=[];
 // Browser Source runs with its own storage; attach a safe settings snapshot to each broadcast URL.
 if(overlayMode){try{const snap=JSON.parse(params.get('settings')||'null');if(snap&&typeof snap==='object')for(const key of ['latest','ranking','actions','tts','music'])if(snap[key]&&typeof snap[key]==='object')cfg[key]={...cfg[key],...snap[key]}}catch{}}
 let cfgSyncTimer=0;async function syncCfg(){}const save=()=>{try{localStorage.setItem('tha_simple_v31',JSON.stringify(cfg))}catch{}};
+// Protect controls and URL-snapshots from invalid or excessively large durations.
+const clampSec=(v,min,max,def)=>{const n=Number(v);return Number.isFinite(n)?Math.max(min,Math.min(max,Math.round(n*2)/2)):def};
+for(const kind of ['follow','tap']){cfg.latest[kind+'Title']=String(cfg.latest[kind+'Title']||DEF.latest[kind+'Title']).trim().slice(0,50);cfg.latest[kind+'ShowSec']=clampSec(cfg.latest[kind+'ShowSec'],1,60,5);cfg.latest[kind+'HideSec']=clampSec(cfg.latest[kind+'HideSec'],0,30,1)}
 let socket=null,connected=false,reTimer=0,relayCursor=-1,relayTimer=0,serverRank=[],tappers=new Map(),latestFollower=null,latestTap=null,tapAlerted=new Set(),joinSeen=new Map(),musicState={index:-1,currentKey:'',paused:false,stopped:true}; let alertTimer=0,alertQueue=[],alertBusy=false,overlayAudio=null;
 function toast(t){const e=$('toast');if(!e)return;e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2200)}
 function nav(v){$$('.nav').forEach(n=>n.classList.toggle('active',n.dataset.view===v));$$('.view').forEach(x=>x.classList.remove('active'));$('view-'+v)?.classList.add('active')}$$('.nav').forEach(n=>n.onclick=()=>nav(n.dataset.view));
@@ -247,16 +317,18 @@ function initSocket(){
 }
 
 function handleRelay(o){if(o.type==="latest"){if(overlayMode||previewMode)renderLatestOverlay(o);latestFollower=o.follower||latestFollower;latestTap=o.tapper||latestTap;if(!overlayMode)refreshLatestCards()}if(o.type==="ranking"){serverRank=Array.isArray(o.list)?o.list:[];if(overlayMode||previewMode)renderRankOverlay(serverRank,o.on!==false);else renderRankControl(serverRank)}if(o.type==="actionAlert"){if((overlayMode&&['all','alerts','actions'].includes(overlayType))||previewMode)queueAlert(o);else if(!overlayMode)showControlAlert(o.user||{},o.text||"")}if(o.type==="tts"&&((overlayMode&&['all','tts','voice'].includes(overlayType))||previewMode))speakOverlay(o.user,o.text);if(o.type==="music"&&((overlayMode&&['all','music'].includes(overlayType))||previewMode))musicOverlay(o)}
-function emitLatest(){relaySend({type:'latest',followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap})}
+function emitLatest(eventKind='',isDemo=false){relaySend({type:'latest',eventKind,isDemo,followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap})}
 function refreshLatestCards(){
- const fc=$('followerWidgetCard'),tc=$('tapperWidgetCard');
+  if($('previewFollowerTitle'))$('previewFollowerTitle').textContent=cfg.latest.followTitle;
+  if($('previewTapTitle'))$('previewTapTitle').textContent=cfg.latest.tapTitle;
+  const fc=$('followerWidgetCard'),tc=$('tapperWidgetCard');
  if(fc){fc.classList.toggle('is-off',!cfg.latest.follow);$('followerWidgetStatus').textContent=cfg.latest.follow?'مفعّل':'متوقف'}
  if(tc){tc.classList.toggle('is-off',!cfg.latest.tap);$('tapperWidgetStatus').textContent=cfg.latest.tap?'مفعّل':'متوقف'}
  if(latestFollower){$('previewFollowerName').textContent=latestFollower.name||'متابع';$('previewFollowerAv').src=latestFollower.avatar||fallback(latestFollower.name)}
  if(latestTap){$('previewTapName').textContent=latestTap.name||'متابع';$('previewTapAv').src=latestTap.avatar||fallback(latestTap.name);$('previewTapCount').textContent=latestTap.burst?`+${fmt(latestTap.burst)} تكبيس`:''}
 }
-function onFollow(user){latestFollower=user;refreshLatestCards();emitLatest();persistSnap()}
-function onLike(user,count,total){const key=user.id||user.name;const x=tappers.get(key)||{...user,likes:0};x.name=user.name||x.name;x.avatar=user.avatar||x.avatar;x.id=user.id||x.id;x.likes+=count;tappers.set(key,x);latestTap={...user,likes:x.likes,burst:count};refreshLatestCards();emitLatest();persistSnap();publishRanking();if(cfg.actions.tapOn&&x.likes>=Number(cfg.actions.tapThreshold||1)&&!tapAlerted.has(key)){tapAlerted.add(key);sendActionAlert(user,`وصل إلى ${fmt(cfg.actions.tapThreshold)} تكبيس`,'tap')}}
+function onFollow(user,isDemo=false){latestFollower=user;refreshLatestCards();emitLatest('follower',isDemo);persistSnap()}
+function onLike(user,count,total,isDemo=false){const key=user.id||user.name;const x=tappers.get(key)||{...user,likes:0};x.name=user.name||x.name;x.avatar=user.avatar||x.avatar;x.id=user.id||x.id;x.likes+=count;tappers.set(key,x);latestTap={...user,likes:x.likes,burst:count};refreshLatestCards();emitLatest('tapper',isDemo);persistSnap();publishRanking();if(cfg.actions.tapOn&&x.likes>=Number(cfg.actions.tapThreshold||1)&&!tapAlerted.has(key)){tapAlerted.add(key);sendActionAlert(user,`وصل إلى ${fmt(cfg.actions.tapThreshold)} تكبيس`,'tap')}}
 function onMember(user){if(!cfg.actions.joinOn)return;const key=user.id||user.name,now=Date.now();if(now-(joinSeen.get(key)||0)<30000)return;joinSeen.set(key,now);sendActionAlert(user,cfg.actions.joinText||'دخل البث الآن','join')}
 function allowed(user,rules){const id=cleanUser(user.id||user.name);return !!((rules.mods&&user.moderator)||(rules.followers&&user.follower)||(rules.users||[]).map(cleanUser).includes(id))}
 function onChat(user,text){const isMusic=handleMusicCommand(user,text);if(!isMusic&&cfg.tts.on&&allowed(user,cfg.tts))relaySend({type:'tts',user,text})}
@@ -267,7 +339,64 @@ function rankHtml(x,i,overlay=false){return `<div class="rankItem ${i===0?'first
 function renderRankControl(list=null){const l=Array.isArray(list)?list:sortedRank();if($('rankListControl'))$('rankListControl').innerHTML=l.length?l.map((x,i)=>rankHtml(x,i)).join(''):'<div class="empty">لا توجد تكبيسات بعد</div>'}
 function publishRanking(){renderRankControl();relaySend({type:'ranking',on:cfg.ranking.on,list:sortedRank()})}
 function renderRankOverlay(list,on){const e=$('rankOverlay');if(!e)return;e.style.display=on?'grid':'none';e.innerHTML=list.map((x,i)=>rankHtml(x,i,true)).join('')}
-function renderLatestOverlay(o){const f=$('lastFollowerUnit'),t=$('lastTapUnit');const showF=overlayType!=='tapper'&&overlayType!=='tap'&&o.followOn!==false,showT=overlayType!=='follower'&&overlayType!=='follow'&&o.tapOn!==false;if(f){f.style.display=showF?'flex':'none';if(o.follower){$('lastFollowerAv').src=o.follower.avatar||fallback(o.follower.name);$('lastFollowerName').textContent=o.follower.name||'متابع';f.classList.add('show')}}if(t){t.style.display=showT?'flex':'none';if(o.tapper){$('lastTapAv').src=o.tapper.avatar||fallback(o.tapper.name);$('lastTapName').textContent=o.tapper.name||'متابع';$('lastTapCount').textContent=o.tapper.burst?`+${fmt(o.tapper.burst)} تكبيس`:'';t.classList.add('show')}}}
+// V34 independent popup queues. Never replay old snapshots as new alerts.
+const latestStates={
+  follower:{queue:[],phase:'idle',timer:0,current:null},
+  tapper:{queue:[],phase:'idle',timer:0,current:null}
+};
+function setLatestContent(kind,user){
+  const follow=kind==='follower';
+  const id=follow?'lastFollower':'lastTap';
+  $(id+'Av').src=user.avatar||fallback(user.name);
+  $(id+'Name').textContent=user.name||'متابع';
+  if(!follow)$('lastTapCount').textContent=user.burst?`+${fmt(user.burst)} تكبيس`:'';
+}
+function resetLatest(kind){
+  const st=latestStates[kind];clearTimeout(st.timer);st.queue.length=0;st.phase='idle';st.current=null;
+  const unit=$(kind==='follower'?'lastFollowerUnit':'lastTapUnit');
+  if(unit){unit.classList.remove('show','popIn','popOut');}
+}
+function nextLatest(kind){
+  const st=latestStates[kind];if(st.phase!=='idle'||!cfg.latest[kind==='follower'?'follow':'tap'])return;
+  const item=st.queue.shift();if(!item)return;
+  st.current=item;st.phase='visible';setLatestContent(kind,item);
+  const unit=$(kind==='follower'?'lastFollowerUnit':'lastTapUnit');if(!unit)return;
+  unit.classList.remove('show','popIn','popOut');void unit.offsetWidth;unit.classList.add('show','popIn');
+  const p=kind==='follower'?'follow':'tap';
+  st.timer=setTimeout(()=>{
+    if(st.phase!=='visible')return;
+    st.phase='closing';unit.classList.remove('popIn');unit.classList.add('popOut');
+    st.timer=setTimeout(()=>{
+      unit.classList.remove('show','popOut');st.current=null;st.phase='gap';
+      st.timer=setTimeout(()=>{st.phase='idle';nextLatest(kind)},clampSec(cfg.latest[p+'HideSec'],0,30,1)*1000);
+    },390);
+  },clampSec(cfg.latest[p+'ShowSec'],1,60,5)*1000+420);
+}
+function pushLatest(kind,user){
+  if(!user||!cfg.latest[kind==='follower'?'follow':'tap'])return;
+  const st=latestStates[kind];
+  // Repeated like packets for the same current person update the displayed count,
+  // instead of producing dozens of duplicate popup cards.
+  if(kind==='tapper'&&st.phase==='visible'&&st.current?.id===user.id){
+    st.current=user;setLatestContent(kind,user);return;
+  }
+  if(kind==='tapper'&&st.queue.length&&st.queue[st.queue.length-1].id===user.id){st.queue[st.queue.length-1]=user;return}
+  st.queue.push({...user});
+  if(st.queue.length>40)st.queue.shift(); // prevent infinite backlog during a large stream
+  nextLatest(kind);
+}
+function renderLatestOverlay(o){
+  const f=$('lastFollowerUnit'),t=$('lastTapUnit');
+  const showF=overlayType!=='tapper'&&overlayType!=='tap'&&o.followOn!==false;
+  const showT=overlayType!=='follower'&&overlayType!=='follow'&&o.tapOn!==false;
+  $('lastFollowerTitle').textContent=cfg.latest.followTitle;
+  $('lastTapTitle').textContent=cfg.latest.tapTitle;
+  f.style.display=showF?'flex':'none';t.style.display=showT?'flex':'none';
+  if(!showF)resetLatest('follower');
+  if(!showT)resetLatest('tapper');
+  if(o.eventKind==='follower'&&showF)pushLatest('follower',o.follower);
+  if(o.eventKind==='tapper'&&showT)pushLatest('tapper',o.tapper);
+}
 function queueAlert(o){if(alertBusy){alertQueue.push(o);return}alertBusy=true;const b=$('alertOverlay');b.style.setProperty('--a',o.kind==='tap'?'#ffd166':'#ff3ca0');$('alertAvatar').src=o.user?.avatar||fallback(o.user?.name);$('alertName').textContent=o.user?.name||'متابع';$('alertText').textContent=o.text||'';b.classList.add('show');clearTimeout(alertTimer);alertTimer=setTimeout(()=>{b.classList.remove('show');alertBusy=false;if(alertQueue.length)setTimeout(()=>queueAlert(alertQueue.shift()),250)},4300)}
 function speakOverlay(user,text){if(!('speechSynthesis'in window))return;const u=new SpeechSynthesisUtterance(`${user?.name||'متابع'} يقول: ${text}`);u.lang='ar-IQ';u.rate=1;speechSynthesis.speak(u);const s=$('subtitle');if(s){s.textContent=`${user?.name||'متابع'}: ${text}`;s.classList.add('show');setTimeout(()=>s.classList.remove('show'),4000)}}
 function normalizeTitle(s){return String(s||'').toLowerCase().replace(/\.[^.]+$/,'').replace(/[ـ_\-]+/g,' ').replace(/\s+/g,' ').trim()}
@@ -284,7 +413,7 @@ const fileCache=new Map();let mediaDB=null;function openMediaDB(){if(mediaDB)ret
 function renderUsers(id,arr,removeCb){const e=$(id);if(!e)return;e.innerHTML=arr.length?arr.map((u,i)=>`<span class="chip">@${esc(u)} <button data-i="${i}">×</button></span>`).join(''):'<span class="hint">لا توجد يوزرات</span>';e.querySelectorAll('button').forEach(b=>b.onclick=()=>removeCb(Number(b.dataset.i)))}
 function renderSongs(){if($('songCount'))$('songCount').textContent=`${cfg.music.songs.length} أغنية`;const e=$('songList');if(!e)return;e.innerHTML=cfg.music.songs.length?cfg.music.songs.map((s,i)=>`<div class="song"><span>${i+1}. ${esc(s.title)}</span><button class="btn small red" data-i="${i}">حذف</button></div>`).join(''):'<div class="empty">أضف الأغاني التي تريد التحكم بها من التعليقات.</div>';e.querySelectorAll('button').forEach(b=>b.onclick=()=>{const i=Number(b.dataset.i),s=cfg.music.songs[i];if(s)deleteStoredSong(s.key);cfg.music.songs.splice(i,1);save();renderSongs()})}
 function updateMusicUi(){if($('musicVolumeLabel'))$('musicVolumeLabel').textContent=cfg.music.volume+'%';const s=cfg.music.songs.find(x=>x.key===musicState.currentKey);if($('musicNow'))$('musicNow').textContent=s?(musicState.paused?'موقوف مؤقتًا: ':musicState.stopped?'متوقف: ':'يعمل: ')+s.title:'لا يوجد تشغيل'}
-function initControls(){if(overlayMode)return;$('username').value=cfg.username||'';$('connectBtn').onclick=connectLive;$('username').onkeydown=e=>e.key==='Enter'&&connectLive();const dg=$('tfDiagnostic');$('diagnosticBtn').onclick=()=>{dg.classList.toggle('hidden');updateTFDiagnostic()};$('tfRetest').onclick=()=>{manuallyStopped=false;shouldConnect=true;clearTimeout(reTimer);if(liveSocket){try{liveSocket.close()}catch{}liveSocket=null}reconnectAttempt=0;openTF()};$('tfCopyReport').onclick=()=>{const report='Tik Hamada Overlay V32 | '+location.href+' | '+getTFDiagnosis()+' | origin: '+location.origin+' | last event: '+(lastEventAt?new Date(lastEventAt).toISOString():'none');navigator.clipboard?.writeText(report).then(()=>toast('تم نسخ التقرير')).catch(()=>toast('تعذّر النسخ'))};$('copyOverlay').onclick=()=>openPreview();
+function initControls(){if(overlayMode)return;$('username').value=cfg.username||'';$('connectBtn').onclick=connectLive;$('username').onkeydown=e=>e.key==='Enter'&&connectLive();const dg=$('tfDiagnostic');$('diagnosticBtn').onclick=()=>{dg.classList.toggle('hidden');updateTFDiagnostic()};$('tfRetest').onclick=()=>{manuallyStopped=false;shouldConnect=true;clearTimeout(reTimer);if(liveSocket){try{liveSocket.close()}catch{}liveSocket=null}reconnectAttempt=0;openTF()};$('tfCopyReport').onclick=()=>{const report='Tik Hamada Overlay V34 | '+location.href+' | '+getTFDiagnosis()+' | origin: '+location.origin+' | last event: '+(lastEventAt?new Date(lastEventAt).toISOString():'none');navigator.clipboard?.writeText(report).then(()=>toast('تم نسخ التقرير')).catch(()=>toast('تعذّر النسخ'))};$('copyOverlay').onclick=()=>openPreview();
 const makeLiveUrl=(name)=>{
  const link=new URL(location.href.split('?')[0]);link.searchParams.set('overlay',name);
  const snap={latest:cfg.latest,ranking:cfg.ranking,actions:cfg.actions,tts:cfg.tts,music:{mods:cfg.music.mods,users:cfg.music.users,volume:cfg.music.volume,songs:cfg.music.songs.filter(x=>x.url)}};
@@ -309,7 +438,34 @@ if(linksTarget){for(const [mode,title,desc] of liveParts){
 }}
 
 
-$('previewFollowerAv').src=fallback('س');$('previewTapAv').src=fallback('ع');toggle('latestFollowOn',cfg.latest.follow,v=>{cfg.latest.follow=v;save();refreshLatestCards();emitLatest()});toggle('latestTapOn',cfg.latest.tap,v=>{cfg.latest.tap=v;save();refreshLatestCards();emitLatest()});$('testFollower').onclick=()=>{onFollow({name:'سارة',id:'sara',avatar:fallback('س')});if(relayChannel)relayChannel.postMessage({kind:'relay',value:{type:'latest',isDemo:true,followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap}});toast('تم اختبار خانة آخر متابع فقط')};$('testTapper').onclick=()=>{latestTap={name:'علي',id:'ali',avatar:fallback('ع'),burst:32,likes:32};refreshLatestCards();emitLatest();persistSnap();if(relayChannel)relayChannel.postMessage({kind:'relay',value:{type:'latest',isDemo:true,followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap}});toast('تم اختبار خانة آخر مكبس فقط')};refreshLatestCards();
+$('previewFollowerAv').src=fallback('س');$('previewTapAv').src=fallback('ع');
+// Independent editable captions and visibility/hidden intervals, saved in the broadcast links.
+for(const spec of [
+  {key:'follow',title:'followTitleInput',show:'followShowSec',hide:'followHideSec'},
+  {key:'tap',title:'tapTitleInput',show:'tapShowSec',hide:'tapHideSec'}
+]){
+  const title=$(spec.title),show=$(spec.show),hide=$(spec.hide);
+  title.value=cfg.latest[spec.key+'Title'];
+  show.value=cfg.latest[spec.key+'ShowSec'];hide.value=cfg.latest[spec.key+'HideSec'];
+  title.addEventListener('input',()=>{
+    cfg.latest[spec.key+'Title']=title.value.trim().slice(0,50)||DEF.latest[spec.key+'Title'];
+    save();refreshLatestCards();if(previewMode)renderLatestOverlay({followOn:cfg.latest.follow,tapOn:cfg.latest.tap});
+  });
+  for(const [input,key,min,max,def] of [[show,'ShowSec',1,60,5],[hide,'HideSec',0,30,1]]){
+    input.addEventListener('change',()=>{const n=clampSec(input.value,min,max,def);cfg.latest[spec.key+key]=n;input.value=n;save()});
+  }
+}
+function previewWidgetPopup(kind){
+  const card=$(kind==='follower'?'followerWidgetCard':'tapperWidgetCard');
+  const unit=card?.querySelector('.miniPerson');if(!unit)return;
+  clearTimeout(unit._demoTimer);unit.classList.remove('demoHidden','demoIn','demoOut');
+  void unit.offsetWidth;unit.classList.add('demoIn');
+  const p=kind==='follower'?'follow':'tap';
+  unit._demoTimer=setTimeout(()=>{unit.classList.remove('demoIn');unit.classList.add('demoOut');unit._demoTimer=setTimeout(()=>{unit.classList.remove('demoOut');unit.classList.add('demoHidden')},390)},clampSec(cfg.latest[p+'ShowSec'],1,60,5)*1000+420);
+}
+toggle('latestFollowOn',cfg.latest.follow,v=>{cfg.latest.follow=v;save();refreshLatestCards();emitLatest()});toggle('latestTapOn',cfg.latest.tap,v=>{cfg.latest.tap=v;save();refreshLatestCards();emitLatest()});$('testFollower').onclick=()=>{onFollow({name:'سارة',id:'demo_sara',avatar:fallback('س')},true);previewWidgetPopup('follower');toast('تجربة انبثاق آخر متابع')};
+$('testTapper').onclick=()=>{onLike({name:'علي',id:'demo_ali',avatar:fallback('ع')},32,32,true);previewWidgetPopup('tapper');toast('تجربة انبثاق آخر مكبّس')};
+refreshLatestCards();
 $('topCount').value=String(cfg.ranking.count);$('topCount').onchange=e=>{cfg.ranking.count=Number(e.target.value);save();publishRanking()};toggle('rankOn',cfg.ranking.on,v=>{cfg.ranking.on=v;save();publishRanking()});$('demoRanking').onclick=()=>{[['علي','ali',1850],['سارة','sara',1320],['محمد','moh',920],['كرار','karrar',610],['نور','noor',440]].forEach(([name,id,likes])=>tappers.set(id,{name,id,likes,avatar:fallback(name)}));publishRanking()};renderRankControl();
 $('joinAlertText').value=cfg.actions.joinText;$('joinAlertText').onchange=e=>{cfg.actions.joinText=e.target.value||'دخل البث الآن';save()};toggle('joinActionOn',cfg.actions.joinOn,v=>{cfg.actions.joinOn=v;save()});$('tapThreshold').value=cfg.actions.tapThreshold;$('tapThreshold').onchange=e=>{cfg.actions.tapThreshold=Math.max(1,Number(e.target.value)||1);tapAlerted.clear();save()};toggle('tapActionOn',cfg.actions.tapOn,v=>{cfg.actions.tapOn=v;save()});$('testAction').onclick=()=>sendActionAlert({name:'متابع تجريبي',id:'demo',avatar:fallback('ح')},'وصل إلى الحد المطلوب','tap');
 toggle('followActionOn',cfg.actions.followOn!==false,v=>{cfg.actions.followOn=v;save()});toggle('giftActionOn',cfg.actions.giftOn!==false,v=>{cfg.actions.giftOn=v;save()});toggle('ttsOn',cfg.tts.on,v=>{cfg.tts.on=v;save()});$('ttsMods').checked=cfg.tts.mods;$('ttsFollowers').checked=cfg.tts.followers;$('ttsMods').onchange=e=>{cfg.tts.mods=e.target.checked;save()};$('ttsFollowers').onchange=e=>{cfg.tts.followers=e.target.checked;save()};function rt(){renderUsers('ttsUsers',cfg.tts.users,i=>{cfg.tts.users.splice(i,1);save();rt()})}rt();$('addTtsUser').onclick=()=>{const u=cleanUser($('ttsUserInput').value);if(u&&!cfg.tts.users.includes(u)){cfg.tts.users.push(u);save();rt()}$('ttsUserInput').value=''};$('testTts').onclick=()=>relaySend({type:'tts',user:{name:'حماده'},text:'هذا اختبار للقارئ الصوتي'});
@@ -324,9 +480,9 @@ for(const [imageId,nameId] of [['previewFollowerAv','previewFollowerName'],['pre
  const img=$(imageId);if(img)img.onerror=()=>{img.onerror=null;img.src=fallback($(nameId)?.textContent||'م')}
 }
 initControls();initOverlay();initSocket();updateTFDiagnostic();
-function openPreview(){previewMode=true;document.body.classList.add('previewActive');$('overlayStage').classList.remove('hidden');$('previewTools').classList.remove('hidden');renderLatestOverlay({followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap});renderRankOverlay(sortedRank(),cfg.ranking.on)}
-function closePreview(){previewMode=false;document.body.classList.remove('previewActive');$('overlayStage').classList.add('hidden');$('previewTools').classList.add('hidden');const a=$('alertOverlay');if(a)a.classList.remove('show');alertBusy=false;alertQueue=[];clearTimeout(alertTimer);if(window.speechSynthesis)window.speechSynthesis.cancel()}
-$('pClose').onclick=closePreview;$('pFollow').onclick=()=>{const u={name:'متابع تجريبي',id:'follower1',avatar:fallback('م')};onFollow(u);if(relayChannel)relayChannel.postMessage({kind:'relay',value:{type:'latest',isDemo:true,followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap}});sendActionAlert(u,'بدأ متابعتك','follow')};$('pLike').onclick=()=>{const u={name:'متابع متفاعل',id:'fan1',avatar:fallback('ع')};onLike(u,250,250);if(relayChannel)relayChannel.postMessage({kind:'relay',value:{type:'latest',isDemo:true,followOn:cfg.latest.follow,tapOn:cfg.latest.tap,follower:latestFollower,tapper:latestTap}})};$('pGift').onclick=()=>sendActionAlert({name:'داعم البث',id:'support1',avatar:fallback('د')},'أرسل هدية وردة × 5','gift');$('pTts').onclick=()=>relaySend({type:'tts',user:{name:'حماده'},text:'هذه تجربة للقارئ الصوتي'});
+function openPreview(){previewMode=true;document.body.classList.add('previewActive');$('overlayStage').classList.remove('hidden');$('previewTools').classList.remove('hidden');renderLatestOverlay({followOn:cfg.latest.follow,tapOn:cfg.latest.tap});renderRankOverlay(sortedRank(),cfg.ranking.on)}
+function closePreview(){previewMode=false;resetLatest('follower');resetLatest('tapper');document.body.classList.remove('previewActive');$('overlayStage').classList.add('hidden');$('previewTools').classList.add('hidden');const a=$('alertOverlay');if(a)a.classList.remove('show');alertBusy=false;alertQueue=[];clearTimeout(alertTimer);if(window.speechSynthesis)window.speechSynthesis.cancel()}
+$('pClose').onclick=closePreview;$('pFollow').onclick=()=>{const u={name:'متابع تجريبي',id:'follower1',avatar:fallback('م')};onFollow(u,true);sendActionAlert(u,'بدأ متابعتك','follow')};$('pLike').onclick=()=>{const u={name:'متابع متفاعل',id:'fan1',avatar:fallback('ع')};onLike(u,250,250,true)};$('pGift').onclick=()=>sendActionAlert({name:'داعم البث',id:'support1',avatar:fallback('د')},'أرسل هدية وردة × 5','gift');$('pTts').onclick=()=>relaySend({type:'tts',user:{name:'حماده'},text:'هذه تجربة للقارئ الصوتي'});
 if(overlayMode){const x=$('singleNote');if(x)x.remove()}
 })();
 </script>
